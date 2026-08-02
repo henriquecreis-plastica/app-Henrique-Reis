@@ -2,58 +2,66 @@
  * ------------------------------------------------------------------
  * IDENTIDADE VISUAL — ponto único de configuração da marca
  * ------------------------------------------------------------------
- * Este é o único arquivo que precisa ser alterado para ajustar cores e
- * dados institucionais do app.
+ * A identidade tem três cores: verde Tiffany, branco e preto.
  *
- * O logo oficial está em `assets/`, nas variações geradas a partir do
- * arquivo original: lockup completo, assinatura e monograma, cada um em
- * preto e em branco. O componente `src/components/Logo.tsx` escolhe a
- * variação certa para cada fundo.
+ *   Preto    — o preto do logotipo. Texto, botões de ação e ênfase.
+ *   Branco   — o fundo. É o que dá o ar do consultório.
+ *   Tiffany  — o acento. Marca onde a paciente está e o que está em ordem.
  *
- * Nenhuma outra parte do código guarda cor ou texto institucional.
+ * Duas variações do mesmo verde existem por acessibilidade, não por estilo:
+ * `tiffanyDeep` é o Tiffany escurecido, usado quando ele precisa carregar
+ * texto pequeno sobre branco (o tom puro não atinge contraste suficiente).
+ *
+ * O logotipo nunca é recolorido — veja `src/components/Logo.tsx`.
  */
 
+const TIFFANY = '#0ABAB5';
+const TIFFANY_DEEP = '#067F7B';
+const INK = '#111111';
+
 export const palette = {
-  /** Verde Tiffany — a cor da marca. Usada em cheio no cartão principal. */
-  tiffany: '#0ABAB5',
-  tiffanyLight: '#7FE3DC',
-  tiffanyWash: '#E4F6F4',
+  // --- As três cores da identidade ---
+  tiffany: TIFFANY,
+  tiffanyDeep: TIFFANY_DEEP,
+  tiffanyWash: '#E6F7F6',
+  tiffanyLine: '#A6E4DF',
+  ink: INK,
+  white: '#FFFFFF',
+
+  // --- Papéis na interface ---
+  /** Ação principal e ênfase: o preto do logotipo. */
+  primary: INK,
+  /** Acento da marca. */
+  accent: TIFFANY,
+  /** Acento legível sobre branco — para texto pequeno e ícones. */
+  accentInk: TIFFANY_DEEP,
+  accentSoft: '#E6F7F6',
+
+  bg: '#FAFAFA',
+  surface: '#FFFFFF',
+  surfaceAlt: '#F3F3F3',
+  border: '#E7E7E7',
+
+  text: INK,
+  textMuted: '#6B6B6B',
+  textOnDark: '#FFFFFF',
+  textOnDarkMuted: '#C6C6C6',
+  /** Sobre o Tiffany em cheio, o texto é preto — nunca branco. */
+  textOnTiffany: '#062E2C',
+  textOnTiffanyMuted: '#0A4E4B',
 
   /**
-   * Teal profundo derivado do Tiffany. É o que sustenta texto branco com
-   * contraste adequado — o Tiffany puro é claro demais para isso.
+   * Semáforo clínico. O Tiffany assume o nível "esperado": em um app cujo
+   * acento já significa "está tudo no seu curso", acrescentar um verde
+   * separado só criaria ruído. Âmbar e vermelho ficam reservados para as
+   * duas escalas em que a paciente precisa agir.
    */
-  primary: '#0E5C58',
-  primaryDeep: '#083F3C',
-  primarySoft: '#12716C',
-
-  /** Destaques. `accentInk` é a versão legível sobre fundo claro. */
-  accent: '#0ABAB5',
-  accentInk: '#0A716E',
-  accentSoft: '#E4F6F4',
-
-  /** Neutros com leve viés frio, para acompanhar o Tiffany. */
-  bg: '#F7FAF9',
-  surface: '#FFFFFF',
-  surfaceAlt: '#EDF6F5',
-  border: '#DBE9E7',
-
-  /** Texto. */
-  text: '#12211F',
-  textMuted: '#5E706E',
-  textOnDark: '#F2FAF9',
-  textOnDarkMuted: '#B2D4D1',
-  /** Texto sobre o verde Tiffany em cheio. */
-  textOnTiffany: '#053331',
-  textOnTiffanyMuted: '#0A544F',
-
-  /** Semáforo clínico — deliberadamente fora da paleta da marca. */
-  normal: '#177A5C',
-  normalBg: '#E6F4EC',
-  attention: '#AF7415',
-  attentionBg: '#FBF1DE',
-  urgent: '#B3261E',
-  urgentBg: '#FBE9E7',
+  normal: TIFFANY_DEEP,
+  normalBg: '#E6F7F6',
+  attention: '#A2680C',
+  attentionBg: '#FCF0DA',
+  urgent: '#C0271F',
+  urgentBg: '#FCE9E7',
 } as const;
 
 /** Dados institucionais exibidos no app. Confirme antes de publicar. */

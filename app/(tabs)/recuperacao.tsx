@@ -60,7 +60,7 @@ export default function Recuperacao() {
                     <Ionicons
                       name={phase.icon}
                       size={18}
-                      color={isCurrent ? palette.accent : palette.textMuted}
+                      color={isCurrent ? palette.accentInk : palette.textMuted}
                     />
                     <View style={styles.flex}>
                       <Text style={[styles.phaseLabel, isCurrent && styles.phaseLabelCurrent]}>
@@ -71,36 +71,20 @@ export default function Recuperacao() {
                     <Ionicons
                       name={open ? 'chevron-up' : 'chevron-down'}
                       size={17}
-                      color={isCurrent ? palette.textOnDarkMuted : palette.textMuted}
+                      color={palette.textMuted}
                     />
                   </View>
 
                   {open ? (
                     <View style={styles.phaseBody}>
-                      <Text style={[type.body, isCurrent && { color: palette.textOnDarkMuted }]}>
-                        {phase.summary}
-                      </Text>
+                      <Text style={type.bodyMuted}>{phase.summary}</Text>
 
-                      <PhaseBlock
-                        title="O que é esperado"
-                        items={phase.expect}
-                        /* O verde do semáforo some sobre o teal; no cartão da
-                           fase atual o marcador usa o Tiffany claro. */
-                        color={isCurrent ? palette.tiffanyLight : palette.normal}
-                        onDark={isCurrent}
-                      />
-                      <PhaseBlock
-                        title="O que fazer"
-                        items={phase.todo}
-                        color={palette.accent}
-                        onDark={isCurrent}
-                      />
-                      <PhaseBlock
-                        title="O que evitar"
-                        items={phase.avoid}
-                        color={palette.attention}
-                        onDark={isCurrent}
-                      />
+                      {/* Os três marcadores usam as cores da identidade:
+                          Tiffany para o que é esperado, preto para o que
+                          fazer, âmbar para o que evitar. */}
+                      <PhaseBlock title="O que é esperado" items={phase.expect} color={palette.accentInk} />
+                      <PhaseBlock title="O que fazer" items={phase.todo} color={palette.ink} />
+                      <PhaseBlock title="O que evitar" items={phase.avoid} color={palette.attention} />
                     </View>
                   ) : null}
                 </Pressable>
@@ -135,27 +119,11 @@ export default function Recuperacao() {
   );
 }
 
-function PhaseBlock({
-  title,
-  items,
-  color,
-  onDark,
-}: {
-  title: string;
-  items: string[];
-  color: string;
-  onDark: boolean;
-}) {
+function PhaseBlock({ title, items, color }: { title: string; items: string[]; color: string }) {
   return (
     <View style={styles.block}>
-      <Text style={[styles.blockTitle, { color: onDark ? palette.textOnDark : palette.text }]}>
-        {title}
-      </Text>
-      <Bullets
-        items={items}
-        color={color}
-        textColor={onDark ? palette.textOnDarkMuted : undefined}
-      />
+      <Text style={styles.blockTitle}>{title}</Text>
+      <Bullets items={items} color={color} />
     </View>
   );
 }
@@ -177,10 +145,10 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: spacing.lg,
   },
-  dotPast: { backgroundColor: palette.normal, borderColor: palette.normal },
-  dotCurrent: { backgroundColor: palette.accent, borderColor: palette.accent },
+  dotPast: { backgroundColor: palette.accentInk, borderColor: palette.accentInk },
+  dotCurrent: { backgroundColor: palette.tiffany, borderColor: palette.tiffany },
   railLine: { flex: 1, width: 2, backgroundColor: palette.border, marginVertical: 4 },
-  railLineActive: { backgroundColor: palette.accentSoft },
+  railLineActive: { backgroundColor: palette.tiffanyLine },
   phaseCol: { flex: 1, paddingBottom: spacing.md },
   phaseCard: {
     backgroundColor: palette.surface,
@@ -189,14 +157,27 @@ const styles = StyleSheet.create({
     borderColor: palette.border,
     padding: spacing.lg,
   },
-  phaseCardCurrent: { backgroundColor: palette.primary, borderColor: palette.primary },
+  phaseCardCurrent: { borderColor: palette.tiffany, borderWidth: 1.5 },
   phaseHead: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
   phaseLabel: { fontSize: 15, fontWeight: '700', color: palette.text },
-  phaseLabelCurrent: { color: palette.textOnDark },
-  phaseNow: { fontSize: 11, fontWeight: '700', color: palette.accent, letterSpacing: 1, marginTop: 2 },
+  phaseLabelCurrent: { color: palette.text },
+  phaseNow: {
+    fontSize: 10.5,
+    fontWeight: '700',
+    color: palette.textOnTiffany,
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
+    backgroundColor: palette.tiffany,
+    alignSelf: 'flex-start',
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    borderRadius: radius.sm,
+    overflow: 'hidden',
+    marginTop: 4,
+  },
   phaseBody: { gap: spacing.lg, marginTop: spacing.lg },
   block: { gap: spacing.sm },
-  blockTitle: { fontSize: 13, fontWeight: '700', letterSpacing: 0.3 },
+  blockTitle: { fontSize: 13, fontWeight: '700', letterSpacing: 0.3, color: palette.text },
   milestones: { marginTop: spacing.lg },
   milestoneRow: { flexDirection: 'row', alignItems: 'center', gap: spacing.md, paddingVertical: spacing.sm },
   milestoneDay: {
@@ -206,6 +187,6 @@ const styles = StyleSheet.create({
     backgroundColor: palette.surfaceAlt,
     alignItems: 'center',
   },
-  milestoneDayReached: { backgroundColor: palette.normal },
+  milestoneDayReached: { backgroundColor: palette.accentInk },
   milestoneDayText: { fontSize: 12, fontWeight: '700', color: palette.textMuted },
 });

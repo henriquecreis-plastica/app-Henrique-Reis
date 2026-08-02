@@ -16,6 +16,39 @@ export interface Phase {
   avoid: string[];
 }
 
+/**
+ * Conteúdo do período que antecede a cirurgia. Sem isto, quem cadastra uma
+ * data futura recebe as orientações do 1º dia de pós-operatório — instruções
+ * que ainda não fazem sentido para ela.
+ */
+export const preOpPhase: Phase = {
+  id: 'pre',
+  label: 'Antes da cirurgia',
+  from: -3650,
+  to: -1,
+  icon: 'calendar-outline',
+  summary:
+    'A preparação influencia diretamente a recuperação. Estas são as orientações gerais para os dias que antecedem a cirurgia.',
+  expect: [
+    'Ansiedade e sono irregular na véspera são comuns',
+    'A equipe confirma horário, jejum e local do procedimento',
+    'Exames e avaliação pré-anestésica precisam estar em dia',
+  ],
+  todo: [
+    'Seguir o tempo de jejum exatamente como orientado',
+    'Confirmar com a equipe quais medicamentos manter ou suspender',
+    'Organizar acompanhante para a alta e para os primeiros dias',
+    'Deixar em casa a cinta ou o sutiã cirúrgico, medicações e curativos',
+    'Preparar refeições e o lugar onde vai descansar',
+  ],
+  avoid: [
+    'Anti-inflamatórios, suplementos e chás sem liberação da equipe',
+    'Bebida alcoólica nas 48 horas anteriores',
+    'Cigarro — parar antes da cirurgia melhora a cicatrização',
+    'Depilação ou qualquer procedimento estético na área a ser operada',
+  ],
+};
+
 export const phases: Phase[] = [
   {
     id: 'p1',

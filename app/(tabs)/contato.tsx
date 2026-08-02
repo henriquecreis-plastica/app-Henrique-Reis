@@ -24,12 +24,12 @@ export default function Contato() {
 
   const confirmReset = () => {
     Alert.alert(
-      'Alterar meus dados',
-      'Você voltará para as perguntas iniciais e poderá informar novamente o procedimento e a data da cirurgia.',
+      'Apagar meus dados',
+      'Isso remove do aparelho seu nome, procedimento, data da cirurgia e o progresso das rotinas. Não dá para desfazer.',
       [
         { text: 'Cancelar', style: 'cancel' },
         {
-          text: 'Alterar',
+          text: 'Apagar',
           style: 'destructive',
           onPress: async () => {
             await reset();
@@ -124,7 +124,19 @@ export default function Contato() {
                 value={formatDate(profile.surgeryDate)}
               />
               <View style={{ height: spacing.md }} />
-              <Button label="Alterar meus dados" variant="secondary" onPress={confirmReset} />
+              <Button
+                label="Editar meus dados"
+                icon="create-outline"
+                variant="secondary"
+                onPress={() => router.push('/meus-dados')}
+              />
+              <View style={{ height: spacing.sm }} />
+              <Text style={styles.privacy}>
+                Seus dados ficam salvos apenas neste aparelho. Nada é enviado para a clínica pelo
+                aplicativo.
+              </Text>
+              <View style={{ height: spacing.md }} />
+              <Button label="Apagar meus dados" variant="ghost" onPress={confirmReset} />
             </>
           ) : null}
         </Card>
@@ -197,6 +209,7 @@ const styles = StyleSheet.create({
   link: { color: palette.primary, fontWeight: '600' },
   titleRow: { flexDirection: 'row', gap: spacing.md, alignItems: 'flex-start', paddingVertical: 5 },
   dataHeader: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
+  privacy: { ...type.small, lineHeight: 18 },
   disclaimer: {
     ...type.small,
     textAlign: 'center',

@@ -10,8 +10,10 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { Chip, SectionHeader, SeverityBadge } from '../../src/components/ui';
+import { Button, Chip, SectionHeader, SeverityBadge } from '../../src/components/ui';
+import { procedureById } from '../../src/data/procedures';
 import { groupLabels, symptoms, type SymptomGroup } from '../../src/data/symptoms';
+import { buildContextMessage, openWhatsApp } from '../../src/lib/contact';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, severity, spacing, type, type Severity } from '../../src/theme';
 
@@ -23,7 +25,7 @@ const normalize = (s: string) =>
 
 export default function Normal() {
   const router = useRouter();
-  const { profile } = usePatient();
+  const { profile, postOpDay } = usePatient();
   const [query, setQuery] = useState('');
   const [group, setGroup] = useState<SymptomGroup | null>(null);
   const [level, setLevel] = useState<Severity | null>(null);
@@ -56,6 +58,14 @@ export default function Normal() {
         (a, b) => severityOrder.indexOf(a.severity) - severityOrder.indexOf(b.severity),
       );
   }, [relevant, query, group, level]);
+
+  const filtering = query.trim().length > 0 || group !== null || level !== null;
+
+  const clearFilters = () => {
+    setQuery('');
+    setGroup(null);
+    setLevel(null);
+  };
 
   const counts = useMemo(() => {
     return severityOrder.map((lvl) => ({
@@ -138,15 +148,49 @@ export default function Normal() {
           ))}
         </ScrollView>
 
+        {filtering ? (
+          <View style={styles.filterBar}>
+            <Text style={type.small}>
+              {results.length}{' '}
+              {results.length === 1 ? 'orientação encontrada' : 'orientações encontradas'}
+            </Text>
+            <Pressable
+              accessibilityRole="button"
+              onPress={clearFilters}
+              hitSlop={10}
+              style={({ pressed }) => pressed && { opacity: 0.6 }}
+            >
+              <Text style={styles.clearText}>Limpar filtros</Text>
+            </Pressable>
+          </View>
+        ) : null}
+
         {results.length === 0 ? (
           <View style={styles.empty}>
-            <Ionicons name="help-circle-outline" size={34} color={palette.textMuted} />
+            <Ionicons name="chatbubble-ellipses-outline" size={34} color={palette.textMuted} />
             <Text style={[type.body, styles.emptyText]}>
               Não encontramos esse sintoma na nossa lista.
             </Text>
             <Text style={[type.small, styles.emptyText]}>
-              Na dúvida, fale com a equipe pelo WhatsApp na aba Contato.
+              Isso não quer dizer que não seja importante. Na dúvida, fale com a equipe.
             </Text>
+            <View style={styles.emptyActions}>
+              <Button
+                label="Perguntar no WhatsApp"
+                icon="logo-whatsapp"
+                onPress={() =>
+                  openWhatsApp(
+                    buildContextMessage({
+                      name: profile.name,
+                      procedure: procedureById(profile.procedure).name,
+                      day: Math.max(postOpDay, 0),
+                      subject: query.trim() || undefined,
+                    }),
+                  )
+                }
+              />
+              <Button label="Limpar filtros" variant="secondary" onPress={clearFilters} />
+            </View>
           </View>
         ) : (
           <View style={styles.list}>
@@ -196,6 +240,13 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   searchInput: { flex: 1, fontSize: 15, color: palette.text },
+  filterBar: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: spacing.md,
+  },
+  clearText: { fontSize: 13, fontWeight: '700', color: palette.accentInk },
   legendRow: { flexDirection: 'row', gap: spacing.sm },
   legendCard: {
     flex: 1,
@@ -228,6 +279,7 @@ const styles = StyleSheet.create({
   itemTitle: { flex: 1, fontSize: 15, fontWeight: '700', color: palette.text },
   itemFoot: { flexDirection: 'row', alignItems: 'center', gap: 5, marginTop: 2 },
   itemWhen: { ...type.small, fontSize: 12 },
-  empty: { alignItems: 'center', gap: spacing.sm, paddingVertical: spacing.xxl },
+  empty: { alignItems: 'center', gap: spacing.sm, paddingVertical: spacing.xl },
   emptyText: { textAlign: 'center' },
+  emptyActions: { alignSelf: 'stretch', gap: spacing.sm, marginTop: spacing.lg },
 });

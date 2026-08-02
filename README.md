@@ -13,11 +13,11 @@ cirurgia** — e a partir daí personaliza tudo o que a paciente vê.
 
 | Tela | Função |
 | --- | --- |
-| **Hoje** | Mostra em que dia do pós-operatório a paciente está, o que é esperado nesta fase, a rotina do dia em formato de checklist, o que evitar e os pontos de atenção do procedimento dela. |
+| **Hoje** | Mostra em que dia do pós-operatório a paciente está, o que é esperado nesta fase, a rotina do dia em formato de checklist, o que evitar e os pontos de atenção do procedimento dela. Se a cirurgia ainda não aconteceu, mostra a contagem regressiva e as orientações de preparo. |
 | **Evolução** | Linha do tempo em 6 fases (48h → 12 meses), com o que esperar, o que fazer e o que evitar em cada uma, mais os marcos específicos do procedimento. |
 | **É normal?** | O coração do app. Catálogo de sintomas classificado em três níveis — **Esperado**, **Atenção** e **Contato imediato** — com busca por texto (funciona com ou sem acento) e filtros por área do corpo. |
 | **Cuidados** | Nove guias práticos: compressão, curativos e banho, medicação, drenagem linfática, repouso e posição para dormir, alimentação, cicatriz, volta à rotina e viagens. |
-| **Contato** | WhatsApp com mensagem já preenchida (nome, procedimento e dia de pós-op), telefone, Instagram, site e dados do cirurgião. |
+| **Contato** | WhatsApp com mensagem já preenchida (nome, procedimento e dia de pós-op), telefone, Instagram, site e dados do cirurgião. Também é onde a paciente edita ou apaga os próprios dados. |
 | **Sinais de alerta** | Tela de acesso rápido, disponível de qualquer lugar do app, com os sinais que exigem contato imediato e os botões de emergência. |
 
 O conteúdo é filtrado por procedimento: uma paciente de rinoplastia vê
@@ -60,16 +60,24 @@ O app usa o logotipo oficial e o verde Tiffany como cor de marca.
 
 ### Logotipo
 
-As variações em `assets/` foram geradas a partir do arquivo original enviado
-pela clínica, pelo script `scripts/logo.py`:
+As variações em `assets/` são geradas a partir do arquivo original enviado
+pela clínica, pelo script `scripts/logo.py`.
+
+**O logotipo nunca é recolorido nem redesenhado.** Aparece sempre em preto,
+como foi entregue — por isso só é usado sobre fundos claros: branco, papel ou
+o verde Tiffany.
 
 | Arquivo | Uso |
 | --- | --- |
-| `logo.png` / `logo-white.png` | Lockup completo — abertura e tela de contato |
-| `logo-mark.png` / `logo-mark-white.png` | Assinatura com o traço — barra superior |
-| `logo-monogram.png` / `logo-monogram-white.png` | Só as letras "hr" — ícone |
-| `icon.png` | Ícone do app: monograma branco sobre o Tiffany |
-| `splash-icon.png` | Lockup branco para a tela de abertura |
+| `logo.png` | Lockup completo — abertura, carregamento e tela de contato |
+| `logo-mark.png` | Assinatura com o traço — barra superior da tela Hoje |
+| `logo-monogram.png` | Só as letras "hr" — ícone e favicon |
+| `icon.png` | Ícone do app: assinatura preta sobre o Tiffany |
+| `splash-icon.png` | Lockup preto sobre fundo branco |
+
+A única concessão é o ícone: um quadrado não comporta um lockup de proporção
+4:1 de forma legível, então nele entra a assinatura. Para usar o lockup
+inteiro, troque `monogram` por `full` na linha que gera `icon.png` no script.
 
 Para regerar tudo a partir de um novo arquivo de logo:
 
@@ -78,20 +86,30 @@ pip install Pillow numpy
 python3 scripts/logo.py caminho/para/o/logo.png
 ```
 
-O componente [`src/components/Logo.tsx`](src/components/Logo.tsx) escolhe a
-variação preta ou branca conforme o fundo — as telas só pedem `variant` e
-`width`.
+As telas pedem só `variant` e `width` a
+[`src/components/Logo.tsx`](src/components/Logo.tsx) — não existe caminho no
+código para recolorir a arte.
 
 ### Cores
 
-Todas em [`src/theme/brand.ts`](src/theme/brand.ts):
+Todas em [`src/theme/brand.ts`](src/theme/brand.ts). A identidade tem três
+cores, e só três:
 
 | Token | Hex | Papel |
 | --- | --- | --- |
-| `tiffany` | `#0ABAB5` | A cor da marca. Usada em cheio no cartão principal e no ícone. |
-| `primary` | `#0E5C58` | Teal profundo — botões e superfícies escuras. O Tiffany puro é claro demais para sustentar texto branco. |
-| `accentInk` | `#0A716E` | Versão legível do Tiffany sobre fundo branco (rótulos e ícones pequenos). |
-| `normal` / `attention` / `urgent` | verde / âmbar / vermelho | Semáforo clínico, deliberadamente fora da paleta da marca para não se confundir com ela. |
+| `tiffany` | `#0ABAB5` | O acento. Marca onde a paciente está e o que está em ordem. |
+| `ink` | `#111111` | O preto do logotipo. Texto, botões de ação e ênfase. |
+| `white` | `#FFFFFF` | O fundo. É o que dá o ar do consultório. |
+| `tiffanyDeep` | `#067F7B` | O mesmo verde escurecido. Existe por acessibilidade: o tom puro não atinge contraste suficiente para texto pequeno sobre branco. |
+
+Onde cada um aparece:
+
+- **Tiffany em cheio** só no cartão de abertura da tela Hoje — o primeiro
+  bloco que a paciente vê. Conteúdo longo fica sobre branco, onde se lê melhor.
+- **Preto** nos botões de ação, no texto e no cartão do procedimento.
+- **Semáforo clínico**: o Tiffany assume o nível "esperado". Em um app cujo
+  acento já significa "está no seu curso", um verde separado só criaria ruído.
+  Âmbar e vermelho ficam reservados para os dois níveis em que é preciso agir.
 
 Os títulos seguem o logotipo: sem serifa, peso leve, e caixa alta com
 espaçamento largo apenas nos rótulos — o mesmo tratamento do "cirurgia

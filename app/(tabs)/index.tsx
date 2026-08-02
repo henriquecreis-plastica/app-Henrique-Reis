@@ -3,10 +3,10 @@ import { useRouter } from 'expo-router';
 import React, { useMemo } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LogoMark } from '../../src/components/Logo';
+import { Logo } from '../../src/components/Logo';
 import { Bullets, Card, Overline } from '../../src/components/ui';
 import { procedureById } from '../../src/data/procedures';
-import { phaseForDay, procedureMilestones } from '../../src/data/timeline';
+import { phaseForDay, preOpPhase, procedureMilestones } from '../../src/data/timeline';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
 
@@ -14,7 +14,10 @@ export default function Today() {
   const router = useRouter();
   const { profile, postOpDay, toggleTask, isTaskDone } = usePatient();
   const procedure = procedureById(profile.procedure);
-  const phase = phaseForDay(Math.max(postOpDay, 0));
+  const isPreOp = postOpDay < 0;
+  /* Antes da cirurgia as orientações são outras — mostrar o 1º dia de
+     pós-operatório aqui seria instruir a paciente para algo que não aconteceu. */
+  const phase = isPreOp ? preOpPhase : phaseForDay(postOpDay);
 
   const progress = useMemo(() => {
     const totalDays = procedure.recoveryWeeks * 7;
@@ -27,13 +30,12 @@ export default function Today() {
   }, [profile.procedure, postOpDay]);
 
   const greeting = profile.name ? `Olá, ${profile.name}` : 'Olá';
-  const isPreOp = postOpDay < 0;
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.topBar}>
-          <LogoMark width={132} />
+          <Logo variant="signature" width={132} />
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Ajustar meus dados"
@@ -65,11 +67,19 @@ export default function Today() {
             </>
           )}
 
-          <View style={styles.progressTrack}>
-            <View style={[styles.progressFill, { width: `${Math.round(progress * 100)}%` }]} />
-          </View>
+          {isPreOp ? null : (
+            <View
+              style={styles.progressTrack}
+              accessibilityRole="progressbar"
+              accessibilityValue={{ min: 0, max: 100, now: Math.round(progress * 100) }}
+            >
+              <View style={[styles.progressFill, { width: `${Math.round(progress * 100)}%` }]} />
+            </View>
+          )}
           <Text style={styles.heroFoot}>
-            {procedure.name} · recuperação estimada em {procedure.recoveryWeeks} semanas
+            {isPreOp
+              ? `Cirurgia marcada para ${formatDate(profile.surgeryDate)}`
+              : `${procedure.name} · recuperação estimada em ${procedure.recoveryWeeks} semanas`}
           </Text>
         </View>
 
@@ -89,23 +99,25 @@ export default function Today() {
 
         {/* ----- O que esperar ----- */}
         <Card>
-          <Overline>O que é esperado agora</Overline>
+          <Overline>{isPreOp ? 'O que esperar' : 'O que é esperado agora'}</Overline>
           <Text style={[type.heading, styles.cardTitle]}>{phase.label}</Text>
           <Text style={[type.bodyMuted, styles.cardIntro]}>{phase.summary}</Text>
           <Bullets items={phase.expect.slice(0, 4)} color={palette.normal} />
           <Pressable
             accessibilityRole="button"
+            accessibilityLabel="Ver linha do tempo completa"
             onPress={() => router.push('/(tabs)/recuperacao')}
             style={styles.cardLink}
+            hitSlop={8}
           >
             <Text style={styles.cardLinkText}>Ver linha do tempo completa</Text>
-            <Ionicons name="arrow-forward" size={15} color={palette.primary} />
+            <Ionicons name="arrow-forward" size={15} color={palette.accentInk} />
           </Pressable>
         </Card>
 
         {/* ----- Checklist do dia ----- */}
         <Card>
-          <Overline>Sua rotina de hoje</Overline>
+          <Overline>{isPreOp ? 'Sua preparação' : 'Sua rotina de hoje'}</Overline>
           <Text style={[type.heading, styles.cardTitle]}>
             {phase.todo.filter((_, i) => isTaskDone(`${phase.id}-${postOpDay}-${i}`)).length} de{' '}
             {phase.todo.length} concluídos
@@ -168,6 +180,11 @@ export default function Today() {
       </ScrollView>
     </SafeAreaView>
   );
+}
+
+function formatDate(iso: string) {
+  const [y, m, d] = iso.split('-');
+  return `${d}/${m}/${y}`;
 }
 
 const styles = StyleSheet.create({

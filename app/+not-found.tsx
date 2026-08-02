@@ -17,7 +17,7 @@ export default function NotFound() {
   if (loading) {
     return (
       <View style={styles.splash}>
-        <Logo variant="full" width={230} onDark />
+        <Logo variant="full" width={230} />
         <ActivityIndicator color={palette.accent} />
       </View>
     );
@@ -32,6 +32,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 28,
-    backgroundColor: palette.primary,
+    backgroundColor: palette.surface,
   },
 });

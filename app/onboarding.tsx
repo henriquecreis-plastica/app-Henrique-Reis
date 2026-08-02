@@ -1,10 +1,9 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
-  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -13,12 +12,23 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '../src/components/Logo';
+import {
+  DateFields,
+  ProcedurePicker,
+  dateProblem,
+  emptyDate,
+  formStyles,
+  toIsoDate,
+  type DateParts,
+} from '../src/components/SurgeryForm';
 import { Button, Card } from '../src/components/ui';
-import { procedures, type ProcedureId } from '../src/data/procedures';
+import { type ProcedureId } from '../src/data/procedures';
 import { usePatient } from '../src/store/patient';
-import { clinic, palette, radius, spacing, type } from '../src/theme';
+import { clinic, palette, spacing, type } from '../src/theme';
 
 type Step = 0 | 1 | 2;
+
+const stepTitles = ['Boas-vindas', 'Seus dados', 'Data da cirurgia'];
 
 export default function Onboarding() {
   const router = useRouter();
@@ -26,37 +36,24 @@ export default function Onboarding() {
   const [step, setStep] = useState<Step>(0);
   const [name, setName] = useState('');
   const [procedure, setProcedure] = useState<ProcedureId | null>(null);
-  const [day, setDay] = useState('');
-  const [month, setMonth] = useState('');
-  const [year, setYear] = useState('');
+  const [date, setDate] = useState<DateParts>(emptyDate);
 
-  const isoDate = useMemo(() => {
-    const d = Number(day);
-    const m = Number(month);
-    const y = Number(year);
-    if (!d || !m || !y || year.length !== 4) return null;
-    if (m < 1 || m > 12 || d < 1 || d > 31) return null;
-    const date = new Date(y, m - 1, d);
-    if (date.getFullYear() !== y || date.getMonth() !== m - 1 || date.getDate() !== d) return null;
-    return `${y}-${String(m).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-  }, [day, month, year]);
+  const iso = toIsoDate(date);
+  const dateReady = !!iso && !dateProblem(date);
 
-  const setToday = (offsetDays = 0) => {
+  const setRelativeDay = (offsetDays: number) => {
     const t = new Date();
     t.setDate(t.getDate() - offsetDays);
-    setDay(String(t.getDate()));
-    setMonth(String(t.getMonth() + 1));
-    setYear(String(t.getFullYear()));
+    setDate({
+      day: String(t.getDate()),
+      month: String(t.getMonth() + 1),
+      year: String(t.getFullYear()),
+    });
   };
 
   const finish = async () => {
-    if (!procedure || !isoDate) return;
-    await save({
-      name: name.trim(),
-      procedure,
-      surgeryDate: isoDate,
-      onboarded: true,
-    });
+    if (!procedure || !iso || !dateReady) return;
+    await save({ name: name.trim(), procedure, surgeryDate: iso, onboarded: true });
     router.replace('/(tabs)');
   };
 
@@ -66,7 +63,11 @@ export default function Onboarding() {
         style={styles.flex}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       >
-        <View style={styles.progressRow}>
+        <View
+          style={styles.progressRow}
+          accessibilityRole="progressbar"
+          accessibilityLabel={`Passo ${step + 1} de 3: ${stepTitles[step]}`}
+        >
           {[0, 1, 2].map((i) => (
             <View key={i} style={[styles.progressBar, i <= step && styles.progressBarActive]} />
           ))}
@@ -110,51 +111,13 @@ export default function Onboarding() {
                 onChangeText={setName}
                 placeholder="Seu primeiro nome"
                 placeholderTextColor={palette.textMuted}
-                style={styles.input}
+                style={formStyles.input}
+                accessibilityLabel="Seu primeiro nome"
                 autoCapitalize="words"
-                returnKeyType="next"
+                returnKeyType="done"
               />
               <Text style={[type.title, styles.spacedTitle]}>Qual procedimento você realizou?</Text>
-              <View style={styles.procedureList}>
-                {procedures.map((p) => {
-                  const selected = procedure === p.id;
-                  return (
-                    <Pressable
-                      key={p.id}
-                      accessibilityRole="button"
-                      accessibilityState={{ selected }}
-                      onPress={() => setProcedure(p.id)}
-                      style={({ pressed }) => [
-                        styles.procedure,
-                        selected && styles.procedureSelected,
-                        pressed && { opacity: 0.7 },
-                      ]}
-                    >
-                      <Ionicons
-                        name={p.icon}
-                        size={20}
-                        color={selected ? palette.accent : palette.textMuted}
-                      />
-                      <View style={styles.flex}>
-                        <Text style={[styles.procedureName, selected && styles.procedureNameSel]}>
-                          {p.name}
-                        </Text>
-                        <Text
-                          style={[
-                            type.small,
-                            selected && { color: palette.textOnDarkMuted },
-                          ]}
-                        >
-                          {p.short}
-                        </Text>
-                      </View>
-                      {selected ? (
-                        <Ionicons name="checkmark-circle" size={20} color={palette.accent} />
-                      ) : null}
-                    </Pressable>
-                  );
-                })}
-              </View>
+              <ProcedurePicker value={procedure} onChange={setProcedure} />
             </View>
           )}
 
@@ -163,21 +126,30 @@ export default function Onboarding() {
               <Text style={type.title}>Quando foi a sua cirurgia?</Text>
               <Text style={type.bodyMuted}>
                 Usamos essa data para mostrar as orientações certas para o seu dia de recuperação.
+                Se ela ainda não aconteceu, informe a data marcada.
               </Text>
 
-              <View style={styles.dateRow}>
-                <DateField label="Dia" value={day} onChange={setDay} maxLength={2} />
-                <DateField label="Mês" value={month} onChange={setMonth} maxLength={2} />
-                <DateField label="Ano" value={year} onChange={setYear} maxLength={4} flex={1.4} />
+              <View style={styles.dateBlock}>
+                <DateFields value={date} onChange={setDate} />
               </View>
 
               <View style={styles.quickRow}>
-                <Button label="Foi hoje" variant="secondary" onPress={() => setToday(0)} style={styles.flex} />
-                <Button label="Foi ontem" variant="secondary" onPress={() => setToday(1)} style={styles.flex} />
+                <Button
+                  label="Foi hoje"
+                  variant="secondary"
+                  onPress={() => setRelativeDay(0)}
+                  style={styles.flex}
+                />
+                <Button
+                  label="Foi ontem"
+                  variant="secondary"
+                  onPress={() => setRelativeDay(1)}
+                  style={styles.flex}
+                />
               </View>
 
               <Card style={styles.disclaimer}>
-                <Ionicons name="information-circle-outline" size={20} color={palette.primary} />
+                <Ionicons name="information-circle-outline" size={20} color={palette.accentInk} />
                 <Text style={[type.small, styles.flex]}>
                   As orientações do aplicativo são gerais e não substituem a avaliação do
                   {' '}{clinic.doctor} ou de sua equipe. Em caso de dúvida ou sinal de alerta, entre em
@@ -198,6 +170,9 @@ export default function Onboarding() {
                 onPress={() => setStep(2)}
                 disabled={!procedure}
               />
+              {!procedure ? (
+                <Text style={styles.hint}>Escolha o procedimento para continuar</Text>
+              ) : null}
               <Button label="Voltar" variant="ghost" onPress={() => setStep(0)} />
             </>
           )}
@@ -207,43 +182,15 @@ export default function Onboarding() {
                 label="Ver minhas orientações"
                 icon="checkmark"
                 onPress={finish}
-                disabled={!isoDate}
+                disabled={!dateReady}
               />
+              {!dateReady ? <Text style={styles.hint}>Informe dia, mês e ano</Text> : null}
               <Button label="Voltar" variant="ghost" onPress={() => setStep(1)} />
             </>
           )}
         </View>
       </KeyboardAvoidingView>
     </SafeAreaView>
-  );
-}
-
-function DateField({
-  label,
-  value,
-  onChange,
-  maxLength,
-  flex = 1,
-}: {
-  label: string;
-  value: string;
-  onChange: (v: string) => void;
-  maxLength: number;
-  flex?: number;
-}) {
-  return (
-    <View style={{ flex }}>
-      <Text style={styles.dateLabel}>{label}</Text>
-      <TextInput
-        value={value}
-        onChangeText={(t) => onChange(t.replace(/\D/g, ''))}
-        keyboardType="number-pad"
-        maxLength={maxLength}
-        placeholder={'0'.repeat(maxLength)}
-        placeholderTextColor={palette.border}
-        style={[styles.input, styles.dateInput]}
-      />
-    </View>
   );
 }
 
@@ -256,13 +203,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.xl,
     paddingTop: spacing.lg,
   },
-  progressBar: {
-    flex: 1,
-    height: 3,
-    borderRadius: 3,
-    backgroundColor: palette.border,
-  },
-  progressBarActive: { backgroundColor: palette.accent },
+  progressBar: { flex: 1, height: 3, borderRadius: 3, backgroundColor: palette.border },
+  progressBarActive: { backgroundColor: palette.tiffany },
   scroll: { padding: spacing.xl, paddingBottom: spacing.xxl, gap: spacing.lg },
   welcome: { alignItems: 'center', gap: spacing.lg, paddingTop: spacing.xl },
   welcomeTitle: { textAlign: 'center', marginTop: spacing.md },
@@ -271,39 +213,7 @@ const styles = StyleSheet.create({
   welcomePoint: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
   stepBody: { gap: spacing.md },
   spacedTitle: { marginTop: spacing.lg },
-  input: {
-    backgroundColor: palette.surface,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: palette.border,
-    borderRadius: radius.md,
-    paddingHorizontal: spacing.lg,
-    paddingVertical: 14,
-    fontSize: 16,
-    color: palette.text,
-  },
-  procedureList: { gap: spacing.sm },
-  procedure: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: spacing.md,
-    padding: spacing.lg,
-    borderRadius: radius.md,
-    backgroundColor: palette.surface,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: palette.border,
-  },
-  procedureSelected: { backgroundColor: palette.primary, borderColor: palette.primary },
-  procedureName: { fontSize: 15, fontWeight: '700', color: palette.text },
-  procedureNameSel: { color: palette.textOnDark },
-  dateRow: { flexDirection: 'row', gap: spacing.md, marginTop: spacing.sm },
-  dateLabel: {
-    ...type.small,
-    marginBottom: 6,
-    fontWeight: '700',
-    letterSpacing: 0.6,
-    textTransform: 'uppercase',
-  },
-  dateInput: { textAlign: 'center', fontSize: 20, fontWeight: '600' },
+  dateBlock: { marginTop: spacing.sm },
   quickRow: { flexDirection: 'row', gap: spacing.md },
   disclaimer: {
     flexDirection: 'row',
@@ -320,4 +230,5 @@ const styles = StyleSheet.create({
     borderTopColor: palette.border,
     backgroundColor: palette.bg,
   },
+  hint: { ...type.small, textAlign: 'center' },
 });
