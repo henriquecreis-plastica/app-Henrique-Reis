@@ -33,7 +33,7 @@ export default function Today() {
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.topBar}>
-          <LogoMark size={34} color={palette.primary} />
+          <LogoMark width={132} />
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Ajustar meus dados"
@@ -46,7 +46,7 @@ export default function Today() {
 
         {/* ----- Cartão principal: onde a paciente está na recuperação ----- */}
         <View style={styles.hero}>
-          <Overline style={{ color: palette.accent }}>{greeting}</Overline>
+          <Overline style={{ color: palette.textOnTiffanyMuted }}>{greeting}</Overline>
           {isPreOp ? (
             <>
               <Text style={styles.heroDay}>
@@ -150,7 +150,7 @@ export default function Today() {
 
         {nextMilestone ? (
           <Card style={styles.milestone}>
-            <Ionicons name="flag-outline" size={20} color={palette.accent} />
+            <Ionicons name="flag-outline" size={20} color={palette.accentInk} />
             <View style={styles.flex}>
               <Text style={styles.milestoneDay}>
                 Em {nextMilestone.day - postOpDay}{' '}
@@ -175,8 +175,9 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   scroll: { padding: spacing.lg, paddingBottom: spacing.xxxl, gap: spacing.lg },
   topBar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
+  /* O único bloco em verde Tiffany cheio: é o que a paciente abre primeiro. */
   hero: {
-    backgroundColor: palette.primary,
+    backgroundColor: palette.tiffany,
     borderRadius: radius.xl,
     padding: spacing.xl,
     gap: spacing.xs,
@@ -184,21 +185,21 @@ const styles = StyleSheet.create({
   heroDay: {
     fontSize: 34,
     lineHeight: 40,
-    fontWeight: '700',
-    color: palette.textOnDark,
+    fontWeight: '600',
+    color: palette.textOnTiffany,
     marginTop: spacing.sm,
     letterSpacing: -0.6,
   },
-  heroPhase: { fontSize: 15, color: palette.textOnDarkMuted },
+  heroPhase: { fontSize: 15, color: palette.textOnTiffanyMuted },
   progressTrack: {
     height: 4,
     borderRadius: 4,
-    backgroundColor: 'rgba(255,255,255,0.18)',
+    backgroundColor: 'rgba(5,51,49,0.16)',
     marginTop: spacing.lg,
     overflow: 'hidden',
   },
-  progressFill: { height: '100%', backgroundColor: palette.accent, borderRadius: 4 },
-  heroFoot: { fontSize: 12, color: palette.textOnDarkMuted, marginTop: spacing.sm },
+  progressFill: { height: '100%', backgroundColor: palette.primary, borderRadius: 4 },
+  heroFoot: { fontSize: 12, color: palette.textOnTiffanyMuted, marginTop: spacing.sm },
   alertBar: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -225,7 +226,7 @@ const styles = StyleSheet.create({
   taskDone: { color: palette.textMuted, textDecorationLine: 'line-through' },
   avoidCard: { backgroundColor: palette.attentionBg, borderColor: 'rgba(183,120,22,0.18)' },
   milestone: { flexDirection: 'row', gap: spacing.md, alignItems: 'flex-start' },
-  milestoneDay: { ...type.small, fontWeight: '700', color: palette.accent, marginBottom: 2 },
+  milestoneDay: { ...type.small, fontWeight: '700', color: palette.accentInk, marginBottom: 2 },
   footnote: {
     ...type.small,
     textAlign: 'center',

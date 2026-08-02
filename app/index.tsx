@@ -1,7 +1,7 @@
 import { Redirect } from 'expo-router';
 import React from 'react';
 import { ActivityIndicator, StyleSheet, View } from 'react-native';
-import { LogoMark } from '../src/components/Logo';
+import { Logo } from '../src/components/Logo';
 import { palette } from '../src/theme';
 import { usePatient } from '../src/store/patient';
 
@@ -11,7 +11,7 @@ export default function Index() {
   if (loading) {
     return (
       <View style={styles.splash}>
-        <LogoMark size={64} />
+        <Logo variant="full" width={230} onDark />
         <ActivityIndicator color={palette.accent} />
       </View>
     );

@@ -12,7 +12,7 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LogoMark, Wordmark } from '../src/components/Logo';
+import { Logo } from '../src/components/Logo';
 import { Button, Card } from '../src/components/ui';
 import { procedures, type ProcedureId } from '../src/data/procedures';
 import { usePatient } from '../src/store/patient';
@@ -79,8 +79,7 @@ export default function Onboarding() {
         >
           {step === 0 && (
             <View style={styles.welcome}>
-              <LogoMark size={72} color={palette.accent} />
-              <Wordmark />
+              <Logo variant="full" width={252} />
               <Text style={[type.display, styles.welcomeTitle]}>
                 Seu pós-operatório, acompanhado de perto.
               </Text>
@@ -95,7 +94,7 @@ export default function Onboarding() {
                   { icon: 'chatbubbles-outline' as const, text: 'Contato direto com a equipe' },
                 ].map((p) => (
                   <View key={p.text} style={styles.welcomePoint}>
-                    <Ionicons name={p.icon} size={19} color={palette.accent} />
+                    <Ionicons name={p.icon} size={19} color={palette.accentInk} />
                     <Text style={type.body}>{p.text}</Text>
                   </View>
                 ))}

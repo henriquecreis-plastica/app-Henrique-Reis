@@ -218,7 +218,7 @@ const styles = StyleSheet.create({
   bulletDash: {
     width: 10,
     height: StyleSheet.hairlineWidth * 2,
-    backgroundColor: palette.accent,
+    backgroundColor: palette.accentInk,
     marginTop: 11,
     borderRadius: 2,
   },

@@ -84,7 +84,9 @@ export default function Recuperacao() {
                       <PhaseBlock
                         title="O que é esperado"
                         items={phase.expect}
-                        color={palette.normal}
+                        /* O verde do semáforo some sobre o teal; no cartão da
+                           fase atual o marcador usa o Tiffany claro. */
+                        color={isCurrent ? palette.tiffanyLight : palette.normal}
                         onDark={isCurrent}
                       />
                       <PhaseBlock

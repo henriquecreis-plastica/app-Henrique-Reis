@@ -2,45 +2,56 @@
  * ------------------------------------------------------------------
  * IDENTIDADE VISUAL — ponto único de configuração da marca
  * ------------------------------------------------------------------
- * Este é o único arquivo que precisa ser alterado para alinhar 100%
- * o app com o site www.plasticahenrique.com.
+ * Este é o único arquivo que precisa ser alterado para ajustar cores e
+ * dados institucionais do app.
  *
- * Como ajustar:
- *  1. Cores  -> substitua os HEX em `palette` pelos do site.
- *  2. Logo   -> troque `assets/logo.png` (fundo transparente, 1024px de
- *               largura) e `assets/icon.png` (1024x1024).
- *  3. Dados  -> atualize `clinic` com telefone/WhatsApp e endereço reais.
+ * O logo oficial está em `assets/`, nas variações geradas a partir do
+ * arquivo original: lockup completo, assinatura e monograma, cada um em
+ * preto e em branco. O componente `src/components/Logo.tsx` escolhe a
+ * variação certa para cada fundo.
  *
  * Nenhuma outra parte do código guarda cor ou texto institucional.
  */
 
 export const palette = {
-  /** Verde profundo — cor institucional principal (cabeçalhos, botões). */
-  primary: '#0F2E2C',
-  primaryDeep: '#08201F',
-  primarySoft: '#1C4542',
+  /** Verde Tiffany — a cor da marca. Usada em cheio no cartão principal. */
+  tiffany: '#0ABAB5',
+  tiffanyLight: '#7FE3DC',
+  tiffanyWash: '#E4F6F4',
 
-  /** Dourado suave — cor de destaque, detalhes e acentos. */
-  accent: '#C4A265',
-  accentSoft: '#E8DAC0',
+  /**
+   * Teal profundo derivado do Tiffany. É o que sustenta texto branco com
+   * contraste adequado — o Tiffany puro é claro demais para isso.
+   */
+  primary: '#0E5C58',
+  primaryDeep: '#083F3C',
+  primarySoft: '#12716C',
 
-  /** Neutros quentes — fundo e superfícies. */
-  bg: '#FBF9F6',
+  /** Destaques. `accentInk` é a versão legível sobre fundo claro. */
+  accent: '#0ABAB5',
+  accentInk: '#0A716E',
+  accentSoft: '#E4F6F4',
+
+  /** Neutros com leve viés frio, para acompanhar o Tiffany. */
+  bg: '#F7FAF9',
   surface: '#FFFFFF',
-  surfaceAlt: '#F3EFE9',
-  border: '#E6DFD5',
+  surfaceAlt: '#EDF6F5',
+  border: '#DBE9E7',
 
   /** Texto. */
-  text: '#1A2422',
-  textMuted: '#6B7674',
-  textOnDark: '#F6F2EC',
-  textOnDarkMuted: '#B8C4C1',
+  text: '#12211F',
+  textMuted: '#5E706E',
+  textOnDark: '#F2FAF9',
+  textOnDarkMuted: '#B2D4D1',
+  /** Texto sobre o verde Tiffany em cheio. */
+  textOnTiffany: '#053331',
+  textOnTiffanyMuted: '#0A544F',
 
-  /** Semáforo clínico — usado na triagem de sintomas. */
-  normal: '#2E7D5B',
-  normalBg: '#E7F3ED',
-  attention: '#B77816',
-  attentionBg: '#FBF0DC',
+  /** Semáforo clínico — deliberadamente fora da paleta da marca. */
+  normal: '#177A5C',
+  normalBg: '#E6F4EC',
+  attention: '#AF7415',
+  attentionBg: '#FBF1DE',
   urgent: '#B3261E',
   urgentBg: '#FBE9E7',
 } as const;

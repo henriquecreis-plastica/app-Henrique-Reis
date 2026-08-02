@@ -21,27 +21,33 @@ export const radius = {
   pill: 999,
 } as const;
 
-const serif = Platform.select({
-  ios: 'Georgia',
-  android: 'serif',
-  default: 'Georgia, "Times New Roman", serif',
+/**
+ * O logo usa uma sem serifa geométrica leve, com espaçamento largo. Os títulos
+ * seguem o mesmo espírito: peso leve e caixa alta reservada para os rótulos.
+ */
+const sans = Platform.select({
+  ios: 'System',
+  android: 'sans-serif-light',
+  default: 'ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif',
 });
 
 export const type = {
-  /** Títulos institucionais — serifada, transmite o tom do site. */
+  /** Títulos institucionais — leves e amplos, como o logotipo. */
   display: {
-    fontFamily: serif,
-    fontSize: 30,
-    lineHeight: 36,
-    color: palette.text,
-    letterSpacing: -0.4,
-  } as TextStyle,
-  title: {
-    fontFamily: serif,
-    fontSize: 22,
-    lineHeight: 28,
+    fontFamily: sans,
+    fontSize: 27,
+    lineHeight: 34,
+    fontWeight: '300',
     color: palette.text,
     letterSpacing: -0.2,
+  } as TextStyle,
+  title: {
+    fontFamily: sans,
+    fontSize: 22,
+    lineHeight: 29,
+    fontWeight: '400',
+    color: palette.text,
+    letterSpacing: -0.1,
   } as TextStyle,
   heading: {
     fontSize: 17,
@@ -64,27 +70,30 @@ export const type = {
     lineHeight: 19,
     color: palette.textMuted,
   } as TextStyle,
-  /** Rótulo em caixa alta com tracking largo — assinatura visual da marca. */
+  /**
+   * Rótulo em caixa alta com tracking largo — ecoa o "cirurgia plástica" do
+   * logotipo. Usa o tom escuro do Tiffany para ter contraste sobre o branco.
+   */
   overline: {
     fontSize: 11,
     lineHeight: 14,
-    fontWeight: '700',
-    letterSpacing: 1.6,
+    fontWeight: '600',
+    letterSpacing: 1.8,
     textTransform: 'uppercase',
-    color: palette.accent,
+    color: palette.accentInk,
   } as TextStyle,
 };
 
 export const shadow = {
   card: Platform.select({
     ios: {
-      shadowColor: '#1A2422',
+      shadowColor: '#0B2523',
       shadowOpacity: 0.06,
       shadowRadius: 14,
       shadowOffset: { width: 0, height: 6 },
     },
     android: { elevation: 2 },
-    default: { boxShadow: '0 6px 18px rgba(26,36,34,0.07)' },
+    default: { boxShadow: '0 6px 18px rgba(11,37,35,0.07)' },
   }) as object,
 };
 

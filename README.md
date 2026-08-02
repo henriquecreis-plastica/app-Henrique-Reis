@@ -54,21 +54,48 @@ gera o `.ipa` para a App Store e o `.aab` para o Google Play.
 
 ---
 
-## Como colocar a identidade visual definitiva
+## Identidade visual
 
-Não consegui baixar o CSS e o logo de `plasticahenrique.com` a partir deste
-ambiente — a rede aqui bloqueia o domínio. As cores e o monograma "HR" atuais
-são uma interpretação do tom do site (verde profundo + dourado, tipografia
-serifada nos títulos), não os valores oficiais.
+O app usa o logotipo oficial e o verde Tiffany como cor de marca.
 
-Ajustar isso é rápido, porque tudo está centralizado em **um único arquivo**:
-[`src/theme/brand.ts`](src/theme/brand.ts).
+### Logotipo
 
-1. **Cores** — substitua os HEX em `palette` pelos do site.
-2. **Logo** — troque o componente `LogoMark` em `src/components/Logo.tsx` por
-   um `<Image source={require('../../assets/logo.png')} />`, mantendo as mesmas
-   props. Nenhuma tela precisa ser alterada.
-3. **Ícone do app** — substitua `assets/icon.png` (1024×1024).
+As variações em `assets/` foram geradas a partir do arquivo original enviado
+pela clínica, pelo script `scripts/logo.py`:
+
+| Arquivo | Uso |
+| --- | --- |
+| `logo.png` / `logo-white.png` | Lockup completo — abertura e tela de contato |
+| `logo-mark.png` / `logo-mark-white.png` | Assinatura com o traço — barra superior |
+| `logo-monogram.png` / `logo-monogram-white.png` | Só as letras "hr" — ícone |
+| `icon.png` | Ícone do app: monograma branco sobre o Tiffany |
+| `splash-icon.png` | Lockup branco para a tela de abertura |
+
+Para regerar tudo a partir de um novo arquivo de logo:
+
+```bash
+pip install Pillow numpy
+python3 scripts/logo.py caminho/para/o/logo.png
+```
+
+O componente [`src/components/Logo.tsx`](src/components/Logo.tsx) escolhe a
+variação preta ou branca conforme o fundo — as telas só pedem `variant` e
+`width`.
+
+### Cores
+
+Todas em [`src/theme/brand.ts`](src/theme/brand.ts):
+
+| Token | Hex | Papel |
+| --- | --- | --- |
+| `tiffany` | `#0ABAB5` | A cor da marca. Usada em cheio no cartão principal e no ícone. |
+| `primary` | `#0E5C58` | Teal profundo — botões e superfícies escuras. O Tiffany puro é claro demais para sustentar texto branco. |
+| `accentInk` | `#0A716E` | Versão legível do Tiffany sobre fundo branco (rótulos e ícones pequenos). |
+| `normal` / `attention` / `urgent` | verde / âmbar / vermelho | Semáforo clínico, deliberadamente fora da paleta da marca para não se confundir com ela. |
+
+Os títulos seguem o logotipo: sem serifa, peso leve, e caixa alta com
+espaçamento largo apenas nos rótulos — o mesmo tratamento do "cirurgia
+plástica" da marca.
 
 ### Dados que precisam ser preenchidos antes de publicar
 

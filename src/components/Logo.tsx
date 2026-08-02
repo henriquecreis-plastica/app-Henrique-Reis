@@ -1,55 +1,69 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Svg, { Circle, Path } from 'react-native-svg';
-import { palette } from '../theme';
+import { Image, StyleSheet, View, type ImageStyle, type StyleProp } from 'react-native';
 
 /**
- * Monograma HR usado como marca do app.
- *
- * Substituição pelo logo oficial: troque este componente por
- * `<Image source={require('../../assets/logo.png')} />` mantendo a mesma
- * assinatura de props — nenhuma tela precisa ser alterada.
+ * Logotipo oficial, nas variações geradas a partir do arquivo original.
+ * `onDark` troca para a versão branca — o logo original é preto e some
+ * sobre os fundos escuros do app.
  */
-export function LogoMark({ size = 44, color = palette.accent }: { size?: number; color?: string }) {
+
+const sources = {
+  full: {
+    dark: require('../../assets/logo.png'),
+    light: require('../../assets/logo-white.png'),
+    ratio: 1738 / 756,
+  },
+  signature: {
+    dark: require('../../assets/logo-mark.png'),
+    light: require('../../assets/logo-mark-white.png'),
+    ratio: 1738 / 432,
+  },
+  monogram: {
+    dark: require('../../assets/logo-monogram.png'),
+    light: require('../../assets/logo-monogram-white.png'),
+    ratio: 492 / 432,
+  },
+} as const;
+
+type Variant = keyof typeof sources;
+
+/**
+ * @param variant  `full` lockup completo · `signature` a assinatura com o
+ *                 traço estendido · `monogram` só as letras "hr"
+ * @param width    largura desejada; a altura acompanha a proporção original
+ */
+export function Logo({
+  variant = 'full',
+  width,
+  onDark = false,
+  style,
+}: {
+  variant?: Variant;
+  width: number;
+  onDark?: boolean;
+  style?: StyleProp<ImageStyle>;
+}) {
+  const s = sources[variant];
   return (
-    <Svg width={size} height={size} viewBox="0 0 64 64">
-      <Circle cx={32} cy={32} r={30.5} stroke={color} strokeWidth={1.25} fill="none" />
-      {/* H */}
-      <Path d="M20 22 V42 M20 32 H31 M31 22 V42" stroke={color} strokeWidth={2.2} strokeLinecap="round" fill="none" />
-      {/* R */}
-      <Path
-        d="M37 42 V22 h5.5a5.5 5.5 0 0 1 0 11H37 m5 0 l5 9"
-        stroke={color}
-        strokeWidth={2.2}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
-      />
-    </Svg>
+    <Image
+      source={onDark ? s.light : s.dark}
+      resizeMode="contain"
+      accessibilityRole="image"
+      accessibilityLabel="Dr. Henrique Reis — Cirurgia Plástica"
+      style={[{ width, height: width / s.ratio }, style]}
+    />
   );
 }
 
-export function Wordmark({
-  color = palette.text,
-  accent = palette.accent,
-  align = 'center',
-}: {
-  color?: string;
-  accent?: string;
-  align?: 'center' | 'flex-start';
-}) {
+/** Assinatura compacta usada na barra superior das telas internas. */
+export function LogoMark({ width = 118, onDark = false }: { width?: number; onDark?: boolean }) {
   return (
-    <View style={[styles.wordmark, { alignItems: align }]}>
-      <Text style={[styles.name, { color }]}>DR. HENRIQUE REIS</Text>
-      <View style={[styles.rule, { backgroundColor: accent }]} />
-      <Text style={[styles.sub, { color: accent }]}>CIRURGIA PLÁSTICA</Text>
+    <View style={styles.markBox}>
+      <Logo variant="signature" width={width} onDark={onDark} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  wordmark: { gap: 6 },
-  name: { fontSize: 15, fontWeight: '600', letterSpacing: 3.2 },
-  rule: { height: StyleSheet.hairlineWidth, width: 46, opacity: 0.8 },
-  sub: { fontSize: 9, fontWeight: '600', letterSpacing: 3.4 },
+  markBox: { justifyContent: 'center' },
 });

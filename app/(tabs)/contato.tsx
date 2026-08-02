@@ -3,7 +3,7 @@ import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { LogoMark, Wordmark } from '../../src/components/Logo';
+import { Logo } from '../../src/components/Logo';
 import { Button, Card, Divider, Overline } from '../../src/components/ui';
 import { procedureById } from '../../src/data/procedures';
 import { buildContextMessage, callPhone, openLink, openWhatsApp } from '../../src/lib/contact';
@@ -44,8 +44,7 @@ export default function Contato() {
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <View style={styles.brand}>
-          <LogoMark size={56} color={palette.accent} />
-          <Wordmark />
+          <Logo variant="full" width={236} />
           <Text style={styles.crm}>{clinic.crm}</Text>
         </View>
 
@@ -90,7 +89,7 @@ export default function Contato() {
           <View style={{ height: spacing.md }} />
           {clinic.titles.map((t) => (
             <View key={t} style={styles.titleRow}>
-              <Ionicons name="ribbon-outline" size={15} color={palette.accent} />
+              <Ionicons name="ribbon-outline" size={15} color={palette.accentInk} />
               <Text style={[type.small, styles.flex]}>{t}</Text>
             </View>
           ))}
