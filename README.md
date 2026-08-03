@@ -8,30 +8,43 @@ pós-operatório. Roda em **iOS** e **Android** a partir do mesmo código
 
 ## O que o app faz
 
-O app parte de duas informações — **qual procedimento** e **qual a data da
-cirurgia** — e a partir daí personaliza tudo o que a paciente vê.
+O app parte de duas informações — **qual procedimento** e **qual a data** — e a
+partir daí personaliza tudo o que a paciente vê.
 
 | Tela | Função |
 | --- | --- |
 | **Hoje** | Mostra em que dia do pós-operatório a paciente está, o que é esperado nesta fase, a rotina do dia em formato de checklist, o que evitar e os pontos de atenção do procedimento dela. Se a cirurgia ainda não aconteceu, mostra a contagem regressiva e as orientações de preparo. |
-| **Evolução** | Linha do tempo em 6 fases (48h → 12 meses), com o que esperar, o que fazer e o que evitar em cada uma, mais os marcos específicos do procedimento. |
+| **Evolução** | Linha do tempo com o que esperar, o que fazer e o que evitar em cada fase, mais os marcos específicos do procedimento. Seis fases nas cirurgias (48h → 12 meses), quatro nos procedimentos de consultório (24h → 2º mês). |
 | **É normal?** | O coração do app. Catálogo de sintomas classificado em três níveis — **Esperado**, **Atenção** e **Contato imediato** — com busca por texto (funciona com ou sem acento) e filtros por área do corpo. |
-| **Cuidados** | Nove guias práticos: compressão, curativos e banho, medicação, drenagem linfática, repouso e posição para dormir, alimentação, cicatriz, volta à rotina e viagens. |
+| **Cuidados** | Guias práticos conforme o percurso. Nas cirurgias: compressão, curativos, medicação, drenagem, repouso, alimentação, cicatriz, rotina e viagens. Nos procedimentos de consultório: as primeiras 24 horas, quando o resultado aparece, cuidados com a pele após o laser e o que observar depois de injetáveis. |
 | **Contato** | WhatsApp com mensagem já preenchida (nome, procedimento e dia de pós-op), telefone, Instagram, site e dados do cirurgião. Também é onde a paciente edita ou apaga os próprios dados. |
 | **Sinais de alerta** | Tela de acesso rápido, disponível de qualquer lugar do app, com os sinais que exigem contato imediato e os botões de emergência. |
 
-O conteúdo é filtrado por procedimento: uma paciente de rinoplastia vê
-"nariz entupido" e "sangramento nasal"; uma de abdominoplastia vê "postura
-curvada" e "seroma". Sintomas gerais aparecem para todas.
+O conteúdo é filtrado por procedimento: uma paciente de rinoplastia vê "nariz
+entupido" e "sangramento nasal"; uma de abdominoplastia vê "postura curvada" e
+"seroma"; uma de preenchimento vê o sinal de oclusão vascular e a alteração de
+visão, que são as urgências do procedimento dela.
+
+### Dois percursos
+
+O app distingue **cirurgias** de **procedimentos de consultório**, porque a
+escala é outra: o que na cirurgia leva semanas, num preenchimento se resolve em
+dias. Cada tipo tem a sua linha do tempo, os seus guias de cuidado e os seus
+sinais de alerta — quem fez toxina botulínica não recebe orientação sobre
+cinta, dreno ou ponto que abriu.
 
 ### Conteúdo clínico incluído
 
-- **12 procedimentos**: mamoplastia de aumento, mastopexia, mamoplastia
-  redutora, abdominoplastia, lipoescultura, rinoplastia, cirurgia de face,
-  blefaroplastia, otoplastia, ginecomastia, pós-bariátrica e "outro".
-- **35 sintomas** classificados — 11 de contato imediato, 10 de atenção e 14
-  esperados —, cada um com quando acontece, por que acontece e o que fazer.
-- **6 fases de recuperação** e marcos por procedimento.
+- **11 cirurgias**: mamoplastia de aumento, mastopexia, mamoplastia redutora,
+  abdominoplastia, lipoescultura, rinoplastia, cirurgia de face,
+  blefaroplastia, otoplastia, ginecomastia e pós-bariátrica.
+- **5 procedimentos de consultório**: toxina botulínica, preenchimento com
+  ácido hialurônico, bioestimulador de colágeno, laser de CO₂ e Morpheus.
+- **62 orientações de sintomas** classificadas em esperado, atenção e contato
+  imediato, cada uma com quando acontece, por que acontece e o que fazer.
+- **6 fases de recuperação** para as cirurgias e **4 fases** para os
+  procedimentos de consultório, mais marcos por procedimento.
+- **13 guias de cuidados**, exibidos conforme o percurso.
 
 ---
 

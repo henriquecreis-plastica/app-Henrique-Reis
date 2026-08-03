@@ -1,4 +1,4 @@
-import type { IconName, ProcedureId } from './procedures';
+import type { IconName, ProcedureId, ProcedureKind } from './procedures';
 
 export interface CareSection {
   heading: string;
@@ -13,11 +13,14 @@ export interface CareGuide {
   sections: CareSection[];
   /** Se preenchido, o guia só aparece para estes procedimentos. */
   procedures?: ProcedureId[];
+  /** Se preenchido, restringe ao tipo de percurso. Ausente = vale para todos. */
+  kinds?: ProcedureKind[];
 }
 
 export const careGuides: CareGuide[] = [
   {
     id: 'compressao',
+    kinds: ['cirurgico'],
     title: 'Cinta, malha e sutiã cirúrgico',
     subtitle: 'A compressão é parte do resultado, não um detalhe',
     icon: 'shirt-outline',
@@ -51,6 +54,7 @@ export const careGuides: CareGuide[] = [
   },
   {
     id: 'curativo',
+    kinds: ['cirurgico'],
     title: 'Curativos, banho e higiene',
     subtitle: 'Como cuidar da ferida no dia a dia',
     icon: 'water-outline',
@@ -85,6 +89,7 @@ export const careGuides: CareGuide[] = [
   },
   {
     id: 'medicacao',
+    kinds: ['cirurgico'],
     title: 'Medicações e controle da dor',
     subtitle: 'A dor bem controlada acelera a recuperação',
     icon: 'medkit-outline',
@@ -117,6 +122,7 @@ export const careGuides: CareGuide[] = [
   },
   {
     id: 'drenagem',
+    kinds: ['cirurgico'],
     title: 'Drenagem linfática',
     subtitle: 'Um dos fatores que mais influenciam o resultado',
     icon: 'hand-left-outline',
@@ -149,6 +155,7 @@ export const careGuides: CareGuide[] = [
   },
   {
     id: 'repouso',
+    kinds: ['cirurgico'],
     title: 'Repouso, posição e movimento',
     subtitle: 'Repouso não é ficar parada',
     icon: 'bed-outline',
@@ -181,7 +188,159 @@ export const careGuides: CareGuide[] = [
     ],
   },
   {
+    id: 'primeiras-horas',
+    kinds: ['ambulatorial'],
+    title: 'As primeiras 24 horas',
+    subtitle: 'É aqui que os cuidados fazem diferença',
+    icon: 'time-outline',
+    sections: [
+      {
+        heading: 'Hoje, evite',
+        items: [
+          'Massagear, apertar ou esfregar a área tratada',
+          'Exercício físico, sauna, banho muito quente e sol forte',
+          'Bebida alcoólica',
+          'Maquiagem sobre a área, salvo liberação da equipe',
+          'Deitar de bruços ou ficar muito tempo de cabeça baixa',
+        ],
+      },
+      {
+        heading: 'Ajuda a reduzir inchaço e roxo',
+        items: [
+          'Compressa fria por alguns minutos, se orientado — nunca gelo direto na pele',
+          'Dormir com a cabeceira elevada na primeira noite',
+          'Beber bastante água e reduzir o sal',
+        ],
+      },
+      {
+        heading: 'Depois de toxina botulínica',
+        items: [
+          'Permanecer com a cabeça erguida nas primeiras 4 horas',
+          'Contrair a musculatura tratada algumas vezes ao longo do dia, se orientado',
+          'Não se deitar nem fazer exercício nesse período',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'resultado',
+    kinds: ['ambulatorial'],
+    title: 'Quando o resultado aparece',
+    subtitle: 'Cada tratamento tem o seu tempo',
+    icon: 'hourglass-outline',
+    sections: [
+      {
+        heading: 'Referências habituais',
+        items: [
+          'Toxina botulínica: começa em 3 a 5 dias e se completa em 15',
+          'Preenchimento: o resultado aparece quando o inchaço sai, por volta de 15 dias',
+          'Bioestimulador: ganho progressivo entre 4 e 12 semanas, geralmente em mais de uma sessão',
+          'Laser de CO₂: pele renovada em 7 dias; textura e firmeza evoluem por até 3 meses',
+          'Morpheus: firmeza aparece a partir de 30 dias e evolui por até 3 meses',
+        ],
+      },
+      {
+        heading: 'Por que não julgar antes',
+        items: [
+          'Nos primeiros dias o que você vê é inchaço, não resultado',
+          'Assimetrias iniciais costumam se resolver sozinhas',
+          'A avaliação de retoque é feita no retorno, com o efeito já completo',
+        ],
+      },
+      {
+        heading: 'Manutenção',
+        items: [
+          'Toxina: em geral a cada 4 a 6 meses',
+          'Preenchimento e bioestimulador: conforme o produto e a resposta de cada pele',
+          'Laser e Morpheus: em protocolos de sessões, com intervalos definidos pela equipe',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'pele-pos-laser',
+    kinds: ['ambulatorial'],
+    procedures: ['laser_co2', 'morpheus'],
+    title: 'Cuidados com a pele após o laser',
+    subtitle: 'A recuperação da pele em uma semana',
+    icon: 'color-palette-outline',
+    sections: [
+      {
+        heading: 'Dia a dia',
+        items: [
+          'Dias 1 e 2: ardência e inchaço, pele parecendo queimada de sol',
+          'Dias 3 a 5: casquinhas finas e descamação',
+          'Dias 6 e 7: pele nova, rosada e sensível',
+          'A partir daí: o tom rosado clareia ao longo de semanas',
+        ],
+      },
+      {
+        heading: 'O que fazer',
+        items: [
+          'Lavar com água fria ou morna e sabonete suave, sem esfregar',
+          'Hidratar com o creme indicado, quantas vezes for necessário',
+          'Secar com toques leves, com toalha limpa e macia',
+          'Protetor solar assim que liberado, reaplicado ao longo do dia',
+          'Fronha limpa todos os dias na primeira semana',
+        ],
+      },
+      {
+        heading: 'O que não fazer',
+        items: [
+          'Puxar ou esfregar as casquinhas — é o que mais causa mancha e marca',
+          'Usar ácidos, esfoliantes, vitamina C ou retinol até liberação',
+          'Piscina, mar, sauna e academia até a pele fechar',
+          'Qualquer exposição solar direta nas primeiras semanas',
+        ],
+      },
+      {
+        heading: 'Avise a equipe se',
+        items: [
+          'Aparecerem bolhinhas agrupadas com ardência (pode ser herpes)',
+          'A dor aumentar em vez de diminuir',
+          'Surgir área muito vermelha, quente ou com secreção',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'depois-injetaveis',
+    kinds: ['ambulatorial'],
+    procedures: ['preenchimento', 'bioestimulador', 'toxina'],
+    title: 'Depois de injetáveis',
+    subtitle: 'Preenchimento, bioestimulador e toxina',
+    icon: 'medical-outline',
+    sections: [
+      {
+        heading: 'Massagem',
+        items: [
+          'Só massageie se a equipe orientou — em bioestimuladores costuma fazer parte do protocolo, com dias e frequência definidos',
+          'Em preenchimento e toxina, a regra geral é não massagear',
+          'Na dúvida, pergunte antes de fazer',
+        ],
+      },
+      {
+        heading: 'Rotina',
+        items: [
+          'Atividade física liberada em geral após 24 a 48 horas',
+          'Evitar sauna, banho muito quente e sol intenso nos primeiros dias',
+          'Adiar limpeza de pele, depilação e outros procedimentos na área por cerca de 2 semanas',
+          'Avisar qualquer profissional que for tratar seu rosto sobre o produto aplicado',
+        ],
+      },
+      {
+        heading: 'Sinais que exigem contato imediato',
+        items: [
+          'Dor forte e desproporcional na região',
+          'Pele esbranquiçada ou com manchas arroxeadas em desenho de renda',
+          'Qualquer alteração da visão',
+        ],
+      },
+    ],
+  },
+  {
     id: 'alimentacao',
+    kinds: ['cirurgico'],
     title: 'Alimentação e hidratação',
     subtitle: 'A cicatrização depende do que você come',
     icon: 'nutrition-outline',
@@ -207,6 +366,7 @@ export const careGuides: CareGuide[] = [
   },
   {
     id: 'cicatriz',
+    kinds: ['cirurgico'],
     title: 'Cuidados com a cicatriz',
     subtitle: 'O primeiro ano define o resultado da marca',
     icon: 'bandage-outline',
@@ -240,6 +400,7 @@ export const careGuides: CareGuide[] = [
   },
   {
     id: 'rotina',
+    kinds: ['cirurgico'],
     title: 'Volta à rotina e exercícios',
     subtitle: 'Referências gerais — sua liberação é individual',
     icon: 'fitness-outline',
@@ -266,6 +427,7 @@ export const careGuides: CareGuide[] = [
   },
   {
     id: 'viagem',
+    kinds: ['cirurgico'],
     title: 'Viagens e deslocamentos',
     subtitle: 'Planeje antes de comprar passagem',
     icon: 'airplane-outline',

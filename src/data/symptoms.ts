@@ -1,5 +1,5 @@
 import type { Severity } from '../theme';
-import type { IconName, ProcedureId } from './procedures';
+import type { IconName, ProcedureId, ProcedureKind } from './procedures';
 
 export type SymptomGroup =
   | 'geral'
@@ -10,7 +10,8 @@ export type SymptomGroup =
   | 'mama'
   | 'abdome'
   | 'nariz'
-  | 'olhos';
+  | 'olhos'
+  | 'pele';
 
 export interface Symptom {
   id: string;
@@ -27,6 +28,12 @@ export interface Symptom {
   action: string[];
   /** Se preenchido, o sintoma só aparece para estes procedimentos. */
   procedures?: ProcedureId[];
+  /**
+   * Se preenchido, restringe ao tipo de percurso. Ausente = vale para todos.
+   * Sem isso, quem fez toxina botulínica receberia orientação sobre dreno,
+   * cinta e ponto que abriu.
+   */
+  kinds?: ProcedureKind[];
   /** Termos extras para a busca. */
   keywords?: string[];
 }
@@ -41,6 +48,7 @@ export const groupLabels: Record<SymptomGroup, { label: string; icon: IconName }
   abdome: { label: 'Abdome', icon: 'body-outline' },
   nariz: { label: 'Nariz', icon: 'triangle-outline' },
   olhos: { label: 'Olhos', icon: 'eye-outline' },
+  pele: { label: 'Pele', icon: 'color-palette-outline' },
 };
 
 export const symptoms: Symptom[] = [
@@ -49,6 +57,7 @@ export const symptoms: Symptom[] = [
   // ----------------------------------------------------------------
   {
     id: 'falta_de_ar',
+    kinds: ['cirurgico'],
     title: 'Falta de ar ou dor no peito',
     severity: 'urgent',
     groups: ['geral'],
@@ -68,6 +77,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'dor_panturrilha',
+    kinds: ['cirurgico'],
     title: 'Dor e inchaço em apenas uma perna',
     severity: 'urgent',
     groups: ['geral', 'dor'],
@@ -87,6 +97,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'febre_alta',
+    kinds: ['cirurgico'],
     title: 'Febre acima de 38 °C',
     severity: 'urgent',
     groups: ['geral'],
@@ -106,6 +117,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'sangramento_ativo',
+    kinds: ['cirurgico'],
     title: 'Sangramento que encharca o curativo',
     severity: 'urgent',
     groups: ['cicatriz'],
@@ -125,6 +137,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'hematoma',
+    kinds: ['cirurgico'],
     title: 'Um lado inchou muito mais, de repente',
     severity: 'urgent',
     groups: ['inchaco', 'mama'],
@@ -144,6 +157,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'infeccao',
+    kinds: ['cirurgico'],
     title: 'Vermelhidão que se espalha, calor e pus',
     severity: 'urgent',
     groups: ['cicatriz'],
@@ -163,6 +177,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'necrose',
+    kinds: ['cirurgico'],
     title: 'Pele escurecida, arroxeada ou preta na cicatriz',
     severity: 'urgent',
     groups: ['cicatriz'],
@@ -182,6 +197,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'dor_incontrolavel',
+    kinds: ['cirurgico'],
     title: 'Dor que não melhora com a medicação',
     severity: 'urgent',
     groups: ['dor'],
@@ -201,6 +217,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'vomito_persistente',
+    kinds: ['cirurgico'],
     title: 'Vômitos que não param ou não conseguir beber água',
     severity: 'urgent',
     groups: ['geral'],
@@ -257,6 +274,7 @@ export const symptoms: Symptom[] = [
   // ----------------------------------------------------------------
   {
     id: 'abertura_ponto',
+    kinds: ['cirurgico'],
     title: 'Um ponto abriu ou a cicatriz separou um pouco',
     severity: 'attention',
     groups: ['cicatriz'],
@@ -276,6 +294,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'seroma',
+    kinds: ['cirurgico'],
     title: 'Inchaço mole que "balança" ao toque',
     severity: 'attention',
     groups: ['inchaco', 'abdome'],
@@ -295,6 +314,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'saida_liquido',
+    kinds: ['cirurgico'],
     title: 'Saída de líquido amarelado pela cicatriz',
     severity: 'attention',
     groups: ['cicatriz'],
@@ -311,6 +331,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'intestino_preso',
+    kinds: ['cirurgico'],
     title: 'Intestino preso há mais de 3 dias',
     severity: 'attention',
     groups: ['geral'],
@@ -330,6 +351,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'tontura',
+    kinds: ['cirurgico'],
     title: 'Tontura ao levantar',
     severity: 'attention',
     groups: ['geral'],
@@ -364,6 +386,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'cicatriz_elevada',
+    kinds: ['cirurgico'],
     title: 'Cicatriz grossa, elevada e muito vermelha',
     severity: 'attention',
     groups: ['cicatriz'],
@@ -383,6 +406,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'assimetria_tardia',
+    kinds: ['cirurgico'],
     title: 'Assimetria que persiste após 3 meses',
     severity: 'attention',
     groups: ['inchaco', 'mama'],
@@ -420,6 +444,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'formigamento_cinta',
+    kinds: ['cirurgico'],
     title: 'Formigamento ou dormência causados pela cinta',
     severity: 'attention',
     groups: ['geral'],
@@ -442,6 +467,7 @@ export const symptoms: Symptom[] = [
   // ----------------------------------------------------------------
   {
     id: 'inchaco',
+    kinds: ['cirurgico'],
     title: 'Inchaço',
     severity: 'normal',
     groups: ['inchaco'],
@@ -463,6 +489,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'roxos',
+    kinds: ['cirurgico'],
     title: 'Roxos e manchas amareladas',
     severity: 'normal',
     groups: ['inchaco'],
@@ -482,6 +509,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'dormencia',
+    kinds: ['cirurgico'],
     title: 'Dormência na área operada',
     severity: 'normal',
     groups: ['geral'],
@@ -500,6 +528,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'fisgadas',
+    kinds: ['cirurgico'],
     title: 'Fisgadas, choques e agulhadas',
     severity: 'normal',
     groups: ['dor'],
@@ -517,6 +546,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'endurecimento',
+    kinds: ['cirurgico'],
     title: 'Endurecimento e nódulos sob a pele',
     severity: 'normal',
     groups: ['inchaco'],
@@ -536,6 +566,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'coceira',
+    kinds: ['cirurgico'],
     title: 'Coceira na cicatriz',
     severity: 'normal',
     groups: ['cicatriz'],
@@ -551,6 +582,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'cicatriz_vermelha',
+    kinds: ['cirurgico'],
     title: 'Cicatriz vermelha e endurecida',
     severity: 'normal',
     groups: ['cicatriz'],
@@ -570,6 +602,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'cansaco',
+    kinds: ['cirurgico'],
     title: 'Cansaço e falta de energia',
     severity: 'normal',
     groups: ['geral'],
@@ -589,6 +622,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'blues',
+    kinds: ['cirurgico'],
     title: 'Tristeza ou arrependimento nos primeiros dias',
     severity: 'normal',
     groups: ['emocional'],
@@ -608,6 +642,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'sono',
+    kinds: ['cirurgico'],
     title: 'Dificuldade para dormir',
     severity: 'normal',
     groups: ['geral', 'emocional'],
@@ -624,6 +659,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'apetite',
+    kinds: ['cirurgico'],
     title: 'Falta de apetite',
     severity: 'normal',
     groups: ['geral'],
@@ -639,6 +675,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'liquido_rosado',
+    kinds: ['cirurgico'],
     title: 'Líquido rosado no curativo',
     severity: 'normal',
     groups: ['cicatriz'],
@@ -654,6 +691,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'peso_balanca',
+    kinds: ['cirurgico'],
     title: 'Ganho de peso na balança',
     severity: 'normal',
     groups: ['geral', 'inchaco'],
@@ -672,6 +710,7 @@ export const symptoms: Symptom[] = [
   },
   {
     id: 'menstruacao',
+    kinds: ['cirurgico'],
     title: 'Alteração no ciclo menstrual',
     severity: 'normal',
     groups: ['geral'],
@@ -804,6 +843,420 @@ export const symptoms: Symptom[] = [
       'Comunique a equipe se houver dor intensa em apenas um lado',
     ],
     keywords: ['orelha', 'faixa', 'dor na orelha'],
+  },
+  // ----------------------------------------------------------------
+  // PROCEDIMENTOS DE CONSULTÓRIO — urgente
+  // ----------------------------------------------------------------
+  {
+    id: 'oclusao_vascular',
+    kinds: ['ambulatorial'],
+    procedures: ['preenchimento', 'bioestimulador'],
+    title: 'Dor forte com pele branca ou manchada',
+    severity: 'urgent',
+    groups: ['pele', 'dor'],
+    when: 'Durante ou nas primeiras horas e dias após a aplicação',
+    summary:
+      'Dor intensa e desproporcional, pele esbranquiçada ou com manchas arroxeadas em desenho de renda: ligue agora. Resolvido nas primeiras horas, não deixa consequência.',
+    why: [
+      'Pode indicar que o produto comprimiu ou entrou em um vaso, reduzindo a circulação daquela área da pele.',
+      'É raro, mas o tempo importa muito: existe uma substância que dissolve o preenchimento e reverte o quadro.',
+    ],
+    action: [
+      'Ligue para a equipe imediatamente, a qualquer hora',
+      'Fotografe a área com boa luz enquanto aguarda o retorno',
+      'Não massageie, não aplique gelo e não espere para ver se melhora',
+    ],
+    keywords: ['oclusão', 'vascular', 'branca', 'pálida', 'renda', 'livedo', 'isquemia'],
+  },
+  {
+    id: 'visao_preenchimento',
+    kinds: ['ambulatorial'],
+    procedures: ['preenchimento', 'bioestimulador'],
+    title: 'Alteração da visão após a aplicação',
+    severity: 'urgent',
+    groups: ['olhos'],
+    when: 'Durante ou logo após a aplicação',
+    summary:
+      'Visão embaçada, visão dupla, um ponto escuro ou dor forte no olho é emergência. Procure atendimento agora.',
+    why: [
+      'Complicação rara, mas que exige avaliação oftalmológica imediata.',
+      'Quanto mais rápido o atendimento, maior a chance de reverter.',
+    ],
+    action: [
+      'Procure um pronto-socorro oftalmológico imediatamente',
+      'Avise a equipe pelo contato de urgência no caminho',
+      'Informe qual produto foi aplicado e em que região',
+    ],
+    keywords: ['visão', 'enxergar', 'vista', 'olho', 'cego', 'embaçado'],
+  },
+  {
+    id: 'toxina_disfagia',
+    kinds: ['ambulatorial'],
+    procedures: ['toxina'],
+    title: 'Dificuldade para engolir, falar ou respirar',
+    severity: 'urgent',
+    groups: ['geral'],
+    when: 'Da primeira à segunda semana',
+    summary: 'Muito raro, mas exige atendimento imediato. Não espere para ver se melhora sozinho.',
+    why: ['Pode indicar difusão da toxina para além da região tratada.'],
+    action: [
+      'Procure um pronto-socorro agora',
+      'Avise a equipe e informe a data da aplicação',
+    ],
+    keywords: ['engolir', 'falar', 'respirar', 'disfagia', 'voz'],
+  },
+  {
+    id: 'infeccao_pele',
+    kinds: ['ambulatorial'],
+    title: 'Área quente, muito vermelha, com pus ou febre',
+    severity: 'urgent',
+    groups: ['pele'],
+    when: 'Do 2º ao 10º dia',
+    summary:
+      'Vermelhidão que aumenta a cada dia, calor, dor crescente, secreção amarelada ou febre indicam infecção e precisam ser avaliados hoje.',
+    why: [
+      'Vermelhidão nas primeiras 48 horas é esperada; o que preocupa é a que se espalha e piora.',
+      'Infecção tratada cedo não deixa marca.',
+    ],
+    action: [
+      'Fotografe com boa luz e envie para a equipe hoje',
+      'Meça a temperatura e informe o valor',
+      'Não passe pomadas nem produtos por conta própria',
+    ],
+    keywords: ['infecção', 'pus', 'quente', 'inflamado', 'febre'],
+  },
+  {
+    id: 'bolha_queimadura',
+    kinds: ['ambulatorial'],
+    procedures: ['laser_co2', 'morpheus'],
+    title: 'Bolha, ferida aberta ou dor que aumenta',
+    severity: 'urgent',
+    groups: ['pele'],
+    when: 'Nas primeiras 72 horas',
+    summary:
+      'Bolhas, pele em carne viva ou dor que piora em vez de melhorar precisam ser avaliadas rapidamente.',
+    why: [
+      'Ardência e aspecto de queimadura solar são esperados; bolha e ferida aberta, não.',
+      'Avaliada cedo, a situação se resolve sem deixar marca.',
+    ],
+    action: [
+      'Fotografe e envie para a equipe hoje',
+      'Não estoure bolhas e não retire pele solta',
+      'Mantenha a hidratação prescrita até receber orientação',
+    ],
+    keywords: ['bolha', 'queimadura', 'ferida', 'carne viva'],
+  },
+
+  // ----------------------------------------------------------------
+  // PROCEDIMENTOS DE CONSULTÓRIO — atenção
+  // ----------------------------------------------------------------
+  {
+    id: 'ptose_toxina',
+    kinds: ['ambulatorial'],
+    procedures: ['toxina'],
+    title: 'Pálpebra ou sobrancelha caída',
+    severity: 'attention',
+    groups: ['olhos'],
+    when: 'Entre o 3º e o 15º dia',
+    summary:
+      'É incomum, temporário e reversível. Comunique a equipe: em muitos casos há um colírio que ameniza enquanto passa.',
+    why: [
+      'A toxina pode atingir levemente um músculo vizinho ao tratado.',
+      'O efeito é sempre passageiro e melhora ao longo de algumas semanas.',
+    ],
+    action: [
+      'Envie uma foto de frente com o rosto relaxado e outra levantando a sobrancelha',
+      'Agende avaliação com a equipe',
+      'Evite massagear a região',
+    ],
+    keywords: ['pálpebra caída', 'ptose', 'sobrancelha', 'olho caído'],
+  },
+  {
+    id: 'assimetria_ambulatorial',
+    kinds: ['ambulatorial'],
+    procedures: ['toxina', 'preenchimento'],
+    title: 'Um lado ficou diferente do outro',
+    severity: 'attention',
+    groups: ['pele'],
+    when: 'A partir do 15º dia',
+    summary:
+      'Antes de 15 dias o efeito ainda está se completando e a diferença costuma se resolver sozinha. Depois disso, o ajuste é simples.',
+    why: [
+      'A musculatura dos dois lados do rosto raramente é idêntica, e nem sempre responde igual.',
+      'Pequenos retoques fazem parte do tratamento e costumam ser feitos na avaliação de retorno.',
+    ],
+    action: [
+      'Aguarde completar 15 dias antes de avaliar',
+      'Leve fotos ao retorno, com a expressão em repouso e em movimento',
+    ],
+    keywords: ['assimetria', 'torto', 'um lado', 'diferente', 'retoque'],
+  },
+  {
+    id: 'nodulo_tardio',
+    kinds: ['ambulatorial'],
+    procedures: ['bioestimulador', 'preenchimento'],
+    title: 'Caroço que persiste ou aparece semanas depois',
+    severity: 'attention',
+    groups: ['pele'],
+    when: 'Da 3ª semana em diante',
+    summary:
+      'Nódulos palpáveis devem ser mostrados à equipe. Quase sempre têm tratamento simples, e quanto antes avaliados, mais fácil.',
+    why: [
+      'Nos primeiros dias, irregularidades ao toque são esperadas e somem sozinhas.',
+      'Nódulos que persistem ou surgem semanas ou meses depois — às vezes após uma infecção ou vacina — têm conduta própria.',
+    ],
+    action: [
+      'Marque avaliação e mostre exatamente onde está',
+      'Não tente desfazer o nódulo apertando por conta própria',
+      'Avise se houve infecção recente, gripe ou vacinação',
+    ],
+    keywords: ['nódulo', 'caroço', 'bolinha', 'endurecido', 'tardio'],
+  },
+  {
+    id: 'herpes',
+    kinds: ['ambulatorial'],
+    procedures: ['laser_co2', 'morpheus', 'preenchimento'],
+    title: 'Bolhinhas agrupadas com ardência',
+    severity: 'attention',
+    groups: ['pele'],
+    when: 'Do 2º ao 7º dia',
+    summary:
+      'Pode ser herpes reativado pelo procedimento. Precisa de medicação logo no início — avise a equipe hoje.',
+    why: [
+      'Quem já teve herpes labial pode reativá-lo após laser ou aplicação na região da boca.',
+      'Tratado nas primeiras horas, resolve rápido e sem deixar marca.',
+    ],
+    action: [
+      'Fotografe e envie para a equipe no mesmo dia',
+      'Não estoure as bolhinhas',
+      'Avise sempre, em procedimentos futuros, que já teve herpes',
+    ],
+    keywords: ['herpes', 'bolhinhas', 'ardência', 'lábio'],
+  },
+  {
+    id: 'mancha_escura',
+    kinds: ['ambulatorial'],
+    procedures: ['laser_co2', 'morpheus'],
+    title: 'Manchas escuras aparecendo depois',
+    severity: 'attention',
+    groups: ['pele'],
+    when: 'Da 2ª semana ao 3º mês',
+    summary:
+      'Escurecimento da pele tratada costuma estar ligado à exposição solar e tem tratamento. Comunique no retorno.',
+    why: [
+      'A pele recém-tratada reage ao sol produzindo mais pigmento.',
+      'É mais frequente em peles mais morenas e quando a proteção solar falha.',
+    ],
+    action: [
+      'Reforce o protetor solar e reaplique ao longo do dia',
+      'Comunique a equipe para avaliar tratamento clareador',
+      'Evite exposição solar direta até a avaliação',
+    ],
+    keywords: ['mancha', 'escureceu', 'hiperpigmentação'],
+  },
+  {
+    id: 'espinhas_pos_laser',
+    kinds: ['ambulatorial'],
+    procedures: ['laser_co2', 'morpheus'],
+    title: 'Espinhas ou bolinhas brancas após o tratamento',
+    severity: 'attention',
+    groups: ['pele'],
+    when: 'Da 2ª à 4ª semana',
+    summary:
+      'Acontece com alguma frequência, geralmente ligado aos cremes da recuperação. Comente no retorno para ajustar os produtos.',
+    why: [
+      'Cremes muito oclusivos usados na cicatrização podem obstruir os poros.',
+      'A renovação acelerada da pele também favorece pequenos cistos superficiais.',
+    ],
+    action: [
+      'Não espreme nem cutuca',
+      'Leve ao retorno a lista dos produtos que está usando',
+    ],
+    keywords: ['espinha', 'acne', 'milium', 'bolinha branca', 'cravo'],
+  },
+
+  // ----------------------------------------------------------------
+  // PROCEDIMENTOS DE CONSULTÓRIO — esperado
+  // ----------------------------------------------------------------
+  {
+    id: 'inchaco_ambulatorial',
+    kinds: ['ambulatorial'],
+    title: 'Inchaço no local aplicado',
+    severity: 'normal',
+    groups: ['inchaco', 'pele'],
+    when: 'Pico em 24 a 72 horas; resolve em cerca de 15 dias',
+    summary:
+      'É a reação natural da pele. O inchaço dos primeiros dias não é o seu resultado — ele ainda vai sair.',
+    why: [
+      'A aplicação provoca uma reação inflamatória leve e temporária.',
+      'Nos lábios e ao redor dos olhos o inchaço é mais evidente e também mais rápido de resolver.',
+    ],
+    action: [
+      'Compressa fria nas primeiras 24 horas, se orientado',
+      'Dormir com a cabeceira elevada',
+      'Reduzir o sal e manter boa hidratação',
+      'Evitar avaliar o resultado antes de 15 dias',
+    ],
+    keywords: ['inchado', 'inchaço', 'edema', 'lábio inchado'],
+  },
+  {
+    id: 'roxos_ambulatorial',
+    kinds: ['ambulatorial'],
+    title: 'Roxos nos pontos de aplicação',
+    severity: 'normal',
+    groups: ['inchaco', 'pele'],
+    when: 'Do 1º ao 14º dia',
+    summary:
+      'Muito comum, principalmente ao redor dos olhos e nos lábios. Some sozinho e pode ser coberto com maquiagem após 24 horas.',
+    why: [
+      'A agulha pode atingir pequenos vasos da pele, sem nenhuma consequência.',
+      'Anti-inflamatórios, ômega 3 e álcool nos dias anteriores aumentam a chance de roxo.',
+    ],
+    action: [
+      'Compressa fria nas primeiras 24 horas',
+      'Maquiagem corretiva liberada após 24 horas, salvo outra orientação',
+      'Avisar antes do próximo procedimento se costuma marcar com facilidade',
+    ],
+    keywords: ['roxo', 'hematoma', 'mancha roxa', 'equimose'],
+  },
+  {
+    id: 'toxina_demora',
+    kinds: ['ambulatorial'],
+    procedures: ['toxina'],
+    title: 'Ainda não vejo efeito nenhum',
+    severity: 'normal',
+    groups: ['pele'],
+    when: 'Primeiros dias',
+    summary:
+      'O efeito começa entre o 3º e o 5º dia e se completa por volta do 15º. Antes disso, é cedo.',
+    why: [
+      'A toxina age gradualmente sobre a musculatura, não de forma imediata.',
+      'O tempo até o efeito completo varia de pessoa para pessoa.',
+    ],
+    action: [
+      'Aguarde 15 dias antes de avaliar',
+      'Se ao completar 15 dias o efeito estiver aquém do esperado, agende a avaliação de retoque',
+    ],
+    keywords: ['sem efeito', 'não fez efeito', 'demora', 'quando aparece'],
+  },
+  {
+    id: 'peso_testa',
+    kinds: ['ambulatorial'],
+    procedures: ['toxina'],
+    title: 'Sensação de peso na testa e dor de cabeça leve',
+    severity: 'normal',
+    groups: ['geral', 'pele'],
+    when: 'Primeiras duas semanas',
+    summary:
+      'Sensação de peso ou pressão na testa é comum enquanto a musculatura se adapta. Passa sozinha.',
+    why: [
+      'A musculatura da testa deixa de trabalhar como antes e o corpo leva alguns dias para se acostumar.',
+      'Dor de cabeça leve nas primeiras 48 horas também é descrita com frequência.',
+    ],
+    action: [
+      'Analgésico simples, se necessário e liberado pela equipe',
+      'Comunicar se a dor for forte ou durar mais de três dias',
+    ],
+    keywords: ['peso', 'testa', 'dor de cabeça', 'pressão', 'cefaleia'],
+  },
+  {
+    id: 'pele_laser',
+    kinds: ['ambulatorial'],
+    procedures: ['laser_co2', 'morpheus'],
+    title: 'Pele vermelha, ardida e descamando',
+    severity: 'normal',
+    groups: ['pele'],
+    when: 'Do 1º ao 7º dia',
+    summary:
+      'A pele fica com aspecto de queimadura de sol, forma casquinhas finas e descama. É exatamente o esperado.',
+    why: [
+      'O laser provoca uma renovação controlada da pele; a descamação é essa troca acontecendo.',
+      'A ardência é mais forte nas primeiras 48 horas e melhora rápido.',
+    ],
+    action: [
+      'Hidratar com o creme indicado, quantas vezes for preciso',
+      'Compressa fria nas primeiras horas, se orientado',
+      'Nunca puxar casquinha nem esfregar a pele — é o que evita mancha e marca',
+      'Protetor solar assim que liberado, sem exceção',
+    ],
+    keywords: ['descamando', 'casquinha', 'ardendo', 'vermelha', 'queimadura de sol'],
+  },
+  {
+    id: 'grade_morpheus',
+    kinds: ['ambulatorial'],
+    procedures: ['morpheus'],
+    title: 'Marquinhas em grade na pele',
+    severity: 'normal',
+    groups: ['pele'],
+    when: 'Do 1º ao 5º dia',
+    summary:
+      'O desenho quadriculado de pontinhos é a marca do aparelho e desaparece em poucos dias.',
+    why: ['Cada pontinho corresponde a uma microagulha, e a pele fecha essas marcas rapidamente.'],
+    action: [
+      'Manter a pele hidratada e limpa',
+      'Maquiagem liberada geralmente após 24 a 48 horas, conforme orientação',
+      'Protetor solar diário',
+    ],
+    keywords: ['grade', 'quadriculado', 'pontinhos', 'marquinhas'],
+  },
+  {
+    id: 'pele_rosada',
+    kinds: ['ambulatorial'],
+    procedures: ['laser_co2', 'morpheus'],
+    title: 'Pele rosada por semanas',
+    severity: 'normal',
+    groups: ['pele'],
+    when: 'Da 2ª semana ao 3º mês',
+    summary:
+      'Depois da descamação a pele fica rosada por um bom tempo. Faz parte, e a maquiagem cobre bem.',
+    why: [
+      'A pele nova é mais fina e mais irrigada, e vai clareando conforme amadurece.',
+      'Quanto mais profundo o tratamento, mais tempo leva para perder o tom rosado.',
+    ],
+    action: [
+      'Protetor solar todos os dias, inclusive nublado',
+      'Maquiagem liberada assim que a pele estiver fechada',
+      'Evitar ácidos e esfoliantes até liberação',
+    ],
+    keywords: ['rosada', 'vermelhidão', 'rosa', 'eritema'],
+  },
+  {
+    id: 'sensibilidade_toque',
+    kinds: ['ambulatorial'],
+    title: 'Área sensível ou dolorida ao toque',
+    severity: 'normal',
+    groups: ['dor', 'pele'],
+    when: 'Primeiros 3 a 7 dias',
+    summary:
+      'Sensibilidade ao encostar, mastigar ou deitar sobre a região é esperada e passa em poucos dias.',
+    why: ['A pele e os tecidos ao redor reagem à aplicação e ficam temporariamente sensíveis.'],
+    action: [
+      'Analgésico simples, se necessário e liberado',
+      'Evitar pressionar a região e dormir sobre ela',
+      'Comunicar se a dor for forte, crescente ou vier com mudança de cor da pele',
+    ],
+    keywords: ['dolorido', 'sensível', 'dói ao tocar'],
+  },
+  {
+    id: 'irregularidade_inicial',
+    kinds: ['ambulatorial'],
+    procedures: ['preenchimento', 'bioestimulador'],
+    title: 'Sinto pequenas irregularidades ao toque',
+    severity: 'normal',
+    groups: ['pele'],
+    when: 'Primeiras 2 semanas',
+    summary:
+      'Nos primeiros dias é comum sentir o produto ao apalpar. Ele se acomoda e a sensação desaparece.',
+    why: [
+      'O produto ainda está se distribuindo e há inchaço por cima dele.',
+      'A avaliação do contorno só faz sentido depois de 15 dias.',
+    ],
+    action: [
+      'Seguir a orientação de massagem quando houver — em alguns tratamentos ela faz parte do protocolo',
+      'Não massagear por conta própria quando não houver essa orientação',
+      'Levar a observação ao retorno se persistir após 3 semanas',
+    ],
+    keywords: ['irregular', 'sinto o produto', 'caroço', 'ondulado'],
   },
 ];
 

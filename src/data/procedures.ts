@@ -1,5 +1,12 @@
 import type { Ionicons } from '@expo/vector-icons';
 
+/**
+ * Os dois percursos que o app precisa distinguir. Uma paciente de toxina
+ * botulínica não usa cinta, não faz drenagem e volta à rotina no mesmo dia —
+ * aplicar a ela a linha do tempo de uma abdominoplastia seria desinformação.
+ */
+export type ProcedureKind = 'cirurgico' | 'ambulatorial';
+
 export type ProcedureId =
   | 'mamoplastia_aumento'
   | 'mastopexia'
@@ -12,6 +19,11 @@ export type ProcedureId =
   | 'otoplastia'
   | 'ginecomastia'
   | 'pos_bariatrica'
+  | 'toxina'
+  | 'preenchimento'
+  | 'bioestimulador'
+  | 'laser_co2'
+  | 'morpheus'
   | 'outro';
 
 export type IconName = keyof typeof Ionicons.glyphMap;
@@ -22,7 +34,11 @@ export interface Procedure {
   /** Descrição curta usada na seleção do onboarding. */
   short: string;
   icon: IconName;
-  /** Semanas até a recuperação social/rotina considerada estabelecida. */
+  kind: ProcedureKind;
+  /**
+   * Nos cirúrgicos, semanas até a rotina estar retomada. Nos ambulatoriais,
+   * semanas até o resultado se consolidar — o texto muda conforme o tipo.
+   */
   recoveryWeeks: number;
   /** Pontos de atenção específicos deste procedimento. */
   highlights: string[];
@@ -34,6 +50,7 @@ export const procedures: Procedure[] = [
     name: 'Mamoplastia de aumento',
     short: 'Prótese de silicone',
     icon: 'heart-outline',
+    kind: 'cirurgico',
     recoveryWeeks: 6,
     highlights: [
       'Sutiã cirúrgico em tempo integral, inclusive para dormir',
@@ -46,6 +63,7 @@ export const procedures: Procedure[] = [
     name: 'Mastopexia',
     short: 'Levantamento das mamas, com ou sem prótese',
     icon: 'heart-outline',
+    kind: 'cirurgico',
     recoveryWeeks: 6,
     highlights: [
       'Sutiã cirúrgico em tempo integral',
@@ -58,6 +76,7 @@ export const procedures: Procedure[] = [
     name: 'Mamoplastia redutora',
     short: 'Redução das mamas',
     icon: 'heart-outline',
+    kind: 'cirurgico',
     recoveryWeeks: 6,
     highlights: [
       'Sutiã cirúrgico em tempo integral',
@@ -70,6 +89,7 @@ export const procedures: Procedure[] = [
     name: 'Abdominoplastia',
     short: 'Abdominoplastia ou lipoabdominoplastia',
     icon: 'body-outline',
+    kind: 'cirurgico',
     recoveryWeeks: 8,
     highlights: [
       'Andar levemente curvada nos primeiros dias protege a cicatriz',
@@ -82,6 +102,7 @@ export const procedures: Procedure[] = [
     name: 'Lipoescultura',
     short: 'Lipoaspiração e enxertia de gordura',
     icon: 'body-outline',
+    kind: 'cirurgico',
     recoveryWeeks: 6,
     highlights: [
       'Cinta compressiva 24h por dia',
@@ -94,6 +115,7 @@ export const procedures: Procedure[] = [
     name: 'Rinoplastia',
     short: 'Cirurgia do nariz',
     icon: 'happy-outline',
+    kind: 'cirurgico',
     recoveryWeeks: 8,
     highlights: [
       'Nariz entupido por algumas semanas é esperado',
@@ -106,6 +128,7 @@ export const procedures: Procedure[] = [
     name: 'Cirurgia de face',
     short: 'Ritidoplastia / facelifting',
     icon: 'happy-outline',
+    kind: 'cirurgico',
     recoveryWeeks: 8,
     highlights: [
       'Dormir com a cabeceira elevada reduz muito o inchaço',
@@ -118,6 +141,7 @@ export const procedures: Procedure[] = [
     name: 'Blefaroplastia',
     short: 'Cirurgia das pálpebras',
     icon: 'eye-outline',
+    kind: 'cirurgico',
     recoveryWeeks: 3,
     highlights: [
       'Roxo ao redor dos olhos é esperado e some em 2 a 3 semanas',
@@ -130,6 +154,7 @@ export const procedures: Procedure[] = [
     name: 'Otoplastia',
     short: 'Cirurgia das orelhas',
     icon: 'ear-outline',
+    kind: 'cirurgico',
     recoveryWeeks: 3,
     highlights: [
       'Faixa elástica conforme orientação, principalmente para dormir',
@@ -142,6 +167,7 @@ export const procedures: Procedure[] = [
     name: 'Correção de ginecomastia',
     short: 'Cirurgia da mama masculina',
     icon: 'body-outline',
+    kind: 'cirurgico',
     recoveryWeeks: 5,
     highlights: [
       'Malha compressiva em tempo integral',
@@ -154,6 +180,7 @@ export const procedures: Procedure[] = [
     name: 'Cirurgia pós-bariátrica',
     short: 'Retirada de excesso de pele',
     icon: 'body-outline',
+    kind: 'cirurgico',
     recoveryWeeks: 10,
     highlights: [
       'Cicatrizes longas exigem cuidado e paciência redobrados',
@@ -162,10 +189,76 @@ export const procedures: Procedure[] = [
     ],
   },
   {
+    id: 'toxina',
+    name: 'Toxina botulínica',
+    short: 'Botox — rugas de expressão',
+    icon: 'sparkles-outline',
+    kind: 'ambulatorial',
+    recoveryWeeks: 2,
+    highlights: [
+      'O efeito começa em 3 a 5 dias e se completa em 15',
+      'Não deitar, não abaixar a cabeça e não fazer exercício nas primeiras 4 horas',
+      'Não massagear nem esfregar a região no primeiro dia',
+    ],
+  },
+  {
+    id: 'preenchimento',
+    name: 'Preenchimento',
+    short: 'Ácido hialurônico',
+    icon: 'water-outline',
+    kind: 'ambulatorial',
+    recoveryWeeks: 4,
+    highlights: [
+      'Inchaço e roxos nos primeiros dias são esperados',
+      'Dor forte com palidez ou manchas arroxeadas na pele exige contato imediato',
+      'O resultado final aparece depois que o inchaço passa, por volta de 15 dias',
+    ],
+  },
+  {
+    id: 'bioestimulador',
+    name: 'Bioestimulador de colágeno',
+    short: 'Estímulo de colágeno em sessões',
+    icon: 'layers-outline',
+    kind: 'ambulatorial',
+    recoveryWeeks: 12,
+    highlights: [
+      'A massagem no período orientado faz parte do tratamento',
+      'O resultado é progressivo: aparece entre 4 e 12 semanas',
+      'Pequenos nódulos que aparecem semanas depois devem ser avaliados',
+    ],
+  },
+  {
+    id: 'laser_co2',
+    name: 'Laser de CO₂',
+    short: 'Laser fracionado ablativo',
+    icon: 'flash-outline',
+    kind: 'ambulatorial',
+    recoveryWeeks: 8,
+    highlights: [
+      'A pele fica como uma queimadura de sol e descama entre o 3º e o 7º dia',
+      'Hidratar sempre e nunca retirar as casquinhas',
+      'Protetor solar rigoroso — é o que evita manchas',
+    ],
+  },
+  {
+    id: 'morpheus',
+    name: 'Morpheus',
+    short: 'Microagulhamento com radiofrequência',
+    icon: 'grid-outline',
+    kind: 'ambulatorial',
+    recoveryWeeks: 10,
+    highlights: [
+      'As marquinhas em grade somem entre o 2º e o 5º dia',
+      'O resultado é progressivo e costuma exigir mais de uma sessão',
+      'Protetor solar diário desde o dia seguinte',
+    ],
+  },
+  {
     id: 'outro',
     name: 'Outro procedimento',
     short: 'Orientações gerais do pós-operatório',
     icon: 'medkit-outline',
+    kind: 'cirurgico',
     recoveryWeeks: 6,
     highlights: [
       'Siga as orientações específicas entregues na sua alta',

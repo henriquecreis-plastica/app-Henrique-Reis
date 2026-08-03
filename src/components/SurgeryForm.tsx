@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useMemo, useRef } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { procedures, type ProcedureId } from '../data/procedures';
+import { procedures, type ProcedureId, type ProcedureKind } from '../data/procedures';
 import { palette, radius, spacing, type } from '../theme';
 
 /**
@@ -137,6 +137,17 @@ const Field = React.forwardRef<
 ));
 Field.displayName = 'Field';
 
+const groupTitles: Record<ProcedureKind, string> = {
+  cirurgico: 'Cirurgias',
+  ambulatorial: 'Procedimentos de consultório',
+};
+
+const kindOrder: ProcedureKind[] = ['cirurgico', 'ambulatorial'];
+
+/**
+ * Com dezessete opções, a lista corrida vira uma parede. Separar por tipo dá
+ * à paciente um ponto de referência antes de procurar o nome exato.
+ */
 export function ProcedurePicker({
   value,
   onChange,
@@ -145,41 +156,52 @@ export function ProcedurePicker({
   onChange: (id: ProcedureId) => void;
 }) {
   return (
-    <View style={styles.list}>
-      {procedures.map((p) => {
-        const selected = value === p.id;
-        return (
-          <Pressable
-            key={p.id}
-            accessibilityRole="radio"
-            accessibilityState={{ selected }}
-            accessibilityLabel={`${p.name}. ${p.short}`}
-            onPress={() => onChange(p.id)}
-            style={({ pressed }) => [
-              styles.procedure,
-              selected && styles.procedureSelected,
-              pressed && { opacity: 0.7 },
-            ]}
-          >
-            <Ionicons
-              name={p.icon}
-              size={20}
-              color={selected ? palette.textOnTiffany : palette.textMuted}
-            />
-            <View style={{ flex: 1 }}>
-              <Text style={[styles.procedureName, selected && { color: palette.textOnTiffany }]}>
-                {p.name}
-              </Text>
-              <Text style={[type.small, selected && { color: palette.textOnTiffanyMuted }]}>
-                {p.short}
-              </Text>
-            </View>
-            {selected ? (
-              <Ionicons name="checkmark-circle" size={20} color={palette.textOnTiffany} />
-            ) : null}
-          </Pressable>
-        );
-      })}
+    <View style={styles.groups}>
+      {kindOrder.map((kind) => (
+        <View key={kind} style={styles.group}>
+          <Text style={styles.groupTitle}>{groupTitles[kind]}</Text>
+          <View style={styles.list}>
+            {procedures
+              .filter((p) => p.kind === kind)
+              .map((p) => {
+                const selected = value === p.id;
+                return (
+                  <Pressable
+                    key={p.id}
+                    accessibilityRole="radio"
+                    accessibilityState={{ selected }}
+                    accessibilityLabel={`${p.name}. ${p.short}`}
+                    onPress={() => onChange(p.id)}
+                    style={({ pressed }) => [
+                      styles.procedure,
+                      selected && styles.procedureSelected,
+                      pressed && { opacity: 0.7 },
+                    ]}
+                  >
+                    <Ionicons
+                      name={p.icon}
+                      size={20}
+                      color={selected ? palette.textOnTiffany : palette.textMuted}
+                    />
+                    <View style={{ flex: 1 }}>
+                      <Text
+                        style={[styles.procedureName, selected && { color: palette.textOnTiffany }]}
+                      >
+                        {p.name}
+                      </Text>
+                      <Text style={[type.small, selected && { color: palette.textOnTiffanyMuted }]}>
+                        {p.short}
+                      </Text>
+                    </View>
+                    {selected ? (
+                      <Ionicons name="checkmark-circle" size={20} color={palette.textOnTiffany} />
+                    ) : null}
+                  </Pressable>
+                );
+              })}
+          </View>
+        </View>
+      ))}
     </View>
   );
 }
@@ -211,6 +233,15 @@ const styles = StyleSheet.create({
   dateInput: { textAlign: 'center', fontSize: 20, fontWeight: '600' },
   problemRow: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   problemText: { ...type.small, color: palette.urgent, flex: 1 },
+  groups: { gap: spacing.xl },
+  group: { gap: spacing.sm },
+  groupTitle: {
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 1.6,
+    textTransform: 'uppercase',
+    color: palette.accentInk,
+  },
   list: { gap: spacing.sm },
   procedure: {
     flexDirection: 'row',

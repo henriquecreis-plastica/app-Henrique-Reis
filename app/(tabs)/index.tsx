@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '../../src/components/Logo';
 import { Bullets, Card, Overline } from '../../src/components/ui';
 import { procedureById } from '../../src/data/procedures';
-import { phaseForDay, preOpPhase, procedureMilestones } from '../../src/data/timeline';
+import { phaseForDay, procedureMilestones } from '../../src/data/timeline';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
 
@@ -15,9 +15,10 @@ export default function Today() {
   const { profile, postOpDay, toggleTask, isTaskDone } = usePatient();
   const procedure = procedureById(profile.procedure);
   const isPreOp = postOpDay < 0;
-  /* Antes da cirurgia as orientações são outras — mostrar o 1º dia de
-     pós-operatório aqui seria instruir a paciente para algo que não aconteceu. */
-  const phase = isPreOp ? preOpPhase : phaseForDay(postOpDay);
+  const isOffice = procedure.kind === 'ambulatorial';
+  /* A fase vem do percurso certo: antes do procedimento as orientações são de
+     preparo, e um tratamento de consultório não segue a escala da cirurgia. */
+  const phase = phaseForDay(postOpDay, procedure.kind);
 
   const progress = useMemo(() => {
     const totalDays = procedure.recoveryWeeks * 7;
@@ -54,15 +55,24 @@ export default function Today() {
               <Text style={styles.heroDay}>
                 Faltam {Math.abs(postOpDay)} {Math.abs(postOpDay) === 1 ? 'dia' : 'dias'}
               </Text>
-              <Text style={styles.heroPhase}>para a sua {procedure.name.toLowerCase()}</Text>
+              <Text style={styles.heroPhase}>
+                {isOffice ? 'para o seu ' : 'para a sua '}
+                {procedure.name.toLowerCase()}
+              </Text>
             </>
           ) : (
             <>
               <Text style={styles.heroDay}>
-                {postOpDay === 0 ? 'Dia da cirurgia' : `${postOpDay}º dia`}
+                {postOpDay === 0
+                  ? isOffice
+                    ? 'Foi hoje'
+                    : 'Dia da cirurgia'
+                  : `${postOpDay}º dia`}
               </Text>
               <Text style={styles.heroPhase}>
-                {postOpDay === 0 ? procedure.name : `de pós-operatório · ${phase.label}`}
+                {postOpDay === 0
+                  ? procedure.name
+                  : `${isOffice ? 'depois do procedimento' : 'de pós-operatório'} · ${phase.label}`}
               </Text>
             </>
           )}
@@ -78,8 +88,10 @@ export default function Today() {
           )}
           <Text style={styles.heroFoot}>
             {isPreOp
-              ? `Cirurgia marcada para ${formatDate(profile.surgeryDate)}`
-              : `${procedure.name} · recuperação estimada em ${procedure.recoveryWeeks} semanas`}
+              ? `Marcado para ${formatDate(profile.surgeryDate)}`
+              : isOffice
+                ? `${procedure.name} · resultado final em torno de ${procedure.recoveryWeeks} semanas`
+                : `${procedure.name} · recuperação estimada em ${procedure.recoveryWeeks} semanas`}
           </Text>
         </View>
 

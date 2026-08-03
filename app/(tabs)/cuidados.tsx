@@ -15,7 +15,9 @@ export default function Cuidados() {
   const procedure = procedureById(profile.procedure);
 
   const guides = careGuides.filter(
-    (g) => !g.procedures || g.procedures.includes(profile.procedure),
+    (g) =>
+      (!g.kinds || g.kinds.includes(procedure.kind)) &&
+      (!g.procedures || g.procedures.includes(profile.procedure)),
   );
 
   return (
@@ -23,8 +25,12 @@ export default function Cuidados() {
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <SectionHeader
           overline="Cuidados"
-          title="Guias do seu pós-operatório"
-          description="Orientações práticas para o dia a dia da recuperação."
+          title={procedure.kind === 'ambulatorial' ? 'Guias do seu tratamento' : 'Guias do seu pós-operatório'}
+          description={
+            procedure.kind === 'ambulatorial'
+              ? 'Orientações práticas para os dias que seguem o procedimento.'
+              : 'Orientações práticas para o dia a dia da recuperação.'
+          }
         />
 
         <View style={styles.procedureCard}>

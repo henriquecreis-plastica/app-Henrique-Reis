@@ -30,11 +30,19 @@ export default function Normal() {
   const [group, setGroup] = useState<SymptomGroup | null>(null);
   const [level, setLevel] = useState<Severity | null>(null);
 
-  /** Só mostra sintomas gerais ou específicos do procedimento da paciente. */
-  const relevant = useMemo(
-    () => symptoms.filter((s) => !s.procedures || s.procedures.includes(profile.procedure)),
-    [profile.procedure],
-  );
+  /**
+   * Só mostra o que se aplica: sintomas do tipo de percurso certo e, quando
+   * houver restrição, do procedimento da paciente.
+   */
+  const kind = procedureById(profile.procedure).kind;
+
+  const relevant = useMemo(() => {
+    return symptoms.filter(
+      (s) =>
+        (!s.kinds || s.kinds.includes(kind)) &&
+        (!s.procedures || s.procedures.includes(profile.procedure)),
+    );
+  }, [profile.procedure, kind]);
 
   const availableGroups = useMemo(() => {
     const set = new Set<SymptomGroup>();
@@ -84,7 +92,11 @@ export default function Normal() {
         <SectionHeader
           overline="É normal?"
           title="O que esperar e o que não ignorar"
-          description="Encontre o que você está sentindo e veja se faz parte da recuperação ou se é hora de nos procurar."
+          description={
+            kind === 'ambulatorial'
+              ? 'Encontre o que você está sentindo e veja se faz parte do processo ou se é hora de nos procurar.'
+              : 'Encontre o que você está sentindo e veja se faz parte da recuperação ou se é hora de nos procurar.'
+          }
         />
 
         <View style={styles.searchBox}>
@@ -92,7 +104,11 @@ export default function Normal() {
           <TextInput
             value={query}
             onChangeText={setQuery}
-            placeholder="Buscar: inchaço, febre, dor, cicatriz..."
+            placeholder={
+              kind === 'ambulatorial'
+                ? 'Buscar: inchaço, roxo, caroço, mancha...'
+                : 'Buscar: inchaço, febre, dor, cicatriz...'
+            }
             placeholderTextColor={palette.textMuted}
             style={styles.searchInput}
             returnKeyType="search"

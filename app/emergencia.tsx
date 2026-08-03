@@ -13,15 +13,15 @@ export default function Emergencia() {
   const router = useRouter();
   const { profile, postOpDay } = usePatient();
 
-  const urgentList = useMemo(
-    () =>
-      symptoms.filter(
-        (s) =>
-          s.severity === 'urgent' &&
-          (!s.procedures || s.procedures.includes(profile.procedure)),
-      ),
-    [profile.procedure],
-  );
+  const urgentList = useMemo(() => {
+    const kind = procedureById(profile.procedure).kind;
+    return symptoms.filter(
+      (s) =>
+        s.severity === 'urgent' &&
+        (!s.kinds || s.kinds.includes(kind)) &&
+        (!s.procedures || s.procedures.includes(profile.procedure)),
+    );
+  }, [profile.procedure]);
 
   const message = buildContextMessage({
     name: profile.name,
@@ -75,7 +75,7 @@ export default function Emergencia() {
 
       <Card style={styles.info}>
         <Text style={[type.small, styles.infoText]}>
-          Ao procurar um pronto-socorro, informe qual cirurgia você realizou, a data e as
+          Ao procurar um pronto-socorro, informe qual procedimento você realizou, a data e as
           medicações em uso. Leve o contato da nossa equipe com você.
         </Text>
       </Card>

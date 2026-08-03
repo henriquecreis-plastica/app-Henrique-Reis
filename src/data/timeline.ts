@@ -1,4 +1,4 @@
-import type { IconName, ProcedureId } from './procedures';
+import type { IconName, ProcedureId, ProcedureKind } from './procedures';
 
 export interface Phase {
   id: string;
@@ -46,6 +46,129 @@ export const preOpPhase: Phase = {
     'Bebida alcoólica nas 48 horas anteriores',
     'Cigarro — parar antes da cirurgia melhora a cicatrização',
     'Depilação ou qualquer procedimento estético na área a ser operada',
+  ],
+};
+
+/**
+ * Percurso dos procedimentos de consultório. A escala é outra: o que na
+ * cirurgia leva semanas, aqui se resolve em dias — e o que importa acompanhar
+ * é o resultado aparecendo, não a rotina sendo retomada.
+ */
+export const officePhases: Phase[] = [
+  {
+    id: 'a1',
+    label: 'Primeiras 24 horas',
+    from: 0,
+    to: 0,
+    icon: 'time-outline',
+    summary:
+      'O período em que os cuidados fazem mais diferença. A maior parte das orientações vale só para hoje.',
+    expect: [
+      'Vermelhidão e pequeno inchaço nos pontos de aplicação',
+      'Sensação de ardência ou calor local',
+      'Pontinhos de sangue ou roxos começando a aparecer',
+    ],
+    todo: [
+      'Manter a cabeceira elevada para dormir',
+      'Compressa fria por alguns minutos, se orientado',
+      'Beber água e manter a pele limpa',
+    ],
+    avoid: [
+      'Massagear, apertar ou esfregar a área tratada',
+      'Exercício físico, sauna, sol forte e bebida alcoólica',
+      'Maquiagem sobre a área, salvo liberação',
+      'Deitar de bruços ou abaixar a cabeça por longos períodos',
+    ],
+  },
+  {
+    id: 'a2',
+    label: 'Dias 2 a 7',
+    from: 1,
+    to: 7,
+    icon: 'sunny-outline',
+    summary:
+      'Fase em que o inchaço e as marcas cedem. É cedo demais para julgar o resultado.',
+    expect: [
+      'Roxos escurecendo antes de clarear',
+      'Inchaço assimétrico — um lado pode estar mais inchado',
+      'Pequenas irregularidades ao toque',
+      'Sensibilidade ao encostar na região',
+    ],
+    todo: [
+      'Manter hidratação da pele e protetor solar',
+      'Seguir a orientação de massagem, se houver — em alguns tratamentos ela faz parte',
+      'Retomar a rotina normalmente',
+    ],
+    avoid: [
+      'Exposição solar sem proteção',
+      'Procedimentos estéticos na mesma área sem liberação',
+      'Concluir qualquer coisa sobre o resultado',
+    ],
+  },
+  {
+    id: 'a3',
+    label: 'Semanas 2 a 4',
+    from: 8,
+    to: 28,
+    icon: 'eye-outline',
+    summary:
+      'O inchaço já saiu e o que você vê começa a ser o resultado de verdade.',
+    expect: [
+      'Aparência natural, sem sinais do procedimento',
+      'Resultado se acomodando e ficando mais harmônico',
+      'Pequenas assimetrias que ainda podem se ajustar',
+    ],
+    todo: [
+      'Comparecer à avaliação de retorno, quando marcada',
+      'Levar suas dúvidas e observações anotadas',
+      'Manter protetor solar diário',
+    ],
+    avoid: [
+      'Pedir retoque antes da avaliação — o resultado ainda está se definindo',
+      'Bronzeamento',
+    ],
+  },
+  {
+    id: 'a4',
+    label: 'A partir do 2º mês',
+    from: 29,
+    to: 3650,
+    icon: 'trending-up-outline',
+    summary:
+      'Resultado consolidado. A partir daqui o que conta é manutenção e acompanhamento.',
+    expect: [
+      'Efeito estável, dentro da duração esperada para o tratamento',
+      'Em bioestimuladores, ganho progressivo até cerca de 3 meses',
+    ],
+    todo: [
+      'Combinar com a equipe quando será a manutenção',
+      'Manter cuidado diário com a pele e proteção solar',
+    ],
+    avoid: ['Deixar passar muito do prazo de manutenção, se o objetivo é manter o resultado'],
+  },
+];
+
+/** Orientações para quem ainda vai realizar um procedimento de consultório. */
+export const preOpOfficePhase: Phase = {
+  id: 'pre-a',
+  label: 'Antes do procedimento',
+  from: -3650,
+  to: -1,
+  icon: 'calendar-outline',
+  summary: 'Alguns cuidados simples nos dias anteriores reduzem inchaço e roxos.',
+  expect: [
+    'O procedimento é feito no consultório, com anestésico local ou tópico',
+    'Você sai andando e retoma a rotina no mesmo dia, com restrições leves',
+  ],
+  todo: [
+    'Avisar a equipe sobre medicamentos, suplementos e histórico de herpes',
+    'Chegar sem maquiagem na região a ser tratada',
+    'Programar o procedimento com folga antes de eventos importantes',
+  ],
+  avoid: [
+    'Anti-inflamatórios, ômega 3, vitamina E e ginkgo nos dias anteriores, salvo orientação',
+    'Bebida alcoólica nas 24 horas anteriores',
+    'Sol intenso e pele bronzeada ou irritada no dia',
   ],
 };
 
@@ -262,7 +385,41 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
     { day: 14, text: 'Retirada de drenos e pontos conforme evolução' },
     { day: 90, text: 'Cicatrizes longas entram em maturação' },
   ],
+  toxina: [
+    { day: 4, text: 'O efeito começa a aparecer' },
+    { day: 15, text: 'Efeito completo — é quando se avalia a necessidade de retoque' },
+    { day: 120, text: 'Época habitual de reavaliar a manutenção' },
+  ],
+  preenchimento: [
+    { day: 3, text: 'Pico do inchaço, já começando a ceder' },
+    { day: 15, text: 'Inchaço resolvido — o que se vê agora é o resultado' },
+    { day: 30, text: 'Avaliação de retorno e eventual complemento' },
+  ],
+  bioestimulador: [
+    { day: 5, text: 'Fim do período de massagem orientada, se indicado' },
+    { day: 30, text: 'Primeiros sinais de ganho de colágeno' },
+    { day: 90, text: 'Resultado da sessão consolidado' },
+  ],
+  laser_co2: [
+    { day: 3, text: 'Início da descamação — não retirar as casquinhas' },
+    { day: 7, text: 'Pele renovada, ainda rosada' },
+    { day: 30, text: 'Vermelhidão bem reduzida; maquiagem liberada há semanas' },
+    { day: 90, text: 'Resultado de textura e firmeza consolidado' },
+  ],
+  morpheus: [
+    { day: 3, text: 'As marquinhas em grade praticamente desaparecem' },
+    { day: 30, text: 'Firmeza começa a aparecer' },
+    { day: 90, text: 'Resultado da sessão consolidado' },
+  ],
 };
 
-export const phaseForDay = (day: number): Phase =>
-  phases.find((p) => day >= p.from && day <= p.to) ?? phases[phases.length - 1];
+/** Fase correspondente ao dia, no percurso certo para o tipo de procedimento. */
+export const phaseForDay = (day: number, kind: ProcedureKind = 'cirurgico'): Phase => {
+  if (day < 0) return kind === 'ambulatorial' ? preOpOfficePhase : preOpPhase;
+  const list = kind === 'ambulatorial' ? officePhases : phases;
+  return list.find((p) => day >= p.from && day <= p.to) ?? list[list.length - 1];
+};
+
+/** Todas as fases do percurso, para a linha do tempo. */
+export const phasesFor = (kind: ProcedureKind): Phase[] =>
+  kind === 'ambulatorial' ? officePhases : phases;

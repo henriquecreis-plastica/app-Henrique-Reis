@@ -4,14 +4,15 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Bullets, Card, Overline, SectionHeader } from '../../src/components/ui';
 import { procedureById } from '../../src/data/procedures';
-import { phaseForDay, phases, procedureMilestones } from '../../src/data/timeline';
+import { phaseForDay, phasesFor, procedureMilestones } from '../../src/data/timeline';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
 
 export default function Recuperacao() {
   const { profile, postOpDay } = usePatient();
   const procedure = procedureById(profile.procedure);
-  const current = phaseForDay(Math.max(postOpDay, 0));
+  const current = phaseForDay(Math.max(postOpDay, 0), procedure.kind);
+  const phases = phasesFor(procedure.kind);
   const [openId, setOpenId] = useState<string>(current.id);
   const milestones = procedureMilestones[profile.procedure] ?? [];
 
@@ -20,8 +21,12 @@ export default function Recuperacao() {
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <SectionHeader
           overline="Linha do tempo"
-          title="Sua recuperação, fase a fase"
-          description={`Referências para ${procedure.name.toLowerCase()}. Cada organismo tem seu ritmo — pequenas variações são normais.`}
+          title={
+            procedure.kind === 'ambulatorial'
+              ? 'Seu tratamento, fase a fase'
+              : 'Sua recuperação, fase a fase'
+          }
+          description={`Referências para ${procedure.name.toLowerCase()}. Cada pessoa tem seu ritmo — pequenas variações são normais.`}
         />
 
         {phases.map((phase) => {
