@@ -90,20 +90,15 @@ export const clinic = {
   emergency: '+5548991450910',
 
   /**
-   * Avaliação no Google.
-   *
-   * O endereço abaixo abre a ficha da clínica no Google Maps, de onde a
-   * paciente toca em "Escrever uma avaliação" — funciona, mas leva dois
-   * toques.
-   *
-   * Para o link direto, que já abre a janela de avaliação:
-   *   Perfil da Empresa no Google → "Peça avaliações" → copiar link.
-   *   O endereço tem o formato https://g.page/r/XXXXXXXX/review
-   * Basta colar aqui no lugar do atual.
+   * Link direto de avaliação, obtido no Perfil da Empresa no Google. Abre a
+   * janela de avaliação já apontando para a ficha da clínica, sem passos
+   * intermediários. Se a ficha for recriada, o link precisa ser gerado de
+   * novo em "Peça avaliações".
    */
   googleReview:
-    'https://www.google.com/maps/search/?api=1&query=' +
-    encodeURIComponent('Henrique Reis Cirurgia Plástica, Av. Mauro Ramos 1970, Florianópolis'),
+    'https://search.google.com/local/writereview' +
+    '?placeid=ChIJ8xbXrhY4J5URO9mS1ao-5o0' +
+    '&source=g.page.m.ia._&laa=nmx-review-solicitation-ia2',
 } as const;
 
 export type Palette = typeof palette;
