@@ -1,28 +1,19 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import type { ProcedureId } from '../data/procedures';
+import { procedureById, type ProcedureId } from '../data/procedures';
+import { todayIso, type CheckIn } from '../domain/checkin';
+import { triage, type TriageResult } from '../domain/triage';
+import { storage, type PatientRecord } from './storage';
 
-const STORAGE_KEY = '@plasticahenrique/patient-v1';
-
-export interface PatientProfile {
-  name: string;
-  procedure: ProcedureId;
-  /** Data da cirurgia em ISO (YYYY-MM-DD). */
-  surgeryDate: string;
-  /** Itens de checklist concluídos, no formato `${dayKey}:${index}`. */
-  doneTasks: string[];
-  onboarded: boolean;
-  /** Convite de avaliação dispensado na tela inicial. */
-  reviewDismissed: boolean;
-}
+export type PatientProfile = PatientRecord;
 
 const emptyProfile: PatientProfile = {
   name: '',
   procedure: 'outro',
-  surgeryDate: new Date().toISOString().slice(0, 10),
+  surgeryDate: todayIso(),
   doneTasks: [],
   onboarded: false,
   reviewDismissed: false,
+  checkIns: [],
 };
 
 interface PatientContextValue {
@@ -30,15 +21,19 @@ interface PatientContextValue {
   loading: boolean;
   /** Dias completos desde a cirurgia. Negativo quando a cirurgia é futura. */
   postOpDay: number;
+  /** Situação da paciente pela mesma regra que o painel da equipe usa. */
+  status: TriageResult;
   save: (patch: Partial<PatientProfile>) => Promise<void>;
   toggleTask: (key: string) => void;
   isTaskDone: (key: string) => boolean;
+  /** Grava o registro do dia, substituindo o anterior se já houver um hoje. */
+  saveCheckIn: (checkIn: CheckIn) => Promise<void>;
   reset: () => Promise<void>;
 }
 
 const PatientContext = createContext<PatientContextValue | null>(null);
 
-/** Diferença em dias inteiros entre a data da cirurgia e hoje, ignorando horas. */
+/** Diferença em dias inteiros entre a data do procedimento e hoje. */
 export function daysSince(isoDate: string): number {
   const [y, m, d] = isoDate.split('-').map(Number);
   if (!y || !m || !d) return 0;
@@ -54,24 +49,15 @@ export function PatientProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     (async () => {
-      try {
-        const raw = await AsyncStorage.getItem(STORAGE_KEY);
-        if (raw) setProfile({ ...emptyProfile, ...JSON.parse(raw) });
-      } catch {
-        // Perfil corrompido ou indisponível: segue com o padrão e o onboarding.
-      } finally {
-        setLoading(false);
-      }
+      const record = await storage.load();
+      if (record) setProfile({ ...emptyProfile, ...record });
+      setLoading(false);
     })();
   }, []);
 
   const persist = useCallback(async (next: PatientProfile) => {
     setProfile(next);
-    try {
-      await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next));
-    } catch {
-      // Falha de escrita não deve interromper o uso do app.
-    }
+    await storage.save(next);
   }, []);
 
   const save = useCallback(
@@ -81,36 +67,56 @@ export function PatientProvider({ children }: { children: React.ReactNode }) {
     [profile, persist],
   );
 
-  const toggleTask = useCallback(
-    (key: string) => {
-      setProfile((prev) => {
-        const doneTasks = prev.doneTasks.includes(key)
-          ? prev.doneTasks.filter((k) => k !== key)
-          : [...prev.doneTasks, key];
-        const next = { ...prev, doneTasks };
-        AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(next)).catch(() => {});
-        return next;
-      });
-    },
-    [],
-  );
+  const toggleTask = useCallback((key: string) => {
+    setProfile((prev) => {
+      const doneTasks = prev.doneTasks.includes(key)
+        ? prev.doneTasks.filter((k) => k !== key)
+        : [...prev.doneTasks, key];
+      const next = { ...prev, doneTasks };
+      void storage.save(next);
+      return next;
+    });
+  }, []);
+
+  const saveCheckIn = useCallback(async (checkIn: CheckIn) => {
+    setProfile((prev) => {
+      const checkIns = [...prev.checkIns.filter((c) => c.date !== checkIn.date), checkIn];
+      const next = { ...prev, checkIns };
+      void storage.save(next);
+      return next;
+    });
+  }, []);
 
   const reset = useCallback(async () => {
-    await AsyncStorage.removeItem(STORAGE_KEY).catch(() => {});
+    await storage.clear();
     setProfile(emptyProfile);
   }, []);
+
+  const postOpDay = daysSince(profile.surgeryDate);
+
+  const status = useMemo(
+    () =>
+      triage({
+        procedureKind: procedureById(profile.procedure).kind,
+        day: postOpDay,
+        checkIns: profile.checkIns,
+      }),
+    [profile.procedure, profile.checkIns, postOpDay],
+  );
 
   const value = useMemo<PatientContextValue>(
     () => ({
       profile,
       loading,
-      postOpDay: daysSince(profile.surgeryDate),
+      postOpDay,
+      status,
       save,
       toggleTask,
       isTaskDone: (key: string) => profile.doneTasks.includes(key),
+      saveCheckIn,
       reset,
     }),
-    [profile, loading, save, toggleTask, reset],
+    [profile, loading, postOpDay, status, save, toggleTask, saveCheckIn, reset],
   );
 
   return <PatientContext.Provider value={value}>{children}</PatientContext.Provider>;

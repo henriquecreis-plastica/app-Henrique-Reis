@@ -5,6 +5,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '../../src/components/Logo';
 import { MIN_DAY, ReviewInvite } from '../../src/components/ReviewInvite';
+import { DailyCheckInCard } from '../../src/components/DailyCheckInCard';
 import { Bullets, Card, Overline } from '../../src/components/ui';
 import { procedureById } from '../../src/data/procedures';
 import { phaseForDay, procedureMilestones } from '../../src/data/timeline';
@@ -95,6 +96,9 @@ export default function Today() {
                 : `${procedure.name} · recuperação estimada em ${procedure.recoveryWeeks} semanas`}
           </Text>
         </View>
+
+        {/* ----- Registro do dia: o que alimenta o acompanhamento ----- */}
+        <DailyCheckInCard />
 
         {/* ----- Acesso rápido ao que é urgente ----- */}
         <Pressable

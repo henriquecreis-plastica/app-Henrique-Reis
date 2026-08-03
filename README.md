@@ -171,6 +171,48 @@ contato.
 
 ---
 
+## O outro lado: painel da equipe
+
+Um app de paciente sem contrapartida na clínica continua sendo um manual
+digital. O que transforma em acompanhamento é a clínica ver, todo dia, quem
+precisa de atenção.
+
+A estrutura para isso já está no código:
+
+| Peça | Onde | O que faz |
+| --- | --- | --- |
+| Registro diário | `src/domain/checkin.ts` | Foto, como a paciente está, dor de 0 a 10 e sintomas relatados. Cobrado só na janela em que importa: 14 dias nas cirurgias, 7 nos procedimentos de consultório. |
+| Triagem | `src/domain/triage.ts` | Função pura que decide vermelho, amarelo ou verde, com o motivo em linguagem de equipe. |
+| Armazenamento | `src/store/storage.ts` | Interface com implementação local. A versão com servidor entra como segunda implementação, sem mexer em nenhuma tela. |
+
+A triagem vive em módulo único de propósito: se a regra morasse em dois
+lugares, um dia a paciente veria "esperado" no celular enquanto a clínica
+veria vermelho no painel.
+
+`docs/painel-demo.html` é uma demonstração navegável do painel, com dados
+fictícios, usando exatamente essa regra.
+
+### O que falta para o painel existir de verdade
+
+O trabalho pesado não é a interface — é o que vem embaixo dela:
+
+1. **Servidor e banco de dados**, com cadastro pela clínica e código de acesso
+   para a paciente.
+2. **Armazenamento de fotos** com criptografia em repouso e em trânsito.
+3. **LGPD.** Foto de área operada é dado pessoal sensível (art. 11). Exige
+   consentimento específico e destacado, política de retenção, registro de
+   quem acessou o quê, e plano de resposta a incidente.
+4. **Rotina de plantão.** Um alerta vermelho só vale se alguém tiver a
+   obrigação de olhar e responder em prazo definido. Sem isso, o painel cria
+   expectativa de vigilância que a clínica não sustenta — e esse é um risco
+   assistencial, não técnico.
+5. **Notificações** para lembrar o registro do dia.
+
+Os itens 3 e 4 são decisões da clínica, não do código, e deveriam vir antes
+da primeira linha do backend.
+
+---
+
 ## Estado atual e próximos passos
 
 Este é um **protótipo**: funciona de ponta a ponta, mas guarda os dados apenas
