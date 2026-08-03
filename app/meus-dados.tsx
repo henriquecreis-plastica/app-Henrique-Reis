@@ -11,7 +11,7 @@ import {
   type DateParts,
 } from '../src/components/SurgeryForm';
 import { Button } from '../src/components/ui';
-import { type ProcedureId } from '../src/data/procedures';
+import { eventNoun, procedureById, type ProcedureId } from '../src/data/procedures';
 import { usePatient } from '../src/store/patient';
 import { palette, spacing, type } from '../src/theme';
 
@@ -30,6 +30,7 @@ export default function MeusDados() {
 
   const iso = toIsoDate(date);
   const ready = !!iso && !dateProblem(date);
+  const noun = eventNoun(procedureById(procedure).kind);
 
   const submit = async () => {
     if (!iso || !ready) return;
@@ -61,7 +62,7 @@ export default function MeusDados() {
         </View>
 
         <View style={styles.field}>
-          <Text style={styles.label}>Data da cirurgia</Text>
+          <Text style={styles.label}>Data d{noun === 'cirurgia' ? 'a cirurgia' : 'o procedimento'}</Text>
           <DateFields value={date} onChange={setDate} />
         </View>
 

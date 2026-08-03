@@ -22,13 +22,13 @@ import {
   type DateParts,
 } from '../src/components/SurgeryForm';
 import { Button, Card } from '../src/components/ui';
-import { type ProcedureId } from '../src/data/procedures';
+import { eventNoun, procedureById, type ProcedureId } from '../src/data/procedures';
 import { usePatient } from '../src/store/patient';
 import { clinic, palette, spacing, type } from '../src/theme';
 
 type Step = 0 | 1 | 2;
 
-const stepTitles = ['Boas-vindas', 'Seus dados', 'Data da cirurgia'];
+const stepTitles = ['Boas-vindas', 'Seus dados', 'Data'];
 
 export default function Onboarding() {
   const router = useRouter();
@@ -40,6 +40,7 @@ export default function Onboarding() {
 
   const iso = toIsoDate(date);
   const dateReady = !!iso && !dateProblem(date);
+  const noun = procedure ? eventNoun(procedureById(procedure).kind) : 'cirurgia';
 
   const setRelativeDay = (offsetDays: number) => {
     const t = new Date();
@@ -116,17 +117,19 @@ export default function Onboarding() {
                 autoCapitalize="words"
                 returnKeyType="done"
               />
-              <Text style={[type.title, styles.spacedTitle]}>Qual procedimento você realizou?</Text>
+              <Text style={[type.title, styles.spacedTitle]}>O que você realizou?</Text>
               <ProcedurePicker value={procedure} onChange={setProcedure} />
             </View>
           )}
 
           {step === 2 && (
             <View style={styles.stepBody}>
-              <Text style={type.title}>Quando foi a sua cirurgia?</Text>
+              <Text style={type.title}>
+                {noun === 'cirurgia' ? 'Quando foi a sua cirurgia?' : 'Quando foi o seu procedimento?'}
+              </Text>
               <Text style={type.bodyMuted}>
-                Usamos essa data para mostrar as orientações certas para o seu dia de recuperação.
-                Se ela ainda não aconteceu, informe a data marcada.
+                Usamos essa data para mostrar as orientações certas para o seu dia. Se ainda não
+                aconteceu, informe a data marcada.
               </Text>
 
               <View style={styles.dateBlock}>

@@ -407,8 +407,8 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
     { day: 90, text: 'Resultado de textura e firmeza consolidado' },
   ],
   morpheus: [
-    { day: 3, text: 'As marquinhas em grade praticamente desaparecem' },
-    { day: 30, text: 'Firmeza começa a aparecer' },
+    { day: 7, text: 'As marquinhas em grade costumam ter clareado bastante' },
+    { day: 30, text: 'Firmeza começa a aparecer; em algumas pacientes as marcas ainda são visíveis' },
     { day: 90, text: 'Resultado da sessão consolidado' },
   ],
 };

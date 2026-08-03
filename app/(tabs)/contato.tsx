@@ -5,7 +5,7 @@ import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '../../src/components/Logo';
 import { Button, Card, Divider, Overline } from '../../src/components/ui';
-import { procedureById } from '../../src/data/procedures';
+import { eventNoun, procedureById } from '../../src/data/procedures';
 import { buildContextMessage, callPhone, openLink, openWhatsApp } from '../../src/lib/contact';
 import { usePatient } from '../../src/store/patient';
 import { clinic, palette, radius, spacing, type } from '../../src/theme';
@@ -25,7 +25,7 @@ export default function Contato() {
   const confirmReset = () => {
     Alert.alert(
       'Apagar meus dados',
-      'Isso remove do aparelho seu nome, procedimento, data da cirurgia e o progresso das rotinas. Não dá para desfazer.',
+      'Isso remove do aparelho seu nome, o procedimento, a data e o progresso das rotinas. Não dá para desfazer.',
       [
         { text: 'Cancelar', style: 'cancel' },
         {
@@ -104,7 +104,10 @@ export default function Contato() {
             <View style={styles.flex}>
               <Overline>Meus dados</Overline>
               <Text style={[type.body, { marginTop: spacing.xs }]}>
-                {procedure.name} · {postOpDay < 0 ? 'pré-operatório' : `${postOpDay}º dia`}
+                {procedure.name} ·{' '}
+                {postOpDay < 0
+                  ? `ainda não ${procedure.kind === 'ambulatorial' ? 'realizado' : 'realizada'}`
+                  : `${postOpDay}º dia`}
               </Text>
             </View>
             <Ionicons
@@ -120,7 +123,7 @@ export default function Contato() {
               <InfoRow icon="person-outline" label="Nome" value={profile.name || 'Não informado'} />
               <InfoRow
                 icon="calendar-outline"
-                label="Data da cirurgia"
+                label={`Data d${eventNoun(procedure.kind) === 'cirurgia' ? 'a cirurgia' : 'o procedimento'}`}
                 value={formatDate(profile.surgeryDate)}
               />
               <View style={{ height: spacing.md }} />
@@ -142,7 +145,7 @@ export default function Contato() {
         </Card>
 
         <Text style={styles.disclaimer}>
-          Este aplicativo oferece orientações gerais de pós-operatório e não substitui a consulta
+          Este aplicativo oferece orientações gerais de acompanhamento e não substitui a consulta
           médica. Em caso de emergência, procure o pronto-socorro mais próximo.
         </Text>
       </ScrollView>

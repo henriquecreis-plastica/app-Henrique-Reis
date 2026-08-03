@@ -248,7 +248,7 @@ export const procedures: Procedure[] = [
     kind: 'ambulatorial',
     recoveryWeeks: 10,
     highlights: [
-      'As marquinhas em grade somem entre o 2º e o 5º dia',
+      'As marquinhas em grade costumam sumir em uma semana, mas podem levar mais',
       'O resultado é progressivo e costuma exigir mais de uma sessão',
       'Protetor solar diário desde o dia seguinte',
     ],
@@ -269,3 +269,10 @@ export const procedures: Procedure[] = [
 
 export const procedureById = (id: ProcedureId): Procedure =>
   procedures.find((p) => p.id === id) ?? procedures[procedures.length - 1];
+
+/**
+ * Como o app se refere ao que a paciente fez. Chamar de "cirurgia" quem fez
+ * uma aplicação de toxina soa errado e assusta sem motivo.
+ */
+export const eventNoun = (kind: ProcedureKind): string =>
+  kind === 'ambulatorial' ? 'procedimento' : 'cirurgia';
