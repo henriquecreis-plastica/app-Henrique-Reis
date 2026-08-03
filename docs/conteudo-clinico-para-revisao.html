@@ -1,0 +1,841 @@
+<title>Conteúdo clínico para revisão — Dr. Henrique Reis</title>
+<style>
+  :root{--tiffany:#067F7B;--ink:#111;--muted:#6B6B6B;--line:#E7E7E7;--surface:#fff;--bg:#FAFAFA;
+        --v:#B3261E;--vw:#FCE9E7;--a:#9A6209;--aw:#FCF0DA;--gw:#E6F7F6;}
+  @media (prefers-color-scheme:dark){:root{--ink:#F1F1F1;--muted:#9C9C9C;--line:#2A2A2A;--surface:#151515;--bg:#0C0C0C;
+        --tiffany:#4FD6D0;--v:#F0857C;--vw:#2C1311;--a:#E0A94A;--aw:#2A2010;--gw:#0B2E2C;}}
+  :root[data-theme="dark"]{--ink:#F1F1F1;--muted:#9C9C9C;--line:#2A2A2A;--surface:#151515;--bg:#0C0C0C;
+        --tiffany:#4FD6D0;--v:#F0857C;--vw:#2C1311;--a:#E0A94A;--aw:#2A2010;--gw:#0B2E2C;}
+  :root[data-theme="light"]{--ink:#111;--muted:#6B6B6B;--line:#E7E7E7;--surface:#fff;--bg:#FAFAFA;
+        --tiffany:#067F7B;--v:#B3261E;--vw:#FCE9E7;--a:#9A6209;--aw:#FCF0DA;--gw:#E6F7F6;}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:400 16px/1.65 ui-serif,Georgia,"Times New Roman",serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:32px 20px 96px}
+  .sans{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+  .eyebrow{font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;font-weight:700;
+           letter-spacing:2px;text-transform:uppercase;color:var(--tiffany)}
+  h1{font-size:34px;font-weight:400;line-height:1.15;margin:8px 0 12px}
+  h2{font-family:ui-sans-serif,system-ui,sans-serif;font-size:24px;font-weight:700;
+     margin:64px 0 8px;padding-top:20px;border-top:2px solid var(--ink)}
+  h3.grupo{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;font-weight:700;
+           letter-spacing:1.6px;text-transform:uppercase;color:var(--tiffany);margin:36px 0 12px}
+  h3.grupo.v{color:var(--v)} h3.grupo.a{color:var(--a)}
+  .bloco{background:var(--surface);border:1px solid var(--line);border-radius:12px;
+         padding:20px 22px;margin:0 0 14px}
+  .bloco.v{border-left:4px solid var(--v)} .bloco.a{border-left:4px solid var(--a)}
+  .bloco.g{border-left:4px solid var(--tiffany)}
+  .bloco h3{font-family:ui-sans-serif,system-ui,sans-serif;font-size:18px;font-weight:700;margin:0 0 6px}
+  .bloco h4{font-family:ui-sans-serif,system-ui,sans-serif;font-size:11px;font-weight:700;
+            letter-spacing:1.4px;text-transform:uppercase;color:var(--tiffany);margin:20px 0 6px}
+  .meta{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;color:var(--muted);margin:0 0 10px}
+  .resumo{margin:0} .forte{font-weight:600}
+  ul{margin:0;padding-left:20px} li{margin-bottom:5px}
+  .chip{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;margin-right:6px}
+  .chip.v{background:var(--vw);color:var(--v)} .chip.a{background:var(--aw);color:var(--a)}
+  .chip.g{background:var(--gw);color:var(--tiffany)}
+  table{width:100%;border-collapse:collapse;font-family:ui-sans-serif,system-ui,sans-serif;font-size:14px}
+  th{text-align:left;width:64px;color:var(--tiffany);font-weight:700;padding:6px 0;vertical-align:top}
+  td{padding:6px 0;vertical-align:top}
+  .alerta{background:var(--aw);color:var(--a);border-radius:10px;padding:14px 16px;margin:24px 0;
+          font-family:ui-sans-serif,system-ui,sans-serif;font-size:14px;font-weight:600}
+  nav{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:28px 0 8px;
+      font-family:ui-sans-serif,system-ui,sans-serif;font-size:15px}
+  nav ol{margin:0;padding-left:20px} nav li{margin-bottom:4px}
+  nav a{color:var(--ink)} a{color:var(--tiffany)}
+  footer{margin-top:64px;padding-top:20px;border-top:1px solid var(--line);
+         font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;color:var(--muted)}
+</style>
+
+<div class="wrap">
+  <p class="eyebrow">Henrique Reis · Cirurgia Plástica</p>
+  <h1>Conteúdo clínico do aplicativo</h1>
+  <p class="meta">Tudo o que a paciente lê, extraído automaticamente do aplicativo em 03/08/2026 · 17 procedimentos · 62 orientações de sintomas · 13 guias de cuidados</p>
+
+  <div class="alerta">Este conteúdo ainda não foi validado clinicamente. Nenhuma paciente deve recebê-lo antes da sua revisão e aprovação.</div>
+
+  <nav>
+    <ol>
+      <li><a href="#procedimentos">Procedimentos</a></li>
+      <li><a href="#linha-do-tempo">Linha do tempo</a></li>
+      <li><a href="#marcos">Marcos por procedimento</a></li>
+      <li><a href="#sintomas">O que é normal e o que não é</a></li>
+      <li><a href="#cuidados">Guias de cuidados</a></li>
+      <li><a href="#avisos">Avisos exibidos no aplicativo</a></li>
+    </ol>
+  </nav>
+
+  <section id="procedimentos"><h2>1. Procedimentos</h2>
+
+  <h3 class="grupo">Cirurgias</h3>
+  
+    <article class="bloco">
+      <h3>Mamoplastia de aumento</h3>
+      <p class="meta">“Prótese de silicone” · recuperação estimada em 6 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>Sutiã cirúrgico em tempo integral, inclusive para dormir</li><li>Dormir de barriga para cima nas primeiras semanas</li><li>Não levantar os braços acima da cabeça nos primeiros dias</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Mastopexia</h3>
+      <p class="meta">“Levantamento das mamas, com ou sem prótese” · recuperação estimada em 6 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>Sutiã cirúrgico em tempo integral</li><li>Cicatrizes exigem proteção solar rigorosa por 12 meses</li><li>Evitar esforço com os braços nas primeiras 3 semanas</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Mamoplastia redutora</h3>
+      <p class="meta">“Redução das mamas” · recuperação estimada em 6 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>Sutiã cirúrgico em tempo integral</li><li>Pequenos pontos podem abrir no encontro das cicatrizes — é comum</li><li>Alteração temporária da sensibilidade dos mamilos é esperada</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Abdominoplastia</h3>
+      <p class="meta">“Abdominoplastia ou lipoabdominoplastia” · recuperação estimada em 8 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>Andar levemente curvada nos primeiros dias protege a cicatriz</li><li>Cinta compressiva em tempo integral</li><li>Movimentar as pernas na cama desde o 1º dia previne trombose</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Lipoescultura</h3>
+      <p class="meta">“Lipoaspiração e enxertia de gordura” · recuperação estimada em 6 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>Cinta compressiva 24h por dia</li><li>Drenagem linfática é parte essencial do resultado</li><li>Endurecimento e irregularidades nos primeiros meses são esperados</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Rinoplastia</h3>
+      <p class="meta">“Cirurgia do nariz” · recuperação estimada em 8 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>Nariz entupido por algumas semanas é esperado</li><li>Não assoar o nariz nem usar óculos de armação pesada</li><li>O resultado final leva de 6 a 12 meses para se definir</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Cirurgia de face</h3>
+      <p class="meta">“Ritidoplastia / facelifting” · recuperação estimada em 8 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>Dormir com a cabeceira elevada reduz muito o inchaço</li><li>Dormência na frente das orelhas e no pescoço é esperada</li><li>Compressa fria apenas nas primeiras 48 horas</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Blefaroplastia</h3>
+      <p class="meta">“Cirurgia das pálpebras” · recuperação estimada em 3 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>Roxo ao redor dos olhos é esperado e some em 2 a 3 semanas</li><li>Olho seco ou lacrimejante é comum no início</li><li>Evitar telas e leitura prolongada nos primeiros dias</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Otoplastia</h3>
+      <p class="meta">“Cirurgia das orelhas” · recuperação estimada em 3 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>Faixa elástica conforme orientação, principalmente para dormir</li><li>Evitar dormir de lado sobre as orelhas</li><li>Dor súbita e intensa em uma orelha precisa ser avaliada</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Correção de ginecomastia</h3>
+      <p class="meta">“Cirurgia da mama masculina” · recuperação estimada em 5 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>Malha compressiva em tempo integral</li><li>Endurecimento sob a aréola por alguns meses é esperado</li><li>Evitar exercícios de peito por 6 a 8 semanas</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Cirurgia pós-bariátrica</h3>
+      <p class="meta">“Retirada de excesso de pele” · recuperação estimada em 10 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>Cicatrizes longas exigem cuidado e paciência redobrados</li><li>Manter a suplementação vitamínica orientada pelo seu médico</li><li>Drenos podem permanecer por mais tempo que em outras cirurgias</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Outro procedimento</h3>
+      <p class="meta">“Orientações gerais do pós-operatório” · recuperação estimada em 6 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>Siga as orientações específicas entregues na sua alta</li><li>Em caso de dúvida, fale com a equipe</li></ul>
+    </article>
+  <h3 class="grupo">Procedimentos de consultório</h3>
+  
+    <article class="bloco">
+      <h3>Toxina botulínica</h3>
+      <p class="meta">“Botox — rugas de expressão” · resultado final em torno de 2 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>O efeito começa em 3 a 5 dias e se completa em 15</li><li>Não deitar, não abaixar a cabeça e não fazer exercício nas primeiras 4 horas</li><li>Não massagear nem esfregar a região no primeiro dia</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Preenchimento</h3>
+      <p class="meta">“Ácido hialurônico” · resultado final em torno de 4 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>Inchaço e roxos nos primeiros dias são esperados</li><li>Dor forte com palidez ou manchas arroxeadas na pele exige contato imediato</li><li>O resultado final aparece depois que o inchaço passa, por volta de 15 dias</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Bioestimulador de colágeno</h3>
+      <p class="meta">“Estímulo de colágeno em sessões” · resultado final em torno de 12 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>A massagem no período orientado faz parte do tratamento</li><li>O resultado é progressivo: aparece entre 4 e 12 semanas</li><li>Pequenos nódulos que aparecem semanas depois devem ser avaliados</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Laser de CO₂</h3>
+      <p class="meta">“Laser fracionado ablativo” · resultado final em torno de 8 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>A pele fica como uma queimadura de sol e descama entre o 3º e o 7º dia</li><li>Hidratar sempre e nunca retirar as casquinhas</li><li>Protetor solar rigoroso — é o que evita manchas</li></ul>
+    </article>
+    <article class="bloco">
+      <h3>Morpheus</h3>
+      <p class="meta">“Microagulhamento com radiofrequência” · resultado final em torno de 10 semanas</p>
+      <h4>Atenção especial na tela inicial</h4><ul><li>As marquinhas em grade costumam sumir em uma semana, mas podem levar mais</li><li>O resultado é progressivo e costuma exigir mais de uma sessão</li><li>Protetor solar diário desde o dia seguinte</li></ul>
+    </article>
+</section>
+<section id="linha-do-tempo"><h2>2. Linha do tempo</h2>
+  <h3 class="grupo">Cirurgias</h3>
+  
+  <article class="bloco">
+    <h3>Antes da cirurgia</h3>
+    <p class="resumo">A preparação influencia diretamente a recuperação. Estas são as orientações gerais para os dias que antecedem a cirurgia.</p>
+    <h4>O que é esperado</h4><ul><li>Ansiedade e sono irregular na véspera são comuns</li><li>A equipe confirma horário, jejum e local do procedimento</li><li>Exames e avaliação pré-anestésica precisam estar em dia</li></ul>
+    <h4>O que fazer</h4><ul><li>Seguir o tempo de jejum exatamente como orientado</li><li>Confirmar com a equipe quais medicamentos manter ou suspender</li><li>Organizar acompanhante para a alta e para os primeiros dias</li><li>Deixar em casa a cinta ou o sutiã cirúrgico, medicações e curativos</li><li>Preparar refeições e o lugar onde vai descansar</li></ul>
+    <h4>O que evitar</h4><ul><li>Anti-inflamatórios, suplementos e chás sem liberação da equipe</li><li>Bebida alcoólica nas 48 horas anteriores</li><li>Cigarro — parar antes da cirurgia melhora a cicatrização</li><li>Depilação ou qualquer procedimento estético na área a ser operada</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Primeiras 48 horas</h3>
+    <p class="resumo">Fase de repouso protegido. O corpo está reagindo à cirurgia e ao anestésico. Sonolência, mal-estar e desconforto são esperados.</p>
+    <h4>O que é esperado</h4><ul><li>Dor controlável com a medicação prescrita</li><li>Inchaço aumentando — o pico costuma ser no 2º ou 3º dia</li><li>Sensação de peso, aperto ou queimação na área operada</li><li>Cansaço, sonolência e pouca vontade de comer</li><li>Pequena saída de líquido rosado nos curativos</li></ul>
+    <h4>O que fazer</h4><ul><li>Tomar os remédios nos horários certos, sem esperar a dor chegar</li><li>Levantar da cama apenas acompanhada, devagar e em duas etapas</li><li>Movimentar os pés e as pernas na cama de hora em hora</li><li>Beber água ao longo do dia</li><li>Manter a malha, cinta ou sutiã cirúrgico o tempo todo</li></ul>
+    <h4>O que evitar</h4><ul><li>Ficar totalmente parada na cama por muitas horas</li><li>Dirigir ou tomar decisões importantes (efeito da anestesia)</li><li>Molhar os curativos</li><li>Fumar ou consumir bebida alcoólica</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Dias 3 a 7</h3>
+    <p class="resumo">O pico do inchaço e dos roxos acontece agora e começa a ceder. A dor costuma diminuir bastante a partir do 4º dia.</p>
+    <h4>O que é esperado</h4><ul><li>Roxos escurecendo antes de clarear — isso é normal</li><li>Inchaço assimétrico: um lado pode inchar mais que o outro</li><li>Coceira leve e sensação de fisgadas ou choques</li><li>Áreas dormentes ao redor das cicatrizes</li><li>Intestino preso por causa dos analgésicos</li></ul>
+    <h4>O que fazer</h4><ul><li>Caminhar dentro de casa, várias vezes ao dia e por poucos minutos</li><li>Iniciar a drenagem linfática se já liberada pela equipe</li><li>Comparecer ao primeiro retorno para revisão dos curativos</li><li>Manter alimentação rica em proteína e fibras</li><li>Dormir na posição orientada para a sua cirurgia</li></ul>
+    <h4>O que evitar</h4><ul><li>Esforço físico, agachar e pegar peso</li><li>Banho de imersão, piscina, mar e sauna</li><li>Passar cremes ou pomadas por conta própria na cicatriz</li><li>Comparar o resultado com fotos — ainda é muito cedo</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Semanas 2 e 3</h3>
+    <p class="resumo">Fase de retomada gradual. A maioria das pacientes já se sente bem em casa e muitas voltam a atividades leves.</p>
+    <h4>O que é esperado</h4><ul><li>Melhora clara da dor — desconforto pontual ainda ocorre</li><li>Roxos amarelando e desaparecendo</li><li>Cicatriz avermelhada e um pouco elevada</li><li>Endurecimento e nódulos sob a pele nas áreas lipoaspiradas</li><li>Cansaço no fim do dia</li></ul>
+    <h4>O que fazer</h4><ul><li>Retomar o trabalho leve, se liberada pela equipe</li><li>Manter a compressão conforme orientado</li><li>Seguir com a drenagem linfática na frequência indicada</li><li>Hidratar a pele ao redor da cicatriz (não sobre os pontos)</li></ul>
+    <h4>O que evitar</h4><ul><li>Academia, corrida e qualquer exercício de impacto</li><li>Sol direto sobre a cicatriz</li><li>Relações sexuais e esforços intensos sem liberação</li><li>Abandonar a cinta ou o sutiã cirúrgico mais cedo</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Semanas 4 a 6</h3>
+    <p class="resumo">Retorno progressivo à rotina. O inchaço continua diminuindo, mas de forma mais lenta e discreta.</p>
+    <h4>O que é esperado</h4><ul><li>Inchaço que oscila ao longo do dia e piora à noite</li><li>Cicatriz ainda vermelha — o clareamento leva meses</li><li>Sensibilidade voltando aos poucos, com formigamento</li><li>Contorno corporal começando a se definir</li></ul>
+    <h4>O que fazer</h4><ul><li>Retomar exercícios leves apenas após liberação médica</li><li>Iniciar tratamento de cicatriz se indicado pela equipe</li><li>Usar protetor solar sobre a cicatriz sempre que exposta</li><li>Manter peso estável e boa hidratação</li></ul>
+    <h4>O que evitar</h4><ul><li>Voltar à musculação pesada por conta própria</li><li>Bronzeamento natural ou artificial</li><li>Massagens fortes sobre a área operada sem orientação</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Meses 2 e 3</h3>
+    <p class="resumo">A forma já se aproxima do resultado, mas a cicatriz entra na fase em que mais precisa de cuidado.</p>
+    <h4>O que é esperado</h4><ul><li>Cicatriz podendo ficar mais espessa e avermelhada — fase esperada</li><li>Inchaço residual, principalmente no fim do dia</li><li>Sensibilidade quase normal na maior parte das áreas</li><li>Retorno pleno às atividades físicas quando liberada</li></ul>
+    <h4>O que fazer</h4><ul><li>Manter o tratamento da cicatriz com disciplina</li><li>Protetor solar diário na cicatriz exposta</li><li>Comparecer aos retornos de acompanhamento</li><li>Registrar fotos de evolução para comparar com calma</li></ul>
+    <h4>O que evitar</h4><ul><li>Interromper o cuidado com a cicatriz por achar que já está bom</li><li>Sol sem proteção</li><li>Ganho ou perda de peso rápidos</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Meses 4 a 12</h3>
+    <p class="resumo">Fase de maturação. A cicatriz clareia e amolece, e o resultado final se consolida ao longo do primeiro ano.</p>
+    <h4>O que é esperado</h4><ul><li>Cicatriz clareando progressivamente até ficar mais clara e plana</li><li>Contorno definitivo se estabelecendo</li><li>Pequenas áreas de dormência que podem levar até 1 ano para normalizar</li></ul>
+    <h4>O que fazer</h4><ul><li>Manter protetor solar sobre a cicatriz por 12 meses</li><li>Vida ativa e peso estável para preservar o resultado</li><li>Manter os retornos anuais de acompanhamento</li></ul>
+    <h4>O que evitar</h4><ul><li>Sol direto na cicatriz sem proteção — é o que mais escurece a marca</li><li>Tabagismo, que prejudica a qualidade da cicatriz</li></ul>
+  </article>
+  <h3 class="grupo">Procedimentos de consultório</h3>
+  
+  <article class="bloco">
+    <h3>Antes do procedimento</h3>
+    <p class="resumo">Alguns cuidados simples nos dias anteriores reduzem inchaço e roxos.</p>
+    <h4>O que é esperado</h4><ul><li>O procedimento é feito no consultório, com anestésico local ou tópico</li><li>Você sai andando e retoma a rotina no mesmo dia, com restrições leves</li></ul>
+    <h4>O que fazer</h4><ul><li>Avisar a equipe sobre medicamentos, suplementos e histórico de herpes</li><li>Chegar sem maquiagem na região a ser tratada</li><li>Programar o procedimento com folga antes de eventos importantes</li></ul>
+    <h4>O que evitar</h4><ul><li>Anti-inflamatórios, ômega 3, vitamina E e ginkgo nos dias anteriores, salvo orientação</li><li>Bebida alcoólica nas 24 horas anteriores</li><li>Sol intenso e pele bronzeada ou irritada no dia</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Primeiras 24 horas</h3>
+    <p class="resumo">O período em que os cuidados fazem mais diferença. A maior parte das orientações vale só para hoje.</p>
+    <h4>O que é esperado</h4><ul><li>Vermelhidão e pequeno inchaço nos pontos de aplicação</li><li>Sensação de ardência ou calor local</li><li>Pontinhos de sangue ou roxos começando a aparecer</li></ul>
+    <h4>O que fazer</h4><ul><li>Manter a cabeceira elevada para dormir</li><li>Compressa fria por alguns minutos, se orientado</li><li>Beber água e manter a pele limpa</li></ul>
+    <h4>O que evitar</h4><ul><li>Massagear, apertar ou esfregar a área tratada</li><li>Exercício físico, sauna, sol forte e bebida alcoólica</li><li>Maquiagem sobre a área, salvo liberação</li><li>Deitar de bruços ou abaixar a cabeça por longos períodos</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Dias 2 a 7</h3>
+    <p class="resumo">Fase em que o inchaço e as marcas cedem. É cedo demais para julgar o resultado.</p>
+    <h4>O que é esperado</h4><ul><li>Roxos escurecendo antes de clarear</li><li>Inchaço assimétrico — um lado pode estar mais inchado</li><li>Pequenas irregularidades ao toque</li><li>Sensibilidade ao encostar na região</li></ul>
+    <h4>O que fazer</h4><ul><li>Manter hidratação da pele e protetor solar</li><li>Seguir a orientação de massagem, se houver — em alguns tratamentos ela faz parte</li><li>Retomar a rotina normalmente</li></ul>
+    <h4>O que evitar</h4><ul><li>Exposição solar sem proteção</li><li>Procedimentos estéticos na mesma área sem liberação</li><li>Concluir qualquer coisa sobre o resultado</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Semanas 2 a 4</h3>
+    <p class="resumo">O inchaço já saiu e o que você vê começa a ser o resultado de verdade.</p>
+    <h4>O que é esperado</h4><ul><li>Aparência natural, sem sinais do procedimento</li><li>Resultado se acomodando e ficando mais harmônico</li><li>Pequenas assimetrias que ainda podem se ajustar</li></ul>
+    <h4>O que fazer</h4><ul><li>Comparecer à avaliação de retorno, quando marcada</li><li>Levar suas dúvidas e observações anotadas</li><li>Manter protetor solar diário</li></ul>
+    <h4>O que evitar</h4><ul><li>Pedir retoque antes da avaliação — o resultado ainda está se definindo</li><li>Bronzeamento</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>A partir do 2º mês</h3>
+    <p class="resumo">Resultado consolidado. A partir daqui o que conta é manutenção e acompanhamento.</p>
+    <h4>O que é esperado</h4><ul><li>Efeito estável, dentro da duração esperada para o tratamento</li><li>Em bioestimuladores, ganho progressivo até cerca de 3 meses</li></ul>
+    <h4>O que fazer</h4><ul><li>Combinar com a equipe quando será a manutenção</li><li>Manter cuidado diário com a pele e proteção solar</li></ul>
+    <h4>O que evitar</h4><ul><li>Deixar passar muito do prazo de manutenção, se o objetivo é manter o resultado</li></ul>
+  </article>
+</section>
+<section id="marcos"><h2>3. Marcos por procedimento</h2>
+
+  <article class="bloco">
+    <h3>Mamoplastia de aumento</h3>
+    <table><tbody><tr><th>D2</th><td>Mamas altas e endurecidas — elas descem naturalmente em semanas</td></tr><tr><th>D30</th><td>As próteses começam a acomodar e o formato se naturaliza</td></tr><tr><th>D90</th><td>Formato próximo do definitivo</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Mastopexia</h3>
+    <table><tbody><tr><th>D14</th><td>Retirada de pontos conforme orientação da equipe</td></tr><tr><th>D60</th><td>Cicatrizes entram na fase de maior cuidado</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Mamoplastia redutora</h3>
+    <table><tbody><tr><th>D14</th><td>Revisão das cicatrizes no encontro em T</td></tr><tr><th>D90</th><td>Sensibilidade dos mamilos costuma retornar</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Abdominoplastia</h3>
+    <table><tbody><tr><th>D7</th><td>Postura ereta é retomada gradualmente</td></tr><tr><th>D21</th><td>Cinta pode passar a ser usada por período parcial, se liberado</td></tr><tr><th>D60</th><td>Retorno a exercícios abdominais, quando liberada</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Lipoescultura</h3>
+    <table><tbody><tr><th>D21</th><td>Fase de maior endurecimento — a drenagem faz diferença aqui</td></tr><tr><th>D90</th><td>Contorno definido, com inchaço residual mínimo</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Rinoplastia</h3>
+    <table><tbody><tr><th>D7</th><td>Retirada do curativo ou splint nasal</td></tr><tr><th>D30</th><td>Nariz ainda inchado, principalmente na ponta</td></tr><tr><th>D365</th><td>Resultado definitivo da ponta nasal</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Cirurgia de face</h3>
+    <table><tbody><tr><th>D10</th><td>Retirada dos pontos conforme orientação</td></tr><tr><th>D30</th><td>Aparência social recuperada na maioria dos casos</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Blefaroplastia</h3>
+    <table><tbody><tr><th>D5</th><td>Retirada dos pontos das pálpebras</td></tr><tr><th>D21</th><td>Roxos resolvidos na maioria das pacientes</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Otoplastia</h3>
+    <table><tbody><tr><th>D7</th><td>Troca do curativo pela faixa elástica</td></tr><tr><th>D30</th><td>Faixa apenas para dormir, conforme orientação</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Correção de ginecomastia</h3>
+    <table><tbody><tr><th>D30</th><td>Endurecimento sob a aréola começa a ceder</td></tr><tr><th>D60</th><td>Liberação progressiva de exercícios de peito</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Cirurgia pós-bariátrica</h3>
+    <table><tbody><tr><th>D14</th><td>Retirada de drenos e pontos conforme evolução</td></tr><tr><th>D90</th><td>Cicatrizes longas entram em maturação</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Toxina botulínica</h3>
+    <table><tbody><tr><th>D4</th><td>O efeito começa a aparecer</td></tr><tr><th>D15</th><td>Efeito completo — é quando se avalia a necessidade de retoque</td></tr><tr><th>D120</th><td>Época habitual de reavaliar a manutenção</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Preenchimento</h3>
+    <table><tbody><tr><th>D3</th><td>Pico do inchaço, já começando a ceder</td></tr><tr><th>D15</th><td>Inchaço resolvido — o que se vê agora é o resultado</td></tr><tr><th>D30</th><td>Avaliação de retorno e eventual complemento</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Bioestimulador de colágeno</h3>
+    <table><tbody><tr><th>D5</th><td>Fim do período de massagem orientada, se indicado</td></tr><tr><th>D30</th><td>Primeiros sinais de ganho de colágeno</td></tr><tr><th>D90</th><td>Resultado da sessão consolidado</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Laser de CO₂</h3>
+    <table><tbody><tr><th>D3</th><td>Início da descamação — não retirar as casquinhas</td></tr><tr><th>D7</th><td>Pele renovada, ainda rosada</td></tr><tr><th>D30</th><td>Vermelhidão bem reduzida; maquiagem liberada há semanas</td></tr><tr><th>D90</th><td>Resultado de textura e firmeza consolidado</td></tr></tbody></table>
+  </article>
+  <article class="bloco">
+    <h3>Morpheus</h3>
+    <table><tbody><tr><th>D7</th><td>As marquinhas em grade costumam ter clareado bastante</td></tr><tr><th>D30</th><td>Firmeza começa a aparecer; em algumas pacientes as marcas ainda são visíveis</td></tr><tr><th>D90</th><td>Resultado da sessão consolidado</td></tr></tbody></table>
+  </article>
+</section>
+<section id="sintomas"><h2>4. O que é normal e o que não é</h2>
+<h3 class="grupo v">Contato imediato — 16 orientações</h3>
+  
+    <article class="bloco v">
+      <h3>Falta de ar ou dor no peito</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Qualquer momento do pós-operatório · somente cirurgias</p>
+      <p class="resumo forte">Procure atendimento de emergência agora. Não espere para ver se melhora e não dirija até o hospital.</p>
+      <h4>Por que acontece</h4><ul><li>Pode indicar um coágulo que se deslocou para o pulmão, uma complicação rara mas grave.</li><li>Também pode estar ligado a alterações cardíacas ou respiratórias que precisam de avaliação imediata.</li></ul>
+      <h4>O que fazer</h4><ul><li>Ligue para a emergência ou vá ao pronto-socorro mais próximo agora</li><li>Avise a equipe do Dr. Henrique pelo contato de urgência</li><li>Informe no atendimento a cirurgia realizada e a data</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Dor e inchaço em apenas uma perna</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Mais frequente nas primeiras 2 semanas · somente cirurgias</p>
+      <p class="resumo forte">Dor forte na batata da perna, com inchaço, calor ou vermelhidão em apenas um lado precisa de avaliação hoje.</p>
+      <h4>Por que acontece</h4><ul><li>Pode ser trombose venosa profunda — um coágulo na circulação da perna.</li><li>Quanto mais cedo tratada, mais simples é a resolução.</li></ul>
+      <h4>O que fazer</h4><ul><li>Entre em contato com a equipe imediatamente</li><li>Não massageie a perna e não aplique calor</li><li>Procure um pronto-socorro se não conseguir contato rápido</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Febre acima de 38 °C</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> A partir do 3º dia é o sinal mais relevante · somente cirurgias</p>
+      <p class="resumo forte">Febre alta, especialmente com calafrios ou piora da dor, precisa ser comunicada no mesmo dia.</p>
+      <h4>Por que acontece</h4><ul><li>Pode ser o primeiro sinal de infecção na área operada.</li><li>Nas primeiras 48 horas, uma temperatura levemente elevada pode ser apenas reação à cirurgia — mas acima de 38 °C sempre deve ser avaliada.</li></ul>
+      <h4>O que fazer</h4><ul><li>Meça a temperatura e anote o horário</li><li>Entre em contato com a equipe informando o valor</li><li>Não inicie antibiótico por conta própria</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Sangramento que encharca o curativo</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Mais comum nas primeiras 48 horas · somente cirurgias</p>
+      <p class="resumo forte">Sangue vivo em quantidade, que encharca o curativo rapidamente ou escorre, exige contato imediato.</p>
+      <h4>Por que acontece</h4><ul><li>Pequenas manchas rosadas ou avermelhadas no curativo são esperadas.</li><li>Sangramento contínuo pode indicar um vaso que voltou a sangrar.</li></ul>
+      <h4>O que fazer</h4><ul><li>Faça compressão firme sobre o local com um pano limpo</li><li>Ligue para a equipe imediatamente</li><li>Vá ao pronto-socorro se o sangramento não parar com a compressão</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Um lado inchou muito mais, de repente</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Geralmente nas primeiras 72 horas · somente cirurgias</p>
+      <p class="resumo forte">Aumento rápido e assimétrico de volume, com dor forte e endurecimento, precisa ser avaliado no mesmo dia.</p>
+      <h4>Por que acontece</h4><ul><li>Pode ser um hematoma — acúmulo de sangue que às vezes precisa ser drenado.</li><li>Quando tratado cedo, não compromete o resultado final.</li></ul>
+      <h4>O que fazer</h4><ul><li>Entre em contato com a equipe agora</li><li>Mantenha a compressão e evite qualquer esforço</li><li>Fotografe os dois lados para mostrar a diferença</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Vermelhidão que se espalha, calor e pus</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Mais comum entre o 4º e o 10º dia · somente cirurgias</p>
+      <p class="resumo forte">Vermelhidão que aumenta a cada dia, pele quente, dor crescente ou secreção com pus e mau cheiro indicam infecção.</p>
+      <h4>Por que acontece</h4><ul><li>Uma borda rosada fina na cicatriz é esperada nos primeiros dias.</li><li>O que preocupa é a vermelhidão que se espalha, associada a dor que piora em vez de melhorar.</li></ul>
+      <h4>O que fazer</h4><ul><li>Fotografe a área com boa luz e envie para a equipe</li><li>Entre em contato no mesmo dia</li><li>Não aplique pomadas ou produtos caseiros sobre a ferida</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Pele escurecida, arroxeada ou preta na cicatriz</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Entre o 3º e o 14º dia · somente cirurgias</p>
+      <p class="resumo forte">Área da pele que fica escura, endurecida e não clareia precisa ser avaliada rapidamente.</p>
+      <h4>Por que acontece</h4><ul><li>Pode indicar sofrimento de circulação naquela região da pele.</li><li>Quanto antes acompanhada, menor o impacto na cicatriz final.</li></ul>
+      <h4>O que fazer</h4><ul><li>Fotografe e envie para a equipe hoje</li><li>Não retire crostas nem esfregue o local</li><li>Mantenha a área limpa e seca conforme orientado</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Dor que não melhora com a medicação</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Qualquer momento · somente cirurgias</p>
+      <p class="resumo forte">Dor forte que piora a cada dia, ou que a medicação prescrita não alivia, não é parte esperada da recuperação.</p>
+      <h4>Por que acontece</h4><ul><li>A dor do pós-operatório deve diminuir progressivamente a partir do 3º ou 4º dia.</li><li>Dor que aumenta pode sinalizar hematoma, infecção ou compressão excessiva.</li></ul>
+      <h4>O que fazer</h4><ul><li>Confira se está tomando os remédios nos horários certos</li><li>Verifique se a cinta ou o sutiã não estão apertados demais</li><li>Entre em contato com a equipe se a dor persistir</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Vômitos que não param ou não conseguir beber água</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Primeiras 48 horas, geralmente · somente cirurgias</p>
+      <p class="resumo forte">Enjoo leve após a anestesia é comum. Vômitos repetidos por mais de algumas horas exigem contato.</p>
+      <h4>Por que acontece</h4><ul><li>Impede a tomada correta dos medicamentos e leva à desidratação.</li><li>Pode ser reação a um dos remédios prescritos, que talvez precise ser trocado.</li></ul>
+      <h4>O que fazer</h4><ul><li>Entre em contato com a equipe para ajuste da medicação</li><li>Tente pequenos goles de água gelada enquanto aguarda</li><li>Procure atendimento se não conseguir ingerir líquidos por mais de 6 horas</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Perda de visão ou dor forte no olho</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Qualquer momento após a cirurgia · apenas Blefaroplastia, Cirurgia de face</p>
+      <p class="resumo forte">Queda da visão, visão dupla persistente ou dor ocular intensa é uma emergência oftalmológica.</p>
+      <h4>Por que acontece</h4><ul><li>Situação rara, mas que precisa de avaliação em caráter imediato.</li></ul>
+      <h4>O que fazer</h4><ul><li>Procure um pronto-socorro oftalmológico agora</li><li>Avise a equipe pelo contato de urgência</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Sangramento pelo nariz que não para</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Primeiras 2 semanas · apenas Rinoplastia</p>
+      <p class="resumo forte">Pequenas manchas de sangue são esperadas. Sangramento contínuo por mais de 15 minutos precisa de avaliação.</p>
+      <h4>Por que acontece</h4><ul><li>A mucosa nasal está cicatrizando e pode sangrar com esforço, calor ou pressão.</li></ul>
+      <h4>O que fazer</h4><ul><li>Sente-se, incline a cabeça levemente para a frente e comprima a base do nariz</li><li>Aplique compressa fria na testa e na nuca</li><li>Entre em contato com a equipe se não parar em 15 minutos</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Dor forte com pele branca ou manchada</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Durante ou nas primeiras horas e dias após a aplicação · somente procedimentos de consultório · apenas Preenchimento, Bioestimulador de colágeno</p>
+      <p class="resumo forte">Dor intensa e desproporcional, pele esbranquiçada ou com manchas arroxeadas em desenho de renda: ligue agora. Resolvido nas primeiras horas, não deixa consequência.</p>
+      <h4>Por que acontece</h4><ul><li>Pode indicar que o produto comprimiu ou entrou em um vaso, reduzindo a circulação daquela área da pele.</li><li>É raro, mas o tempo importa muito: existe uma substância que dissolve o preenchimento e reverte o quadro.</li></ul>
+      <h4>O que fazer</h4><ul><li>Ligue para a equipe imediatamente, a qualquer hora</li><li>Fotografe a área com boa luz enquanto aguarda o retorno</li><li>Não massageie, não aplique gelo e não espere para ver se melhora</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Alteração da visão após a aplicação</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Durante ou logo após a aplicação · somente procedimentos de consultório · apenas Preenchimento, Bioestimulador de colágeno</p>
+      <p class="resumo forte">Visão embaçada, visão dupla, um ponto escuro ou dor forte no olho é emergência. Procure atendimento agora.</p>
+      <h4>Por que acontece</h4><ul><li>Complicação rara, mas que exige avaliação oftalmológica imediata.</li><li>Quanto mais rápido o atendimento, maior a chance de reverter.</li></ul>
+      <h4>O que fazer</h4><ul><li>Procure um pronto-socorro oftalmológico imediatamente</li><li>Avise a equipe pelo contato de urgência no caminho</li><li>Informe qual produto foi aplicado e em que região</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Dificuldade para engolir, falar ou respirar</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Da primeira à segunda semana · somente procedimentos de consultório · apenas Toxina botulínica</p>
+      <p class="resumo forte">Muito raro, mas exige atendimento imediato. Não espere para ver se melhora sozinho.</p>
+      <h4>Por que acontece</h4><ul><li>Pode indicar difusão da toxina para além da região tratada.</li></ul>
+      <h4>O que fazer</h4><ul><li>Procure um pronto-socorro agora</li><li>Avise a equipe e informe a data da aplicação</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Área quente, muito vermelha, com pus ou febre</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Do 2º ao 10º dia · somente procedimentos de consultório</p>
+      <p class="resumo forte">Vermelhidão que aumenta a cada dia, calor, dor crescente, secreção amarelada ou febre indicam infecção e precisam ser avaliados hoje.</p>
+      <h4>Por que acontece</h4><ul><li>Vermelhidão nas primeiras 48 horas é esperada; o que preocupa é a que se espalha e piora.</li><li>Infecção tratada cedo não deixa marca.</li></ul>
+      <h4>O que fazer</h4><ul><li>Fotografe com boa luz e envie para a equipe hoje</li><li>Meça a temperatura e informe o valor</li><li>Não passe pomadas nem produtos por conta própria</li></ul>
+    </article>
+    <article class="bloco v">
+      <h3>Bolha, ferida aberta ou dor que aumenta</h3>
+      <p class="meta"><span class="chip v">Contato imediato</span> Nas primeiras 72 horas · somente procedimentos de consultório · apenas Laser de CO₂, Morpheus</p>
+      <p class="resumo forte">Bolhas, pele em carne viva ou dor que piora em vez de melhorar precisam ser avaliadas rapidamente.</p>
+      <h4>Por que acontece</h4><ul><li>Ardência e aspecto de queimadura solar são esperados; bolha e ferida aberta, não.</li><li>Avaliada cedo, a situação se resolve sem deixar marca.</li></ul>
+      <h4>O que fazer</h4><ul><li>Fotografe e envie para a equipe hoje</li><li>Não estoure bolhas e não retire pele solta</li><li>Mantenha a hidratação prescrita até receber orientação</li></ul>
+    </article><h3 class="grupo a">Atenção — 16 orientações</h3>
+  
+    <article class="bloco a">
+      <h3>Um ponto abriu ou a cicatriz separou um pouco</h3>
+      <p class="meta"><span class="chip a">Atenção</span> Entre o 7º e o 21º dia · somente cirurgias</p>
+      <p class="resumo forte">Pequenas aberturas em pontos de maior tensão são relativamente comuns e costumam fechar sozinhas com curativo.</p>
+      <h4>Por que acontece</h4><ul><li>Os encontros de cicatrizes, como o "T" da mama e as extremidades do abdome, sofrem mais tensão.</li><li>Na maioria das vezes a resolução é apenas com cuidado local.</li></ul>
+      <h4>O que fazer</h4><ul><li>Fotografe e envie para a equipe</li><li>Mantenha a área limpa e seca</li><li>Evite qualquer esforço que estique a região</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Inchaço mole que "balança" ao toque</h3>
+      <p class="meta"><span class="chip a">Atenção</span> Entre a 2ª e a 6ª semana · somente cirurgias</p>
+      <p class="resumo forte">Acúmulo de líquido localizado, com sensação de bolsa d’água, deve ser avaliado — a drenagem no consultório é simples.</p>
+      <h4>Por que acontece</h4><ul><li>É o seroma: líquido que o corpo produz no espaço criado pela cirurgia.</li><li>É uma intercorrência comum e resolvida em consulta, sem necessidade de nova cirurgia.</li></ul>
+      <h4>O que fazer</h4><ul><li>Agende avaliação com a equipe</li><li>Mantenha a cinta compressiva com rigor</li><li>Não tente drenar ou pressionar o local por conta própria</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Saída de líquido amarelado pela cicatriz</h3>
+      <p class="meta"><span class="chip a">Atenção</span> Da 2ª à 6ª semana · somente cirurgias</p>
+      <p class="resumo forte">Líquido claro ou amarelo-citrino, sem cheiro, geralmente é seroma drenando sozinho. Se tiver pus ou odor, trate como urgente.</p>
+      <h4>Por que acontece</h4><ul><li>O corpo encontra uma saída natural para o líquido acumulado.</li></ul>
+      <h4>O que fazer</h4><ul><li>Troque o curativo e registre a quantidade por dia</li><li>Comunique a equipe no mesmo dia</li><li>Observe cor e cheiro — secreção esbranquiçada com odor exige contato imediato</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Intestino preso há mais de 3 dias</h3>
+      <p class="meta"><span class="chip a">Atenção</span> Primeira semana · somente cirurgias</p>
+      <p class="resumo forte">Muito frequente por causa dos analgésicos e do repouso. Vale ajustar antes que gere desconforto abdominal.</p>
+      <h4>Por que acontece</h4><ul><li>Analgésicos derivados de opioides reduzem o trânsito intestinal.</li><li>A menor movimentação e a mudança na alimentação contribuem.</li></ul>
+      <h4>O que fazer</h4><ul><li>Aumente a ingestão de água e fibras</li><li>Caminhe dentro de casa com frequência</li><li>Peça à equipe a orientação de um laxante leve — não use por conta própria</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Tontura ao levantar</h3>
+      <p class="meta"><span class="chip a">Atenção</span> Primeira semana · somente cirurgias</p>
+      <p class="resumo forte">Comum ao mudar de posição, principalmente com pouca ingestão de líquidos. Se houver desmaio, comunique a equipe.</p>
+      <h4>Por que acontece</h4><ul><li>Queda de pressão ao levantar, efeito de medicações e menor ingestão de alimentos.</li></ul>
+      <h4>O que fazer</h4><ul><li>Levante em duas etapas: sente-se, aguarde um minuto e só então fique de pé</li><li>Nunca levante sozinha nos primeiros dias</li><li>Aumente a ingestão de água e comunique a equipe se houver desmaio</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Manchas vermelhas pelo corpo ou coceira intensa</h3>
+      <p class="meta"><span class="chip a">Atenção</span> Primeiros dias, após iniciar as medicações · todos os procedimentos</p>
+      <p class="resumo forte">Pode ser reação alérgica a algum medicamento. Se houver inchaço nos lábios, na língua ou falta de ar, é emergência.</p>
+      <h4>Por que acontece</h4><ul><li>Antibióticos e analgésicos estão entre as causas mais comuns de alergia medicamentosa.</li></ul>
+      <h4>O que fazer</h4><ul><li>Fotografe as manchas e comunique a equipe</li><li>Não suspenda a medicação sem orientação, exceto se houver sinais graves</li><li>Procure emergência se houver falta de ar ou inchaço no rosto</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Cicatriz grossa, elevada e muito vermelha</h3>
+      <p class="meta"><span class="chip a">Atenção</span> A partir da 6ª semana · somente cirurgias</p>
+      <p class="resumo forte">Cicatriz que engrossa e cresce além da linha original merece avaliação — o tratamento precoce funciona muito melhor.</p>
+      <h4>Por que acontece</h4><ul><li>Algumas pessoas têm tendência a cicatriz hipertrófica ou queloide.</li><li>Existem tratamentos eficazes, e quanto antes iniciados, melhor o resultado.</li></ul>
+      <h4>O que fazer</h4><ul><li>Fotografe e leve ao retorno</li><li>Mantenha proteção solar rigorosa</li><li>Siga o tratamento de cicatriz indicado pela equipe</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Assimetria que persiste após 3 meses</h3>
+      <p class="meta"><span class="chip a">Atenção</span> A partir do 3º mês · somente cirurgias</p>
+      <p class="resumo forte">Pequenas diferenças entre os lados são normais e definitivas em qualquer corpo. Diferença marcante após 3 meses deve ser conversada no retorno.</p>
+      <h4>Por que acontece</h4><ul><li>Nas primeiras semanas a assimetria quase sempre é apenas inchaço desigual.</li><li>Após a estabilização, o que persiste pode ser avaliado com calma.</li></ul>
+      <h4>O que fazer</h4><ul><li>Leve suas dúvidas e fotos ao retorno</li><li>Evite conclusões antes de 3 a 6 meses</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Mama endurecendo e mudando de formato</h3>
+      <p class="meta"><span class="chip a">Atenção</span> A partir do 3º mês · apenas Mamoplastia de aumento, Mastopexia</p>
+      <p class="resumo forte">Endurecimento progressivo, com a mama subindo ou ficando mais redonda e dolorida, deve ser avaliado.</p>
+      <h4>Por que acontece</h4><ul><li>Pode ser contratura capsular, uma reação da cápsula que o corpo forma ao redor da prótese.</li><li>É pouco frequente e tem tratamento.</li></ul>
+      <h4>O que fazer</h4><ul><li>Agende avaliação</li><li>Compare com fotos de meses anteriores</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Formigamento ou dormência causados pela cinta</h3>
+      <p class="meta"><span class="chip a">Atenção</span> Enquanto usar a compressão · somente cirurgias</p>
+      <p class="resumo forte">Cinta ou malha apertada demais pode comprimir nervos e prejudicar a circulação. Ela deve comprimir, não sufocar.</p>
+      <h4>Por que acontece</h4><ul><li>A compressão certa é firme e confortável — você deve conseguir passar dois dedos entre a cinta e a pele.</li></ul>
+      <h4>O que fazer</h4><ul><li>Afrouxe ou troque para o tamanho adequado</li><li>Comunique a equipe se o sintoma persistir sem a cinta</li><li>Procure atendimento se a pele ficar pálida, fria ou roxa</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Pálpebra ou sobrancelha caída</h3>
+      <p class="meta"><span class="chip a">Atenção</span> Entre o 3º e o 15º dia · somente procedimentos de consultório · apenas Toxina botulínica</p>
+      <p class="resumo forte">É incomum, temporário e reversível. Comunique a equipe: em muitos casos há um colírio que ameniza enquanto passa.</p>
+      <h4>Por que acontece</h4><ul><li>A toxina pode atingir levemente um músculo vizinho ao tratado.</li><li>O efeito é sempre passageiro e melhora ao longo de algumas semanas.</li></ul>
+      <h4>O que fazer</h4><ul><li>Envie uma foto de frente com o rosto relaxado e outra levantando a sobrancelha</li><li>Agende avaliação com a equipe</li><li>Evite massagear a região</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Um lado ficou diferente do outro</h3>
+      <p class="meta"><span class="chip a">Atenção</span> A partir do 15º dia · somente procedimentos de consultório · apenas Toxina botulínica, Preenchimento</p>
+      <p class="resumo forte">Antes de 15 dias o efeito ainda está se completando e a diferença costuma se resolver sozinha. Depois disso, o ajuste é simples.</p>
+      <h4>Por que acontece</h4><ul><li>A musculatura dos dois lados do rosto raramente é idêntica, e nem sempre responde igual.</li><li>Pequenos retoques fazem parte do tratamento e costumam ser feitos na avaliação de retorno.</li></ul>
+      <h4>O que fazer</h4><ul><li>Aguarde completar 15 dias antes de avaliar</li><li>Leve fotos ao retorno, com a expressão em repouso e em movimento</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Caroço que persiste ou aparece semanas depois</h3>
+      <p class="meta"><span class="chip a">Atenção</span> Da 3ª semana em diante · somente procedimentos de consultório · apenas Bioestimulador de colágeno, Preenchimento</p>
+      <p class="resumo forte">Nódulos palpáveis devem ser mostrados à equipe. Quase sempre têm tratamento simples, e quanto antes avaliados, mais fácil.</p>
+      <h4>Por que acontece</h4><ul><li>Nos primeiros dias, irregularidades ao toque são esperadas e somem sozinhas.</li><li>Nódulos que persistem ou surgem semanas ou meses depois — às vezes após uma infecção ou vacina — têm conduta própria.</li></ul>
+      <h4>O que fazer</h4><ul><li>Marque avaliação e mostre exatamente onde está</li><li>Não tente desfazer o nódulo apertando por conta própria</li><li>Avise se houve infecção recente, gripe ou vacinação</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Bolhinhas agrupadas com ardência</h3>
+      <p class="meta"><span class="chip a">Atenção</span> Do 2º ao 7º dia · somente procedimentos de consultório · apenas Laser de CO₂, Morpheus, Preenchimento</p>
+      <p class="resumo forte">Pode ser herpes reativado pelo procedimento. Precisa de medicação logo no início — avise a equipe hoje.</p>
+      <h4>Por que acontece</h4><ul><li>Quem já teve herpes labial pode reativá-lo após laser ou aplicação na região da boca.</li><li>Tratado nas primeiras horas, resolve rápido e sem deixar marca.</li></ul>
+      <h4>O que fazer</h4><ul><li>Fotografe e envie para a equipe no mesmo dia</li><li>Não estoure as bolhinhas</li><li>Avise sempre, em procedimentos futuros, que já teve herpes</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Manchas escuras aparecendo depois</h3>
+      <p class="meta"><span class="chip a">Atenção</span> Da 2ª semana ao 3º mês · somente procedimentos de consultório · apenas Laser de CO₂, Morpheus</p>
+      <p class="resumo forte">Escurecimento da pele tratada costuma estar ligado à exposição solar e tem tratamento. Comunique no retorno.</p>
+      <h4>Por que acontece</h4><ul><li>A pele recém-tratada reage ao sol produzindo mais pigmento.</li><li>É mais frequente em peles mais morenas e quando a proteção solar falha.</li></ul>
+      <h4>O que fazer</h4><ul><li>Reforce o protetor solar e reaplique ao longo do dia</li><li>Comunique a equipe para avaliar tratamento clareador</li><li>Evite exposição solar direta até a avaliação</li></ul>
+    </article>
+    <article class="bloco a">
+      <h3>Espinhas ou bolinhas brancas após o tratamento</h3>
+      <p class="meta"><span class="chip a">Atenção</span> Da 2ª à 4ª semana · somente procedimentos de consultório · apenas Laser de CO₂, Morpheus</p>
+      <p class="resumo forte">Acontece com alguma frequência, geralmente ligado aos cremes da recuperação. Comente no retorno para ajustar os produtos.</p>
+      <h4>Por que acontece</h4><ul><li>Cremes muito oclusivos usados na cicatrização podem obstruir os poros.</li><li>A renovação acelerada da pele também favorece pequenos cistos superficiais.</li></ul>
+      <h4>O que fazer</h4><ul><li>Não espreme nem cutuca</li><li>Leve ao retorno a lista dos produtos que está usando</li></ul>
+    </article><h3 class="grupo g">Esperado — 30 orientações</h3>
+  
+    <article class="bloco g">
+      <h3>Inchaço</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Pico entre o 2º e o 5º dia; melhora progressiva por meses · somente cirurgias</p>
+      <p class="resumo forte">É a resposta natural do corpo ao trauma cirúrgico e o sintoma mais duradouro da recuperação.</p>
+      <h4>Por que acontece</h4><ul><li>O inchaço aumenta até o 3º dia, depois começa a ceder de forma lenta.</li><li>Oscila durante o dia: melhor pela manhã, pior à noite e em dias quentes.</li><li>Pode levar de 3 a 6 meses para desaparecer por completo.</li></ul>
+      <h4>O que fazer</h4><ul><li>Mantenha a compressão conforme orientado</li><li>Faça a drenagem linfática na frequência indicada</li><li>Reduza o sal e mantenha boa hidratação</li><li>Descanse com a área operada elevada quando possível</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Roxos e manchas amareladas</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Do 2º ao 21º dia · somente cirurgias</p>
+      <p class="resumo forte">As equimoses escurecem antes de clarear, passando por roxo, verde e amarelo até sumir.</p>
+      <h4>Por que acontece</h4><ul><li>É sangue que se espalhou pelos tecidos e está sendo reabsorvido pelo corpo.</li><li>Podem migrar para baixo por efeito da gravidade — roxos que "descem" são esperados.</li></ul>
+      <h4>O que fazer</h4><ul><li>Nenhuma medida especial é necessária</li><li>Evite anti-inflamatórios por conta própria</li><li>Comunique se aparecerem roxos novos após a 3ª semana</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Dormência na área operada</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Desde o 1º dia, até 6 a 12 meses · somente cirurgias</p>
+      <p class="resumo forte">Perda de sensibilidade ao redor das cicatrizes é esperada e recupera aos poucos.</p>
+      <h4>Por que acontece</h4><ul><li>Pequenos nervos da pele são atravessados durante a cirurgia e se regeneram lentamente.</li><li>A volta da sensibilidade vem acompanhada de formigamento e fisgadas — é um bom sinal.</li></ul>
+      <h4>O que fazer</h4><ul><li>Tenha atenção redobrada com bolsa quente ou fria: a pele dormente queima sem avisar</li><li>Aguarde a recuperação natural, que pode levar até um ano</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Fisgadas, choques e agulhadas</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Da 2ª semana ao 6º mês · somente cirurgias</p>
+      <p class="resumo forte">São sinais da regeneração dos nervos. Costumam ser rápidas e passageiras.</p>
+      <h4>Por que acontece</h4><ul><li>Os nervos em recuperação disparam sensações momentâneas.</li><li>Tendem a ficar mais frequentes por algumas semanas e depois diminuem.</li></ul>
+      <h4>O que fazer</h4><ul><li>Nenhuma medida específica é necessária</li><li>Se forem intensas e constantes, comente no retorno</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Endurecimento e nódulos sob a pele</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Da 3ª semana ao 3º mês · somente cirurgias</p>
+      <p class="resumo forte">Áreas endurecidas, irregulares ou com pequenos caroços fazem parte da fase de fibrose e amolecem com o tempo.</p>
+      <h4>Por que acontece</h4><ul><li>O organismo forma tecido de reparo, que é firme no início e depois amolece.</li><li>É especialmente comum após lipoaspiração.</li></ul>
+      <h4>O que fazer</h4><ul><li>Mantenha a drenagem linfática e a compressão</li><li>Não massageie com força por conta própria</li><li>Comente no retorno se um endurecimento crescer ou doer muito</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Coceira na cicatriz</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Da 2ª semana ao 3º mês · somente cirurgias</p>
+      <p class="resumo forte">Coceira leve acompanha a cicatrização e costuma indicar que a pele está se reparando.</p>
+      <h4>Por que acontece</h4><ul><li>A liberação de histamina e a pele ressecada durante a cicatrização causam prurido.</li></ul>
+      <h4>O que fazer</h4><ul><li>Hidrate a pele ao redor — nunca sobre pontos ainda fechados</li><li>Não coce nem retire crostas</li><li>Comunique se vier acompanhada de manchas vermelhas espalhadas</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Cicatriz vermelha e endurecida</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Do 1º ao 3º mês · somente cirurgias</p>
+      <p class="resumo forte">A cicatriz fica mais vermelha e elevada antes de clarear. Esse é o caminho normal da maturação.</p>
+      <h4>Por que acontece</h4><ul><li>A fase inflamatória da cicatrização dura semanas e é seguida pela remodelação.</li><li>O clareamento completo pode levar de 12 a 18 meses.</li></ul>
+      <h4>O que fazer</h4><ul><li>Protetor solar sobre a cicatriz sempre que houver exposição</li><li>Siga o tratamento de cicatriz indicado</li><li>Tenha paciência — julgar a cicatriz antes de 6 meses não faz sentido</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Cansaço e falta de energia</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiras 2 a 4 semanas · somente cirurgias</p>
+      <p class="resumo forte">O corpo está direcionando energia para a cicatrização. Cansar-se rápido é esperado.</p>
+      <h4>Por que acontece</h4><ul><li>A cirurgia, a anestesia e a menor alimentação reduzem a disposição.</li><li>A recuperação da energia é gradual e não linear: há dias melhores e piores.</li></ul>
+      <h4>O que fazer</h4><ul><li>Respeite o descanso e evite comparar sua evolução com a de outras pacientes</li><li>Mantenha alimentação rica em proteína</li><li>Volte às atividades por etapas</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Tristeza ou arrependimento nos primeiros dias</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Entre o 3º e o 10º dia · somente cirurgias</p>
+      <p class="resumo forte">Muitas pacientes passam por uma fase de baixa emocional. É um fenômeno conhecido e passageiro.</p>
+      <h4>Por que acontece</h4><ul><li>Cansaço, dor, inchaço, dependência de outras pessoas e o efeito das medicações se somam.</li><li>Nessa fase o corpo ainda está inchado e o resultado não é visível — o que alimenta a insegurança.</li></ul>
+      <h4>O que fazer</h4><ul><li>Saiba que quase todas as pacientes passam por isso e melhora em poucos dias</li><li>Converse com a equipe e com pessoas próximas</li><li>Procure ajuda se a tristeza for intensa ou durar mais de 2 semanas</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Dificuldade para dormir</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiras 3 semanas · somente cirurgias</p>
+      <p class="resumo forte">Dormir numa posição diferente da habitual, com cinta e desconforto, atrapalha o sono no início.</p>
+      <h4>Por que acontece</h4><ul><li>A posição imposta pela cirurgia e o próprio desconforto fragmentam o sono.</li></ul>
+      <h4>O que fazer</h4><ul><li>Use travesseiros de apoio para manter a posição orientada</li><li>Evite cafeína no fim do dia</li><li>Peça orientação à equipe antes de usar qualquer indutor de sono</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Falta de apetite</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeira semana · somente cirurgias</p>
+      <p class="resumo forte">Comum nos primeiros dias. O importante é manter hidratação e proteína.</p>
+      <h4>Por que acontece</h4><ul><li>Efeito residual da anestesia, das medicações e da menor atividade física.</li></ul>
+      <h4>O que fazer</h4><ul><li>Prefira refeições pequenas e frequentes</li><li>Priorize proteína: ovos, carnes magras, iogurte, leguminosas</li><li>Beba água ao longo de todo o dia</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Líquido rosado no curativo</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiros 3 a 5 dias · somente cirurgias</p>
+      <p class="resumo forte">Manchas rosadas ou avermelhadas claras no curativo são esperadas nos primeiros dias.</p>
+      <h4>Por que acontece</h4><ul><li>É a mistura de líquido da cicatrização com pequena quantidade de sangue.</li></ul>
+      <h4>O que fazer</h4><ul><li>Troque o curativo conforme orientado</li><li>Comunique se o volume aumentar ou se o líquido ficar espesso e com odor</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Ganho de peso na balança</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiras 3 semanas · somente cirurgias</p>
+      <p class="resumo forte">É comum pesar mais depois da cirurgia. É retenção de líquido, não gordura.</p>
+      <h4>Por que acontece</h4><ul><li>O organismo retém líquido como parte da resposta inflamatória.</li><li>Esse peso se resolve conforme o inchaço cede.</li></ul>
+      <h4>O que fazer</h4><ul><li>Evite se pesar nas primeiras semanas</li><li>Mantenha hidratação e reduza o sal</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Alteração no ciclo menstrual</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiro e segundo ciclos após a cirurgia · somente cirurgias</p>
+      <p class="resumo forte">Atraso ou adiantamento da menstruação após a cirurgia é frequente.</p>
+      <h4>Por que acontece</h4><ul><li>Estresse cirúrgico e medicações podem alterar temporariamente o ciclo.</li></ul>
+      <h4>O que fazer</h4><ul><li>Nenhuma medida necessária — costuma normalizar no ciclo seguinte</li><li>Comente no retorno se persistir por mais de dois ciclos</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Mamas altas, duras e com formato estranho</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiras 4 a 8 semanas · apenas Mamoplastia de aumento, Mastopexia</p>
+      <p class="resumo forte">No começo as mamas ficam altas e firmes. Elas descem e naturalizam com o tempo — o processo é gradual.</p>
+      <h4>Por que acontece</h4><ul><li>O músculo e os tecidos ainda estão contraídos e a prótese precisa acomodar.</li><li>O formato só se define por volta do 3º mês.</li></ul>
+      <h4>O que fazer</h4><ul><li>Use o sutiã cirúrgico conforme orientado</li><li>Não julgue o resultado antes de 3 meses</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Mamilos sem sensibilidade ou muito sensíveis</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Do 1º dia ao 6º mês · apenas Mamoplastia de aumento, Mastopexia, Mamoplastia redutora, Correção de ginecomastia</p>
+      <p class="resumo forte">A sensibilidade dos mamilos costuma oscilar entre dormência e hipersensibilidade antes de normalizar.</p>
+      <h4>Por que acontece</h4><ul><li>Os nervos da região são delicados e se recuperam ao longo de meses.</li></ul>
+      <h4>O que fazer</h4><ul><li>Proteja com curativo macio se o contato com o tecido incomodar</li><li>Comente no retorno se não houver melhora após 6 meses</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Não conseguir ficar em pé totalmente ereta</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiros 7 a 14 dias · apenas Abdominoplastia, Cirurgia pós-bariátrica</p>
+      <p class="resumo forte">Andar levemente curvada é esperado e até desejável no início — protege a cicatriz do abdome.</p>
+      <h4>Por que acontece</h4><ul><li>A pele do abdome foi tracionada e precisa de alguns dias para acomodar.</li></ul>
+      <h4>O que fazer</h4><ul><li>Ande curvada de forma suave nos primeiros dias</li><li>Endireite a postura progressivamente a partir da 2ª semana</li><li>Evite forçar a posição ereta antes do tempo</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Nariz entupido e respiração difícil</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiras 3 a 6 semanas · apenas Rinoplastia</p>
+      <p class="resumo forte">A obstrução nasal é esperada nas primeiras semanas e melhora conforme o inchaço interno cede.</p>
+      <h4>Por que acontece</h4><ul><li>A mucosa interna do nariz também incha e leva semanas para desinchar.</li></ul>
+      <h4>O que fazer</h4><ul><li>Use soro fisiológico conforme orientado</li><li>Não assoe o nariz até liberação</li><li>Durma com a cabeceira elevada</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Ponta do nariz ainda grossa e inchada</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Até 12 meses · apenas Rinoplastia</p>
+      <p class="resumo forte">A ponta do nariz é a última região a desinchar. O resultado definitivo leva de 6 a 12 meses.</p>
+      <h4>Por que acontece</h4><ul><li>A pele da ponta nasal é mais espessa e retém inchaço por muito mais tempo.</li></ul>
+      <h4>O que fazer</h4><ul><li>Evite conclusões antes de 1 ano</li><li>Siga as orientações de massagem apenas se indicadas pela equipe</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Olhos secos, ardendo ou lacrimejando</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiras 3 semanas · apenas Blefaroplastia, Cirurgia de face</p>
+      <p class="resumo forte">Ressecamento e lacrimejamento alternados são comuns após cirurgia das pálpebras.</p>
+      <h4>Por que acontece</h4><ul><li>O inchaço altera temporariamente o fechamento das pálpebras e o filme lacrimal.</li></ul>
+      <h4>O que fazer</h4><ul><li>Use colírio lubrificante conforme orientação</li><li>Evite ambientes com ar-condicionado e vento direto</li><li>Reduza o tempo de tela nos primeiros dias</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Desconforto e sensibilidade nas orelhas</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiras 2 semanas · apenas Otoplastia</p>
+      <p class="resumo forte">Sensibilidade ao toque e incômodo com a faixa são esperados. Dor forte e súbita em uma orelha, não.</p>
+      <h4>Por que acontece</h4><ul><li>A cartilagem remodelada fica sensível por alguns dias.</li></ul>
+      <h4>O que fazer</h4><ul><li>Use a faixa conforme orientado, sem apertar demais</li><li>Evite dormir sobre as orelhas</li><li>Comunique a equipe se houver dor intensa em apenas um lado</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Inchaço no local aplicado</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Pico em 24 a 72 horas; resolve em cerca de 15 dias · somente procedimentos de consultório</p>
+      <p class="resumo forte">É a reação natural da pele. O inchaço dos primeiros dias não é o seu resultado — ele ainda vai sair.</p>
+      <h4>Por que acontece</h4><ul><li>A aplicação provoca uma reação inflamatória leve e temporária.</li><li>Nos lábios e ao redor dos olhos o inchaço é mais evidente e também mais rápido de resolver.</li></ul>
+      <h4>O que fazer</h4><ul><li>Compressa fria nas primeiras 24 horas, se orientado</li><li>Dormir com a cabeceira elevada</li><li>Reduzir o sal e manter boa hidratação</li><li>Evitar avaliar o resultado antes de 15 dias</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Roxos nos pontos de aplicação</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Do 1º ao 14º dia · somente procedimentos de consultório</p>
+      <p class="resumo forte">Muito comum, principalmente ao redor dos olhos e nos lábios. Some sozinho e pode ser coberto com maquiagem após 24 horas.</p>
+      <h4>Por que acontece</h4><ul><li>A agulha pode atingir pequenos vasos da pele, sem nenhuma consequência.</li><li>Anti-inflamatórios, ômega 3 e álcool nos dias anteriores aumentam a chance de roxo.</li></ul>
+      <h4>O que fazer</h4><ul><li>Compressa fria nas primeiras 24 horas</li><li>Maquiagem corretiva liberada após 24 horas, salvo outra orientação</li><li>Avisar antes do próximo procedimento se costuma marcar com facilidade</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Ainda não vejo efeito nenhum</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiros dias · somente procedimentos de consultório · apenas Toxina botulínica</p>
+      <p class="resumo forte">O efeito começa entre o 3º e o 5º dia e se completa por volta do 15º. Antes disso, é cedo.</p>
+      <h4>Por que acontece</h4><ul><li>A toxina age gradualmente sobre a musculatura, não de forma imediata.</li><li>O tempo até o efeito completo varia de pessoa para pessoa.</li></ul>
+      <h4>O que fazer</h4><ul><li>Aguarde 15 dias antes de avaliar</li><li>Se ao completar 15 dias o efeito estiver aquém do esperado, agende a avaliação de retoque</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Sensação de peso na testa e dor de cabeça leve</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiras duas semanas · somente procedimentos de consultório · apenas Toxina botulínica</p>
+      <p class="resumo forte">Sensação de peso ou pressão na testa é comum enquanto a musculatura se adapta. Passa sozinha.</p>
+      <h4>Por que acontece</h4><ul><li>A musculatura da testa deixa de trabalhar como antes e o corpo leva alguns dias para se acostumar.</li><li>Dor de cabeça leve nas primeiras 48 horas também é descrita com frequência.</li></ul>
+      <h4>O que fazer</h4><ul><li>Analgésico simples, se necessário e liberado pela equipe</li><li>Comunicar se a dor for forte ou durar mais de três dias</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Pele vermelha, ardida e descamando</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Do 1º ao 7º dia · somente procedimentos de consultório · apenas Laser de CO₂, Morpheus</p>
+      <p class="resumo forte">A pele fica com aspecto de queimadura de sol, forma casquinhas finas e descama. É exatamente o esperado.</p>
+      <h4>Por que acontece</h4><ul><li>O laser provoca uma renovação controlada da pele; a descamação é essa troca acontecendo.</li><li>A ardência é mais forte nas primeiras 48 horas e melhora rápido.</li></ul>
+      <h4>O que fazer</h4><ul><li>Hidratar com o creme indicado, quantas vezes for preciso</li><li>Compressa fria nas primeiras horas, se orientado</li><li>Nunca puxar casquinha nem esfregar a pele — é o que evita mancha e marca</li><li>Protetor solar assim que liberado, sem exceção</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Marquinhas em grade na pele</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Do 1º dia até algumas semanas · somente procedimentos de consultório · apenas Morpheus</p>
+      <p class="resumo forte">O desenho quadriculado de pontinhos é a marca do aparelho. Na maioria das pacientes some entre o 2º e o 7º dia, mas pode levar semanas — e há casos em que passa de 30 dias.</p>
+      <h4>Por que acontece</h4><ul><li>Cada pontinho corresponde a uma microagulha, e a pele leva o seu tempo para uniformizar a cor.</li><li>Quanto mais profundo o ajuste do aparelho, mais tempo as marcas costumam levar.</li><li>Pele mais morena e exposição solar prolongam bastante esse período.</li><li>Demorar não significa que algo deu errado — é uma variação individual.</li></ul>
+      <h4>O que fazer</h4><ul><li>Manter a pele hidratada e limpa</li><li>Protetor solar todos os dias: é o que mais acelera o desaparecimento das marcas</li><li>Maquiagem liberada geralmente após 24 a 48 horas, conforme orientação</li><li>Comunicar a equipe se as marcas escurecerem em vez de clarear</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Pele rosada por semanas</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Da 2ª semana ao 3º mês · somente procedimentos de consultório · apenas Laser de CO₂, Morpheus</p>
+      <p class="resumo forte">Depois da descamação a pele fica rosada por um bom tempo. Faz parte, e a maquiagem cobre bem.</p>
+      <h4>Por que acontece</h4><ul><li>A pele nova é mais fina e mais irrigada, e vai clareando conforme amadurece.</li><li>Quanto mais profundo o tratamento, mais tempo leva para perder o tom rosado.</li></ul>
+      <h4>O que fazer</h4><ul><li>Protetor solar todos os dias, inclusive nublado</li><li>Maquiagem liberada assim que a pele estiver fechada</li><li>Evitar ácidos e esfoliantes até liberação</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Área sensível ou dolorida ao toque</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiros 3 a 7 dias · somente procedimentos de consultório</p>
+      <p class="resumo forte">Sensibilidade ao encostar, mastigar ou deitar sobre a região é esperada e passa em poucos dias.</p>
+      <h4>Por que acontece</h4><ul><li>A pele e os tecidos ao redor reagem à aplicação e ficam temporariamente sensíveis.</li></ul>
+      <h4>O que fazer</h4><ul><li>Analgésico simples, se necessário e liberado</li><li>Evitar pressionar a região e dormir sobre ela</li><li>Comunicar se a dor for forte, crescente ou vier com mudança de cor da pele</li></ul>
+    </article>
+    <article class="bloco g">
+      <h3>Sinto pequenas irregularidades ao toque</h3>
+      <p class="meta"><span class="chip g">Esperado</span> Primeiras 2 semanas · somente procedimentos de consultório · apenas Preenchimento, Bioestimulador de colágeno</p>
+      <p class="resumo forte">Nos primeiros dias é comum sentir o produto ao apalpar. Ele se acomoda e a sensação desaparece.</p>
+      <h4>Por que acontece</h4><ul><li>O produto ainda está se distribuindo e há inchaço por cima dele.</li><li>A avaliação do contorno só faz sentido depois de 15 dias.</li></ul>
+      <h4>O que fazer</h4><ul><li>Seguir a orientação de massagem quando houver — em alguns tratamentos ela faz parte do protocolo</li><li>Não massagear por conta própria quando não houver essa orientação</li><li>Levar a observação ao retorno se persistir após 3 semanas</li></ul>
+    </article>
+</section>
+<section id="cuidados"><h2>5. Guias de cuidados</h2>
+
+  <article class="bloco">
+    <h3>Cinta, malha e sutiã cirúrgico</h3>
+    <p class="meta">“A compressão é parte do resultado, não um detalhe” · somente cirurgias</p>
+    <h4>Por que usar</h4><ul><li>Reduz o inchaço e ajuda o corpo a reabsorver líquido</li><li>Mantém a pele acomodada no novo contorno</li><li>Diminui a chance de seroma e melhora o conforto</li></ul><h4>Como usar</h4><ul><li>Em tempo integral nas primeiras semanas, inclusive para dormir</li><li>Retire apenas para o banho, salvo orientação diferente</li><li>Deve ficar firme e confortável — você deve conseguir passar dois dedos entre a peça e a pele</li><li>Tenha duas peças para revezar durante a lavagem</li></ul><h4>Sinais de que está errada</h4><ul><li>Marcas profundas, dor ou formigamento</li><li>Dificuldade para respirar fundo</li><li>Pele pálida, fria ou arroxeada abaixo da peça</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Curativos, banho e higiene</h3>
+    <p class="meta">“Como cuidar da ferida no dia a dia” · somente cirurgias</p>
+    <h4>Banho</h4><ul><li>Primeiro banho conforme liberação da equipe, geralmente entre o 1º e o 3º dia</li><li>Água morna, banho rápido e de chuveiro</li><li>Não esfregue a cicatriz — deixe a água escorrer sobre ela</li><li>Seque dando leves toques com toalha limpa, sem friccionar</li></ul><h4>Curativo</h4><ul><li>Lave bem as mãos antes e depois da troca</li><li>Use apenas os produtos indicados pela equipe</li><li>Não aplique pomadas, álcool, água oxigenada ou receitas caseiras</li><li>Não retire crostas nem fios de pontos por conta própria</li></ul><h4>Proibido até liberação</h4><ul><li>Banho de imersão, banheira, piscina, mar, lagoa e sauna</li><li>Bronzeamento e exposição solar direta na cicatriz</li><li>Depilação na área operada</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Medicações e controle da dor</h3>
+    <p class="meta">“A dor bem controlada acelera a recuperação” · somente cirurgias</p>
+    <h4>Regras principais</h4><ul><li>Tome os remédios nos horários prescritos, sem esperar a dor aparecer</li><li>Não suspenda o antibiótico antes do fim, mesmo se estiver bem</li><li>Não use anti-inflamatórios por conta própria — alguns aumentam sangramento</li><li>Evite qualquer suplemento ou chá sem consultar a equipe</li></ul><h4>Cuidados com o estômago</h4><ul><li>Tome os medicamentos sempre após alguma refeição, ainda que leve</li><li>Enjoo persistente deve ser comunicado para ajuste da prescrição</li></ul><h4>Quando comunicar</h4><ul><li>Dor que piora a cada dia em vez de melhorar</li><li>Dor que não cede com a medicação prescrita</li><li>Qualquer reação nova após iniciar um medicamento</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Drenagem linfática</h3>
+    <p class="meta">“Um dos fatores que mais influenciam o resultado” · somente cirurgias</p>
+    <h4>Para que serve</h4><ul><li>Acelera a saída do líquido acumulado e reduz o inchaço</li><li>Previne e trata a fibrose, que deixa o contorno irregular</li><li>Melhora o conforto e a sensação de peso</li></ul><h4>Como fazer</h4><ul><li>Início conforme liberação da equipe, em geral entre o 2º e o 5º dia</li><li>Sempre com profissional habilitado em pós-operatório de cirurgia plástica</li><li>Frequência habitual: 3 a 5 sessões na primeira semana, reduzindo depois</li><li>A manobra é suave — drenagem dolorida não é drenagem linfática</li></ul><h4>Atenção</h4><ul><li>Não permita massagem forte sobre a área operada nas primeiras semanas</li><li>Informe o profissional sobre a data e o tipo da sua cirurgia</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Repouso, posição e movimento</h3>
+    <p class="meta">“Repouso não é ficar parada” · somente cirurgias</p>
+    <h4>Movimento desde o primeiro dia</h4><ul><li>Movimente pés e pernas na cama a cada hora enquanto estiver acordada</li><li>Caminhe dentro de casa por poucos minutos, várias vezes ao dia</li><li>A movimentação precoce é a principal prevenção de trombose</li></ul><h4>Como dormir</h4><ul><li>Mamas: de barriga para cima, com o tronco levemente elevado</li><li>Abdome: de barriga para cima, com travesseiro sob os joelhos</li><li>Face, nariz e pálpebras: cabeceira elevada, sem deitar de lado</li><li>Orelhas: de barriga para cima, sem pressionar as orelhas</li></ul><h4>Evitar nas primeiras semanas</h4><ul><li>Pegar peso, incluindo crianças e sacolas de compras</li><li>Agachar, esticar-se para alcançar objetos altos e dirigir</li><li>Ficar muito tempo na mesma posição, sentada ou deitada</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>As primeiras 24 horas</h3>
+    <p class="meta">“É aqui que os cuidados fazem diferença” · somente procedimentos de consultório</p>
+    <h4>Hoje, evite</h4><ul><li>Massagear, apertar ou esfregar a área tratada</li><li>Exercício físico, sauna, banho muito quente e sol forte</li><li>Bebida alcoólica</li><li>Maquiagem sobre a área, salvo liberação da equipe</li><li>Deitar de bruços ou ficar muito tempo de cabeça baixa</li></ul><h4>Ajuda a reduzir inchaço e roxo</h4><ul><li>Compressa fria por alguns minutos, se orientado — nunca gelo direto na pele</li><li>Dormir com a cabeceira elevada na primeira noite</li><li>Beber bastante água e reduzir o sal</li></ul><h4>Depois de toxina botulínica</h4><ul><li>Permanecer com a cabeça erguida nas primeiras 4 horas</li><li>Contrair a musculatura tratada algumas vezes ao longo do dia, se orientado</li><li>Não se deitar nem fazer exercício nesse período</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Quando o resultado aparece</h3>
+    <p class="meta">“Cada tratamento tem o seu tempo” · somente procedimentos de consultório</p>
+    <h4>Referências habituais</h4><ul><li>Toxina botulínica: começa em 3 a 5 dias e se completa em 15</li><li>Preenchimento: o resultado aparece quando o inchaço sai, por volta de 15 dias</li><li>Bioestimulador: ganho progressivo entre 4 e 12 semanas, geralmente em mais de uma sessão</li><li>Laser de CO₂: pele renovada em 7 dias; textura e firmeza evoluem por até 3 meses</li><li>Morpheus: firmeza aparece a partir de 30 dias e evolui por até 3 meses</li></ul><h4>Por que não julgar antes</h4><ul><li>Nos primeiros dias o que você vê é inchaço, não resultado</li><li>Assimetrias iniciais costumam se resolver sozinhas</li><li>A avaliação de retoque é feita no retorno, com o efeito já completo</li></ul><h4>Manutenção</h4><ul><li>Toxina: em geral a cada 4 a 6 meses</li><li>Preenchimento e bioestimulador: conforme o produto e a resposta de cada pele</li><li>Laser e Morpheus: em protocolos de sessões, com intervalos definidos pela equipe</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Cuidados com a pele após o laser</h3>
+    <p class="meta">“A recuperação da pele em uma semana” · somente procedimentos de consultório · apenas Laser de CO₂, Morpheus</p>
+    <h4>Dia a dia</h4><ul><li>Dias 1 e 2: ardência e inchaço, pele parecendo queimada de sol</li><li>Dias 3 a 5: casquinhas finas e descamação</li><li>Dias 6 e 7: pele nova, rosada e sensível</li><li>A partir daí: o tom rosado clareia ao longo de semanas</li></ul><h4>O que fazer</h4><ul><li>Lavar com água fria ou morna e sabonete suave, sem esfregar</li><li>Hidratar com o creme indicado, quantas vezes for necessário</li><li>Secar com toques leves, com toalha limpa e macia</li><li>Protetor solar assim que liberado, reaplicado ao longo do dia</li><li>Fronha limpa todos os dias na primeira semana</li></ul><h4>O que não fazer</h4><ul><li>Puxar ou esfregar as casquinhas — é o que mais causa mancha e marca</li><li>Usar ácidos, esfoliantes, vitamina C ou retinol até liberação</li><li>Piscina, mar, sauna e academia até a pele fechar</li><li>Qualquer exposição solar direta nas primeiras semanas</li></ul><h4>Avise a equipe se</h4><ul><li>Aparecerem bolhinhas agrupadas com ardência (pode ser herpes)</li><li>A dor aumentar em vez de diminuir</li><li>Surgir área muito vermelha, quente ou com secreção</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Depois de injetáveis</h3>
+    <p class="meta">“Preenchimento, bioestimulador e toxina” · somente procedimentos de consultório · apenas Preenchimento, Bioestimulador de colágeno, Toxina botulínica</p>
+    <h4>Massagem</h4><ul><li>Só massageie se a equipe orientou — em bioestimuladores costuma fazer parte do protocolo, com dias e frequência definidos</li><li>Em preenchimento e toxina, a regra geral é não massagear</li><li>Na dúvida, pergunte antes de fazer</li></ul><h4>Rotina</h4><ul><li>Atividade física liberada em geral após 24 a 48 horas</li><li>Evitar sauna, banho muito quente e sol intenso nos primeiros dias</li><li>Adiar limpeza de pele, depilação e outros procedimentos na área por cerca de 2 semanas</li><li>Avisar qualquer profissional que for tratar seu rosto sobre o produto aplicado</li></ul><h4>Sinais que exigem contato imediato</h4><ul><li>Dor forte e desproporcional na região</li><li>Pele esbranquiçada ou com manchas arroxeadas em desenho de renda</li><li>Qualquer alteração da visão</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Alimentação e hidratação</h3>
+    <p class="meta">“A cicatrização depende do que você come” · somente cirurgias</p>
+    <h4>Priorize</h4><ul><li>Proteína em todas as refeições: ovos, peixes, carnes magras, iogurte, leguminosas</li><li>Frutas e verduras variadas, pela vitamina C e pelo zinco</li><li>De 2 a 3 litros de água por dia, salvo orientação diferente</li><li>Fibras para evitar a prisão de ventre causada pelos analgésicos</li></ul><h4>Reduza ou evite</h4><ul><li>Sal e alimentos ultraprocessados, que pioram a retenção de líquido</li><li>Álcool até a liberação — interfere na cicatrização e nas medicações</li><li>Cigarro e vape: o tabagismo é o fator que mais compromete a cicatriz</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Cuidados com a cicatriz</h3>
+    <p class="meta">“O primeiro ano define o resultado da marca” · somente cirurgias</p>
+    <h4>Linha do tempo da cicatriz</h4><ul><li>Até 3 semanas: fechamento — apenas higiene e curativo</li><li>De 1 a 3 meses: fica mais vermelha e elevada, é a fase esperada</li><li>De 3 a 12 meses: clareia, amolece e se aplana progressivamente</li></ul><h4>O que realmente ajuda</h4><ul><li>Protetor solar FPS 50 sobre a cicatriz, reaplicado, por 12 meses</li><li>Fitas ou géis de silicone, quando indicados pela equipe</li><li>Hidratação da pele ao redor, após o fechamento completo</li><li>Não fumar</li></ul><h4>O que não fazer</h4><ul><li>Usar receitas caseiras, óleos ou pomadas não prescritas</li><li>Expor a cicatriz ao sol, mesmo com o dia nublado</li><li>Puxar crostas ou esfregar a região</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Volta à rotina e exercícios</h3>
+    <p class="meta">“Referências gerais — sua liberação é individual” · somente cirurgias</p>
+    <h4>Referências habituais</h4><ul><li>Trabalho em casa ou de escritório: de 7 a 15 dias</li><li>Dirigir: a partir de 2 semanas, sem uso de analgésico forte</li><li>Caminhada leve: a partir da 2ª ou 3ª semana</li><li>Exercícios de baixo impacto: a partir de 30 a 45 dias</li><li>Musculação e impacto: a partir de 60 dias</li><li>Praia, piscina e mar: após liberação, em geral após 30 dias</li></ul><h4>Regra de ouro</h4><ul><li>Nenhuma atividade deve ser retomada sem liberação da equipe</li><li>Se doer ou inchar mais depois, você avançou rápido demais — recue um passo</li></ul>
+  </article>
+  <article class="bloco">
+    <h3>Viagens e deslocamentos</h3>
+    <p class="meta">“Planeje antes de comprar passagem” · somente cirurgias</p>
+    <h4>Recomendações</h4><ul><li>Evite voos nas primeiras 2 a 3 semanas, salvo liberação</li><li>Em viagens longas, levante e caminhe a cada hora</li><li>Use a meia de compressão, se prescrita</li><li>Mantenha boa hidratação durante o trajeto</li><li>Leve seus medicamentos e o contato da equipe na bagagem de mão</li></ul>
+  </article>
+</section>
+<section id="avisos"><h2>6. Avisos exibidos no aplicativo</h2>
+
+  <article class="bloco"><h3>No cadastro inicial</h3><p class="resumo">As orientações do aplicativo são gerais e não substituem a avaliação do Dr. Henrique Reis ou de sua equipe. Em caso de dúvida ou sinal de alerta, entre em contato.</p></article>
+  <article class="bloco"><h3>No rodapé da tela inicial</h3><p class="resumo">As informações deste aplicativo são orientações gerais e não substituem a avaliação médica individual.</p></article>
+  <article class="bloco"><h3>Ao final de cada orientação de sintoma</h3><p class="resumo">Esta orientação é geral. Se algo fugir do que está descrito aqui, ou se você estiver em dúvida, entre em contato com a equipe.</p></article>
+  <article class="bloco"><h3>Ao final de cada guia de cuidados</h3><p class="resumo">Orientações gerais. Sempre siga as instruções específicas entregues na sua alta.</p></article>
+  <article class="bloco"><h3>Na tela de contato</h3><p class="resumo">Este aplicativo oferece orientações gerais de acompanhamento e não substitui a consulta médica. Em caso de emergência, procure o pronto-socorro mais próximo.</p></article>
+  <article class="bloco"><h3>Na tela de sinais de alerta</h3><p class="resumo">Ao procurar um pronto-socorro, informe qual procedimento você realizou, a data e as medicações em uso. Leve o contato da nossa equipe com você.</p></article>
+  <article class="bloco"><h3>No registro diário</h3><p class="resumo">Este registro fica no seu aparelho. Se algo estiver preocupando você, não espere o retorno — fale com a equipe.</p></article>
+  <article class="bloco"><h3>Sobre privacidade, em Meus dados</h3><p class="resumo">Seus dados ficam salvos apenas neste aparelho. Nada é enviado para a clínica pelo aplicativo.</p></article>
+</section>
+
+  <footer>
+    <p>Para marcar correções, há uma versão em Word no repositório: <code>docs/conteudo-clinico-para-revisao.docx</code>, com uma linha de anotação abaixo de cada bloco.</p>
+    <p>O conteúdo vive em quatro arquivos de texto simples — <code>src/data/procedures.ts</code>, <code>timeline.ts</code>, <code>symptoms.ts</code> e <code>care.ts</code> — e pode ser editado sem mexer em nenhuma tela.</p>
+  </footer>
+</div>

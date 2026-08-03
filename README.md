@@ -155,6 +155,26 @@ Os pontos que provavelmente você vai querer ajustar primeiro:
 - Tempo de uso da compressão por procedimento.
 - Marcos de retirada de pontos em `src/data/timeline.ts`.
 
+### Documento de revisão
+
+Em `docs/` há duas versões de todo o conteúdo clínico, geradas automaticamente
+a partir dos próprios arquivos de dados — não são resumo nem paráfrase:
+
+- `conteudo-clinico-para-revisao.docx` — para marcar correções, com uma linha
+  de anotação abaixo de cada bloco.
+- `conteudo-clinico-para-revisao.html` — para ler no celular ou no navegador.
+
+Para regerar depois de editar o conteúdo:
+
+```bash
+npx tsc --ignoreConfig src/data/*.ts --outDir /tmp/dataout \
+  --module commonjs --target es2020 --skipLibCheck --esModuleInterop
+node -e "…"   # ver scripts/gerar-revisao-*.js
+npm install --no-save docx
+node scripts/gerar-revisao-docx.js
+node scripts/gerar-revisao-html.js
+```
+
 Todo o conteúdo está em arquivos de dados separados do código, em português e
 em texto simples — dá para editar sem mexer em nenhuma tela:
 
