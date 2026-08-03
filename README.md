@@ -128,14 +128,16 @@ Os títulos seguem o logotipo: sem serifa, peso leve, e caixa alta com
 espaçamento largo apenas nos rótulos — o mesmo tratamento do "cirurgia
 plástica" da marca.
 
-### Dados que precisam ser preenchidos antes de publicar
+### Dados institucionais
 
-Em `src/theme/brand.ts`, o objeto `clinic` está com **telefone, WhatsApp e
-endereço como valores de exemplo** (`5548999999999`). Eles precisam ser
-substituídos pelos reais — os botões de contato e emergência dependem deles.
+Ficam no objeto `clinic`, em `src/theme/brand.ts`: WhatsApp, telefone,
+endereço, Instagram, site e títulos. O botão de WhatsApp abre a conversa com
+o número da clínica e a mensagem já preenchida com nome, procedimento e dia
+de pós-operatório; o endereço abre o mapa.
 
-Os dados profissionais (CRM/SC 17913, RQE 17450, títulos, Instagram) vieram das
-páginas públicas do site e valem uma conferência.
+Um ponto ainda em aberto: `emergency` aponta para o mesmo número da clínica.
+Se houver um plantão 24h com número próprio, é ali que ele entra — é o número
+que os botões de urgência discam.
 
 ---
 

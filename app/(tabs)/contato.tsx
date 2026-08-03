@@ -67,7 +67,13 @@ export default function Contato() {
         <Card>
           <Overline>Atendimento</Overline>
           <View style={styles.spacer} />
-          <InfoRow icon="location-outline" label="Endereço" value={clinic.address} />
+          <InfoRow
+            icon="location-outline"
+            label="Endereço"
+            value={clinic.address}
+            hint={clinic.addressComplement}
+            onPress={() => openLink(mapsUrl(clinic.addressQuery))}
+          />
           <InfoRow
             icon="logo-instagram"
             label="Instagram"
@@ -153,15 +159,22 @@ export default function Contato() {
   );
 }
 
+/** Abre o endereço no app de mapas padrão do aparelho. */
+function mapsUrl(query: string) {
+  return `https://maps.google.com/?q=${encodeURIComponent(query)}`;
+}
+
 function InfoRow({
   icon,
   label,
   value,
+  hint,
   onPress,
 }: {
   icon: keyof typeof Ionicons.glyphMap;
   label: string;
   value: string;
+  hint?: string;
   onPress?: () => void;
 }) {
   const body = (
@@ -170,6 +183,7 @@ function InfoRow({
       <View style={styles.flex}>
         <Text style={styles.infoLabel}>{label}</Text>
         <Text style={[type.body, onPress && styles.link]}>{value}</Text>
+        {hint ? <Text style={type.small}>{hint}</Text> : null}
       </View>
       {onPress ? <Ionicons name="open-outline" size={15} color={palette.textMuted} /> : null}
     </View>

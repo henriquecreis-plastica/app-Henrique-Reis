@@ -73,18 +73,24 @@ export const clinic = {
     'Membro Especialista da Sociedade Brasileira de Cirurgia Plástica',
     'Membro da ISAPS — International Society of Aesthetic Plastic Surgery',
   ],
-  city: 'Florianópolis · SC',
   site: 'https://www.plasticahenrique.com',
   instagram: 'https://www.instagram.com/dr.henriquereis/',
   instagramHandle: '@dr.henriquereis',
 
-  /** TODO: substituir pelos números reais da clínica antes de publicar. */
-  whatsapp: '5548999999999',
-  phone: '+554899999999',
-  address: 'Florianópolis — SC',
+  /** WhatsApp da clínica, no formato internacional sem sinais. */
+  whatsapp: '5548991450910',
+  phone: '+5548991450910',
 
-  /** Telefone de emergência do serviço (24h). */
-  emergency: '+554899999999',
+  address: 'Av. Mauro Ramos, 1970 — salas 501 e 502',
+  addressComplement: 'Centro · Florianópolis — SC',
+  /** Consulta de mapa aberta ao tocar no endereço. */
+  addressQuery: 'Avenida Mauro Ramos, 1970, Centro, Florianópolis, SC',
+
+  /**
+   * Contato para urgências. Hoje aponta para o mesmo número da clínica —
+   * se houver um plantão 24h com número próprio, é aqui que ele entra.
+   */
+  emergency: '+5548991450910',
 } as const;
 
 export type Palette = typeof palette;
