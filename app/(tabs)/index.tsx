@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '../../src/components/Logo';
+import { MIN_DAY, ReviewInvite } from '../../src/components/ReviewInvite';
 import { Bullets, Card, Overline } from '../../src/components/ui';
 import { procedureById } from '../../src/data/procedures';
 import { phaseForDay, procedureMilestones } from '../../src/data/timeline';
@@ -12,7 +13,7 @@ import { palette, radius, spacing, type } from '../../src/theme';
 
 export default function Today() {
   const router = useRouter();
-  const { profile, postOpDay, toggleTask, isTaskDone } = usePatient();
+  const { profile, postOpDay, toggleTask, isTaskDone, save } = usePatient();
   const procedure = procedureById(profile.procedure);
   const isPreOp = postOpDay < 0;
   const isOffice = procedure.kind === 'ambulatorial';
@@ -183,6 +184,10 @@ export default function Today() {
               <Text style={type.body}>{nextMilestone.text}</Text>
             </View>
           </Card>
+        ) : null}
+
+        {postOpDay >= MIN_DAY && !profile.reviewDismissed ? (
+          <ReviewInvite onDismiss={() => save({ reviewDismissed: true })} />
         ) : null}
 
         <Text style={styles.footnote}>

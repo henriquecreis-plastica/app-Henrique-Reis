@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '../../src/components/Logo';
+import { ReviewInvite } from '../../src/components/ReviewInvite';
 import { Button, Card, Divider, Overline } from '../../src/components/ui';
 import { eventNoun, procedureById } from '../../src/data/procedures';
 import { buildContextMessage, callPhone, openLink, openWhatsApp } from '../../src/lib/contact';
@@ -149,6 +150,8 @@ export default function Contato() {
             </>
           ) : null}
         </Card>
+
+        <ReviewInvite />
 
         <Text style={styles.disclaimer}>
           Este aplicativo oferece orientações gerais de acompanhamento e não substitui a consulta

@@ -12,6 +12,8 @@ export interface PatientProfile {
   /** Itens de checklist concluídos, no formato `${dayKey}:${index}`. */
   doneTasks: string[];
   onboarded: boolean;
+  /** Convite de avaliação dispensado na tela inicial. */
+  reviewDismissed: boolean;
 }
 
 const emptyProfile: PatientProfile = {
@@ -20,6 +22,7 @@ const emptyProfile: PatientProfile = {
   surgeryDate: new Date().toISOString().slice(0, 10),
   doneTasks: [],
   onboarded: false,
+  reviewDismissed: false,
 };
 
 interface PatientContextValue {

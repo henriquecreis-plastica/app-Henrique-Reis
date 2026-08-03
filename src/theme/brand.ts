@@ -86,11 +86,24 @@ export const clinic = {
   /** Consulta de mapa aberta ao tocar no endereço. */
   addressQuery: 'Avenida Mauro Ramos, 1970, Centro, Florianópolis, SC',
 
-  /**
-   * Contato para urgências. Hoje aponta para o mesmo número da clínica —
-   * se houver um plantão 24h com número próprio, é aqui que ele entra.
-   */
+  /** Urgências atendidas pelo mesmo número da clínica. */
   emergency: '+5548991450910',
+
+  /**
+   * Avaliação no Google.
+   *
+   * O endereço abaixo abre a ficha da clínica no Google Maps, de onde a
+   * paciente toca em "Escrever uma avaliação" — funciona, mas leva dois
+   * toques.
+   *
+   * Para o link direto, que já abre a janela de avaliação:
+   *   Perfil da Empresa no Google → "Peça avaliações" → copiar link.
+   *   O endereço tem o formato https://g.page/r/XXXXXXXX/review
+   * Basta colar aqui no lugar do atual.
+   */
+  googleReview:
+    'https://www.google.com/maps/search/?api=1&query=' +
+    encodeURIComponent('Henrique Reis Cirurgia Plástica, Av. Mauro Ramos 1970, Florianópolis'),
 } as const;
 
 export type Palette = typeof palette;
