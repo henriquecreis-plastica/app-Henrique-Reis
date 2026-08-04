@@ -88,7 +88,6 @@ const AVISOS = [
   ['Ao final de cada guia de cuidados', 'Orientações gerais. Sempre siga as instruções específicas entregues na sua alta.'],
   ['Na tela de contato', 'Este aplicativo oferece orientações gerais de acompanhamento e não substitui a consulta médica. Em caso de emergência, procure o pronto-socorro mais próximo.'],
   ['Na tela de sinais de alerta', 'Ao procurar um pronto-socorro, informe qual procedimento você realizou, a data e as medicações em uso. Leve o contato da nossa equipe com você.'],
-  ['No registro diário', 'Este registro fica no seu aparelho. Se algo estiver preocupando você, não espere o retorno — fale com a equipe.'],
   ['Sobre privacidade, em Meus dados', 'Seus dados ficam salvos apenas neste aparelho. Nada é enviado para a clínica pelo aplicativo.'],
 ];
 secoes.push(`<section id="avisos"><h2>6. Avisos exibidos no aplicativo</h2>

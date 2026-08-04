@@ -1,7 +1,4 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
-import { procedureById, type ProcedureId } from '../data/procedures';
-import { todayIso, type CheckIn } from '../domain/checkin';
-import { triage, type TriageResult } from '../domain/triage';
 import { storage, type PatientRecord } from './storage';
 
 export type PatientProfile = PatientRecord;
@@ -9,11 +6,10 @@ export type PatientProfile = PatientRecord;
 const emptyProfile: PatientProfile = {
   name: '',
   procedure: 'outro',
-  surgeryDate: todayIso(),
+  surgeryDate: new Date().toISOString().slice(0, 10),
   doneTasks: [],
   onboarded: false,
   reviewDismissed: false,
-  checkIns: [],
 };
 
 interface PatientContextValue {
@@ -21,13 +17,9 @@ interface PatientContextValue {
   loading: boolean;
   /** Dias completos desde a cirurgia. Negativo quando a cirurgia é futura. */
   postOpDay: number;
-  /** Situação da paciente pela mesma regra que o painel da equipe usa. */
-  status: TriageResult;
   save: (patch: Partial<PatientProfile>) => Promise<void>;
   toggleTask: (key: string) => void;
   isTaskDone: (key: string) => boolean;
-  /** Grava o registro do dia, substituindo o anterior se já houver um hoje. */
-  saveCheckIn: (checkIn: CheckIn) => Promise<void>;
   reset: () => Promise<void>;
 }
 
@@ -78,15 +70,6 @@ export function PatientProvider({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  const saveCheckIn = useCallback(async (checkIn: CheckIn) => {
-    setProfile((prev) => {
-      const checkIns = [...prev.checkIns.filter((c) => c.date !== checkIn.date), checkIn];
-      const next = { ...prev, checkIns };
-      void storage.save(next);
-      return next;
-    });
-  }, []);
-
   const reset = useCallback(async () => {
     await storage.clear();
     setProfile(emptyProfile);
@@ -94,29 +77,17 @@ export function PatientProvider({ children }: { children: React.ReactNode }) {
 
   const postOpDay = daysSince(profile.surgeryDate);
 
-  const status = useMemo(
-    () =>
-      triage({
-        procedureKind: procedureById(profile.procedure).kind,
-        day: postOpDay,
-        checkIns: profile.checkIns,
-      }),
-    [profile.procedure, profile.checkIns, postOpDay],
-  );
-
   const value = useMemo<PatientContextValue>(
     () => ({
       profile,
       loading,
       postOpDay,
-      status,
       save,
       toggleTask,
       isTaskDone: (key: string) => profile.doneTasks.includes(key),
-      saveCheckIn,
       reset,
     }),
-    [profile, loading, postOpDay, status, save, toggleTask, saveCheckIn, reset],
+    [profile, loading, postOpDay, save, toggleTask, reset],
   );
 
   return <PatientContext.Provider value={value}>{children}</PatientContext.Provider>;

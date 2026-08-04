@@ -13,7 +13,7 @@ partir daí personaliza tudo o que a paciente vê.
 
 | Tela | Função |
 | --- | --- |
-| **Hoje** | Mostra em que dia do pós-operatório a paciente está, o que é esperado nesta fase, a rotina do dia em formato de checklist, o que evitar e os pontos de atenção do procedimento dela. Se a cirurgia ainda não aconteceu, mostra a contagem regressiva e as orientações de preparo. |
+| **Hoje** | Mostra em que dia do pós-operatório a paciente está, o que é esperado nesta fase, a rotina do dia em formato de checklist, o que evitar e os pontos de atenção do procedimento dela. Se o procedimento ainda não aconteceu, mostra a contagem regressiva e as orientações de preparo. |
 | **Evolução** | Linha do tempo com o que esperar, o que fazer e o que evitar em cada fase, mais os marcos específicos do procedimento. Seis fases nas cirurgias (48h → 12 meses), quatro nos procedimentos de consultório (24h → 2º mês). |
 | **É normal?** | O coração do app. Catálogo de sintomas classificado em três níveis — **Esperado**, **Atenção** e **Contato imediato** — com busca por texto (funciona com ou sem acento) e filtros por área do corpo. |
 | **Cuidados** | Guias práticos conforme o percurso. Nas cirurgias: compressão, curativos, medicação, drenagem, repouso, alimentação, cicatriz, rotina e viagens. Nos procedimentos de consultório: as primeiras 24 horas, quando o resultado aparece, cuidados com a pele após o laser e o que observar depois de injetáveis. |
@@ -191,57 +191,40 @@ contato.
 
 ---
 
-## O outro lado: painel da equipe
-
-Um app de paciente sem contrapartida na clínica continua sendo um manual
-digital. O que transforma em acompanhamento é a clínica ver, todo dia, quem
-precisa de atenção.
-
-A estrutura para isso já está no código:
-
-| Peça | Onde | O que faz |
-| --- | --- | --- |
-| Registro diário | `src/domain/checkin.ts` | Foto, como a paciente está, dor de 0 a 10 e sintomas relatados. Cobrado só na janela em que importa: 14 dias nas cirurgias, 7 nos procedimentos de consultório. |
-| Triagem | `src/domain/triage.ts` | Função pura que decide vermelho, amarelo ou verde, com o motivo em linguagem de equipe. |
-| Armazenamento | `src/store/storage.ts` | Interface com implementação local. A versão com servidor entra como segunda implementação, sem mexer em nenhuma tela. |
-
-A triagem vive em módulo único de propósito: se a regra morasse em dois
-lugares, um dia a paciente veria "esperado" no celular enquanto a clínica
-veria vermelho no painel.
-
-`docs/painel-demo.html` é uma demonstração navegável do painel, com dados
-fictícios, usando exatamente essa regra.
-
-### O que falta para o painel existir de verdade
-
-O trabalho pesado não é a interface — é o que vem embaixo dela:
-
-1. **Servidor e banco de dados**, com cadastro pela clínica e código de acesso
-   para a paciente.
-2. **Armazenamento de fotos** com criptografia em repouso e em trânsito.
-3. **LGPD.** Foto de área operada é dado pessoal sensível (art. 11). Exige
-   consentimento específico e destacado, política de retenção, registro de
-   quem acessou o quê, e plano de resposta a incidente.
-4. **Rotina de plantão.** Um alerta vermelho só vale se alguém tiver a
-   obrigação de olhar e responder em prazo definido. Sem isso, o painel cria
-   expectativa de vigilância que a clínica não sustenta — e esse é um risco
-   assistencial, não técnico.
-5. **Notificações** para lembrar o registro do dia.
-
-Os itens 3 e 4 são decisões da clínica, não do código, e deveriam vir antes
-da primeira linha do backend.
-
----
-
 ## Estado atual e próximos passos
 
 Este é um **protótipo**: funciona de ponta a ponta, mas guarda os dados apenas
 no aparelho (`AsyncStorage`), sem cadastro nem servidor.
 
-O que faria sentido acrescentar numa próxima etapa:
+### Registro diário e painel da equipe, adiados
+
+Chegaram a ser construídos — registro diário com foto no app, motor de
+triagem e uma demonstração do painel com a fila de pacientes em vermelho,
+amarelo e verde. Foram retirados para que a primeira versão chegue às lojas
+mais leve.
+
+A decisão tem ganho imediato: **sem câmera e sem foto, o app não pede
+nenhuma permissão sensível e nada sai do aparelho da paciente.** Isso
+encurta a revisão da App Store, simplifica a declaração de privacidade das
+duas lojas e mantém a LGPD num patamar trivial — não há dado pessoal
+sensível sendo tratado.
+
+Nada se perdeu. Para trazer de volta:
+
+```bash
+git revert --no-commit 3851039   # registro diário, triagem e painel
+```
+
+Antes de reativar, duas decisões da clínica precisam estar fechadas:
+consentimento específico para armazenar foto de área operada (LGPD, art. 11)
+e a rotina de plantão — quem olha o painel, em que horário e em quanto tempo
+responde.
+
+### Próxima etapa
+
+O que faria sentido acrescentar:
 
 - **Notificações**: lembretes de medicação, de retorno e de troca de fase.
-- **Diário de fotos**: registro da evolução, com comparação lado a lado.
 - **Área da equipe**: a clínica cadastra a cirurgia e a data, e a paciente
   apenas entra com um código — elimina o erro de digitação e permite
   personalizar as orientações caso a caso.
