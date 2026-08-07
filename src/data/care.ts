@@ -15,9 +15,106 @@ export interface CareGuide {
   procedures?: ProcedureId[];
   /** Se preenchido, restringe ao tipo de percurso. Ausente = vale para todos. */
   kinds?: ProcedureKind[];
+  /**
+   * Guias que são protocolos da clínica e têm marca própria. A arte entra no
+   * lugar do título, como foi entregue — não é recolorida nem redesenhada.
+   */
+  brand?: 'face-hd' | 'hr-recovery';
 }
 
 export const careGuides: CareGuide[] = [
+  {
+    id: 'hr_recovery',
+    kinds: ['cirurgico'],
+    brand: 'hr-recovery',
+    title: 'HR Recovery Protocol',
+    subtitle: 'Sua recuperação começa nas primeiras horas, ainda no hospital',
+    icon: 'pulse-outline',
+    sections: [
+      {
+        heading: 'O que já está incluído na sua cirurgia',
+        items: [
+          'Avaliação individual da fisioterapeuta ainda durante a internação',
+          'Fisioterapia intra-hospitalar, iniciada nas primeiras horas',
+          'Taping — bandagens terapêuticas, aplicadas quando indicadas',
+          'Malhas compressivas e meia elástica',
+          'Acompanhamento com o Dr. Henrique Reis por até seis meses',
+          'Suporte da equipe para dúvidas durante todo o processo',
+        ],
+      },
+      {
+        heading: 'Para que serve',
+        items: [
+          'A fisioterapia precoce ajuda a retomar os movimentos com segurança e traz mais conforto nas primeiras horas',
+          'O taping auxilia no controle do inchaço e das equimoses',
+          'O acompanhamento próximo torna a recuperação mais previsível — e permite agir cedo quando algo foge do esperado',
+        ],
+      },
+      {
+        heading: 'Planos de acompanhamento',
+        items: [
+          'Essential: 5 sessões de fisioterapia pós-operatória',
+          'Advanced: 10 sessões, com acompanhamento mais próximo',
+          'Elite: 15 sessões, com acompanhamento intensivo',
+          'Conforme o plano e a indicação, podem incluir drenagem linfática, manutenção do taping e laser para a cicatrização',
+        ],
+      },
+      {
+        heading: 'Bom saber',
+        items: [
+          'A equipe recomenda os planos, mas a contratação é opcional',
+          'O cuidado inicial acima faz parte da sua cirurgia, tendo você contratado um plano ou não',
+          'Cada recuperação é única: o protocolo é adaptado a você e ao procedimento realizado',
+          'Para conhecer os planos e valores, fale com a equipe',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'face_hd',
+    kinds: ['cirurgico'],
+    procedures: ['face_hd'],
+    brand: 'face-hd',
+    title: 'Seu Face HD Concept',
+    subtitle: 'Cada planejamento é individual — vale para você o que foi combinado na sua consulta',
+    icon: 'sparkles-outline',
+    sections: [
+      {
+        heading: 'O que o planejamento considera',
+        items: [
+          'O rosto é tratado como um conjunto: pele, gordura, músculos, ligamentos e pescoço',
+          'O planejamento pode reunir lifting profundo, pescoço profundo, lipoenxertia, laser de CO₂, pálpebras e lip lift',
+          'Nem toda paciente faz todas as etapas — as orientações abaixo valem para as que fizeram parte do seu caso',
+        ],
+      },
+      {
+        heading: 'Face e pescoço',
+        items: [
+          'Dormir de barriga para cima, com a cabeceira elevada — é o que mais reduz o inchaço',
+          'Evitar movimentos bruscos de virar ou flexionar o pescoço nos primeiros dias',
+          'Sensação de repuxo, dormência e formigamento na frente das orelhas e no pescoço é esperada',
+          'O pescoço costuma ser a última região a desinchar',
+        ],
+      },
+      {
+        heading: 'Se houve lipoenxertia',
+        items: [
+          'Evitar pressão sobre as áreas que receberam gordura, inclusive apoio de óculos quando for o caso',
+          'Parte do volume aplicado é reabsorvida nas primeiras semanas — isso é esperado e já entra no planejamento',
+          'Não massagear as áreas enxertadas por conta própria',
+        ],
+      },
+      {
+        heading: 'Se o laser de CO₂ fez parte',
+        items: [
+          'A pele descama nos primeiros dias — não retirar as casquinhas',
+          'Hidratar conforme orientado e usar protetor solar assim que liberado',
+          'Vermelhidão que dura semanas é esperada e clareia aos poucos',
+          'Sem ácidos, esfoliantes, vitamina C ou retinol até liberação',
+        ],
+      },
+    ],
+  },
   {
     id: 'compressao',
     kinds: ['cirurgico'],

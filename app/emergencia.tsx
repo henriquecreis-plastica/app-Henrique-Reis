@@ -3,7 +3,7 @@ import { useRouter } from 'expo-router';
 import React, { useMemo } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Card, Overline } from '../src/components/ui';
-import { procedureById } from '../src/data/procedures';
+import { appliesToProcedure, procedureById } from '../src/data/procedures';
 import { symptoms } from '../src/data/symptoms';
 import { buildContextMessage, callPhone, openWhatsApp } from '../src/lib/contact';
 import { usePatient } from '../src/store/patient';
@@ -19,7 +19,7 @@ export default function Emergencia() {
       (s) =>
         s.severity === 'urgent' &&
         (!s.kinds || s.kinds.includes(kind)) &&
-        (!s.procedures || s.procedures.includes(profile.procedure)),
+        appliesToProcedure(s.procedures, profile.procedure),
     );
   }, [profile.procedure]);
 

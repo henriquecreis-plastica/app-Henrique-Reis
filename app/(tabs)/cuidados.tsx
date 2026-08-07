@@ -5,7 +5,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SectionHeader } from '../../src/components/ui';
 import { careGuides } from '../../src/data/care';
-import { procedureById } from '../../src/data/procedures';
+import { appliesToProcedure, procedureById } from '../../src/data/procedures';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
 
@@ -17,7 +17,7 @@ export default function Cuidados() {
   const guides = careGuides.filter(
     (g) =>
       (!g.kinds || g.kinds.includes(procedure.kind)) &&
-      (!g.procedures || g.procedures.includes(profile.procedure)),
+      appliesToProcedure(g.procedures, profile.procedure),
   );
 
   return (

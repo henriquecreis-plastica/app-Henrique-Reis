@@ -6,7 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '../../src/components/Logo';
 import { MIN_DAY, ReviewInvite } from '../../src/components/ReviewInvite';
 import { Bullets, Card, Overline } from '../../src/components/ui';
-import { procedureById } from '../../src/data/procedures';
+import { inlineName, procedureById } from '../../src/data/procedures';
 import { phaseForDay, procedureMilestones } from '../../src/data/timeline';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
@@ -57,8 +57,8 @@ export default function Today() {
                 Faltam {Math.abs(postOpDay)} {Math.abs(postOpDay) === 1 ? 'dia' : 'dias'}
               </Text>
               <Text style={styles.heroPhase}>
-                {isOffice ? 'para o seu ' : 'para a sua '}
-                {procedure.name.toLowerCase()}
+                {isOffice || procedure.brandName ? 'para o seu ' : 'para a sua '}
+                {inlineName(procedure)}
               </Text>
             </>
           ) : (

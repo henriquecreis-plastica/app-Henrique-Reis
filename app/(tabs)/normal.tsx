@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Chip, SectionHeader, SeverityBadge } from '../../src/components/ui';
-import { procedureById } from '../../src/data/procedures';
+import { appliesToProcedure, procedureById } from '../../src/data/procedures';
 import { groupLabels, symptoms, type SymptomGroup } from '../../src/data/symptoms';
 import { buildContextMessage, openWhatsApp } from '../../src/lib/contact';
 import { usePatient } from '../../src/store/patient';
@@ -40,7 +40,7 @@ export default function Normal() {
     return symptoms.filter(
       (s) =>
         (!s.kinds || s.kinds.includes(kind)) &&
-        (!s.procedures || s.procedures.includes(profile.procedure)),
+        appliesToProcedure(s.procedures, profile.procedure),
     );
   }, [profile.procedure, kind]);
 

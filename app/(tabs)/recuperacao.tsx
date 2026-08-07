@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Bullets, Card, Overline, SectionHeader } from '../../src/components/ui';
-import { procedureById } from '../../src/data/procedures';
+import { inlineName, procedureById } from '../../src/data/procedures';
 import { phaseForDay, phasesFor, procedureMilestones } from '../../src/data/timeline';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
@@ -26,7 +26,7 @@ export default function Recuperacao() {
               ? 'Seu tratamento, fase a fase'
               : 'Sua recuperação, fase a fase'
           }
-          description={`Referências para ${procedure.name.toLowerCase()}. Cada pessoa tem seu ritmo — pequenas variações são normais.`}
+          description={`Referências para ${inlineName(procedure)}. Cada pessoa tem seu ritmo — pequenas variações são normais.`}
         />
 
         {phases.map((phase) => {
@@ -100,7 +100,7 @@ export default function Recuperacao() {
 
         {milestones.length ? (
           <Card style={styles.milestones}>
-            <Overline>Marcos de {procedure.name.toLowerCase()}</Overline>
+            <Overline>Marcos de {inlineName(procedure)}</Overline>
             <View style={{ height: spacing.md }} />
             {milestones.map((m) => {
               const reached = postOpDay >= m.day;

@@ -365,6 +365,13 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
     { day: 30, text: 'Nariz ainda inchado, principalmente na ponta' },
     { day: 365, text: 'Ponta nasal próxima do resultado final' },
   ],
+  face_hd: [
+    { day: 0, text: 'Fisioterapia e taping começam ainda no hospital' },
+    { day: 10, text: 'Retirada dos pontos conforme orientação' },
+    { day: 21, text: 'Boa parte do inchaço já cedeu — o pescoço costuma ser o último' },
+    { day: 30, text: 'Aparência social recuperada na maioria dos casos' },
+    { day: 180, text: 'Acompanhamento com o Dr. Henrique Reis até o 6º mês' },
+  ],
   face: [
     { day: 10, text: 'Retirada dos pontos conforme orientação' },
     { day: 30, text: 'Aparência social recuperada na maioria dos casos' },

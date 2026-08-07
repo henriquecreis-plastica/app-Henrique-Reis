@@ -14,6 +14,7 @@ export type ProcedureId =
   | 'abdominoplastia'
   | 'lipoescultura'
   | 'rinoplastia'
+  | 'face_hd'
   | 'face'
   | 'blefaroplastia'
   | 'otoplastia'
@@ -42,6 +43,12 @@ export interface Procedure {
   recoveryWeeks: number;
   /** Pontos de atenção específicos deste procedimento. */
   highlights: string[];
+  /**
+   * Como o nome entra no meio de uma frase. Os procedimentos comuns viram
+   * minúscula ("referências para rinoplastia"); os que são marca da clínica
+   * mantêm a grafia própria.
+   */
+  brandName?: true;
 }
 
 export const procedures: Procedure[] = [
@@ -121,6 +128,20 @@ export const procedures: Procedure[] = [
       'Nariz entupido por algumas semanas é esperado',
       'Não assoar o nariz nem usar óculos de armação pesada',
       'O resultado final leva de 6 a 12 meses para se definir',
+    ],
+  },
+  {
+    id: 'face_hd',
+    name: 'Face HD Concept',
+    short: 'Planejamento completo de rejuvenescimento facial',
+    icon: 'sparkles-outline',
+    kind: 'cirurgico',
+    brandName: true,
+    recoveryWeeks: 8,
+    highlights: [
+      'Cabeceira elevada para dormir — é o que mais reduz o inchaço',
+      'Dormência na face e no pescoço é esperada e melhora aos poucos',
+      'Cada planejamento é individual: siga o que foi combinado para o seu caso',
     ],
   },
   {
@@ -276,3 +297,31 @@ export const procedureById = (id: ProcedureId): Procedure =>
  */
 export const eventNoun = (kind: ProcedureKind): string =>
   kind === 'ambulatorial' ? 'procedimento' : 'cirurgia';
+
+/**
+ * Procedimentos que reaproveitam o conteúdo de outro. O Face HD Concept é um
+ * planejamento construído sobre a cirurgia de face, então quem o realizou
+ * precisa de tudo o que vale para ela — sem que o catálogo tenha uma segunda
+ * cópia de cada orientação, que sairia do ar na primeira correção.
+ *
+ * O que é exclusivo do Face HD (lipoenxertia, pescoço profundo, laser
+ * associado) fica no guia próprio, onde cabe a ressalva de que nem toda
+ * paciente faz todas as etapas.
+ */
+const conteudoHerdado: Partial<Record<ProcedureId, ProcedureId[]>> = {
+  face_hd: ['face'],
+};
+
+/** O nome como ele entra no meio de uma frase. */
+export const inlineName = (p: Procedure): string =>
+  p.brandName ? p.name : p.name.toLowerCase();
+
+/** O procedimento e aqueles cujo conteúdo ele também recebe. */
+export const contentIds = (id: ProcedureId): ProcedureId[] => [
+  id,
+  ...(conteudoHerdado[id] ?? []),
+];
+
+/** Se um item de conteúdo restrito a certos procedimentos vale para este. */
+export const appliesToProcedure = (list: ProcedureId[] | undefined, id: ProcedureId): boolean =>
+  !list || contentIds(id).some((p) => list.includes(p));

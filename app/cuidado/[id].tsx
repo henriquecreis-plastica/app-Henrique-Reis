@@ -1,13 +1,22 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Bullets, Button, Card, Overline } from '../../src/components/ui';
 import { careById } from '../../src/data/care';
 import { procedureById } from '../../src/data/procedures';
 import { buildContextMessage, openWhatsApp } from '../../src/lib/contact';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
+
+/**
+ * As marcas dos protocolos da clínica. Entram como foram entregues — cada uma
+ * com a sua cor — e por isso ficam sobre branco, que é onde ambas se leem.
+ */
+const brandArt = {
+  'face-hd': require('../../assets/face-hd.png'),
+  'hr-recovery': require('../../assets/hr-recovery.png'),
+} as const;
 
 export default function CareDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -28,13 +37,25 @@ export default function CareDetail() {
     <>
       <Stack.Screen options={{ title: '' }} />
       <ScrollView style={styles.screen} contentContainerStyle={styles.scroll}>
-        <View style={styles.header}>
-          <View style={styles.headerIcon}>
-            <Ionicons name={guide.icon} size={24} color={palette.accent} />
+        {guide.brand ? (
+          <View style={styles.brandHeader}>
+            <Image
+              source={brandArt[guide.brand]}
+              style={styles.brandArt}
+              resizeMode="contain"
+              accessibilityLabel={guide.title}
+            />
+            <Text style={styles.brandSub}>{guide.subtitle}</Text>
           </View>
-          <Text style={[type.title, styles.headerTitle]}>{guide.title}</Text>
-          <Text style={styles.headerSub}>{guide.subtitle}</Text>
-        </View>
+        ) : (
+          <View style={styles.header}>
+            <View style={styles.headerIcon}>
+              <Ionicons name={guide.icon} size={24} color={palette.accent} />
+            </View>
+            <Text style={[type.title, styles.headerTitle]}>{guide.title}</Text>
+            <Text style={styles.headerSub}>{guide.subtitle}</Text>
+          </View>
+        )}
 
         {guide.sections.map((section) => (
           <Card key={section.heading}>
@@ -82,6 +103,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginBottom: spacing.sm,
   },
+  brandHeader: {
+    backgroundColor: palette.surface,
+    borderRadius: radius.lg,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: palette.border,
+    padding: spacing.xl,
+    alignItems: 'center',
+    gap: spacing.md,
+  },
+  brandArt: { width: 208, height: 68 },
+  brandSub: { ...type.bodyMuted, textAlign: 'center' },
   headerTitle: { color: palette.textOnDark },
   headerSub: { fontSize: 14, color: palette.textOnDarkMuted },
   spacer: { height: spacing.md },

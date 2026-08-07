@@ -35,16 +35,17 @@ cinta, dreno ou ponto que abriu.
 
 ### Conteúdo clínico incluído
 
-- **11 cirurgias**: mamoplastia de aumento, mastopexia, mamoplastia redutora,
-  abdominoplastia, lipoescultura, rinoplastia, cirurgia de face,
-  blefaroplastia, otoplastia, ginecomastia e pós-bariátrica.
+- **12 cirurgias**: Face HD Concept, mamoplastia de aumento, mastopexia,
+  mamoplastia redutora, abdominoplastia, lipoescultura, rinoplastia, cirurgia
+  de face, blefaroplastia, otoplastia, ginecomastia e pós-bariátrica.
 - **5 procedimentos de consultório**: toxina botulínica, preenchimento com
   ácido hialurônico, bioestimulador de colágeno, laser de CO₂ e Morpheus.
 - **62 orientações de sintomas** classificadas em esperado, atenção e contato
   imediato, cada uma com quando acontece, por que acontece e o que fazer.
 - **6 fases de recuperação** para as cirurgias e **4 fases** para os
   procedimentos de consultório, mais marcos por procedimento.
-- **13 guias de cuidados**, exibidos conforme o percurso.
+- **15 guias de cuidados**, exibidos conforme o percurso — entre eles o
+  **HR Recovery Protocol** e o guia do **Face HD Concept**.
 
 ---
 
@@ -70,6 +71,29 @@ gera o `.ipa` para a App Store e o `.aab` para o Google Play.
 ## Identidade visual
 
 O app usa o logotipo oficial e o verde Tiffany como cor de marca.
+
+### Protocolos da clínica
+
+Dois guias têm marca própria: **HR Recovery Protocol**, que aparece para toda
+paciente cirúrgica, e **Face HD Concept**, que aparece só para quem realizou
+esse planejamento. As artes vêm dos arquivos originais e são preparadas por
+`scripts/submarcas.py`:
+
+```bash
+python3 scripts/submarcas.py caminho/face-hd.png caminho/hr-recovery.png
+```
+
+O recorte fica no bloco colorido. O lockup traz um "HR" branco acima dele,
+vazado com transparência parcial — sobre o fundo claro do app ele reapareceria
+como uma sombra, então o script encolhe a borda até o bloco ficar limpo. Se a
+clínica tiver uma versão do lockup com o "HR" em cor, basta trocar o arquivo
+de entrada.
+
+O Face HD Concept herda todo o conteúdo da cirurgia de face
+(`conteudoHerdado`, em `src/data/procedures.ts`), então uma correção feita lá
+vale para os dois. O que é exclusivo dele — lipoenxertia, pescoço profundo,
+laser associado — está no guia próprio, onde cabe a ressalva de que nem toda
+paciente faz todas as etapas.
 
 ### Logotipo
 
