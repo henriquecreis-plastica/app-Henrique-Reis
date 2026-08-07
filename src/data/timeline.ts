@@ -356,6 +356,12 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
     { day: 21, text: 'Cinta pode passar a ser usada por período parcial, se liberado' },
     { day: 60, text: 'Retorno a exercícios abdominais, quando liberada' },
   ],
+  lipo_hd: [
+    { day: 21, text: 'Fase de maior endurecimento — a drenagem faz diferença aqui' },
+    { day: 90, text: 'Maior parte da recuperação concluída; a definição segue melhorando' },
+    { day: 180, text: 'Resultado do enxerto já estabelecido, quando houve GRAFT' },
+    { day: 365, text: 'Resultado final do contorno — entre 6 e 12 meses, conforme cada paciente' },
+  ],
   lipoescultura: [
     { day: 21, text: 'Fase de maior endurecimento — a drenagem faz diferença aqui' },
     { day: 90, text: 'Contorno já definido na maioria das pacientes, com inchaço residual' },

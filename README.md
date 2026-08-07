@@ -35,17 +35,18 @@ cinta, dreno ou ponto que abriu.
 
 ### Conteúdo clínico incluído
 
-- **11 cirurgias**: Face HD Concept, mamoplastia de aumento, mastopexia,
-  mamoplastia redutora, abdominoplastia, lipoescultura, rinoplastia,
-  blefaroplastia, otoplastia, ginecomastia e pós-bariátrica.
+- **12 cirurgias**: Face HD Concept, Lipo HD Concept, mamoplastia de aumento,
+  mastopexia, mamoplastia redutora, abdominoplastia, lipoescultura,
+  rinoplastia, blefaroplastia, otoplastia, ginecomastia e pós-bariátrica.
 - **5 procedimentos de consultório**: toxina botulínica, preenchimento com
   ácido hialurônico, bioestimulador de colágeno, laser de CO₂ e Morpheus.
-- **62 orientações de sintomas** classificadas em esperado, atenção e contato
+- **63 orientações de sintomas** classificadas em esperado, atenção e contato
   imediato, cada uma com quando acontece, por que acontece e o que fazer.
 - **6 fases de recuperação** para as cirurgias e **4 fases** para os
   procedimentos de consultório, mais marcos por procedimento.
-- **15 guias de cuidados**, exibidos conforme o percurso — entre eles o
-  **HR Recovery Protocol** e o guia do **Face HD Concept**.
+- **16 guias de cuidados**, exibidos conforme o percurso — entre eles o
+  **HR Recovery Protocol** e os guias do **Face HD Concept** e da
+  **Lipo HD Concept**.
 
 ---
 
@@ -74,10 +75,11 @@ O app usa o logotipo oficial e o verde Tiffany como cor de marca.
 
 ### Protocolos da clínica
 
-Dois guias têm marca própria: **HR Recovery Protocol**, que aparece para toda
+Dois guias têm arte de marca: **HR Recovery Protocol**, que aparece para toda
 paciente cirúrgica, e **Face HD Concept**, que aparece só para quem realizou
-esse planejamento. As artes vêm dos arquivos originais e são preparadas por
-`scripts/submarcas.py`:
+esse planejamento. A **Lipo HD Concept** tem guia próprio, mas ainda sem arte —
+a clínica não enviou o lockup. As artes vêm dos arquivos originais e são
+preparadas por `scripts/submarcas.py`:
 
 ```bash
 python3 scripts/submarcas.py caminho/face-hd.png caminho/hr-recovery.png
@@ -98,6 +100,13 @@ reetiquetadas, e uma correção feita ali vale para o procedimento novo. O que �
 exclusivo dele — mentoneira, taping, lipoenxertia, laser associado — está no
 guia próprio, onde cabe a ressalva de que nem toda paciente faz todas as
 etapas.
+
+A **Lipo HD Concept** segue o mesmo desenho: herda o conteúdo da lipoescultura
+e tem guia próprio, que separa o que é a Lipo HD do que é o GRAFT — a confusão
+mais comum entre as pacientes, que costumam entender o procedimento como "uma
+lipo mais forte". Diferente do Face HD, ela **convive** com a lipoescultura na
+seleção; se a clínica preferir que substitua, é remover a entrada
+`lipoescultura` de `procedures[]`, como foi feito com `face`.
 
 ### Logotipo
 

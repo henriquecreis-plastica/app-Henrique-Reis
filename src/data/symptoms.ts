@@ -546,6 +546,29 @@ export const symptoms: Symptom[] = [
     keywords: ['choque', 'fisgada', 'agulhada', 'pontada'],
   },
   {
+    id: 'reabsorcao_enxerto',
+    kinds: ['cirurgico'],
+    procedures: ['lipo_hd', 'lipoescultura', 'face_hd'],
+    title: 'A área enxertada parece ter perdido volume',
+    severity: 'normal',
+    groups: ['inchaco'],
+    when: 'Do 1º ao 6º mês',
+    summary:
+      'Parte da gordura enxertada é naturalmente reabsorvida pelo organismo nos primeiros meses. Isso é esperado e já entra no planejamento da cirurgia.',
+    why: [
+      'Nem toda a gordura transferida se integra: o corpo reabsorve uma parte ao longo das primeiras semanas.',
+      'O volume que permanece depois desse período tende a se manter.',
+      'O inchaço inicial também dá a impressão de um volume maior do que o que vai ficar.',
+    ],
+    action: [
+      'Evite pressão sobre a área enxertada nas primeiras semanas',
+      'Siga as orientações de posição para dormir e para sentar',
+      'Não massageie a região enxertada sem orientação da equipe',
+      'Avalie o resultado do enxerto entre 3 e 6 meses, no retorno',
+    ],
+    keywords: ['enxerto', 'graft', 'perdeu volume', 'gordura enxertada', 'reabsorção', 'diminuiu'],
+  },
+  {
     id: 'endurecimento',
     kinds: ['cirurgico'],
     title: 'Endurecimento e nódulos sob a pele',

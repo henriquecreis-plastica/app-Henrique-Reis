@@ -119,6 +119,65 @@ export const careGuides: CareGuide[] = [
     ],
   },
   {
+    id: 'lipo_hd',
+    kinds: ['cirurgico'],
+    procedures: ['lipo_hd'],
+    title: 'Sua Lipo HD Concept',
+    subtitle: 'Não é uma lipo mais forte — é um planejamento de contorno',
+    icon: 'barbell-outline',
+    sections: [
+      {
+        heading: 'O que é a Lipo HD',
+        items: [
+          'Mais do que retirar gordura, ela esculpe os contornos naturais do seu corpo',
+          'A gordura é removida de forma estratégica, preservando transições suaves e evidenciando cintura, linhas abdominais, dorso e contornos',
+          'O objetivo não é um aspecto artificial, e sim um resultado natural e proporcional ao seu biotipo',
+          'Cada planejamento respeita a sua anatomia, a qualidade da sua pele e os seus objetivos',
+        ],
+      },
+      {
+        heading: 'O que é o GRAFT',
+        items: [
+          'É a sua própria gordura, retirada na lipoaspiração e preparada para ser enxertada onde falta volume',
+          'As regiões mais comuns são glúteos, quadris (hip dips), abdome (UGRAFT®) e peitoral',
+          'Por usar tecido do seu corpo, o aspecto e o toque são naturais',
+          'Nem toda cirurgia inclui enxertia: vale para você o que foi combinado na consulta',
+        ],
+      },
+      {
+        heading: 'Se houve enxertia de gordura',
+        items: [
+          'Evite pressão sobre a área enxertada nas primeiras semanas',
+          'Siga com rigor as orientações de posição para dormir e para sentar',
+          'Não massageie a região enxertada sem orientação da equipe',
+          'Mantenha boa hidratação e alimentação ao longo de toda a recuperação',
+        ],
+      },
+      {
+        heading: 'Por que os cuidados pesam mais aqui',
+        items: [
+          'São os mesmos da lipoaspiração convencional, mas é o que preserva a definição obtida na cirurgia',
+          'Cinta conforme a orientação — sem apertar nem ajustar por conta própria',
+          'Drenagem linfática e fisioterapia no cronograma indicado',
+          'Caminhadas curtas e frequentes desde cedo, que também previnem trombose',
+          'Alimentação rica em proteína e boa hidratação',
+          'Volta aos exercícios de forma gradual, respeitando os prazos da equipe',
+          'Sem sol direto enquanto houver roxos ou cicatriz recente',
+        ],
+      },
+      {
+        heading: 'O resultado leva tempo',
+        items: [
+          'Nas primeiras semanas há inchaço, endurecimento e assimetrias temporárias — tudo esperado',
+          'A definição melhora progressivamente conforme o inchaço cede',
+          'A maior parte da recuperação acontece nos primeiros 3 meses',
+          'Quando houve enxertia, o resultado do enxerto se define entre 3 e 6 meses',
+          'O resultado final costuma ser observado entre 6 e 12 meses, conforme cada paciente',
+        ],
+      },
+    ],
+  },
+  {
     id: 'compressao',
     kinds: ['cirurgico'],
     title: 'Cinta, malha e sutiã cirúrgico',

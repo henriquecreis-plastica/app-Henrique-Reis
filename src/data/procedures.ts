@@ -12,6 +12,7 @@ export type ProcedureId =
   | 'mastopexia'
   | 'mamoplastia_redutora'
   | 'abdominoplastia'
+  | 'lipo_hd'
   | 'lipoescultura'
   | 'rinoplastia'
   | 'face_hd'
@@ -121,6 +122,22 @@ export const procedures: Procedure[] = [
       'Cinta compressiva 24h por dia',
       'Drenagem linfática é parte essencial do resultado',
       'Endurecimento e irregularidades nos primeiros meses são esperados',
+    ],
+  },
+  {
+    id: 'lipo_hd',
+    name: 'Lipo HD Concept',
+    short: 'Lipoaspiração de alta definição, com ou sem enxertia',
+    icon: 'barbell-outline',
+    kind: 'cirurgico',
+    brandName: true,
+    recoveryWeeks: 6,
+    highlights: [
+      'Cinta conforme a orientação da equipe — não aperte nem ajuste por conta própria',
+      'Drenagem linfática e fisioterapia ajudam a preservar a definição',
+      'Caminhadas curtas desde cedo, conforme orientação',
+      'Se houve enxertia: evite pressão sobre a área enxertada',
+      'Endurecimento e assimetrias nas primeiras semanas são esperados',
     ],
   },
   {
@@ -307,6 +324,7 @@ export const eventNoun = (kind: ProcedureKind): string =>
  */
 const conteudoHerdado: Partial<Record<ProcedureId, ProcedureId[]>> = {
   face_hd: ['face'],
+  lipo_hd: ['lipoescultura'],
 };
 
 /** O nome como ele entra no meio de uma frase. */
