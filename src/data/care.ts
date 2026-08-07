@@ -19,7 +19,7 @@ export interface CareGuide {
    * Guias que são protocolos da clínica e têm marca própria. A arte entra no
    * lugar do título, como foi entregue — não é recolorida nem redesenhada.
    */
-  brand?: 'face-hd' | 'hr-recovery';
+  brand?: 'face-hd' | 'lipo-hd' | 'hr-recovery';
 }
 
 export const careGuides: CareGuide[] = [
@@ -122,6 +122,7 @@ export const careGuides: CareGuide[] = [
     id: 'lipo_hd',
     kinds: ['cirurgico'],
     procedures: ['lipo_hd'],
+    brand: 'lipo-hd',
     title: 'Sua Lipo HD Concept',
     subtitle: 'Não é uma lipo mais forte — é um planejamento de contorno',
     icon: 'barbell-outline',

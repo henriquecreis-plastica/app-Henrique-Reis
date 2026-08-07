@@ -75,15 +75,28 @@ O app usa o logotipo oficial e o verde Tiffany como cor de marca.
 
 ### Protocolos da clínica
 
-Dois guias têm arte de marca: **HR Recovery Protocol**, que aparece para toda
-paciente cirúrgica, e **Face HD Concept**, que aparece só para quem realizou
-esse planejamento. A **Lipo HD Concept** tem guia próprio, mas ainda sem arte —
-a clínica não enviou o lockup. As artes vêm dos arquivos originais e são
-preparadas por `scripts/submarcas.py`:
+Três guias têm arte de marca: **HR Recovery Protocol**, que aparece para toda
+paciente cirúrgica, e **Face HD Concept** e **Lipo HD Concept**, que aparecem
+só para quem realizou aquele planejamento. As artes vêm dos arquivos originais
+e são preparadas por `scripts/submarcas.py`:
 
 ```bash
-python3 scripts/submarcas.py caminho/face-hd.png caminho/hr-recovery.png
+python3 scripts/submarcas.py face-hd.png hr-recovery.png assets/lipo-hd-original.png
 ```
+
+O lockup da Lipo HD não veio pronto da clínica: ele é derivado do arquivo do
+Face HD por `scripts/marca-lipo-hd.py`, que preserva o bloco, o "HR", o "HD",
+a palavra "CONCEPT" e o fio de contorno, e redesenha só as quatro letras que
+faltavam. As proporções não são estimadas — altura de caixa alta 65 px, traço
+de 8 px e "O" circular saíram de medir o "H", o "D" e o "O" da própria arte:
+
+```bash
+python3 scripts/marca-lipo-hd.py caminho/face-hd-original.png
+```
+
+Se a clínica desenhar o lockup oficial da Lipo HD, é só substituir
+`assets/lipo-hd-original.png` e rodar `submarcas.py` de novo — o script de
+derivação deixa de ser necessário.
 
 O lockup original traz um "HR" em branco acima do bloco colorido, que sobre o
 fundo claro do app simplesmente desaparecia. Por orientação da clínica, ele é

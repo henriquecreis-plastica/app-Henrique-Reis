@@ -1,10 +1,10 @@
 """
-Prepara as marcas dos protocolos da clínica — Face HD Concept e HR Recovery
-Protocol — a partir dos arquivos originais.
+Prepara as marcas dos protocolos da clínica — Face HD Concept, Lipo HD Concept
+e HR Recovery Protocol — a partir dos arquivos originais.
 
 Uso:
     pip install Pillow numpy
-    python3 scripts/submarcas.py face-hd.png hr-recovery.png
+    python3 scripts/submarcas.py face-hd.png hr-recovery.png [lipo-hd.png]
 
 A arte não é redesenhada: o script recorta a margem, reduz para o tamanho em
 que o app exibe e faz uma única troca de cor, autorizada pela clínica.
@@ -203,7 +203,11 @@ def prepara(origem, nome):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) != 3:
-        raise SystemExit('uso: python3 scripts/submarcas.py <face-hd.png> <hr-recovery.png>')
+    if len(sys.argv) not in (3, 4):
+        raise SystemExit(
+            'uso: python3 scripts/submarcas.py <face-hd.png> <hr-recovery.png> [lipo-hd.png]'
+        )
     prepara(sys.argv[1], 'face-hd.png')
     prepara(sys.argv[2], 'hr-recovery.png')
+    if len(sys.argv) == 4:
+        prepara(sys.argv[3], 'lipo-hd.png')

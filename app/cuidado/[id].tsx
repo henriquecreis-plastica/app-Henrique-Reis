@@ -17,6 +17,7 @@ import { palette, radius, spacing, type } from '../../src/theme';
  */
 const brandArt = {
   'face-hd': require('../../assets/face-hd.png'),
+  'lipo-hd': require('../../assets/lipo-hd.png'),
   'hr-recovery': require('../../assets/hr-recovery.png'),
 } as const;
 
