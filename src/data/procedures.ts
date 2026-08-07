@@ -15,6 +15,11 @@ export type ProcedureId =
   | 'lipoescultura'
   | 'rinoplastia'
   | 'face_hd'
+  /**
+   * Não é mais escolhível: a cirurgia de face da clínica é o Face HD Concept.
+   * O id continua existindo como etiqueta do conteúdo de face, herdado pelo
+   * Face HD — assim as 62 orientações não precisaram ser reetiquetadas.
+   */
   | 'face'
   | 'blefaroplastia'
   | 'otoplastia'
@@ -62,7 +67,7 @@ export const procedures: Procedure[] = [
     highlights: [
       'Sutiã cirúrgico em tempo integral, inclusive para dormir',
       'Dormir de barriga para cima nas primeiras semanas',
-      'Não levantar os braços acima da cabeça nos primeiros dias',
+      'Não levantar os braços acima dos ombros no primeiro mês',
     ],
   },
   {
@@ -75,7 +80,8 @@ export const procedures: Procedure[] = [
     highlights: [
       'Sutiã cirúrgico em tempo integral',
       'Cicatrizes exigem proteção solar rigorosa por 12 meses',
-      'Evitar esforço com os braços nas primeiras 3 semanas',
+      'Evitar esforço com os braços no primeiro mês',
+      'Não levantar os braços acima dos ombros no primeiro mês',
     ],
   },
   {
@@ -113,7 +119,7 @@ export const procedures: Procedure[] = [
     recoveryWeeks: 6,
     highlights: [
       'Cinta compressiva 24h por dia',
-      'Drenagem linfática, quando indicada pela equipe',
+      'Drenagem linfática é parte essencial do resultado',
       'Endurecimento e irregularidades nos primeiros meses são esperados',
     ],
   },
@@ -126,8 +132,8 @@ export const procedures: Procedure[] = [
     recoveryWeeks: 8,
     highlights: [
       'Nariz entupido por algumas semanas é esperado',
-      'Não assoar o nariz nem usar óculos de armação pesada',
-      'O resultado final leva de 6 a 12 meses para se definir',
+      'Não assoar o nariz nem usar óculos de armação pesada por 45 dias',
+      'O resultado final leva 12 meses para se definir',
     ],
   },
   {
@@ -139,22 +145,11 @@ export const procedures: Procedure[] = [
     brandName: true,
     recoveryWeeks: 8,
     highlights: [
-      'Cabeceira elevada para dormir — é o que mais reduz o inchaço',
-      'Dormência na face e no pescoço é esperada e melhora aos poucos',
-      'Cada planejamento é individual: siga o que foi combinado para o seu caso',
-    ],
-  },
-  {
-    id: 'face',
-    name: 'Cirurgia de face',
-    short: 'Ritidoplastia / facelifting',
-    icon: 'happy-outline',
-    kind: 'cirurgico',
-    recoveryWeeks: 8,
-    highlights: [
+      'Mentoneira por 15 dias — pode retirar para comer e tomar banho',
+      'Não molhar o taping (bandagem)',
       'Dormir com a cabeceira elevada reduz muito o inchaço',
       'Dormência na frente das orelhas e no pescoço é esperada',
-      'Compressa fria apenas nas primeiras 48 horas',
+      'Fisioterapia e drenagem são parte essencial e aceleram a recuperação',
     ],
   },
   {
@@ -166,7 +161,9 @@ export const procedures: Procedure[] = [
     recoveryWeeks: 3,
     highlights: [
       'Roxo ao redor dos olhos é esperado e some em 2 a 3 semanas',
-      'Olho seco ou lacrimejante é comum no início',
+      'Compressas geladas nos olhos nos primeiros dias',
+      'Fita de micropore fechando os olhos por 2 semanas — previne olho seco e lacrimejamento',
+      'Usar a pomada e o colírio prescritos',
       'Evitar telas e leitura prolongada nos primeiros dias',
     ],
   },

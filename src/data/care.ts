@@ -90,6 +90,9 @@ export const careGuides: CareGuide[] = [
       {
         heading: 'Face e pescoço',
         items: [
+          'Mentoneira por 15 dias — pode retirar para se alimentar e tomar banho',
+          'Não molhar o taping (bandagem)',
+          'Fisioterapia e drenagem são parte essencial e aceleram a recuperação',
           'Dormir de barriga para cima, com a cabeceira elevada — é o que mais reduz o inchaço',
           'Evitar movimentos bruscos de virar ou flexionar o pescoço nos primeiros dias',
           'Sensação de repuxo, dormência e formigamento na frente das orelhas e no pescoço é esperada',
@@ -221,21 +224,21 @@ export const careGuides: CareGuide[] = [
     id: 'drenagem',
     kinds: ['cirurgico'],
     title: 'Drenagem linfática',
-    subtitle: 'Quando indicada pela equipe',
+    subtitle: 'Um dos fatores que mais influenciam o resultado',
     icon: 'hand-left-outline',
     sections: [
       {
         heading: 'Para que serve',
         items: [
-          'Quando indicada, ajuda a reduzir o inchaço e a sensação de peso',
-          'Contribui no manejo da fibrose, que deixa o contorno irregular',
-          'Nem toda paciente precisa: quem indica, e a partir de quando, é a equipe',
+          'Acelera a saída do líquido acumulado e reduz o inchaço',
+          'Previne e trata a fibrose, que deixa o contorno irregular',
+          'Melhora o conforto e a sensação de peso',
         ],
       },
       {
         heading: 'Como fazer',
         items: [
-          'Só começa depois da liberação da equipe — habitualmente entre o 2º e o 5º dia',
+          'Início conforme liberação da equipe, em geral entre o 2º e o 5º dia',
           'Sempre com profissional habilitado em pós-operatório de cirurgia plástica',
           'Frequência habitual: 3 a 5 sessões na primeira semana, reduzindo depois',
           'A manobra é suave — drenagem dolorida não é drenagem linfática',

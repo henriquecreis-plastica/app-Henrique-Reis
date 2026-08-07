@@ -357,7 +357,7 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
     { day: 60, text: 'Retorno a exercícios abdominais, quando liberada' },
   ],
   lipoescultura: [
-    { day: 21, text: 'Fase de maior endurecimento — quando indicada, a drenagem ajuda bastante aqui' },
+    { day: 21, text: 'Fase de maior endurecimento — a drenagem faz diferença aqui' },
     { day: 90, text: 'Contorno já definido na maioria das pacientes, com inchaço residual' },
   ],
   rinoplastia: [
@@ -368,13 +368,9 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
   face_hd: [
     { day: 0, text: 'Fisioterapia e taping começam ainda no hospital' },
     { day: 10, text: 'Retirada dos pontos conforme orientação' },
-    { day: 21, text: 'Boa parte do inchaço já cedeu — o pescoço costuma ser o último' },
-    { day: 30, text: 'Aparência social recuperada na maioria dos casos' },
-    { day: 180, text: 'Acompanhamento com o Dr. Henrique Reis até o 6º mês' },
-  ],
-  face: [
-    { day: 10, text: 'Retirada dos pontos conforme orientação' },
-    { day: 30, text: 'Aparência social recuperada na maioria dos casos' },
+    { day: 15, text: 'Fim do uso da mentoneira, conforme orientação' },
+    { day: 30, text: 'Rosto mais desinchado, porém ainda longe do resultado final' },
+    { day: 180, text: 'Rosto próximo do resultado final' },
   ],
   blefaroplastia: [
     { day: 5, text: 'Retirada dos pontos das pálpebras' },

@@ -10,8 +10,10 @@ import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
 
 /**
- * As marcas dos protocolos da clínica. Entram como foram entregues — cada uma
- * com a sua cor — e por isso ficam sobre branco, que é onde ambas se leem.
+ * As marcas dos protocolos da clínica, cada uma com a sua cor, sobre branco —
+ * que é onde ambas se leem. O "HR" do lockup vinha em branco e sumia no fundo
+ * claro; por orientação da clínica, ele é desenhado na cor do próprio bloco
+ * (ver scripts/submarcas.py).
  */
 const brandArt = {
   'face-hd': require('../../assets/face-hd.png'),
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: spacing.md,
   },
-  brandArt: { width: 208, height: 68 },
+  brandArt: { width: 208, height: 94 },
   brandSub: { ...type.bodyMuted, textAlign: 'center' },
   headerTitle: { color: palette.textOnDark },
   headerSub: { fontSize: 14, color: palette.textOnDarkMuted },

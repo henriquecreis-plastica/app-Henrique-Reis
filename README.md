@@ -35,9 +35,9 @@ cinta, dreno ou ponto que abriu.
 
 ### Conteúdo clínico incluído
 
-- **12 cirurgias**: Face HD Concept, mamoplastia de aumento, mastopexia,
-  mamoplastia redutora, abdominoplastia, lipoescultura, rinoplastia, cirurgia
-  de face, blefaroplastia, otoplastia, ginecomastia e pós-bariátrica.
+- **11 cirurgias**: Face HD Concept, mamoplastia de aumento, mastopexia,
+  mamoplastia redutora, abdominoplastia, lipoescultura, rinoplastia,
+  blefaroplastia, otoplastia, ginecomastia e pós-bariátrica.
 - **5 procedimentos de consultório**: toxina botulínica, preenchimento com
   ácido hialurônico, bioestimulador de colágeno, laser de CO₂ e Morpheus.
 - **62 orientações de sintomas** classificadas em esperado, atenção e contato
@@ -83,17 +83,21 @@ esse planejamento. As artes vêm dos arquivos originais e são preparadas por
 python3 scripts/submarcas.py caminho/face-hd.png caminho/hr-recovery.png
 ```
 
-O recorte fica no bloco colorido. O lockup traz um "HR" branco acima dele,
-vazado com transparência parcial — sobre o fundo claro do app ele reapareceria
-como uma sombra, então o script encolhe a borda até o bloco ficar limpo. Se a
-clínica tiver uma versão do lockup com o "HR" em cor, basta trocar o arquivo
-de entrada.
+O lockup original traz um "HR" em branco acima do bloco colorido, que sobre o
+fundo claro do app simplesmente desaparecia. Por orientação da clínica, ele é
+desenhado na cor do próprio bloco — o verde do Face HD, o azul do Recovery
+Protocol. Nenhuma cor nova entra na identidade. O script também descarta o fio
+de contorno branco que abraça a arte: ele existe para fundos escuros e, se
+fosse repintado junto, viraria uma moldura que a marca não tem.
 
-O Face HD Concept herda todo o conteúdo da cirurgia de face
-(`conteudoHerdado`, em `src/data/procedures.ts`), então uma correção feita lá
-vale para os dois. O que é exclusivo dele — lipoenxertia, pescoço profundo,
-laser associado — está no guia próprio, onde cabe a ressalva de que nem toda
-paciente faz todas as etapas.
+**O Face HD Concept substituiu "Cirurgia de face" na seleção** — é assim que a
+clínica opera o rejuvenescimento facial. O id `face` continua existindo em
+`src/data/procedures.ts`, mas apenas como etiqueta do conteúdo de face, que o
+Face HD herda via `conteudoHerdado`: assim as 62 orientações não precisaram ser
+reetiquetadas, e uma correção feita ali vale para o procedimento novo. O que é
+exclusivo dele — mentoneira, taping, lipoenxertia, laser associado — está no
+guia próprio, onde cabe a ressalva de que nem toda paciente faz todas as
+etapas.
 
 ### Logotipo
 

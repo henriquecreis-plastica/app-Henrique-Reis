@@ -126,6 +126,7 @@ export const symptoms: Symptom[] = [
       'Sangue vivo em quantidade, que encharca o curativo rapidamente ou escorre, exige contato imediato.',
     why: [
       'Pequenas manchas rosadas ou avermelhadas no curativo são esperadas.',
+      'Às vezes o curativo da lipoaspiração sangra um pouco ou sai um líquido vermelho claro — isso é normal.',
       'Sangramento contínuo pode indicar um vaso que voltou a sangrar.',
     ],
     action: [
@@ -802,7 +803,7 @@ export const symptoms: Symptom[] = [
     procedures: ['rinoplastia'],
     when: 'Até 12 meses',
     summary:
-      'A ponta do nariz é a última região a desinchar. O resultado final costuma levar de 6 a 12 meses, e o ritmo varia de pessoa para pessoa.',
+      'A ponta do nariz é a última região a desinchar. O resultado final costuma levar cerca de 12 meses, e o ritmo varia de pessoa para pessoa.',
     why: ['A pele da ponta nasal é mais espessa e retém inchaço por muito mais tempo.'],
     action: [
       'Evite conclusões antes de 1 ano',
@@ -821,7 +822,9 @@ export const symptoms: Symptom[] = [
       'Ressecamento e lacrimejamento alternados são comuns após cirurgia das pálpebras.',
     why: ['O inchaço altera temporariamente o fechamento das pálpebras e o filme lacrimal.'],
     action: [
-      'Use colírio lubrificante conforme orientação',
+      'Use a pomada e o colírio prescritos, nos horários orientados',
+      'Fita de micropore fechando os olhos por 2 semanas, como orientado — é o que previne o ressecamento',
+      'Compressas geladas nos primeiros dias',
       'Evite ambientes com ar-condicionado e vento direto',
       'Reduza o tempo de tela nos primeiros dias',
     ],
@@ -1255,7 +1258,7 @@ export const symptoms: Symptom[] = [
       'Nos primeiros dias é comum sentir o produto ao apalpar. Ele se acomoda e a sensação desaparece.',
     why: [
       'O produto ainda está se distribuindo e há inchaço por cima dele.',
-      'A avaliação do contorno só faz sentido depois de 15 dias.',
+      'A avaliação do contorno só faz sentido depois de 30 dias.',
     ],
     action: [
       'Seguir a orientação de massagem quando houver — em alguns tratamentos ela faz parte do protocolo',
