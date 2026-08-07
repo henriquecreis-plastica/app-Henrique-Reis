@@ -170,7 +170,7 @@ export function ProcedurePicker({
                     key={p.id}
                     accessibilityRole="radio"
                     accessibilityState={{ selected }}
-                    accessibilityLabel={`${p.name}. ${p.short}`}
+                    accessibilityLabel={[p.name, p.short, p.note].filter(Boolean).join('. ')}
                     onPress={() => onChange(p.id)}
                     style={({ pressed }) => [
                       styles.procedure,
@@ -192,6 +192,18 @@ export function ProcedurePicker({
                       <Text style={[type.small, selected && { color: palette.textOnTiffanyMuted }]}>
                         {p.short}
                       </Text>
+                      {/* O aviso só existe onde dois procedimentos se parecem
+                          e a escolha errada troca todo o conteúdo. */}
+                      {p.note ? (
+                        <Text
+                          style={[
+                            styles.procedureNote,
+                            selected && { color: palette.textOnTiffanyMuted },
+                          ]}
+                        >
+                          {p.note}
+                        </Text>
+                      ) : null}
                     </View>
                     {selected ? (
                       <Ionicons name="checkmark-circle" size={20} color={palette.textOnTiffany} />
@@ -254,5 +266,11 @@ const styles = StyleSheet.create({
     borderColor: palette.border,
   },
   procedureSelected: { backgroundColor: palette.tiffany, borderColor: palette.tiffany },
+  procedureNote: {
+    fontSize: 11.5,
+    lineHeight: 16,
+    color: palette.attention,
+    marginTop: 4,
+  },
   procedureName: { fontSize: 15, fontWeight: '700', color: palette.text },
 });

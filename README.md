@@ -81,22 +81,13 @@ só para quem realizou aquele planejamento. As artes vêm dos arquivos originais
 e são preparadas por `scripts/submarcas.py`:
 
 ```bash
-python3 scripts/submarcas.py face-hd.png hr-recovery.png assets/lipo-hd-original.png
+python3 scripts/submarcas.py face-hd.png hr-recovery.png lipo-hd.png
 ```
 
-O lockup da Lipo HD não veio pronto da clínica: ele é derivado do arquivo do
-Face HD por `scripts/marca-lipo-hd.py`, que preserva o bloco, o "HR", o "HD",
-a palavra "CONCEPT" e o fio de contorno, e redesenha só as quatro letras que
-faltavam. As proporções não são estimadas — altura de caixa alta 65 px, traço
-de 8 px e "O" circular saíram de medir o "H", o "D" e o "O" da própria arte:
-
-```bash
-python3 scripts/marca-lipo-hd.py caminho/face-hd-original.png
-```
-
-Se a clínica desenhar o lockup oficial da Lipo HD, é só substituir
-`assets/lipo-hd-original.png` e rodar `submarcas.py` de novo — o script de
-derivação deixa de ser necessário.
+A clínica entrega os arquivos de dois jeitos: uns com fundo transparente,
+outros achatados sobre preto. O script reconhece os dois — no segundo caso, o
+quanto cada pixel tem de branco é exatamente o quanto ele tem de opacidade, e
+é assim que o "HR" volta a ficar recortado.
 
 O lockup original traz um "HR" em branco acima do bloco colorido, que sobre o
 fundo claro do app simplesmente desaparecia. Por orientação da clínica, ele é
@@ -117,9 +108,14 @@ etapas.
 A **Lipo HD Concept** segue o mesmo desenho: herda o conteúdo da lipoescultura
 e tem guia próprio, que separa o que é a Lipo HD do que é o GRAFT — a confusão
 mais comum entre as pacientes, que costumam entender o procedimento como "uma
-lipo mais forte". Diferente do Face HD, ela **convive** com a lipoescultura na
-seleção; se a clínica preferir que substitua, é remover a entrada
-`lipoescultura` de `procedures[]`, como foi feito com `face`.
+lipo mais forte".
+
+Diferente do Face HD, ela **convive** com a lipoescultura na seleção, porque
+são cirurgias distintas e a paciente precisa saber qual foi a dela. As duas
+aparecem lado a lado, a convencional primeiro, e a Lipo HD carrega um `note`
+— o único do app — dizendo para marcá-la apenas se foi esse o planejamento
+combinado. É o campo a usar sempre que dois procedimentos se parecerem e a
+escolha errada trocar todo o conteúdo que a paciente recebe.
 
 ### Logotipo
 

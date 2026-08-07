@@ -32,6 +32,38 @@ LARGURA = 260 * 3
 RAIO_FIO = 4
 
 
+def sobre_transparente(img):
+    """
+    Põe o arquivo no formato que o resto do script espera: fundo transparente,
+    arte opaca.
+
+    A clínica entrega as marcas de dois jeitos — umas com fundo transparente,
+    outras achatadas sobre preto. No segundo caso o "HR" e o fio foram
+    desenhados em branco sobre preto, então o quanto cada pixel tem de branco é
+    exatamente o quanto ele tem de opacidade.
+    """
+    a = np.array(img)
+    if (a[:, :, 3] < 250).any():
+        return img  # já veio com transparência
+
+    rgb = a[:, :, :3].astype(int)
+    if rgb[0, 0].max() > 40 or rgb[-1, -1].max() > 40:
+        return img  # o fundo não é preto; nada a converter
+
+    colorido = rgb.sum(axis=2) > 60
+    cores, contagem = np.unique(a[:, :, :3][colorido & (rgb.max(axis=2) < 200)],
+                                axis=0, return_counts=True)
+    cor = cores[contagem.argmax()].astype(int)
+    bloco = np.abs(rgb - cor).max(axis=2) <= 40
+
+    saida = a.copy()
+    saida[..., 3] = rgb.max(axis=2)  # branco sobre preto vira branco sobre nada
+    saida[..., :3] = 255
+    saida[bloco, :3] = cor
+    saida[bloco, 3] = 255
+    return Image.fromarray(saida, 'RGBA')
+
+
 def caixa_do_bloco(img):
     """
     Recorta o bloco de cor.
@@ -194,7 +226,7 @@ def recorta_transparente(img):
 
 
 def prepara(origem, nome):
-    img = lockup(Image.open(origem).convert('RGBA'))
+    img = lockup(sobre_transparente(Image.open(origem).convert('RGBA')))
     escala = LARGURA / img.width
     img = img.resize((LARGURA, max(1, round(img.height * escala))), Image.LANCZOS)
     destino = os.path.join(OUT, nome)

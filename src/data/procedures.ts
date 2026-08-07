@@ -50,6 +50,11 @@ export interface Procedure {
   /** Pontos de atenção específicos deste procedimento. */
   highlights: string[];
   /**
+   * Aviso extra na seleção, para procedimentos que se confundem entre si. Só
+   * aparece onde a escolha errada muda o conteúdo que a paciente vai receber.
+   */
+  note?: string;
+  /**
    * Como o nome entra no meio de uma frase. Os procedimentos comuns viram
    * minúscula ("referências para rinoplastia"); os que são marca da clínica
    * mantêm a grafia própria.
@@ -114,7 +119,7 @@ export const procedures: Procedure[] = [
   {
     id: 'lipoescultura',
     name: 'Lipoescultura',
-    short: 'Lipoaspiração e enxertia de gordura',
+    short: 'Lipoaspiração convencional, com ou sem enxertia de gordura',
     icon: 'body-outline',
     kind: 'cirurgico',
     recoveryWeeks: 6,
@@ -127,7 +132,8 @@ export const procedures: Procedure[] = [
   {
     id: 'lipo_hd',
     name: 'Lipo HD Concept',
-    short: 'Lipoaspiração de alta definição, com ou sem enxertia',
+    short: 'Lipoaspiração de alta definição, com ou sem GRAFT',
+    note: 'Marque só se o Lipo HD Concept foi o planejamento combinado na sua consulta. Se a sua cirurgia foi uma lipoaspiração convencional, escolha Lipoescultura.',
     icon: 'barbell-outline',
     kind: 'cirurgico',
     brandName: true,
