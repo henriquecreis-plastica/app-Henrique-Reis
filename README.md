@@ -177,7 +177,7 @@ plástica" da marca.
 ### Dados institucionais
 
 Ficam no objeto `clinic`, em `src/theme/brand.ts`: WhatsApp, telefone,
-endereço, Instagram, site e títulos. O botão de WhatsApp abre a conversa com
+endereço, Instagram, YouTube, site e títulos. O botão de WhatsApp abre a conversa com
 o número da clínica e a mensagem já preenchida com nome, procedimento e dia
 de pós-operatório; o endereço abre o mapa.
 

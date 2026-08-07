@@ -76,6 +76,12 @@ export const clinic = {
   site: 'https://www.plasticahenrique.com',
   instagram: 'https://www.instagram.com/dr.henriquereis/',
   instagramHandle: '@dr.henriquereis',
+  /**
+   * Canal do YouTube. O link vai limpo, sem o parâmetro de rastreio que o
+   * app do YouTube acrescenta ao compartilhar.
+   */
+  youtube: 'https://www.youtube.com/@plasticahenrique',
+  youtubeHandle: '@plasticahenrique',
 
   /** WhatsApp da clínica, no formato internacional sem sinais. */
   whatsapp: '5548991450910',

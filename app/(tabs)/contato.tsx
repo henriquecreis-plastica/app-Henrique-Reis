@@ -82,6 +82,13 @@ export default function Contato() {
             onPress={() => openLink(clinic.instagram)}
           />
           <InfoRow
+            icon="logo-youtube"
+            label="Vídeos no YouTube"
+            value={clinic.youtubeHandle}
+            hint="Dr. Henrique Reis explicando os principais temas"
+            onPress={() => openLink(clinic.youtube)}
+          />
+          <InfoRow
             icon="globe-outline"
             label="Site"
             value="plasticahenrique.com"
