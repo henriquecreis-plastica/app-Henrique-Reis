@@ -135,7 +135,7 @@ export const officePhases: Phase[] = [
     to: 3650,
     icon: 'trending-up-outline',
     summary:
-      'Resultado consolidado. A partir daqui o que conta é manutenção e acompanhamento.',
+      'Na maioria das pacientes o resultado já está estável. A partir daqui o que conta é manutenção e acompanhamento.',
     expect: [
       'Efeito estável, dentro da duração esperada para o tratamento',
       'Em bioestimuladores, ganho progressivo até cerca de 3 meses',
@@ -321,7 +321,7 @@ export const phases: Phase[] = [
       'Fase de maturação. A cicatriz clareia e amolece, e o resultado final se consolida ao longo do primeiro ano.',
     expect: [
       'Cicatriz clareando progressivamente até ficar mais clara e plana',
-      'Contorno definitivo se estabelecendo',
+      'Contorno se aproximando do resultado final',
       'Pequenas áreas de dormência que podem levar até 1 ano para normalizar',
     ],
     todo: [
@@ -341,7 +341,7 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
   mamoplastia_aumento: [
     { day: 2, text: 'Mamas altas e endurecidas — elas descem naturalmente em semanas' },
     { day: 30, text: 'As próteses começam a acomodar e o formato se naturaliza' },
-    { day: 90, text: 'Formato próximo do definitivo' },
+    { day: 90, text: 'Formato próximo do final na maioria das pacientes' },
   ],
   mastopexia: [
     { day: 14, text: 'Retirada de pontos conforme orientação da equipe' },
@@ -357,13 +357,13 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
     { day: 60, text: 'Retorno a exercícios abdominais, quando liberada' },
   ],
   lipoescultura: [
-    { day: 21, text: 'Fase de maior endurecimento — a drenagem faz diferença aqui' },
-    { day: 90, text: 'Contorno definido, com inchaço residual mínimo' },
+    { day: 21, text: 'Fase de maior endurecimento — quando indicada, a drenagem ajuda bastante aqui' },
+    { day: 90, text: 'Contorno já definido na maioria das pacientes, com inchaço residual' },
   ],
   rinoplastia: [
     { day: 7, text: 'Retirada do curativo ou splint nasal' },
     { day: 30, text: 'Nariz ainda inchado, principalmente na ponta' },
-    { day: 365, text: 'Resultado definitivo da ponta nasal' },
+    { day: 365, text: 'Ponta nasal próxima do resultado final' },
   ],
   face: [
     { day: 10, text: 'Retirada dos pontos conforme orientação' },
@@ -398,18 +398,18 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
   bioestimulador: [
     { day: 5, text: 'Fim do período de massagem orientada, se indicado' },
     { day: 30, text: 'Primeiros sinais de ganho de colágeno' },
-    { day: 90, text: 'Resultado da sessão consolidado' },
+    { day: 90, text: 'Resultado da sessão estabelecido na maioria das pacientes' },
   ],
   laser_co2: [
     { day: 3, text: 'Início da descamação — não retirar as casquinhas' },
     { day: 7, text: 'Pele renovada, ainda rosada' },
     { day: 30, text: 'Vermelhidão bem reduzida; maquiagem liberada há semanas' },
-    { day: 90, text: 'Resultado de textura e firmeza consolidado' },
+    { day: 90, text: 'Textura e firmeza já estabelecidas na maioria das pacientes' },
   ],
   morpheus: [
     { day: 7, text: 'As marquinhas em grade costumam ter clareado bastante' },
     { day: 30, text: 'Firmeza começa a aparecer; em algumas pacientes as marcas ainda são visíveis' },
-    { day: 90, text: 'Resultado da sessão consolidado' },
+    { day: 90, text: 'Resultado da sessão estabelecido na maioria das pacientes' },
   ],
 };
 

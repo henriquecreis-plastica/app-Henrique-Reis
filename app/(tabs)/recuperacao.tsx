@@ -117,6 +117,12 @@ export default function Recuperacao() {
                 </View>
               );
             })}
+            {/* Os marcos são a parte do app que mais cria expectativa de data.
+                A ressalva fica aqui, junto dos números, e não só no topo. */}
+            <Text style={styles.milestoneNote}>
+              Os dias são referências, não prazos. Estar um pouco à frente ou atrás disso é
+              comum — quem avalia a sua evolução é a equipe, no retorno.
+            </Text>
           </Card>
         ) : null}
       </ScrollView>
@@ -193,5 +199,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   milestoneDayReached: { backgroundColor: palette.accentInk },
+  milestoneNote: {
+    fontSize: 12.5,
+    lineHeight: 18,
+    color: palette.textMuted,
+    marginTop: spacing.md,
+    paddingTop: spacing.md,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: palette.border,
+  },
   milestoneDayText: { fontSize: 12, fontWeight: '700', color: palette.textMuted },
 });

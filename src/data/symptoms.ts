@@ -802,7 +802,7 @@ export const symptoms: Symptom[] = [
     procedures: ['rinoplastia'],
     when: 'Até 12 meses',
     summary:
-      'A ponta do nariz é a última região a desinchar. O resultado definitivo leva de 6 a 12 meses.',
+      'A ponta do nariz é a última região a desinchar. O resultado final costuma levar de 6 a 12 meses, e o ritmo varia de pessoa para pessoa.',
     why: ['A pele da ponta nasal é mais espessa e retém inchaço por muito mais tempo.'],
     action: [
       'Evite conclusões antes de 1 ano',

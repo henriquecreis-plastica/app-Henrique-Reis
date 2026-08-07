@@ -106,7 +106,7 @@ export const procedures: Procedure[] = [
     recoveryWeeks: 6,
     highlights: [
       'Cinta compressiva 24h por dia',
-      'Drenagem linfática é parte essencial do resultado',
+      'Drenagem linfática, quando indicada pela equipe',
       'Endurecimento e irregularidades nos primeiros meses são esperados',
     ],
   },

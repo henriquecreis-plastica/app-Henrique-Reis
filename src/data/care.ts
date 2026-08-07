@@ -124,21 +124,21 @@ export const careGuides: CareGuide[] = [
     id: 'drenagem',
     kinds: ['cirurgico'],
     title: 'Drenagem linfática',
-    subtitle: 'Um dos fatores que mais influenciam o resultado',
+    subtitle: 'Quando indicada pela equipe',
     icon: 'hand-left-outline',
     sections: [
       {
         heading: 'Para que serve',
         items: [
-          'Acelera a saída do líquido acumulado e reduz o inchaço',
-          'Previne e trata a fibrose, que deixa o contorno irregular',
-          'Melhora o conforto e a sensação de peso',
+          'Quando indicada, ajuda a reduzir o inchaço e a sensação de peso',
+          'Contribui no manejo da fibrose, que deixa o contorno irregular',
+          'Nem toda paciente precisa: quem indica, e a partir de quando, é a equipe',
         ],
       },
       {
         heading: 'Como fazer',
         items: [
-          'Início conforme liberação da equipe, em geral entre o 2º e o 5º dia',
+          'Só começa depois da liberação da equipe — habitualmente entre o 2º e o 5º dia',
           'Sempre com profissional habilitado em pós-operatório de cirurgia plástica',
           'Frequência habitual: 3 a 5 sessões na primeira semana, reduzindo depois',
           'A manobra é suave — drenagem dolorida não é drenagem linfática',

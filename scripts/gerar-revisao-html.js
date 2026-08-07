@@ -170,5 +170,6 @@ const html = `<title>Conteúdo clínico para revisão — Dr. Henrique Reis</tit
   </footer>
 </div>`;
 
-fs.writeFileSync('/tmp/claude-0/-home-user-app-Henrique-Reis/addcd0c5-ad64-5fde-84ab-ace7fc08167e/scratchpad/revisao.html', html);
-console.log('gerado revisao.html', (html.length / 1024).toFixed(0) + 'KB');
+const destino = require('path').join(__dirname, '..', 'docs', 'conteudo-clinico-para-revisao.html');
+fs.writeFileSync(destino, html);
+console.log('gerado', destino, (html.length / 1024).toFixed(0) + 'KB');
