@@ -22,6 +22,11 @@ export interface Video {
    * dentro do guia, que é onde a paciente chega já com a dúvida na cabeça.
    */
   guide?: string;
+  /**
+   * Vídeo institucional, sobre o cirurgião e não sobre um procedimento. Mora
+   * no cartão "Sobre o cirurgião", na tela de contato.
+   */
+  sobre?: true;
 }
 
 /**
@@ -37,6 +42,13 @@ export interface Video {
  * para distingui-los na lista — precisa ser trocada pelos títulos reais.
  */
 export const videos: Video[] = [
+  {
+    id: 'trajetoria',
+    title: 'Trajetória e formação',
+    summary: 'A história e a formação do Dr. Henrique Reis',
+    url: 'https://youtu.be/0mpbFyMmWis',
+    sobre: true,
+  },
   {
     id: 'geral',
     title: 'Tudo sobre a cirurgia plástica',
@@ -146,7 +158,11 @@ export const videosFor = ({
   videos.filter(
     (v) =>
       v.guide === guide &&
+      !v.sobre &&
       (!apenasPreOp || v.preOp) &&
       (!v.kinds || v.kinds.includes(kind)) &&
       (!v.procedures || v.procedures.includes(procedure)),
   );
+
+/** Vídeos institucionais, exibidos no cartão sobre o cirurgião. */
+export const videosSobre = (): Video[] => videos.filter((v) => v.sobre);

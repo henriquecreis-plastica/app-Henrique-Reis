@@ -5,6 +5,8 @@ import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-nati
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '../../src/components/Logo';
 import { ReviewInvite } from '../../src/components/ReviewInvite';
+import { VideoRow } from '../../src/components/VideoList';
+import { videosSobre } from '../../src/data/videos';
 import { Button, Card, Divider, Overline } from '../../src/components/ui';
 import { eventNoun, procedureById } from '../../src/data/procedures';
 import { buildContextMessage, callPhone, openLink, openWhatsApp } from '../../src/lib/contact';
@@ -106,6 +108,11 @@ export default function Contato() {
               <Ionicons name="ribbon-outline" size={15} color={palette.accentInk} />
               <Text style={[type.small, styles.flex]}>{t}</Text>
             </View>
+          ))}
+          {/* O vídeo institucional entra aqui dentro, e não num cartão só
+              dele: é a mesma coisa que os títulos acima estão contando. */}
+          {videosSobre().map((v) => (
+            <VideoRow key={v.id} video={v} dividido />
           ))}
         </Card>
 

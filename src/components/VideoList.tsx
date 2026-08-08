@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { videosFor } from '../data/videos';
+import { videosFor, type Video } from '../data/videos';
 import { procedureById } from '../data/procedures';
 import { openLink } from '../lib/contact';
 import { usePatient } from '../store/patient';
@@ -45,28 +45,38 @@ export function VideoList({
       </Overline>
       <View style={{ height: spacing.md }} />
       {meus.map((v, i) => (
-        <Pressable
-          key={v.id}
-          accessibilityRole="link"
-          accessibilityLabel={`${v.title}. ${v.summary}. Abre no YouTube.`}
-          onPress={() => openLink(v.url)}
-          style={({ pressed }) => [
-            styles.row,
-            i > 0 && styles.rowDivided,
-            pressed && { opacity: 0.7 },
-          ]}
-        >
-          <View style={styles.play}>
-            <Ionicons name="play" size={15} color={palette.textOnDark} />
-          </View>
-          <View style={styles.flex}>
-            <Text style={styles.title}>{v.title}</Text>
-            <Text style={type.small}>{v.summary}</Text>
-          </View>
-          <Ionicons name="open-outline" size={17} color={palette.textMuted} />
-        </Pressable>
+        <VideoRow key={v.id} video={v} dividido={i > 0} />
       ))}
     </Card>
+  );
+}
+
+/**
+ * Uma linha de vídeo. Fica separada para poder ser usada dentro de um cartão
+ * que já existe — é o caso do vídeo institucional, que mora no cartão sobre o
+ * cirurgião e não merece um cartão só para ele.
+ */
+export function VideoRow({ video, dividido = false }: { video: Video; dividido?: boolean }) {
+  return (
+    <Pressable
+      accessibilityRole="link"
+      accessibilityLabel={`${video.title}. ${video.summary}. Abre no YouTube.`}
+      onPress={() => openLink(video.url)}
+      style={({ pressed }) => [
+        styles.row,
+        dividido && styles.rowDivided,
+        pressed && { opacity: 0.7 },
+      ]}
+    >
+      <View style={styles.play}>
+        <Ionicons name="play" size={15} color={palette.textOnDark} />
+      </View>
+      <View style={styles.flex}>
+        <Text style={styles.title}>{video.title}</Text>
+        <Text style={type.small}>{video.summary}</Text>
+      </View>
+      <Ionicons name="open-outline" size={17} color={palette.textMuted} />
+    </Pressable>
   );
 }
 

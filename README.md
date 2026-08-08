@@ -57,6 +57,7 @@ cinta, dreno ou ponto que abriu.
   | `procedures` / `kinds` | Aba Cuidados, para quem se encaixa |
   | `preOp` | Sobe também para a tela Hoje, enquanto a data não chegou |
   | `guide` | Dentro daquele guia, e não na lista geral |
+  | `sobre` | No cartão "Sobre o cirurgião", na tela de contato |
 
   Um vídeo com `guide` sai da lista geral de propósito: ele mora onde a
   paciente chega já com a dúvida na cabeça, e assim nunca aparece duas vezes.
