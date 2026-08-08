@@ -95,6 +95,14 @@ export const videos: Video[] = [
     kinds: ['cirurgico'],
   },
   {
+    id: 'inverno',
+    title: 'Cirurgia plástica no inverno',
+    summary: 'Por que a estação influencia na escolha da data',
+    url: 'https://youtu.be/g6My7N-sXXs',
+    kinds: ['cirurgico'],
+    preOp: true,
+  },
+  {
     id: 'mitos',
     title: 'Mitos e verdades da cirurgia plástica',
     summary: 'O que se fala por aí e o que a prática mostra',
@@ -107,6 +115,13 @@ export const videos: Video[] = [
     summary: 'Toxina, preenchimento e o que cada um faz',
     url: 'https://youtu.be/Pn71kYdBkP4',
     procedures: ['toxina', 'preenchimento', 'bioestimulador'],
+  },
+  {
+    id: 'botox',
+    title: 'Botox',
+    summary: 'Como age a toxina botulínica e o que esperar dela',
+    url: 'https://youtu.be/iAkeneffGpg',
+    procedures: ['toxina'],
   },
   {
     id: 'morpheus',
@@ -166,6 +181,13 @@ export const videos: Video[] = [
     summary: 'O levantamento das mamas sem uso de implante',
     url: 'https://youtu.be/u2nFFnwiXBk',
     procedures: ['mastopexia'],
+  },
+  {
+    id: 'ginecomastia',
+    title: 'Ginecomastia',
+    summary: 'A cirurgia da mama masculina, do planejamento ao resultado',
+    url: 'https://youtu.be/aBmEN_YV8_g',
+    procedures: ['ginecomastia'],
   },
   {
     id: 'otoplastia',
