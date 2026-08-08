@@ -2,7 +2,9 @@ import type { IconName, ProcedureId, ProcedureKind } from './procedures';
 
 export interface CareSection {
   heading: string;
-  items: string[];
+  /** Texto corrido, para o que não é lista de ações. */
+  paragraphs?: string[];
+  items?: string[];
 }
 
 export interface CareGuide {
@@ -152,16 +154,6 @@ export const careGuides: CareGuide[] = [
         ],
       },
       {
-        heading: 'Se o BodyTite fez parte',
-        items: [
-          'O BodyTite usa radiofrequência para aquecer a camada profunda da pele durante a cirurgia, estimulando a retração',
-          'É indicado quando há flacidez de pele, e nem toda cirurgia inclui — vale o que foi combinado na sua consulta',
-          'A retração é progressiva: parte aparece nas primeiras semanas e segue evoluindo ao longo de alguns meses',
-          'Calor, sensibilidade e endurecimento na área tratada são esperados no início',
-          'A compressão e o acompanhamento ajudam a pele a se acomodar — siga o que foi orientado para você',
-        ],
-      },
-      {
         heading: 'Se houve enxertia de gordura',
         items: [
           'Evite pressão sobre a área enxertada nas primeiras semanas',
@@ -189,8 +181,77 @@ export const careGuides: CareGuide[] = [
           'A definição melhora progressivamente conforme o inchaço cede',
           'A maior parte da recuperação acontece nos primeiros 3 meses',
           'Quando houve enxertia, o resultado do enxerto se define entre 3 e 6 meses',
-          'Quando o BodyTite fez parte, a retração da pele continua evoluindo por alguns meses',
           'O resultado final costuma ser observado entre 6 e 12 meses, conforme cada paciente',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'tecnologias',
+    kinds: ['cirurgico'],
+    procedures: ['lipo_hd', 'lipoescultura'],
+    title: 'BodyTite® e Morpheus8®',
+    subtitle: 'Tecnologia para potencializar o contorno corporal e o tratamento da flacidez',
+    icon: 'radio-outline',
+    sections: [
+      {
+        heading: 'O que são',
+        paragraphs: [
+          'O BodyTite® e o Morpheus8® são tecnologias que utilizam radiofrequência para complementar o tratamento do contorno corporal e da flacidez.',
+          'Na cirurgia plástica, podem ser utilizados isoladamente em casos selecionados, mas são frequentemente associados à lipoaspiração ou lipoescultura, de acordo com a indicação de cada paciente.',
+        ],
+      },
+      {
+        heading: 'O que é o BodyTite®',
+        paragraphs: [
+          'O BodyTite® utiliza radiofrequência assistida aplicada nos tecidos abaixo da pele. Durante o procedimento, a energia é administrada de forma controlada, promovendo aquecimento dos tecidos e contração das fibras de colágeno.',
+          'Quando associado à lipoaspiração, pode contribuir para uma melhor acomodação da pele ao novo contorno corporal, especialmente em regiões que apresentam algum grau de flacidez.',
+          'Pode ser utilizado em áreas como abdômen, braços, coxas, costas, flancos e região submentoniana (papada), sempre conforme avaliação médica individual.',
+        ],
+      },
+      {
+        heading: 'E o Morpheus8®',
+        paragraphs: [
+          'O Morpheus8® atua de maneira diferente e complementar. A tecnologia combina microagulhamento com radiofrequência, levando energia a diferentes profundidades da pele e dos tecidos.',
+          'O objetivo é estimular a remodelação do colágeno e melhorar progressivamente características como firmeza, textura e qualidade da pele.',
+          'Em alguns planejamentos cirúrgicos, BodyTite® e Morpheus8® podem ser associados à lipoaspiração na mesma cirurgia, permitindo tratar não apenas o excesso de gordura e o contorno, mas também aspectos relacionados à flacidez e à qualidade da pele.',
+        ],
+      },
+      {
+        heading: 'Como é a recuperação',
+        paragraphs: [
+          'Nos primeiros dias é esperado apresentar inchaço, sensibilidade e áreas arroxeadas, especialmente quando o tratamento é realizado junto à lipoaspiração. A intensidade e a duração desses sintomas variam conforme a região tratada, a extensão do procedimento e as características individuais.',
+        ],
+        items: [
+          'Utilizar a malha ou cinta compressiva pelo período orientado pela equipe',
+          'Manter os curativos conforme orientação',
+          'Realizar fisioterapia pós-operatória e/ou drenagem linfática quando indicadas',
+          'Evitar esforço físico e exercícios até a liberação médica',
+          'Evitar exposição solar direta nas áreas com equimoses ou marcas do tratamento',
+          'Manter boa hidratação e alimentação adequada',
+          'Não aplicar cremes, medicamentos ou realizar outros tratamentos na região sem orientação',
+          'Comparecer às consultas de acompanhamento programadas',
+        ],
+      },
+      {
+        heading: 'O tempo da retração',
+        paragraphs: [
+          'A retração da pele não é imediata. Ela acontece de forma gradual, à medida que o colágeno é remodelado, e pode continuar evoluindo até cerca de nove meses depois da cirurgia.',
+          'Por isso, o contorno que você vê nos primeiros meses ainda não é o resultado final — nessa fase o inchaço também interfere no que o espelho mostra. Avaliar cedo demais costuma gerar uma frustração que o tempo desfaz.',
+        ],
+      },
+      {
+        heading: 'Quando o Morpheus8® é utilizado',
+        paragraphs: [
+          'Podem permanecer por alguns dias vermelhidão, edema, sensibilidade e pequenos pontos ou crostas superficiais nas áreas tratadas. É importante não manipular essas regiões e seguir as orientações de cuidados com a pele.',
+        ],
+      },
+      {
+        heading: 'Importante',
+        paragraphs: [
+          'BodyTite® e Morpheus8® não substituem a retirada cirúrgica de pele quando existe flacidez importante. A escolha entre lipoaspiração isolada, associação de tecnologias ou uma cirurgia com retirada de pele depende da anatomia, do grau de flacidez e dos objetivos de cada paciente.',
+          'Assim como qualquer procedimento médico, essas tecnologias apresentam possíveis riscos e intercorrências, incluindo alterações de sensibilidade, irregularidades, alterações de pigmentação, seromas e, mais raramente, lesões térmicas da pele e dos tecidos.',
+          'A indicação deve ser sempre individualizada, após avaliação médica, considerando benefícios, limitações e riscos de cada opção.',
         ],
       },
     ],

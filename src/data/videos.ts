@@ -279,14 +279,16 @@ export const videos: Video[] = [
     title: 'BodyTite na prática, no centro cirúrgico',
     summary: 'A tecnologia em uso durante a cirurgia',
     url: 'https://youtu.be/fgwiOcY0YUQ',
-    procedures: ['lipo_hd'],
+    procedures: ['lipo_hd', 'lipoescultura'],
+    guide: 'tecnologias',
   },
   {
     id: 'bodytite_retracao',
     title: 'O que é o BodyTite',
     summary: 'Como ele age na retração da pele',
     url: 'https://youtu.be/Cd4TBH1Bwy4',
-    procedures: ['lipo_hd'],
+    procedures: ['lipo_hd', 'lipoescultura'],
+    guide: 'tecnologias',
   },
   {
     id: 'lipo_1',

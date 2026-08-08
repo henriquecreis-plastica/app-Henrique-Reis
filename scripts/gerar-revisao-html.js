@@ -91,7 +91,9 @@ ${C.care.map((g) => `
   <article class="bloco">
     <h3>${esc(g.title)}</h3>
     <p class="meta">“${esc(g.subtitle)}” · ${esc(aplicaA(g))}</p>
-    ${g.sections.map((s) => `<h4>${esc(s.heading)}</h4>${ul(s.items)}`).join('')}
+    ${g.sections.map((s) => `<h4>${esc(s.heading)}</h4>` +
+      (s.paragraphs ? s.paragraphs.map((t) => `<p class="resumo">${esc(t)}</p>`).join('') : '') +
+      (s.items ? ul(s.items) : '')).join('')}
   </article>`).join('')}
 </section>`);
 

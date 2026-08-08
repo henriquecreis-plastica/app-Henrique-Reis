@@ -76,7 +76,12 @@ export default function CareDetail() {
           <Card key={section.heading}>
             <Overline>{section.heading}</Overline>
             <View style={styles.spacer} />
-            <Bullets items={section.items} />
+            {section.paragraphs?.map((p) => (
+              <Text key={p} style={[type.body, styles.paragraph]}>
+                {p}
+              </Text>
+            ))}
+            {section.items ? <Bullets items={section.items} /> : null}
           </Card>
         ))}
 
@@ -140,6 +145,7 @@ const styles = StyleSheet.create({
   brandSub: { ...type.bodyMuted, textAlign: 'center' },
   headerTitle: { color: palette.textOnDark },
   headerSub: { fontSize: 14, color: palette.textOnDarkMuted },
+  paragraph: { marginBottom: spacing.md },
   spacer: { height: spacing.md },
   footnote: { ...type.small, textAlign: 'center', paddingHorizontal: spacing.md },
 });

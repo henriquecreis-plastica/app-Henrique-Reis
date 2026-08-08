@@ -219,7 +219,8 @@ for (const g of C.care) {
   parteCuidados.push(corpo(`"${g.subtitle}"  |  Aplica-se a: ${aplicaA(g)}`, { color: CINZA, size: 19 }));
   for (const sec of g.sections) {
     parteCuidados.push(rotulo(sec.heading));
-    parteCuidados.push(...itens(sec.items));
+    if (sec.paragraphs) for (const t of sec.paragraphs) parteCuidados.push(corpo(t));
+    if (sec.items) parteCuidados.push(...itens(sec.items));
   }
   parteCuidados.push(linhaRevisao());
 }
