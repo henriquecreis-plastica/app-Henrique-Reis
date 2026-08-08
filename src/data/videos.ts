@@ -82,6 +82,13 @@ export const videos: Video[] = [
     preOp: true,
   },
   {
+    id: 'combinadas',
+    title: 'Cirurgias combinadas',
+    summary: 'Quando faz sentido reunir mais de um procedimento',
+    url: 'https://youtu.be/EpP4ETweqy8',
+    kinds: ['cirurgico'],
+  },
+  {
     id: 'mitos',
     title: 'Mitos e verdades da cirurgia plástica',
     summary: 'O que se fala por aí e o que a prática mostra',
@@ -97,9 +104,16 @@ export const videos: Video[] = [
   },
   {
     id: 'morpheus',
-    title: 'Morpheus',
+    title: 'Morpheus — vídeo 1',
     summary: 'Como funciona o tratamento e o que esperar dele',
     url: 'https://youtu.be/I2-r8eElMF8',
+    procedures: ['morpheus'],
+  },
+  {
+    id: 'morpheus_2',
+    title: 'Morpheus — vídeo 2',
+    summary: 'Dr. Henrique Reis fala sobre o tratamento',
+    url: 'https://youtu.be/MOqbQayLHBM',
     procedures: ['morpheus'],
   },
   {
@@ -190,8 +204,8 @@ export const videos: Video[] = [
   },
   {
     id: 'bodytite',
-    title: 'BodyTite',
-    summary: 'A tecnologia usada junto da lipoaspiração',
+    title: 'BodyTite na prática, no centro cirúrgico',
+    summary: 'A tecnologia em uso durante a cirurgia',
     url: 'https://youtu.be/fgwiOcY0YUQ',
     procedures: ['lipo_hd'],
   },
