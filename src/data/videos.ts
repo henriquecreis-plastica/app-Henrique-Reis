@@ -183,6 +183,13 @@ export const videos: Video[] = [
     procedures: ['mastopexia'],
   },
   {
+    id: 'mamoplastia_redutora',
+    title: 'Mamoplastia redutora',
+    summary: 'A redução das mamas, do planejamento ao resultado',
+    url: 'https://youtu.be/g-BBGZph6xQ',
+    procedures: ['mamoplastia_redutora'],
+  },
+  {
     id: 'ginecomastia',
     title: 'Ginecomastia',
     summary: 'A cirurgia da mama masculina, do planejamento ao resultado',
