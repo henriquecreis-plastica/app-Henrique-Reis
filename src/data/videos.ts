@@ -153,6 +153,14 @@ export const videos: Video[] = [
     symptoms: ['endurecimento', 'seroma'],
   },
   {
+    id: 'exercicio',
+    title: 'Cirurgia plástica e exercício físico',
+    summary: 'Quando voltar e por que a pressa atrapalha',
+    url: 'https://youtu.be/mQEhepALp30',
+    kinds: ['cirurgico'],
+    guide: 'rotina',
+  },
+  {
     id: 'malhas',
     title: 'Nossas malhas personalizadas',
     summary: 'Como a malha é feita para você e como usá-la',
