@@ -31,6 +31,10 @@ export interface Video {
  * simples, sem conteúdo de terceiros dentro do app.
  *
  * Para acrescentar um vídeo, basta uma entrada aqui. Nenhuma tela muda.
+ *
+ * TÍTULOS PROVISÓRIOS: os vídeos de lipo, facelift e rinoplastia vieram da
+ * clínica em lote, sem o título de cada um. A numeração é minha e serve só
+ * para distingui-los na lista — precisa ser trocada pelos títulos reais.
  */
 export const videos: Video[] = [
   {
@@ -57,11 +61,39 @@ export const videos: Video[] = [
     procedures: ['mastopexia'],
   },
   {
+    id: 'mastopexia_sem_protese',
+    title: 'Mastopexia sem prótese',
+    summary: 'O levantamento das mamas sem uso de implante',
+    url: 'https://youtu.be/u2nFFnwiXBk',
+    procedures: ['mastopexia'],
+  },
+  {
     id: 'abdominoplastia',
     title: 'Abdominoplastia',
     summary: 'Como é a cirurgia, do planejamento ao resultado',
     url: 'https://youtu.be/dPUpOOxFRr8',
     procedures: ['abdominoplastia'],
+  },
+  {
+    id: 'rinoplastia_1',
+    title: 'Rinoplastia — vídeo 1',
+    summary: 'Dr. Henrique Reis fala sobre a cirurgia do nariz',
+    url: 'https://youtu.be/9CLobhNmmvE',
+    procedures: ['rinoplastia'],
+  },
+  {
+    id: 'rinoplastia_2',
+    title: 'Rinoplastia — vídeo 2',
+    summary: 'Dr. Henrique Reis fala sobre a cirurgia do nariz',
+    url: 'https://youtu.be/2ncYLc1kOdg',
+    procedures: ['rinoplastia'],
+  },
+  {
+    id: 'rinoplastia_3',
+    title: 'Rinoplastia — vídeo 3',
+    summary: 'Dr. Henrique Reis fala sobre a cirurgia do nariz',
+    url: 'https://youtu.be/KQmuGYKhaH8',
+    procedures: ['rinoplastia'],
   },
   {
     id: 'facelift_1',
