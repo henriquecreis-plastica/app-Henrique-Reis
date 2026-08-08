@@ -154,6 +154,13 @@ export const videos: Video[] = [
     procedures: ['mastopexia'],
   },
   {
+    id: 'otoplastia',
+    title: 'Otoplastia',
+    summary: 'A cirurgia das orelhas, do planejamento ao resultado',
+    url: 'https://youtu.be/RDSSnaRloEE',
+    procedures: ['otoplastia'],
+  },
+  {
     id: 'blefaroplastia',
     title: 'Blefaroplastia',
     summary: 'A cirurgia das pálpebras, do planejamento ao resultado',
