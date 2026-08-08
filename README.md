@@ -47,6 +47,10 @@ cinta, dreno ou ponto que abriu.
 - **16 guias de cuidados**, exibidos conforme o percurso — entre eles o
   **HR Recovery Protocol** e os guias do **Face HD Concept** e da
   **Lipo HD Concept**.
+- **Vídeos do canal**, em `src/data/videos.ts`, filtrados por procedimento e
+  exibidos na aba Cuidados. Abrem no YouTube; acrescentar um vídeo é uma
+  entrada no arquivo, sem tocar em nenhuma tela. Quem não tem vídeo para o seu
+  caso não vê seção vazia.
 
 ---
 
@@ -229,6 +233,7 @@ src/data/procedures.ts   procedimentos e pontos de atenção
 src/data/timeline.ts     fases da recuperação e marcos
 src/data/symptoms.ts     o que é normal e o que não é
 src/data/care.ts         guias de cuidados
+src/data/videos.ts       vídeos do canal, por procedimento
 ```
 
 O app exibe aviso de que as orientações são gerais e não substituem a avaliação

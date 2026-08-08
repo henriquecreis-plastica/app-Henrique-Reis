@@ -4,6 +4,7 @@ import React from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { SectionHeader } from '../../src/components/ui';
+import { VideoList } from '../../src/components/VideoList';
 import { careGuides } from '../../src/data/care';
 import { appliesToProcedure, procedureById } from '../../src/data/procedures';
 import { usePatient } from '../../src/store/patient';
@@ -40,6 +41,8 @@ export default function Cuidados() {
             <Text style={styles.procedureName}>{procedure.name}</Text>
           </View>
         </View>
+
+        <VideoList />
 
         <View style={styles.grid}>
           {guides.map((g) => (
