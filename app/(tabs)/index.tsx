@@ -8,6 +8,7 @@ import { MIN_DAY, ReviewInvite } from '../../src/components/ReviewInvite';
 import { Bullets, Card, Overline } from '../../src/components/ui';
 import { inlineName, procedureById } from '../../src/data/procedures';
 import { phaseForDay, procedureMilestones } from '../../src/data/timeline';
+import { VideoList } from '../../src/components/VideoList';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
 
@@ -158,6 +159,10 @@ export default function Today() {
             })}
           </View>
         </Card>
+
+        {/* No pré-operatório a paciente tem tempo de assistir e pouca coisa
+            para ler — é onde o vídeo geral rende mais. */}
+        {isPreOp ? <VideoList apenasPreOp /> : null}
 
         {/* ----- Evitar ----- */}
         <Card style={styles.avoidCard}>

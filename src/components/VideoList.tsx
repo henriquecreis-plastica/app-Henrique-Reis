@@ -18,12 +18,13 @@ import { palette, radius, spacing, type } from '../theme';
  * externo, o que faria o app buscar imagem na rede a cada abertura e não
  * funcionaria sem conexão.
  */
-export function VideoList() {
+export function VideoList({ apenasPreOp = false }: { apenasPreOp?: boolean }) {
   const { profile } = usePatient();
   const procedure = procedureById(profile.procedure);
 
   const meus = videos.filter(
     (v) =>
+      (!apenasPreOp || v.preOp) &&
       (!v.kinds || v.kinds.includes(procedure.kind)) &&
       (!v.procedures || v.procedures.includes(profile.procedure)),
   );
@@ -32,7 +33,9 @@ export function VideoList() {
 
   return (
     <Card>
-      <Overline>Em vídeo, com o Dr. Henrique Reis</Overline>
+      <Overline>
+        {apenasPreOp ? 'Enquanto espera' : 'Em vídeo, com o Dr. Henrique Reis'}
+      </Overline>
       <View style={{ height: spacing.md }} />
       {meus.map((v, i) => (
         <Pressable
