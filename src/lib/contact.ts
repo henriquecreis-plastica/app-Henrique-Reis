@@ -2,6 +2,24 @@ import { Alert, Linking, Platform } from 'react-native';
 import { clinic } from '../theme';
 
 async function open(url: string, fallbackMessage: string) {
+  /**
+   * No navegador, abrir por um <a> em vez de `Linking.openURL`, que por baixo
+   * chama `window.open`. A diferença aparece quando a página está dentro de
+   * uma moldura — é o caso do link de demonstração: ali `window.open` é
+   * bloqueado e o toque não faz nada, enquanto o clique num link é
+   * reconhecido e abre normalmente. Em aba própria os dois funcionam igual.
+   */
+  if (Platform.OS === 'web' && typeof document !== 'undefined') {
+    const a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    return;
+  }
+
   try {
     await Linking.openURL(url);
   } catch {
