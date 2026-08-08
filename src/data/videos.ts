@@ -74,11 +74,26 @@ export const videos: Video[] = [
     preOp: true,
   },
   {
+    id: 'centro_cirurgico',
+    title: 'Como é por dentro do centro cirúrgico',
+    summary: 'Onde a sua cirurgia acontece, por dentro',
+    url: 'https://youtu.be/Jhb_WlXkHfw',
+    kinds: ['cirurgico'],
+    preOp: true,
+  },
+  {
     id: 'mitos',
     title: 'Mitos e verdades da cirurgia plástica',
     summary: 'O que se fala por aí e o que a prática mostra',
     url: 'https://youtu.be/CJyWBW8CyHs',
     kinds: ['cirurgico'],
+  },
+  {
+    id: 'harmonizacao',
+    title: 'Harmonização facial',
+    summary: 'Toxina, preenchimento e o que cada um faz',
+    url: 'https://youtu.be/Pn71kYdBkP4',
+    procedures: ['toxina', 'preenchimento', 'bioestimulador'],
   },
   {
     id: 'morpheus',
@@ -102,6 +117,13 @@ export const videos: Video[] = [
     url: 'https://youtu.be/WCwsu0EgoTM',
     kinds: ['cirurgico'],
     guide: 'cicatriz',
+  },
+  {
+    id: 'protese',
+    title: 'Prótese de silicone',
+    summary: 'A mamoplastia de aumento, do planejamento ao resultado',
+    url: 'https://youtu.be/P8LSqgT_LW8',
+    procedures: ['mamoplastia_aumento'],
   },
   {
     id: 'mastopexia',
@@ -169,8 +191,15 @@ export const videos: Video[] = [
   {
     id: 'bodytite',
     title: 'BodyTite',
-    summary: 'A tecnologia usada para tratar a flacidez junto da lipoaspiração',
+    summary: 'A tecnologia usada junto da lipoaspiração',
     url: 'https://youtu.be/fgwiOcY0YUQ',
+    procedures: ['lipo_hd'],
+  },
+  {
+    id: 'bodytite_retracao',
+    title: 'O que é o BodyTite',
+    summary: 'Como ele age na retração da pele',
+    url: 'https://youtu.be/Cd4TBH1Bwy4',
     procedures: ['lipo_hd'],
   },
   {
