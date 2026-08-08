@@ -51,6 +51,20 @@ export const videos: Video[] = [
     procedures: ['abdominoplastia'],
   },
   {
+    id: 'facelift_1',
+    title: 'Facelift — parte 1',
+    summary: 'Dr. Henrique Reis explica o rejuvenescimento facial cirúrgico',
+    url: 'https://youtu.be/8ZIfYre0uKU',
+    procedures: ['face_hd'],
+  },
+  {
+    id: 'facelift_2',
+    title: 'Facelift — parte 2',
+    summary: 'Continuação, com o que esperar da recuperação',
+    url: 'https://youtu.be/5OwJWMBMo20',
+    procedures: ['face_hd'],
+  },
+  {
     id: 'lipo_1',
     title: 'Lipoaspiração e lipoenxertia — parte 1',
     summary: 'Dr. Henrique Reis explica como a cirurgia é planejada e feita',
