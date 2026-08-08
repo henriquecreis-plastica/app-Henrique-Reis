@@ -47,10 +47,19 @@ cinta, dreno ou ponto que abriu.
 - **16 guias de cuidados**, exibidos conforme o percurso — entre eles o
   **HR Recovery Protocol** e os guias do **Face HD Concept** e da
   **Lipo HD Concept**.
-- **Vídeos do canal**, em `src/data/videos.ts`, filtrados por procedimento e
-  exibidos na aba Cuidados. Abrem no YouTube; acrescentar um vídeo é uma
-  entrada no arquivo, sem tocar em nenhuma tela. Quem não tem vídeo para o seu
-  caso não vê seção vazia.
+- **Vídeos do canal**, em `src/data/videos.ts`. Abrem no YouTube;
+  acrescentar um vídeo é uma entrada no arquivo, sem tocar em nenhuma tela.
+  Quem não tem vídeo para o seu caso não vê seção vazia. Cada vídeo escolhe
+  onde mora:
+
+  | Campo | Onde aparece |
+  | --- | --- |
+  | `procedures` / `kinds` | Aba Cuidados, para quem se encaixa |
+  | `preOp` | Sobe também para a tela Hoje, enquanto a data não chegou |
+  | `guide` | Dentro daquele guia, e não na lista geral |
+
+  Um vídeo com `guide` sai da lista geral de propósito: ele mora onde a
+  paciente chega já com a dúvida na cabeça, e assim nunca aparece duas vezes.
 
 ---
 

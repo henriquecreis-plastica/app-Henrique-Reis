@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { videos } from '../data/videos';
+import { videosFor } from '../data/videos';
 import { procedureById } from '../data/procedures';
 import { openLink } from '../lib/contact';
 import { usePatient } from '../store/patient';
@@ -18,16 +18,23 @@ import { palette, radius, spacing, type } from '../theme';
  * externo, o que faria o app buscar imagem na rede a cada abertura e não
  * funcionaria sem conexão.
  */
-export function VideoList({ apenasPreOp = false }: { apenasPreOp?: boolean }) {
+export function VideoList({
+  apenasPreOp = false,
+  guide,
+}: {
+  apenasPreOp?: boolean;
+  /** Quando informado, mostra os vídeos daquele guia em vez da lista geral. */
+  guide?: string;
+}) {
   const { profile } = usePatient();
   const procedure = procedureById(profile.procedure);
 
-  const meus = videos.filter(
-    (v) =>
-      (!apenasPreOp || v.preOp) &&
-      (!v.kinds || v.kinds.includes(procedure.kind)) &&
-      (!v.procedures || v.procedures.includes(profile.procedure)),
-  );
+  const meus = videosFor({
+    procedure: profile.procedure,
+    kind: procedure.kind,
+    guide,
+    apenasPreOp,
+  });
 
   if (!meus.length) return null;
 

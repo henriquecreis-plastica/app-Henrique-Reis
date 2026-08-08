@@ -17,6 +17,11 @@ export interface Video {
    * chegou — é quando a paciente tem tempo de assistir e pouca coisa para ler.
    */
   preOp?: true;
+  /**
+   * Id de um guia de cuidados. Vídeo assim não entra na lista geral: ele mora
+   * dentro do guia, que é onde a paciente chega já com a dúvida na cabeça.
+   */
+  guide?: string;
 }
 
 /**
@@ -35,6 +40,14 @@ export const videos: Video[] = [
     url: 'https://youtu.be/pB5Qkz9VQho',
     kinds: ['cirurgico'],
     preOp: true,
+  },
+  {
+    id: 'pos_operatorio',
+    title: 'Pós-operatório de plástica',
+    summary: 'Como conduzimos a sua recuperação',
+    url: 'https://youtu.be/xE_qYgZT8e0',
+    kinds: ['cirurgico'],
+    guide: 'hr_recovery',
   },
   {
     id: 'mastopexia',
@@ -79,3 +92,29 @@ export const videos: Video[] = [
     procedures: ['lipo_hd', 'lipoescultura'],
   },
 ];
+
+/**
+ * Seleciona os vídeos de uma tela.
+ *
+ * Sem `guide`, devolve os da lista geral — os que não pertencem a um guia
+ * específico. Com `guide`, devolve só os daquele guia. É o que garante que
+ * nenhum vídeo apareça duas vezes para a mesma paciente.
+ */
+export const videosFor = ({
+  procedure,
+  kind,
+  guide,
+  apenasPreOp = false,
+}: {
+  procedure: ProcedureId;
+  kind: ProcedureKind;
+  guide?: string;
+  apenasPreOp?: boolean;
+}): Video[] =>
+  videos.filter(
+    (v) =>
+      v.guide === guide &&
+      (!apenasPreOp || v.preOp) &&
+      (!v.kinds || v.kinds.includes(kind)) &&
+      (!v.procedures || v.procedures.includes(procedure)),
+  );

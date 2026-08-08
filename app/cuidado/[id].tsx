@@ -3,6 +3,7 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Bullets, Button, Card, Overline } from '../../src/components/ui';
+import { VideoList } from '../../src/components/VideoList';
 import { careById } from '../../src/data/care';
 import { procedureById } from '../../src/data/procedures';
 import { buildContextMessage, openWhatsApp } from '../../src/lib/contact';
@@ -59,6 +60,8 @@ export default function CareDetail() {
             <Text style={styles.headerSub}>{guide.subtitle}</Text>
           </View>
         )}
+
+        <VideoList guide={guide.id} />
 
         {guide.sections.map((section) => (
           <Card key={section.heading}>
