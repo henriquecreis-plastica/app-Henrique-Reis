@@ -152,6 +152,16 @@ export const careGuides: CareGuide[] = [
         ],
       },
       {
+        heading: 'Se o BodyTite fez parte',
+        items: [
+          'O BodyTite usa radiofrequência para aquecer a camada profunda da pele durante a cirurgia, estimulando a retração',
+          'É indicado quando há flacidez de pele, e nem toda cirurgia inclui — vale o que foi combinado na sua consulta',
+          'A retração é progressiva: parte aparece nas primeiras semanas e segue evoluindo ao longo de alguns meses',
+          'Calor, sensibilidade e endurecimento na área tratada são esperados no início',
+          'A compressão e o acompanhamento ajudam a pele a se acomodar — siga o que foi orientado para você',
+        ],
+      },
+      {
         heading: 'Se houve enxertia de gordura',
         items: [
           'Evite pressão sobre a área enxertada nas primeiras semanas',
@@ -179,6 +189,7 @@ export const careGuides: CareGuide[] = [
           'A definição melhora progressivamente conforme o inchaço cede',
           'A maior parte da recuperação acontece nos primeiros 3 meses',
           'Quando houve enxertia, o resultado do enxerto se define entre 3 e 6 meses',
+          'Quando o BodyTite fez parte, a retração da pele continua evoluindo por alguns meses',
           'O resultado final costuma ser observado entre 6 e 12 meses, conforme cada paciente',
         ],
       },
