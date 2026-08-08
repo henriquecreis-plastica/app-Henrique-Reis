@@ -27,6 +27,12 @@ export interface Video {
    * no cartão "Sobre o cirurgião", na tela de contato.
    */
   sobre?: true;
+  /**
+   * Ids de orientações de "É normal?". Também sai da lista geral: ele aparece
+   * dentro da orientação, que é onde a paciente chega assustada procurando
+   * exatamente aquilo.
+   */
+  symptoms?: string[];
 }
 
 /**
@@ -115,6 +121,14 @@ export const videos: Video[] = [
     summary: 'Dr. Henrique Reis fala sobre o tratamento',
     url: 'https://youtu.be/MOqbQayLHBM',
     procedures: ['morpheus'],
+  },
+  {
+    id: 'fibrose_seroma',
+    title: 'Fibrose e seroma',
+    summary: 'Por que acontecem e como são tratados',
+    url: 'https://youtu.be/FVNBljo2oPM',
+    kinds: ['cirurgico'],
+    symptoms: ['endurecimento', 'seroma'],
   },
   {
     id: 'malhas',
@@ -250,16 +264,19 @@ export const videosFor = ({
   procedure,
   kind,
   guide,
+  symptom,
   apenasPreOp = false,
 }: {
   procedure: ProcedureId;
   kind: ProcedureKind;
   guide?: string;
+  symptom?: string;
   apenasPreOp?: boolean;
 }): Video[] =>
   videos.filter(
     (v) =>
       v.guide === guide &&
+      (symptom ? v.symptoms?.includes(symptom) : !v.symptoms) &&
       !v.sobre &&
       (!apenasPreOp || v.preOp) &&
       (!v.kinds || v.kinds.includes(kind)) &&

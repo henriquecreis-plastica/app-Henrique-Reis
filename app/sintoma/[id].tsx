@@ -3,6 +3,7 @@ import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Bullets, Button, Card, Overline, SeverityBadge } from '../../src/components/ui';
+import { VideoList } from '../../src/components/VideoList';
 import { procedureById } from '../../src/data/procedures';
 import { symptomById } from '../../src/data/symptoms';
 import { buildContextMessage, callPhone, openWhatsApp } from '../../src/lib/contact';
@@ -55,6 +56,11 @@ export default function SymptomDetail() {
           <View style={styles.spacer} />
           <Bullets items={symptom.why} />
         </Card>
+
+        {/* O vídeo entra depois do "por que acontece" e antes do "o que
+            fazer": a paciente já entendeu o que é e ainda não agiu. Em
+            orientação de urgência ele não aparece — ali o que vale é ligar. */}
+        {isUrgent ? null : <VideoList symptom={symptom.id} />}
 
         <Card style={isUrgent ? styles.actionUrgent : undefined}>
           <Overline style={isUrgent ? { color: palette.urgent } : undefined}>

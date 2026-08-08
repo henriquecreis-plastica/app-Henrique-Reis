@@ -21,10 +21,13 @@ import { palette, radius, spacing, type } from '../theme';
 export function VideoList({
   apenasPreOp = false,
   guide,
+  symptom,
 }: {
   apenasPreOp?: boolean;
   /** Quando informado, mostra os vídeos daquele guia em vez da lista geral. */
   guide?: string;
+  /** Quando informado, mostra os vídeos daquela orientação. */
+  symptom?: string;
 }) {
   const { profile } = usePatient();
   const procedure = procedureById(profile.procedure);
@@ -33,6 +36,7 @@ export function VideoList({
     procedure: profile.procedure,
     kind: procedure.kind,
     guide,
+    symptom,
     apenasPreOp,
   });
 
