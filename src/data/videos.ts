@@ -66,6 +66,22 @@ export const videos: Video[] = [
     guide: 'hr_recovery',
   },
   {
+    id: 'malhas',
+    title: 'Nossas malhas personalizadas',
+    summary: 'Como a malha é feita para você e como usá-la',
+    url: 'https://youtu.be/RzUG5nskTKg',
+    kinds: ['cirurgico'],
+    guide: 'compressao',
+  },
+  {
+    id: 'cicatriz',
+    title: 'A cicatriz da cirurgia plástica',
+    summary: 'Como ela evolui e o que realmente ajuda',
+    url: 'https://youtu.be/WCwsu0EgoTM',
+    kinds: ['cirurgico'],
+    guide: 'cicatriz',
+  },
+  {
     id: 'mastopexia',
     title: 'Mastopexia com prótese',
     summary: 'Como é a cirurgia, do planejamento ao resultado',
