@@ -167,6 +167,19 @@ export default function Contato() {
 
         <ReviewInvite />
 
+        <View style={styles.legalRow}>
+          <Button
+            label="Termos de uso"
+            variant="ghost"
+            onPress={() => router.push('/documento/termos')}
+          />
+          <Button
+            label="Política de privacidade"
+            variant="ghost"
+            onPress={() => router.push('/documento/privacidade')}
+          />
+        </View>
+
         <Text style={styles.disclaimer}>
           Este aplicativo oferece orientações gerais de acompanhamento e não substitui a consulta
           médica. Em caso de emergência, procure o pronto-socorro mais próximo.
@@ -244,6 +257,7 @@ const styles = StyleSheet.create({
   titleRow: { flexDirection: 'row', gap: spacing.md, alignItems: 'flex-start', paddingVertical: 5 },
   dataHeader: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
   privacy: { ...type.small, lineHeight: 18 },
+  legalRow: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: spacing.sm },
   disclaimer: {
     ...type.small,
     textAlign: 'center',

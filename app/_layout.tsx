@@ -29,6 +29,8 @@ export default function RootLayout() {
           />
           <Stack.Screen name="sintoma/[id]" options={{ title: 'Orientação' }} />
           <Stack.Screen name="cuidado/[id]" options={{ title: 'Cuidados' }} />
+          <Stack.Screen name="documento/[id]" options={{ title: '' }} />
+          <Stack.Screen name="documento/[id]" options={{ title: '' }} />
           <Stack.Screen
             name="emergencia"
             options={{ title: 'Preciso de ajuda', presentation: 'modal' }}

@@ -79,8 +79,25 @@ npx expo start
 - **Build de web estático** (para hospedar uma demonstração): `npm run build:web`,
   que gera a pasta `dist/`.
 
-Para publicar nas lojas, o caminho é `eas build` (Expo Application Services) —
-gera o `.ipa` para a App Store e o `.aab` para o Google Play.
+Para publicar nas lojas, o passo a passo completo está em
+[`docs/publicacao.md`](docs/publicacao.md): contas de desenvolvedor, textos da
+ficha, respostas dos formulários de privacidade das duas lojas e os comandos
+do `eas build`.
+
+### Termos de uso e política de privacidade
+
+Ficam em [`src/data/legal.ts`](src/data/legal.ts), de onde saem tanto as telas
+do app quanto as páginas públicas que as lojas exigem:
+
+```bash
+npx tsc --ignoreConfig src/data/legal.ts --outDir /tmp/dataout \
+  --module commonjs --target es2020 --skipLibCheck --esModuleInterop
+node scripts/gerar-legal-html.js   # gera docs/publico/
+```
+
+**Os dois textos precisam de revisão jurídica.** Descrevem corretamente o que
+o aplicativo faz — nada ali menciona tratamento de dado que não exista no
+código — mas descrever certo não é o mesmo que redigir com validade jurídica.
 
 ---
 

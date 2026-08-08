@@ -1,5 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -66,6 +66,17 @@ export default function Orientacoes() {
       </ScrollView>
 
       <View style={styles.footer}>
+        {/* As lojas pedem que os dois documentos estejam acessíveis, e a tela
+            de aceite é onde faz mais sentido oferecê-los. */}
+        <View style={styles.links}>
+          <Link href="/documento/termos" style={styles.link}>
+            Termos de uso
+          </Link>
+          <Text style={styles.linkSep}>·</Text>
+          <Link href="/documento/privacidade" style={styles.link}>
+            Política de privacidade
+          </Link>
+        </View>
         <Button label="Li e compreendi" icon="checkmark" onPress={aceitar} />
       </View>
     </SafeAreaView>
@@ -97,6 +108,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   itemText: { flex: 1, fontSize: 14.5, lineHeight: 21, color: palette.text },
+  links: { flexDirection: 'row', justifyContent: 'center', gap: spacing.sm, marginBottom: spacing.lg },
+  link: { fontSize: 13, fontWeight: '600', color: palette.accentInk },
+  linkSep: { fontSize: 13, color: palette.textMuted },
   footer: {
     padding: spacing.xl,
     paddingTop: spacing.lg,
