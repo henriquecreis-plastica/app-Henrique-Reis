@@ -190,6 +190,13 @@ export const videos: Video[] = [
     procedures: ['mamoplastia_redutora'],
   },
   {
+    id: 'pos_bariatrica',
+    title: 'Cirurgia pós-bariátrica',
+    summary: 'A retirada do excesso de pele depois da grande perda de peso',
+    url: 'https://youtu.be/Eh__d2vjhK4',
+    procedures: ['pos_bariatrica'],
+  },
+  {
     id: 'ginecomastia',
     title: 'Ginecomastia',
     summary: 'A cirurgia da mama masculina, do planejamento ao resultado',
