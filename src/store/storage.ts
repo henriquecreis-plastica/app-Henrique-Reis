@@ -20,6 +20,12 @@ export interface PatientRecord {
   doneTasks: string[];
   onboarded: boolean;
   reviewDismissed: boolean;
+  /**
+   * Data e hora em que a paciente confirmou ter lido as orientações de uso.
+   * Guardar o momento, e não só um sim, é o que permite pedir um novo aceite
+   * caso o texto mude — e deixa registro de qual versão ela viu.
+   */
+  termsAcceptedAt?: string;
 }
 
 export interface PatientStorage {

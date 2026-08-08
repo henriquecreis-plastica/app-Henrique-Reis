@@ -17,6 +17,9 @@ export default function Index() {
     );
   }
 
+  // O aceite vem antes do cadastro: nada do app aparece sem ele.
+  if (!profile.termsAcceptedAt) return <Redirect href="/orientacoes" />;
+
   return <Redirect href={profile.onboarded ? '/(tabs)' : '/onboarding'} />;
 }
 

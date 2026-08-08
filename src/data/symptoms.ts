@@ -147,7 +147,7 @@ export const symptoms: Symptom[] = [
       'Aumento rápido e assimétrico de volume, com dor forte e endurecimento, precisa ser avaliado no mesmo dia.',
     why: [
       'Pode ser um hematoma — acúmulo de sangue que às vezes precisa ser drenado.',
-      'Quando tratado cedo, não compromete o resultado final.',
+      'Quanto mais cedo tratado, menor o impacto no resultado final.',
     ],
     action: [
       'Entre em contato com a equipe agora',
@@ -304,7 +304,7 @@ export const symptoms: Symptom[] = [
       'Acúmulo de líquido localizado, com sensação de bolsa d’água, deve ser avaliado — a drenagem no consultório é simples.',
     why: [
       'É o seroma: líquido que o corpo produz no espaço criado pela cirurgia.',
-      'É uma intercorrência comum e resolvida em consulta, sem necessidade de nova cirurgia.',
+      'É uma intercorrência comum e na maioria das vezes resolvida em consulta.',
     ],
     action: [
       'Agende avaliação com a equipe',
@@ -882,10 +882,10 @@ export const symptoms: Symptom[] = [
     groups: ['pele', 'dor'],
     when: 'Durante ou nas primeiras horas e dias após a aplicação',
     summary:
-      'Dor intensa e desproporcional, pele esbranquiçada ou com manchas arroxeadas em desenho de renda: ligue agora. Resolvido nas primeiras horas, não deixa consequência.',
+      'Dor intensa e desproporcional, pele esbranquiçada ou com manchas arroxeadas em desenho de renda: ligue agora. O atendimento nas primeiras horas reduz muito o risco de sequela.',
     why: [
       'Pode indicar que o produto comprimiu ou entrou em um vaso, reduzindo a circulação daquela área da pele.',
-      'É raro, mas o tempo importa muito: existe uma substância que dissolve o preenchimento e reverte o quadro.',
+      'É raro, mas o tempo importa muito: existe uma substância que dissolve o preenchimento e é usada para tratar essa situação.',
     ],
     action: [
       'Ligue para a equipe imediatamente, a qualquer hora',
@@ -942,7 +942,7 @@ export const symptoms: Symptom[] = [
       'Vermelhidão que aumenta a cada dia, calor, dor crescente, secreção amarelada ou febre indicam infecção e precisam ser avaliados hoje.',
     why: [
       'Vermelhidão nas primeiras 48 horas é esperada; o que preocupa é a que se espalha e piora.',
-      'Infecção tratada cedo não deixa marca.',
+      'O tratamento precoce reduz o risco de complicações e de marca na pele.',
     ],
     action: [
       'Fotografe com boa luz e envie para a equipe hoje',
@@ -963,7 +963,7 @@ export const symptoms: Symptom[] = [
       'Bolhas, pele em carne viva ou dor que piora em vez de melhorar precisam ser avaliadas rapidamente.',
     why: [
       'Ardência e aspecto de queimadura solar são esperados; bolha e ferida aberta, não.',
-      'Avaliada cedo, a situação se resolve sem deixar marca.',
+      'A avaliação precoce reduz o risco de a pele ficar marcada.',
     ],
     action: [
       'Fotografe e envie para a equipe hoje',
@@ -1026,7 +1026,7 @@ export const symptoms: Symptom[] = [
     groups: ['pele'],
     when: 'Da 3ª semana em diante',
     summary:
-      'Nódulos palpáveis devem ser mostrados à equipe. Quase sempre têm tratamento simples, e quanto antes avaliados, mais fácil.',
+      'Nódulos palpáveis devem ser mostrados à equipe. Costumam ter tratamento, e quanto antes avaliados, mais simples a conduta.',
     why: [
       'Nos primeiros dias, irregularidades ao toque são esperadas e somem sozinhas.',
       'Nódulos que persistem ou surgem semanas ou meses depois — às vezes após uma infecção ou vacina — têm conduta própria.',
@@ -1050,7 +1050,7 @@ export const symptoms: Symptom[] = [
       'Pode ser herpes reativado pelo procedimento. Precisa de medicação logo no início — avise a equipe hoje.',
     why: [
       'Quem já teve herpes labial pode reativá-lo após laser ou aplicação na região da boca.',
-      'Tratado nas primeiras horas, resolve rápido e sem deixar marca.',
+      'O tratamento iniciado nas primeiras horas costuma encurtar o quadro e reduzir o risco de marca.',
     ],
     action: [
       'Fotografe e envie para a equipe no mesmo dia',

@@ -162,6 +162,8 @@ const html = `<title>Conteúdo clínico para revisão — Dr. Henrique Reis</tit
   table{width:100%;border-collapse:collapse;font-family:ui-sans-serif,system-ui,sans-serif;font-size:14px}
   th{text-align:left;width:64px;color:var(--tiffany);font-weight:700;padding:6px 0;vertical-align:top}
   td{padding:6px 0;vertical-align:top}
+  .aprovado{background:var(--gw);border-left:3px solid var(--tiffany);color:var(--ink);
+         padding:12px 14px;border-radius:8px;margin:20px 0;font-size:14px;font-weight:600}
   .alerta{background:var(--aw);color:var(--a);border-radius:10px;padding:14px 16px;margin:24px 0;
           font-family:ui-sans-serif,system-ui,sans-serif;font-size:14px;font-weight:600}
   nav{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin:28px 0 8px;
@@ -177,7 +179,7 @@ const html = `<title>Conteúdo clínico para revisão — Dr. Henrique Reis</tit
   <h1>Conteúdo clínico do aplicativo</h1>
   <p class="meta">Tudo o que a paciente lê, extraído automaticamente do aplicativo em ${new Date().toLocaleDateString('pt-BR')} · ${C.procedures.length} procedimentos · ${C.symptoms.length} orientações de sintomas · ${C.care.length} guias de cuidados</p>
 
-  <div class="alerta">Este conteúdo ainda não foi validado clinicamente. Nenhuma paciente deve recebê-lo antes da sua revisão e aprovação.</div>
+  <div class="aprovado">Conteúdo revisado e aprovado pelo Dr. Henrique César dos Reis — CRM/SC 17913 · RQE 17450. Última revisão em 08/08/2026.</div>
 
   <nav>
     <ol>

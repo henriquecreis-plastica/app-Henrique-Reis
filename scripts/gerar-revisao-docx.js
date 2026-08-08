@@ -83,7 +83,7 @@ const capa = [
     alignment: AlignmentType.CENTER,
     shading: { type: ShadingType.CLEAR, fill: 'FCF0DA' },
     spacing: { before: 200, after: 200 },
-    children: [new TextRun({ text: 'Este conteúdo ainda não foi validado clinicamente. Nenhuma paciente deve recebê-lo antes da sua revisão e aprovação.', bold: true, size: 20, color: AMBAR })],
+    children: [new TextRun({ text: 'Conteúdo revisado e aprovado pelo Dr. Henrique César dos Reis — CRM/SC 17913 · RQE 17450. Última revisão em 08/08/2026.', bold: true, size: 20, color: TIFFANY })],
   }),
   new Paragraph({ children: [new PageBreak()] }),
 ];

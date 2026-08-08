@@ -61,6 +61,15 @@ export default function CareDetail() {
           </View>
         )}
 
+        {/* A ressalva vem antes do conteúdo, e não como rodapé: nos guias de
+            prazo é ela que enquadra tudo o que vem depois. */}
+        {guide.note ? (
+          <View style={styles.noteCard}>
+            <Ionicons name="information-circle" size={18} color={palette.attention} />
+            <Text style={styles.noteText}>{guide.note}</Text>
+          </View>
+        ) : null}
+
         <VideoList guide={guide.id} />
 
         {guide.sections.map((section) => (
@@ -119,6 +128,15 @@ const styles = StyleSheet.create({
     gap: spacing.md,
   },
   brandArt: { width: 208, height: 94 },
+  noteCard: {
+    flexDirection: 'row',
+    gap: spacing.md,
+    alignItems: 'flex-start',
+    backgroundColor: palette.attentionBg,
+    borderRadius: radius.lg,
+    padding: spacing.lg,
+  },
+  noteText: { flex: 1, fontSize: 13.5, lineHeight: 20, color: palette.attention, fontWeight: '600' },
   brandSub: { ...type.bodyMuted, textAlign: 'center' },
   headerTitle: { color: palette.textOnDark },
   headerSub: { fontSize: 14, color: palette.textOnDarkMuted },

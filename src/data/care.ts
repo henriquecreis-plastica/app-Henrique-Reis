@@ -16,6 +16,12 @@ export interface CareGuide {
   /** Se preenchido, restringe ao tipo de percurso. Ausente = vale para todos. */
   kinds?: ProcedureKind[];
   /**
+   * Ressalva destacada no topo do guia. Existe para os guias cujo conteúdo é
+   * naturalmente lido como regra — prazos, tempo de uso, frequência — e onde a
+   * orientação da equipe precisa aparecer acima do texto, não abaixo dele.
+   */
+  note?: string;
+  /**
    * Guias que são protocolos da clínica e têm marca própria. A arte entra no
    * lugar do título, como foi entregue — não é recolorida nem redesenhada.
    */
@@ -181,24 +187,26 @@ export const careGuides: CareGuide[] = [
   {
     id: 'compressao',
     kinds: ['cirurgico'],
+    note:
+      'A peça, o tempo de uso e as pausas mudam conforme o procedimento. Vale sempre o que foi orientado para você na alta.',
     title: 'Cinta, malha e sutiã cirúrgico',
-    subtitle: 'A compressão é parte do resultado, não um detalhe',
+    subtitle: 'O tempo de uso e o modelo são definidos para o seu procedimento',
     icon: 'shirt-outline',
     sections: [
       {
         heading: 'Por que usar',
         items: [
-          'Reduz o inchaço e ajuda o corpo a reabsorver líquido',
-          'Mantém a pele acomodada no novo contorno',
-          'Diminui a chance de seroma e melhora o conforto',
+          'Ajuda a reduzir o inchaço e o desconforto',
+          'Contribui para a pele se acomodar ao novo contorno',
+          'A peça, o tempo de uso e as pausas variam conforme o procedimento — siga o que foi orientado para você',
         ],
       },
       {
         heading: 'Como usar',
         items: [
-          'Em tempo integral nas primeiras semanas, inclusive para dormir',
-          'Retire apenas para o banho, salvo orientação diferente',
-          'Deve ficar firme e confortável — você deve conseguir passar dois dedos entre a peça e a pele',
+          'Use pelo tempo e nos períodos que a equipe orientou para o seu caso',
+          'Não aperte, ajuste nem troque de tamanho por conta própria',
+          'Deve ficar firme e confortável, nunca a ponto de doer ou marcar fundo',
           'Tenha duas peças para revezar durante a lavagem',
         ],
       },
@@ -258,7 +266,7 @@ export const careGuides: CareGuide[] = [
         heading: 'Regras principais',
         items: [
           'Tome os remédios nos horários prescritos, sem esperar a dor aparecer',
-          'Não suspenda o antibiótico antes do fim, mesmo se estiver bem',
+          'Não altere nem interrompa nenhum tratamento sem orientação da equipe, mesmo se estiver bem',
           'Não use anti-inflamatórios por conta própria — alguns aumentam sangramento',
           'Evite qualquer suplemento ou chá sem consultar a equipe',
         ],
@@ -283,24 +291,25 @@ export const careGuides: CareGuide[] = [
   {
     id: 'drenagem',
     kinds: ['cirurgico'],
+    note:
+      'Nem toda paciente precisa de drenagem. A indicação, o início e a frequência são definidos pela equipe conforme o seu caso.',
     title: 'Drenagem linfática',
-    subtitle: 'Um dos fatores que mais influenciam o resultado',
+    subtitle: 'Quando indicada, é a equipe que define início e frequência',
     icon: 'hand-left-outline',
     sections: [
       {
         heading: 'Para que serve',
         items: [
-          'Acelera a saída do líquido acumulado e reduz o inchaço',
-          'Previne e trata a fibrose, que deixa o contorno irregular',
-          'Melhora o conforto e a sensação de peso',
+          'Quando indicada, pode auxiliar no controle do inchaço e no conforto da recuperação',
+          'Costuma ajudar no manejo da fibrose, que deixa o contorno irregular',
+          'Nem toda paciente precisa, e o protocolo varia conforme o procedimento e o seu caso',
         ],
       },
       {
         heading: 'Como fazer',
         items: [
-          'Início conforme liberação da equipe, em geral entre o 2º e o 5º dia',
+          'Início e frequência são definidos pela equipe, caso a caso',
           'Sempre com profissional habilitado em pós-operatório de cirurgia plástica',
-          'Frequência habitual: 3 a 5 sessões na primeira semana, reduzindo depois',
           'A manobra é suave — drenagem dolorida não é drenagem linfática',
         ],
       },
@@ -561,6 +570,8 @@ export const careGuides: CareGuide[] = [
   {
     id: 'rotina',
     kinds: ['cirurgico'],
+    note:
+      'Os prazos abaixo são referências gerais, não uma autorização. Quem libera cada atividade é a equipe, caso a caso — na dúvida, pergunte antes de retomar.',
     title: 'Volta à rotina e exercícios',
     subtitle: 'Referências gerais — sua liberação é individual',
     icon: 'fitness-outline',
@@ -588,6 +599,8 @@ export const careGuides: CareGuide[] = [
   {
     id: 'viagem',
     kinds: ['cirurgico'],
+    note:
+      'São recomendações gerais. Confirme com a equipe antes de comprar passagem.',
     title: 'Viagens e deslocamentos',
     subtitle: 'Planeje antes de comprar passagem',
     icon: 'airplane-outline',

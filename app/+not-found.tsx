@@ -23,6 +23,8 @@ export default function NotFound() {
     );
   }
 
+  if (!profile.termsAcceptedAt) return <Redirect href="/orientacoes" />;
+
   return <Redirect href={profile.onboarded ? '/(tabs)' : '/onboarding'} />;
 }
 

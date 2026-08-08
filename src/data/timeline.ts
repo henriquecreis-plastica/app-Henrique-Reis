@@ -112,11 +112,12 @@ export const officePhases: Phase[] = [
     to: 28,
     icon: 'eye-outline',
     summary:
-      'O inchaço já saiu e o que você vê começa a ser o resultado de verdade.',
+      'Na maioria dos tratamentos os sinais iniciais já reduziram bastante, e o que você vê começa a ser o resultado. O tempo varia conforme o procedimento realizado.',
     expect: [
-      'Aparência natural, sem sinais do procedimento',
+      'Sinais do procedimento bem menos visíveis do que nos primeiros dias',
       'Resultado se acomodando e ficando mais harmônico',
       'Pequenas assimetrias que ainda podem se ajustar',
+      'Após laser e Morpheus, a pele pode seguir rosada por mais tempo',
     ],
     todo: [
       'Comparecer à avaliação de retorno, quando marcada',
@@ -135,10 +136,11 @@ export const officePhases: Phase[] = [
     to: 3650,
     icon: 'trending-up-outline',
     summary:
-      'Na maioria das pacientes o resultado já está estável. A partir daqui o que conta é manutenção e acompanhamento.',
+      'Na maioria das pacientes o resultado já está estável, embora cada tratamento tenha o seu próprio tempo. A partir daqui o que conta é manutenção e acompanhamento.',
     expect: [
       'Efeito estável, dentro da duração esperada para o tratamento',
       'Em bioestimuladores, ganho progressivo até cerca de 3 meses',
+      'Após laser e Morpheus, textura e firmeza podem seguir evoluindo por alguns meses',
     ],
     todo: [
       'Combinar com a equipe quando será a manutenção',
@@ -357,7 +359,7 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
     { day: 60, text: 'Retorno a exercícios abdominais, quando liberada' },
   ],
   lipo_hd: [
-    { day: 21, text: 'Fase de maior endurecimento — a drenagem faz diferença aqui' },
+    { day: 21, text: 'Fase de maior endurecimento — quando indicada, a drenagem ajuda nesta fase' },
     { day: 90, text: 'Maior parte da recuperação concluída; a definição segue melhorando' },
     { day: 180, text: 'Resultado do enxerto já estabelecido, quando houve GRAFT' },
     { day: 365, text: 'Resultado final do contorno — entre 6 e 12 meses, conforme cada paciente' },

@@ -205,16 +205,29 @@ que os botões de urgência discam.
 ## Revisão médica
 
 O conteúdo clínico foi redigido a partir de orientações consolidadas de
-pós-operatório em cirurgia plástica e escrito em linguagem de paciente. Ele
-**precisa da sua revisão e aprovação antes de ir ao ar** — tanto no mérito
-quanto nos prazos, que devem refletir a sua conduta.
+pós-operatório em cirurgia plástica, escrito em linguagem de paciente e
+**revisado e aprovado pelo Dr. Henrique César dos Reis** (CRM/SC 17913 ·
+RQE 17450).
 
-Os pontos que provavelmente você vai querer ajustar primeiro:
+A revisão pré-lançamento estabeleceu um princípio que vale para tudo o que for
+acrescentado daqui em diante: **a orientação da equipe está acima da orientação
+do aplicativo.** Na prática, isso significa não prometer resultado, não
+apresentar protocolo como universal e não deixar prazo passar por autorização.
+Frases como "não deixa marca" ou "em tempo integral" foram trocadas por
+formulações que descrevem tendência e devolvem a decisão a quem acompanha a
+paciente.
 
-- Prazos de liberação em `src/data/care.ts` (guia "Volta à rotina e exercícios").
-- Início e frequência da drenagem linfática.
-- Tempo de uso da compressão por procedimento.
-- Marcos de retirada de pontos em `src/data/timeline.ts`.
+Três mecanismos sustentam isso no app:
+
+- a **tela de aceite** na primeira abertura, que a paciente precisa confirmar
+  antes de ver qualquer conteúdo (`app/orientacoes.tsx`);
+- o campo `note` dos guias, uma ressalva destacada **acima** do conteúdo nos
+  guias que se leem como regra — prazos, compressão, drenagem, viagem;
+- os avisos de rodapé que já existiam em cada tela.
+
+Ao acrescentar conteúdo, o teste é simples: se a frase promete um resultado,
+descreve um protocolo como se valesse para todas ou fixa um prazo sem dizer de
+quem é a liberação, ela precisa ser reescrita antes de entrar.
 
 ### Documento de revisão
 
