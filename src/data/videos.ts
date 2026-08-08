@@ -66,6 +66,14 @@ export const videos: Video[] = [
     guide: 'hr_recovery',
   },
   {
+    id: 'preciso_saber',
+    title: 'O que eu preciso saber para fazer cirurgia plástica',
+    summary: 'O que considerar antes de decidir e de marcar',
+    url: 'https://youtu.be/PVj7A3YBv98',
+    kinds: ['cirurgico'],
+    preOp: true,
+  },
+  {
     id: 'mitos',
     title: 'Mitos e verdades da cirurgia plástica',
     summary: 'O que se fala por aí e o que a prática mostra',
@@ -110,6 +118,13 @@ export const videos: Video[] = [
     procedures: ['mastopexia'],
   },
   {
+    id: 'blefaroplastia',
+    title: 'Blefaroplastia',
+    summary: 'A cirurgia das pálpebras, do planejamento ao resultado',
+    url: 'https://youtu.be/n-bvGxN_O0M',
+    procedures: ['blefaroplastia'],
+  },
+  {
     id: 'abdominoplastia',
     title: 'Abdominoplastia',
     summary: 'Como é a cirurgia, do planejamento ao resultado',
@@ -150,6 +165,13 @@ export const videos: Video[] = [
     summary: 'Continuação, com o que esperar da recuperação',
     url: 'https://youtu.be/5OwJWMBMo20',
     procedures: ['face_hd'],
+  },
+  {
+    id: 'bodytite',
+    title: 'BodyTite',
+    summary: 'A tecnologia usada para tratar a flacidez junto da lipoaspiração',
+    url: 'https://youtu.be/fgwiOcY0YUQ',
+    procedures: ['lipo_hd'],
   },
   {
     id: 'lipo_1',
