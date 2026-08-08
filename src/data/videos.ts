@@ -66,6 +66,20 @@ export const videos: Video[] = [
     guide: 'hr_recovery',
   },
   {
+    id: 'mitos',
+    title: 'Mitos e verdades da cirurgia plástica',
+    summary: 'O que se fala por aí e o que a prática mostra',
+    url: 'https://youtu.be/CJyWBW8CyHs',
+    kinds: ['cirurgico'],
+  },
+  {
+    id: 'morpheus',
+    title: 'Morpheus',
+    summary: 'Como funciona o tratamento e o que esperar dele',
+    url: 'https://youtu.be/I2-r8eElMF8',
+    procedures: ['morpheus'],
+  },
+  {
     id: 'malhas',
     title: 'Nossas malhas personalizadas',
     summary: 'Como a malha é feita para você e como usá-la',
