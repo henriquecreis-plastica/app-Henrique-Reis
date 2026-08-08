@@ -15,6 +15,7 @@ const procedures = require(`${OUT}/data/procedures.js`);
 const timeline = require(`${OUT}/data/timeline.js`);
 const symptoms = require(`${OUT}/data/symptoms.js`);
 const care = require(`${OUT}/data/care.js`);
+const videos = require(`${OUT}/data/videos.js`);
 
 const conteudo = {
   procedures: procedures.procedures,
@@ -25,10 +26,12 @@ const conteudo = {
   milestones: timeline.procedureMilestones,
   symptoms: symptoms.symptoms,
   care: care.careGuides,
+  videos: videos.videos,
 };
 
 fs.writeFileSync(`${OUT}/conteudo.json`, JSON.stringify(conteudo, null, 2));
 console.log(
   `conteudo.json: ${conteudo.procedures.length} procedimentos, ` +
-    `${conteudo.symptoms.length} sintomas, ${conteudo.care.length} guias`,
+    `${conteudo.symptoms.length} sintomas, ${conteudo.care.length} guias, ` +
+    `${conteudo.videos.length} vídeos`,
 );

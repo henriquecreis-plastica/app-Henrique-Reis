@@ -2,6 +2,8 @@ const fs = require('fs');
 const C = JSON.parse(fs.readFileSync('/tmp/dataout/conteudo.json', 'utf8'));
 
 const nomeProc = Object.fromEntries(C.procedures.map((p) => [p.id, p.name]));
+const nomeGuia = (id) => (C.care.find((g) => g.id === id) || {}).title || id;
+const nomeSintoma = (id) => (C.symptoms.find((x) => x.id === id) || {}).title || id;
 const NIVEL = {
   urgent: { rot: 'Contato imediato', cls: 'v' },
   attention: { rot: 'Atenção', cls: 'a' },
@@ -25,6 +27,18 @@ const fase = (f) => `
     <h4>O que fazer</h4>${ul(f.todo)}
     <h4>O que evitar</h4>${ul(f.avoid)}
   </article>`;
+
+const ondeAparece = (v, nomeGuia, nomeSintoma) => {
+  if (v.sobre) return 'Cartão "Sobre o cirurgião e a equipe", em Contato';
+  if (v.guide) return `Dentro do guia "${nomeGuia(v.guide)}"`;
+  if (v.symptoms) return `Dentro das orientações: ${v.symptoms.map(nomeSintoma).join(', ')}`;
+  const alvo = v.procedures
+    ? v.procedures.map((id) => nomeProc[id] || id).join(', ')
+    : v.kinds && v.kinds.includes('cirurgico')
+      ? 'todas as cirurgias'
+      : 'todos os procedimentos';
+  return `Aba Cuidados — ${alvo}${v.preOp ? ' · e na tela Hoje, antes do procedimento' : ''}`;
+};
 
 const secoes = [];
 
@@ -90,7 +104,21 @@ const AVISOS = [
   ['Na tela de sinais de alerta', 'Ao procurar um pronto-socorro, informe qual procedimento você realizou, a data e as medicações em uso. Leve o contato da nossa equipe com você.'],
   ['Sobre privacidade, em Meus dados', 'Seus dados ficam salvos apenas neste aparelho. Nada é enviado para a clínica pelo aplicativo.'],
 ];
-secoes.push(`<section id="avisos"><h2>6. Avisos exibidos no aplicativo</h2>
+secoes.push(`<section id="videos"><h2>6. Vídeos do canal</h2>
+  <p class="nota">Cada vídeo aparece só para quem se encaixa. Os títulos e as
+  descrições abaixo são o que a paciente lê no aplicativo — não são os títulos
+  do YouTube.</p>
+  <table class="videos"><thead><tr><th>Vídeo</th><th>Onde aparece</th></tr></thead><tbody>
+  ${C.videos.map((v) => `<tr>
+    <td><strong>${esc(v.title)}</strong><br><span class="meta">${esc(v.summary)}</span><br>
+        <span class="meta">${esc(v.url)}</span></td>
+    <td>${esc(ondeAparece(v, nomeGuia, nomeSintoma))}</td>
+  </tr>`).join('')}
+  </tbody></table>
+  <p class="correcao">Correção:</p>
+</section>`);
+
+secoes.push(`<section id="avisos"><h2>7. Avisos exibidos no aplicativo</h2>
 ${AVISOS.map(([onde, texto]) => `
   <article class="bloco"><h3>${esc(onde)}</h3><p class="resumo">${esc(texto)}</p></article>`).join('')}
 </section>`);

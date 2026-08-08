@@ -21,6 +21,22 @@ const NIVEL = {
   normal: { rot: 'ESPERADO', cor: TIFFANY },
 };
 
+const nomeGuia = (id) => (C.care.find((g) => g.id === id) || {}).title || id;
+const nomeSintoma = (id) => (C.symptoms.find((x) => x.id === id) || {}).title || id;
+
+/** Em que tela do aplicativo o vídeo aparece, e para quem. */
+const ondeAparece = (v) => {
+  if (v.sobre) return 'Cartão "Sobre o cirurgião e a equipe", na tela de contato';
+  if (v.guide) return `Dentro do guia "${nomeGuia(v.guide)}"`;
+  if (v.symptoms) return `Dentro das orientações: ${v.symptoms.map(nomeSintoma).join(', ')}`;
+  const alvo = v.procedures
+    ? v.procedures.map((id) => nomeProc[id] || id).join(', ')
+    : v.kinds && v.kinds.includes('cirurgico')
+      ? 'todas as cirurgias'
+      : 'todos os procedimentos';
+  return `Aba Cuidados — ${alvo}${v.preOp ? ' · e na tela Hoje, antes do procedimento' : ''}`;
+};
+
 // ---------- blocos reutilizáveis ----------
 const espaco = (n = 120) => new Paragraph({ spacing: { after: n }, children: [] });
 
@@ -208,9 +224,25 @@ for (const g of C.care) {
   parteCuidados.push(linhaRevisao());
 }
 
+// ---------- vídeos ----------
+const parteVideos = [
+  h1('6. Vídeos do canal'),
+  nota(
+    'Cada vídeo aparece só para quem se encaixa. O título e a descrição abaixo ' +
+      'são o que a paciente lê no aplicativo — não são os títulos do YouTube.',
+  ),
+];
+for (const v of C.videos) {
+  parteVideos.push(h3(v.title));
+  parteVideos.push(corpo(v.summary, { color: CINZA, size: 19 }));
+  parteVideos.push(corpo(ondeAparece(v), { size: 19 }));
+  parteVideos.push(corpo(v.url, { color: CINZA, size: 17 }));
+  parteVideos.push(linhaRevisao());
+}
+
 // ---------- avisos ----------
 const parteAvisos = [
-  h1('6. Avisos exibidos no aplicativo'),
+  h1('7. Avisos exibidos no aplicativo'),
   nota('Textos fixos, mostrados independentemente do procedimento.'),
   h3('No cadastro inicial'),
   corpo('As orientações do aplicativo são gerais e não substituem a avaliação do Dr. Henrique Reis ou de sua equipe. Em caso de dúvida ou sinal de alerta, entre em contato.'),
@@ -279,7 +311,8 @@ const doc = new Document({
         ...parteMarcos,
         ...parteSintomas,
         ...parteCuidados,
-        ...parteAvisos,
+        ...parteVideos,
+            ...parteAvisos,
       ],
     },
   ],

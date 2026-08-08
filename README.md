@@ -222,7 +222,8 @@ Em `docs/` há duas versões de todo o conteúdo clínico, geradas automaticamen
 a partir dos próprios arquivos de dados — não são resumo nem paráfrase:
 
 - `conteudo-clinico-para-revisao.docx` — para marcar correções, com uma linha
-  de anotação abaixo de cada bloco.
+  de anotação abaixo de cada bloco. Inclui os vídeos, com o título e a
+  descrição que a paciente lê e em que tela cada um aparece.
 - `conteudo-clinico-para-revisao.html` — para ler no celular ou no navegador.
 
 Para regerar depois de editar o conteúdo:
