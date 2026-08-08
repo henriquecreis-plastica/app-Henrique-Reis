@@ -99,7 +99,7 @@ export default function Contato() {
         </Card>
 
         <Card>
-          <Overline>Sobre o cirurgião</Overline>
+          <Overline>Sobre o cirurgião e a equipe</Overline>
           <View style={styles.spacer} />
           <Text style={type.body}>{clinic.fullName}</Text>
           <View style={{ height: spacing.md }} />

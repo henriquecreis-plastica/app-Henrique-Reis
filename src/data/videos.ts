@@ -56,6 +56,13 @@ export const videos: Video[] = [
     sobre: true,
   },
   {
+    id: 'equipe',
+    title: 'Nossa equipe cirúrgica',
+    summary: 'Quem está com você no centro cirúrgico',
+    url: 'https://youtu.be/ogH2sXFSd3E',
+    sobre: true,
+  },
+  {
     id: 'geral',
     title: 'Tudo sobre a cirurgia plástica',
     summary: 'Uma visão geral — bom de assistir antes de operar',
