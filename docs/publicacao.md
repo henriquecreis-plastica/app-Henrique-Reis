@@ -24,21 +24,38 @@ de ser testado nessa tela também.
 
 ---
 
-## 1. Antes de tudo: hospedar a política de privacidade
+## 1. Páginas públicas — no ar
 
-As duas lojas pedem um **endereço público** para a política de privacidade —
-um link que abra no navegador, sem instalar nada. Sem ele a submissão não
-avança.
-
-Suba os dois arquivos de `docs/publico/` no site da clínica, por exemplo em:
+As duas lojas pedem um **endereço público** para a política de privacidade, e
+ele já existe. Estes são os endereços oficiais, para citar nas duas fichas:
 
 ```
-https://www.plasticahenrique.com/app/privacidade
-https://www.plasticahenrique.com/app/termos
+https://www.plasticahenrique.com/app/privacidade.html
+https://www.plasticahenrique.com/app/termos.html
 ```
 
-São páginas HTML prontas, sem dependência externa. Depois de publicá-las, me
-avise o endereço final: ele precisa ser citado também nas fichas das lojas.
+O aplicativo também roda no navegador, no mesmo lugar, para testar com
+pacientes sem passar por loja nenhuma:
+
+```
+https://www.plasticahenrique.com/app/
+```
+
+Os três arquivos vêm de `docs/publico/` e sobem em `public_html/app/` no
+Hostinger (o site é WordPress; arquivos reais são servidos antes das regras do
+WordPress, então não há conflito). O `index.html` é gerado por
+`scripts/empacotar-web.js` — para republicar depois de mexer no conteúdo:
+
+```bash
+npx expo export --platform web
+node scripts/empacotar-web.js
+```
+
+**A pasta precisa se chamar `app`, em minúsculas.** O servidor é Linux e
+diferencia maiúsculas: uma pasta `App` responde 404 em `/app/`.
+
+Mantenha uma cópia só de cada documento legal. Duas cópias em endereços
+diferentes acabam divergindo, e a loja fica apontando para a versão velha.
 
 ---
 
