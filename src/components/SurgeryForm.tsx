@@ -193,7 +193,10 @@ export function ProcedurePicker({
                         {p.short}
                       </Text>
                       {/* O aviso só existe onde dois procedimentos se parecem
-                          e a escolha errada troca todo o conteúdo. */}
+                          e a escolha errada troca todo o conteúdo. Vem na cor
+                          do resto e entre parênteses: é uma ressalva de leitura,
+                          não um alerta — em laranja ele dominava o cartão e
+                          fazia a paciente achar que havia algo errado. */}
                       {p.note ? (
                         <Text
                           style={[
@@ -201,7 +204,7 @@ export function ProcedurePicker({
                             selected && { color: palette.textOnTiffanyMuted },
                           ]}
                         >
-                          {p.note}
+                          ({p.note})
                         </Text>
                       ) : null}
                     </View>
@@ -269,7 +272,7 @@ const styles = StyleSheet.create({
   procedureNote: {
     fontSize: 11.5,
     lineHeight: 16,
-    color: palette.attention,
+    color: palette.textMuted,
     marginTop: 4,
   },
   procedureName: { fontSize: 15, fontWeight: '700', color: palette.text },
