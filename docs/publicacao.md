@@ -46,26 +46,47 @@ avise o endereço final: ele precisa ser citado também nas fichas das lojas.
 
 Isto eu não consigo fazer por você — exige documento, cartão e assinatura.
 
+### Dados da empresa
+
+Emitido em agosto de 2026, já em mãos. As duas lojas pedem o mesmo número.
+
+| | |
+| --- | --- |
+| Razão social | HENRIQUE REIS CIRURGIA PLASTICA LTDA |
+| D-U-N-S | 896185880 |
+
+O D-U-N-S não expira e não é segredo — é um identificador público de empresa,
+como o CNPJ.
+
 ### Apple Developer Program — US$ 99/ano
 
-Em [developer.apple.com/programs](https://developer.apple.com/programs/).
+Em [developer.apple.com/programs/enroll](https://developer.apple.com/programs/enroll/).
 
-Duas formas:
+Escolher **Company / Organization** e informar o D-U-N-S acima. O Apple ID
+precisa de verificação em duas etapas ativa, e o site da clínica precisa estar
+no ar — a Apple confere.
 
-- **Como pessoa física**: mais rápido, aprovação em horas ou poucos dias. O
-  app aparece na loja com o seu nome completo.
-- **Como empresa**: o app aparece com o nome da clínica, que é o que você
-  provavelmente quer. Exige **número D-U-N-S** da empresa, gratuito, obtido em
-  [developer.apple.com/enroll/duns-lookup](https://developer.apple.com/enroll/duns-lookup/).
-  Se a clínica ainda não tiver, a emissão leva de 5 a 14 dias — **é o item de
-  maior prazo de todo o processo, então comece por ele.**
+Depois do pagamento vem a verificação, que costuma incluir **uma ligação para o
+telefone que consta no registro da D&B**, não para o que foi digitado no
+formulário. Conta de empresa leva de alguns dias a duas semanas.
+
+Como pessoa física seria mais rápido (aprovação em horas), mas o app apareceria
+com o nome pessoal em vez do da clínica. Com o D-U-N-S em mãos, não compensa.
 
 ### Google Play Console — US$ 25, pagamento único
 
-Em [play.google.com/console](https://play.google.com/console/).
+Em [play.google.com/console/signup](https://play.google.com/console/signup).
 
-Contas criadas a partir de 2023 passam por **verificação de identidade**, e
-contas de empresa exigem também verificação do CNPJ. Some alguns dias.
+**Escolher Organização, não conta pessoal.** A diferença é grande: contas
+pessoais criadas a partir de 2023 só liberam a publicação em produção depois de
+um teste fechado com **12 testadores inscritos por 14 dias seguidos**. Conta de
+empresa não passa por isso — e exige o mesmo D-U-N-S da Apple.
+
+A conta Google escolhida vira **dona do aplicativo permanentemente**, e
+transferir depois é burocrático. Use uma conta criada para isso, não uma conta
+pessoal de uso diário, e guarde a senha em lugar seguro.
+
+Tenha em PDF, para subir: cartão CNPJ e contrato social.
 
 ---
 
