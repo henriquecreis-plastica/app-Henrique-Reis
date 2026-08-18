@@ -13,6 +13,7 @@ import {
 import { Button } from '../src/components/ui';
 import { eventNoun, procedureKindOf, type ProcedureId } from '../src/data/procedures';
 import { usePatient } from '../src/store/patient';
+import { voltar } from '../src/lib/navegar';
 import { palette, spacing, type } from '../src/theme';
 
 /**
@@ -40,7 +41,7 @@ export default function MeusDados() {
       procedures: escolhidos,
       surgeryDate: iso,
     });
-    router.back();
+    voltar(router, '/(tabs)/contato');
   };
 
   return (
@@ -79,7 +80,7 @@ export default function MeusDados() {
 
       <View style={styles.footer}>
         <Button label="Salvar alterações" icon="checkmark" onPress={submit} disabled={!ready} />
-        <Button label="Cancelar" variant="ghost" onPress={() => router.back()} />
+        <Button label="Cancelar" variant="ghost" onPress={() => voltar(router, '/(tabs)/contato')} />
       </View>
     </KeyboardAvoidingView>
   );

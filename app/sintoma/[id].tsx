@@ -8,6 +8,7 @@ import { procedureNames } from '../../src/data/procedures';
 import { symptomById } from '../../src/data/symptoms';
 import { buildContextMessage, callPhone, openWhatsApp } from '../../src/lib/contact';
 import { usePatient } from '../../src/store/patient';
+import { voltar } from '../../src/lib/navegar';
 import { clinic, palette, radius, severity, spacing, type } from '../../src/theme';
 
 export default function SymptomDetail() {
@@ -20,7 +21,7 @@ export default function SymptomDetail() {
     return (
       <View style={styles.missing}>
         <Text style={type.body}>Orientação não encontrada.</Text>
-        <Button label="Voltar" variant="secondary" onPress={() => router.back()} />
+        <Button label="Voltar" variant="secondary" onPress={() => voltar(router, '/(tabs)/normal')} />
       </View>
     );
   }

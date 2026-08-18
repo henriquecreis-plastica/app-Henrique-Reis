@@ -13,6 +13,27 @@ import type { ProcedureId } from '../data/procedures';
  * de uma chamada de rede.
  */
 
+/**
+ * Um remédio da prescrição, como a paciente o cadastrou.
+ *
+ * O app não lê receita: quem digita é ela ou a equipe, na alta. Um remédio
+ * lido errado de um PDF geraria lembrete em horário errado, e aqui o erro
+ * silencioso tem consequência clínica.
+ */
+export interface Medication {
+  id: string;
+  /** "Dipirona 1g", "Cefalexina 500mg" — como está na receita. */
+  name: string;
+  /** Intervalo entre doses, em horas. */
+  everyHours: number;
+  /** Data e hora da primeira dose, em ISO local. */
+  startAt: string;
+  /** Por quantos dias tomar. Ausente = uso contínuo, sem data para parar. */
+  days?: number;
+  /** Horários de doses já tomadas, em ISO. */
+  takenAt: string[];
+}
+
 export interface PatientRecord {
   name: string;
   /**
@@ -36,6 +57,13 @@ export interface PatientRecord {
    * caso o texto mude — e deixa registro de qual versão ela viu.
    */
   termsAcceptedAt?: string;
+  /** Os remédios cadastrados, com os horários de cada um. */
+  medications?: Medication[];
+  /**
+   * Endereço da receita digital. O app guarda o link e o abre; não lê o
+   * conteúdo nem o envia para lugar nenhum.
+   */
+  prescriptionUrl?: string;
 }
 
 export interface PatientStorage {

@@ -15,13 +15,15 @@ import {
   recoveryWeeksOf,
 } from '../../src/data/procedures';
 import { milestonesFor, phaseForDay, phaseItems } from '../../src/data/timeline';
+import { dosesDeHoje, foiTomada, horaCurta, proximaDose } from '../../src/lib/medicacao';
 import { VideoList } from '../../src/components/VideoList';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
 
 export default function Today() {
   const router = useRouter();
-  const { profile, procedureIds, combined, postOpDay, toggleTask, isTaskDone, save } = usePatient();
+  const { profile, procedureIds, combined, postOpDay, toggleTask, isTaskDone, save, medications, saveMedications } =
+    usePatient();
   const procedure = procedureById(procedureIds[0]);
   const kind = procedureKindOf(procedureIds);
   const nomes = procedureNames(procedureIds);
@@ -48,6 +50,25 @@ export default function Today() {
     () => milestonesFor(procedureIds).find((m) => m.day > postOpDay),
     [procedureIds, postOpDay],
   );
+
+  const proxima = useMemo(() => proximaDose(medications), [medications]);
+
+  /* Uma lista só, em ordem de horário. Agrupada por remédio ela obrigaria a
+     paciente a cruzar duas colunas para saber o que tomar agora. */
+  const dosesDoDia = useMemo(
+    () =>
+      medications
+        .flatMap((m) => dosesDeHoje(m).map((d) => ({ m, d })))
+        .sort((a, b) => a.d.getTime() - b.d.getTime()),
+    [medications],
+  );
+
+  const marcarDose = async (m: (typeof medications)[number], dose: Date) => {
+    const takenAt = foiTomada(m, dose)
+      ? m.takenAt.filter((t) => Math.abs(new Date(t).getTime() - dose.getTime()) >= 60_000)
+      : [...m.takenAt, dose.toISOString()];
+    await saveMedications(medications.map((x) => (x.id === m.id ? { ...x, takenAt } : x)));
+  };
 
   const greeting = profile.name ? `Olá, ${profile.name}` : 'Olá';
 
@@ -178,6 +199,77 @@ export default function Today() {
           </View>
         </Card>
 
+        {/* ----- Remédios de hoje -----
+            Vem logo depois da rotina do dia porque, nas primeiras semanas, o
+            horário do analgésico é a coisa mais concreta que a paciente tem
+            para fazer — e a que ela mais esquece, justamente pela dor e pelo
+            efeito da anestesia. */}
+        <Card>
+          <View style={styles.medHeader}>
+            <Overline>Seus remédios</Overline>
+            <Pressable
+              accessibilityRole="button"
+              accessibilityLabel="Abrir meus remédios"
+              onPress={() => router.push('/medicacao')}
+              hitSlop={8}
+            >
+              <Ionicons name="create-outline" size={18} color={palette.textMuted} />
+            </Pressable>
+          </View>
+
+          {medications.length === 0 ? (
+            <>
+              <View style={styles.cardTitleSpacer} />
+              <Text style={type.bodyMuted}>
+                Cadastre o que você está tomando e o aplicativo avisa a hora de cada dose.
+              </Text>
+              <View style={styles.cardTitleSpacer} />
+              <Pressable
+                accessibilityRole="button"
+                onPress={() => router.push('/medicacao')}
+                style={styles.cardLink}
+                hitSlop={8}
+              >
+                <Text style={styles.cardLinkText}>Cadastrar meus remédios</Text>
+                <Ionicons name="arrow-forward" size={15} color={palette.accentInk} />
+              </Pressable>
+            </>
+          ) : (
+            <>
+              <Text style={[type.heading, styles.cardTitle]}>
+                {proxima
+                  ? `Próxima dose às ${horaCurta(proxima.quando)}`
+                  : 'Nenhuma dose pendente hoje'}
+              </Text>
+              {proxima ? <Text style={type.bodyMuted}>{proxima.med.name}</Text> : null}
+              <View style={styles.checklist}>
+                {dosesDoDia.map(({ m, d }) => {
+                    const tomada = foiTomada(m, d);
+                    return (
+                      <Pressable
+                        key={`${m.id}-${d.toISOString()}`}
+                        accessibilityRole="checkbox"
+                        accessibilityState={{ checked: tomada }}
+                        accessibilityLabel={`${m.name}, dose das ${horaCurta(d)}`}
+                        onPress={() => marcarDose(m, d)}
+                        style={({ pressed }) => [styles.taskRow, pressed && { opacity: 0.6 }]}
+                      >
+                        <Ionicons
+                          name={tomada ? 'checkmark-circle' : 'ellipse-outline'}
+                          size={22}
+                          color={tomada ? palette.normal : palette.border}
+                        />
+                        <Text style={[type.body, styles.flex, tomada && styles.taskDone]}>
+                          {horaCurta(d)} · {m.name}
+                        </Text>
+                      </Pressable>
+                    );
+                })}
+              </View>
+            </>
+          )}
+        </Card>
+
         {/* No pré-operatório a paciente tem tempo de assistir e pouca coisa
             para ler — é onde o vídeo geral rende mais. */}
         {isPreOp ? <VideoList apenasPreOp /> : null}
@@ -280,6 +372,7 @@ const styles = StyleSheet.create({
     marginTop: spacing.lg,
   },
   cardLinkText: { fontSize: 14, fontWeight: '700', color: palette.primary },
+  medHeader: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
   checklist: { gap: spacing.md, marginTop: spacing.lg },
   taskRow: { flexDirection: 'row', alignItems: 'flex-start', gap: spacing.md },
   taskDone: { color: palette.textMuted, textDecorationLine: 'line-through' },

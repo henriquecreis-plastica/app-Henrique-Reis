@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import type { ProcedureId } from '../data/procedures';
-import { storage, type PatientRecord } from './storage';
+import { reagendar } from '../lib/lembretes';
+import { storage, type Medication, type PatientRecord } from './storage';
 
 export type PatientProfile = PatientRecord;
 
@@ -30,6 +31,10 @@ interface PatientContextValue {
   toggleTask: (key: string) => void;
   isTaskDone: (key: string) => boolean;
   reset: () => Promise<void>;
+  /** Os remédios cadastrados, sempre uma lista. */
+  medications: Medication[];
+  /** Grava a lista e refaz a fila de lembretes do aparelho. */
+  saveMedications: (meds: Medication[]) => Promise<void>;
 }
 
 const PatientContext = createContext<PatientContextValue | null>(null);
@@ -94,6 +99,18 @@ export function PatientProvider({ children }: { children: React.ReactNode }) {
     [profile.procedures, profile.procedure],
   );
 
+  const medications = useMemo<Medication[]>(() => profile.medications ?? [], [profile.medications]);
+
+  /* Gravar e reagendar andam sempre juntos: uma lista salva sem refazer a fila
+     deixaria o aparelho avisando de um remédio que ela já removeu. */
+  const saveMedications = useCallback(
+    async (meds: Medication[]) => {
+      await persist({ ...profile, medications: meds });
+      await reagendar(meds);
+    },
+    [profile, persist],
+  );
+
   const value = useMemo<PatientContextValue>(
     () => ({
       profile,
@@ -105,8 +122,10 @@ export function PatientProvider({ children }: { children: React.ReactNode }) {
       toggleTask,
       isTaskDone: (key: string) => profile.doneTasks.includes(key),
       reset,
+      medications,
+      saveMedications,
     }),
-    [profile, loading, procedureIds, postOpDay, save, toggleTask, reset],
+    [profile, loading, procedureIds, postOpDay, save, toggleTask, reset, medications, saveMedications],
   );
 
   return <PatientContext.Provider value={value}>{children}</PatientContext.Provider>;

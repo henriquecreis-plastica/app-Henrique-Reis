@@ -7,6 +7,7 @@ import { appliesToAny, procedureKindOf, procedureNames } from '../src/data/proce
 import { symptoms } from '../src/data/symptoms';
 import { buildContextMessage, callPhone, openWhatsApp } from '../src/lib/contact';
 import { usePatient } from '../src/store/patient';
+import { voltar } from '../src/lib/navegar';
 import { clinic, palette, radius, spacing, type } from '../src/theme';
 
 export default function Emergencia() {
@@ -80,7 +81,7 @@ export default function Emergencia() {
         </Text>
       </Card>
 
-      <Button label="Voltar" variant="ghost" onPress={() => router.back()} />
+      <Button label="Voltar" variant="ghost" onPress={() => voltar(router, '/(tabs)')} />
     </ScrollView>
   );
 }

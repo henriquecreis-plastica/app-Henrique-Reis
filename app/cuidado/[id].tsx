@@ -8,6 +8,7 @@ import { careById } from '../../src/data/care';
 import { procedureNames } from '../../src/data/procedures';
 import { buildContextMessage, openWhatsApp } from '../../src/lib/contact';
 import { usePatient } from '../../src/store/patient';
+import { voltar } from '../../src/lib/navegar';
 import { palette, radius, spacing, type } from '../../src/theme';
 
 /**
@@ -32,7 +33,7 @@ export default function CareDetail() {
     return (
       <View style={styles.missing}>
         <Text style={type.body}>Guia não encontrado.</Text>
-        <Button label="Voltar" variant="secondary" onPress={() => router.back()} />
+        <Button label="Voltar" variant="secondary" onPress={() => voltar(router, '/(tabs)/cuidados')} />
       </View>
     );
   }

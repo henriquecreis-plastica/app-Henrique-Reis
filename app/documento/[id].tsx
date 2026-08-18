@@ -3,6 +3,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Bullets, Button, Card, Overline } from '../../src/components/ui';
 import { legalById } from '../../src/data/legal';
+import { voltar } from '../../src/lib/navegar';
 import { palette, radius, spacing, type } from '../../src/theme';
 
 /** Termos de uso e política de privacidade, exigidos pelas duas lojas. */
@@ -15,7 +16,7 @@ export default function Documento() {
     return (
       <View style={styles.missing}>
         <Text style={type.body}>Documento não encontrado.</Text>
-        <Button label="Voltar" variant="secondary" onPress={() => router.back()} />
+        <Button label="Voltar" variant="secondary" onPress={() => voltar(router, '/(tabs)/contato')} />
       </View>
     );
   }
