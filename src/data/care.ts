@@ -293,6 +293,79 @@ export const careGuides: CareGuide[] = [
     ],
   },
   {
+    id: 'taping',
+    kinds: ['cirurgico'],
+    /* Onde a fisioterapeuta aplica a bandagem: face e as cirurgias de contorno
+       corporal. Quem não sai do centro cirúrgico com tape não precisa ler
+       sobre não molhar uma coisa que não tem. */
+    procedures: [
+      'face_hd',
+      'lipoescultura',
+      'lipo_hd',
+      'abdominoplastia',
+      'ginecomastia',
+      'pos_bariatrica',
+    ],
+    title: 'Taping pós-operatório',
+    subtitle: 'A bandagem elástica aplicada pela fisioterapeuta, e como cuidar dela',
+    icon: 'bandage-outline',
+    sections: [
+      {
+        heading: 'O que é',
+        paragraphs: [
+          'O taping é uma bandagem elástica aplicada pela fisioterapeuta ainda no momento da cirurgia ou logo após o procedimento. Ele faz parte dos cuidados iniciais e pode auxiliar na recuperação, sempre de acordo com a indicação da equipe.',
+        ],
+      },
+      {
+        heading: 'Quais são os benefícios',
+        paragraphs: ['Quando bem indicado, o taping pode contribuir para:'],
+        items: [
+          'Auxiliar no controle do inchaço',
+          'Favorecer a drenagem dos líquidos',
+          'Reduzir áreas de maior tensão',
+          'Proporcionar mais conforto durante os primeiros dias',
+          'Ajudar na adaptação dos tecidos no período inicial da recuperação',
+        ],
+      },
+      {
+        heading: 'Quanto tempo ele permanece',
+        paragraphs: [
+          'Em geral, a bandagem permanece por aproximadamente 6 a 7 dias. Esse período pode variar conforme a cirurgia, a evolução do inchaço e a resposta da pele.',
+          'Em algumas situações, poderá ser retirada antes pela fisioterapeuta ou pela equipe. Dependendo da necessidade, uma nova aplicação poderá ser realizada durante o acompanhamento pós-operatório.',
+        ],
+      },
+      {
+        heading: 'Cuidados importantes',
+        items: [
+          'Não molhe o taping durante o banho — a umidade diminui a aderência e favorece irritações na pele',
+          'Não utilize secador, cremes, óleos ou pomadas sobre a bandagem',
+          'Não puxe, recorte, reposicione ou retire o taping por conta própria',
+          'Use roupas confortáveis e tenha cuidado para não prender ou tracionar as pontas da bandagem',
+          'Se alguma extremidade começar a descolar, não tente colá-la novamente — entre em contato com a equipe para receber orientação',
+          'A retirada deve ser feita conforme a orientação da fisioterapeuta ou da equipe responsável',
+        ],
+      },
+      {
+        heading: 'Quando entrar em contato',
+        paragraphs: ['Avise a equipe se perceber:'],
+        items: [
+          'Coceira intensa ou persistente',
+          'Ardência, dor ou desconforto importante',
+          'Vermelhidão que se estende além da bandagem',
+          'Pele muito sensível, irritada ou machucada',
+          'Bandagem molhada, muito solta ou completamente descolada',
+        ],
+      },
+      {
+        heading: 'Cada recuperação é única',
+        paragraphs: [
+          'O taping é um cuidado complementar e não substitui as demais orientações pós-operatórias.',
+          'O tempo de permanência, a retirada e a eventual reaplicação serão definidos individualmente durante o acompanhamento.',
+        ],
+      },
+    ],
+  },
+  {
     id: 'curativo',
     kinds: ['cirurgico'],
     title: 'Curativos, banho e higiene',
