@@ -4,7 +4,7 @@ import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Bullets, Button, Card, Overline, SeverityBadge } from '../../src/components/ui';
 import { VideoList } from '../../src/components/VideoList';
-import { procedureById } from '../../src/data/procedures';
+import { procedureNames } from '../../src/data/procedures';
 import { symptomById } from '../../src/data/symptoms';
 import { buildContextMessage, callPhone, openWhatsApp } from '../../src/lib/contact';
 import { usePatient } from '../../src/store/patient';
@@ -13,7 +13,7 @@ import { clinic, palette, radius, severity, spacing, type } from '../../src/them
 export default function SymptomDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const { profile, postOpDay } = usePatient();
+  const { profile, procedureIds, postOpDay } = usePatient();
   const symptom = symptomById(String(id));
 
   if (!symptom) {
@@ -29,7 +29,7 @@ export default function SymptomDetail() {
   const isUrgent = symptom.severity === 'urgent';
   const contextMessage = buildContextMessage({
     name: profile.name,
-    procedure: procedureById(profile.procedure).name,
+    procedure: procedureNames(procedureIds),
     day: Math.max(postOpDay, 0),
     subject: symptom.title,
   });

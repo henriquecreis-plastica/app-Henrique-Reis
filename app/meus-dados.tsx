@@ -11,7 +11,7 @@ import {
   type DateParts,
 } from '../src/components/SurgeryForm';
 import { Button } from '../src/components/ui';
-import { eventNoun, procedureById, type ProcedureId } from '../src/data/procedures';
+import { eventNoun, procedureKindOf, type ProcedureId } from '../src/data/procedures';
 import { usePatient } from '../src/store/patient';
 import { palette, spacing, type } from '../src/theme';
 
@@ -22,19 +22,24 @@ import { palette, spacing, type } from '../src/theme';
  */
 export default function MeusDados() {
   const router = useRouter();
-  const { profile, save } = usePatient();
+  const { profile, procedureIds, save } = usePatient();
 
   const [name, setName] = useState(profile.name);
-  const [procedure, setProcedure] = useState<ProcedureId>(profile.procedure);
+  const [escolhidos, setEscolhidos] = useState<ProcedureId[]>(procedureIds);
   const [date, setDate] = useState<DateParts>(toDateParts(profile.surgeryDate));
 
   const iso = toIsoDate(date);
-  const ready = !!iso && !dateProblem(date);
-  const noun = eventNoun(procedureById(procedure).kind);
+  const ready = !!iso && !dateProblem(date) && escolhidos.length > 0;
+  const noun = eventNoun(procedureKindOf(escolhidos.length ? escolhidos : procedureIds));
 
   const submit = async () => {
     if (!iso || !ready) return;
-    await save({ name: name.trim(), procedure, surgeryDate: iso });
+    await save({
+      name: name.trim(),
+      procedure: escolhidos[0],
+      procedures: escolhidos,
+      surgeryDate: iso,
+    });
     router.back();
   };
 
@@ -68,7 +73,7 @@ export default function MeusDados() {
 
         <View style={styles.field}>
           <Text style={styles.label}>Procedimento</Text>
-          <ProcedurePicker value={procedure} onChange={setProcedure} />
+          <ProcedurePicker value={escolhidos} onChange={setEscolhidos} />
         </View>
       </ScrollView>
 

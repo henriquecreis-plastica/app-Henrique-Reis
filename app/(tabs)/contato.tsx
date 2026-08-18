@@ -8,20 +8,21 @@ import { ReviewInvite } from '../../src/components/ReviewInvite';
 import { VideoRow } from '../../src/components/VideoList';
 import { videosSobre } from '../../src/data/videos';
 import { Button, Card, Divider, Overline } from '../../src/components/ui';
-import { eventNoun, procedureById } from '../../src/data/procedures';
+import { eventNoun, procedureKindOf, procedureNames } from '../../src/data/procedures';
 import { buildContextMessage, callPhone, openLink, openWhatsApp } from '../../src/lib/contact';
 import { usePatient } from '../../src/store/patient';
 import { clinic, palette, radius, spacing, type } from '../../src/theme';
 
 export default function Contato() {
   const router = useRouter();
-  const { profile, postOpDay, reset } = usePatient();
+  const { profile, procedureIds, postOpDay, reset } = usePatient();
   const [showData, setShowData] = useState(false);
-  const procedure = procedureById(profile.procedure);
+  const kind = procedureKindOf(procedureIds);
+  const nomes = procedureNames(procedureIds);
 
   const message = buildContextMessage({
     name: profile.name,
-    procedure: procedure.name,
+    procedure: nomes,
     day: Math.max(postOpDay, 0),
   });
 
@@ -125,9 +126,9 @@ export default function Contato() {
             <View style={styles.flex}>
               <Overline>Meus dados</Overline>
               <Text style={[type.body, { marginTop: spacing.xs }]}>
-                {procedure.name} ·{' '}
+                {nomes} ·{' '}
                 {postOpDay < 0
-                  ? `ainda não ${procedure.kind === 'ambulatorial' ? 'realizado' : 'realizada'}`
+                  ? `ainda não ${kind === 'ambulatorial' ? 'realizado' : 'realizada'}`
                   : `${postOpDay}º dia`}
               </Text>
             </View>
@@ -144,7 +145,7 @@ export default function Contato() {
               <InfoRow icon="person-outline" label="Nome" value={profile.name || 'Não informado'} />
               <InfoRow
                 icon="calendar-outline"
-                label={`Data d${eventNoun(procedure.kind) === 'cirurgia' ? 'a cirurgia' : 'o procedimento'}`}
+                label={`Data d${eventNoun(kind) === 'cirurgia' ? 'a cirurgia' : 'o procedimento'}`}
                 value={formatDate(profile.surgeryDate)}
               />
               <View style={{ height: spacing.md }} />

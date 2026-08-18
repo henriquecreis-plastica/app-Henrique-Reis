@@ -3,18 +3,21 @@ import React, { useState } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Bullets, Card, Overline, SectionHeader } from '../../src/components/ui';
-import { inlineName, procedureById } from '../../src/data/procedures';
-import { phaseForDay, phasesFor, procedureMilestones } from '../../src/data/timeline';
+import { inlineName, procedureById, procedureKindOf, procedureNames } from '../../src/data/procedures';
+import { milestonesFor, phaseForDay, phaseItems, phasesFor } from '../../src/data/timeline';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
 
 export default function Recuperacao() {
-  const { profile, postOpDay } = usePatient();
-  const procedure = procedureById(profile.procedure);
-  const current = phaseForDay(Math.max(postOpDay, 0), procedure.kind);
-  const phases = phasesFor(procedure.kind);
+  const { procedureIds, combined, postOpDay } = usePatient();
+  const procedure = procedureById(procedureIds[0]);
+  const kind = procedureKindOf(procedureIds);
+  const current = phaseForDay(Math.max(postOpDay, 0), kind);
+  const phases = phasesFor(kind);
   const [openId, setOpenId] = useState<string>(current.id);
-  const milestones = procedureMilestones[profile.procedure] ?? [];
+  /* Em cirurgia combinada os marcos das duas cirurgias entram na mesma linha,
+     em ordem de dia — é uma recuperação só, com mais coisas acontecendo. */
+  const milestones = milestonesFor(procedureIds);
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
@@ -22,11 +25,11 @@ export default function Recuperacao() {
         <SectionHeader
           overline="Linha do tempo"
           title={
-            procedure.kind === 'ambulatorial'
+            kind === 'ambulatorial'
               ? 'Seu tratamento, fase a fase'
               : 'Sua recuperação, fase a fase'
           }
-          description={`Referências para ${inlineName(procedure)}. Cada pessoa tem seu ritmo — pequenas variações são normais.`}
+          description={`Referências para ${combined ? procedureNames(procedureIds) : inlineName(procedure)}. Cada pessoa tem seu ritmo — pequenas variações são normais.`}
         />
 
         {phases.map((phase) => {
@@ -87,9 +90,9 @@ export default function Recuperacao() {
                       {/* Os três marcadores usam as cores da identidade:
                           Tiffany para o que é esperado, preto para o que
                           fazer, âmbar para o que evitar. */}
-                      <PhaseBlock title="O que é esperado" items={phase.expect} color={palette.accentInk} />
-                      <PhaseBlock title="O que fazer" items={phase.todo} color={palette.ink} />
-                      <PhaseBlock title="O que evitar" items={phase.avoid} color={palette.attention} />
+                      <PhaseBlock title="O que é esperado" items={phaseItems(phase.expect, procedureIds)} color={palette.accentInk} />
+                      <PhaseBlock title="O que fazer" items={phaseItems(phase.todo, procedureIds)} color={palette.ink} />
+                      <PhaseBlock title="O que evitar" items={phaseItems(phase.avoid, procedureIds)} color={palette.attention} />
                     </View>
                   ) : null}
                 </Pressable>

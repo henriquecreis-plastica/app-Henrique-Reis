@@ -3,7 +3,7 @@ import { useRouter } from 'expo-router';
 import React, { useMemo } from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Card, Overline } from '../src/components/ui';
-import { appliesToProcedure, procedureById } from '../src/data/procedures';
+import { appliesToAny, procedureKindOf, procedureNames } from '../src/data/procedures';
 import { symptoms } from '../src/data/symptoms';
 import { buildContextMessage, callPhone, openWhatsApp } from '../src/lib/contact';
 import { usePatient } from '../src/store/patient';
@@ -11,21 +11,21 @@ import { clinic, palette, radius, spacing, type } from '../src/theme';
 
 export default function Emergencia() {
   const router = useRouter();
-  const { profile, postOpDay } = usePatient();
+  const { profile, procedureIds, postOpDay } = usePatient();
 
   const urgentList = useMemo(() => {
-    const kind = procedureById(profile.procedure).kind;
+    const kind = procedureKindOf(procedureIds);
     return symptoms.filter(
       (s) =>
         s.severity === 'urgent' &&
         (!s.kinds || s.kinds.includes(kind)) &&
-        appliesToProcedure(s.procedures, profile.procedure),
+        appliesToAny(s.procedures, procedureIds),
     );
-  }, [profile.procedure]);
+  }, [procedureIds]);
 
   const message = buildContextMessage({
     name: profile.name,
-    procedure: procedureById(profile.procedure).name,
+    procedure: procedureNames(procedureIds),
     day: Math.max(postOpDay, 0),
   });
 

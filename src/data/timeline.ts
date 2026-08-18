@@ -1,4 +1,22 @@
-import type { IconName, ProcedureId, ProcedureKind } from './procedures';
+import { appliesToProcedure, type IconName, type ProcedureId, type ProcedureKind } from './procedures';
+
+/**
+ * Uma linha de orientação dentro de uma fase.
+ *
+ * As fases são compartilhadas por todas as cirurgias, e a maior parte do que
+ * elas dizem vale para qualquer uma. Mas algumas linhas não: falar de "áreas
+ * lipoaspiradas" para quem fez rinoplastia é desinformação, e foi o que o app
+ * fazia. Uma linha pode então declarar a quem ela serve.
+ */
+export type PhaseItem =
+  | string
+  | {
+      text: string;
+      /** Só estes procedimentos veem a linha. */
+      procedures?: ProcedureId[];
+      /** Todos veem, menos estes. */
+      exceto?: ProcedureId[];
+    };
 
 export interface Phase {
   id: string;
@@ -9,12 +27,41 @@ export interface Phase {
   icon: IconName;
   summary: string;
   /** O que é esperado sentir/ver nesta fase. */
-  expect: string[];
+  expect: PhaseItem[];
   /** Ações da paciente nesta fase. */
-  todo: string[];
+  todo: PhaseItem[];
   /** O que evitar nesta fase. */
-  avoid: string[];
+  avoid: PhaseItem[];
 }
+
+/**
+ * Cirurgias sem peça compressiva de corpo. Elas têm curativo, splint ou faixa,
+ * que é outra conversa e tem o seu próprio texto.
+ */
+const SEM_CINTA: ProcedureId[] = ['rinoplastia', 'blefaroplastia', 'otoplastia', 'face_hd', 'face'];
+
+/**
+ * Cirurgias em que há área lipoaspirada e a drenagem linfática faz parte da
+ * rotina. É a lista que decide quem ouve falar de endurecimento e nódulos.
+ */
+const COM_LIPO: ProcedureId[] = [
+  'lipoescultura',
+  'lipo_hd',
+  'abdominoplastia',
+  'ginecomastia',
+  'pos_bariatrica',
+];
+
+/** As linhas desta fase que valem para os procedimentos da paciente. */
+export const phaseItems = (items: PhaseItem[], ids: ProcedureId[]): string[] =>
+  items
+    .filter((item) => {
+      if (typeof item === 'string') return true;
+      if (item.procedures) return ids.some((id) => appliesToProcedure(item.procedures, id));
+      if (item.exceto) return ids.some((id) => !appliesToProcedure(item.exceto, id));
+      return true;
+    })
+    .map((item) => (typeof item === 'string' ? item : item.text));
 
 /**
  * Conteúdo do período que antecede a cirurgia. Sem isto, quem cadastra uma
@@ -38,7 +85,8 @@ export const preOpPhase: Phase = {
     'Seguir o tempo de jejum exatamente como orientado',
     'Confirmar com a equipe quais medicamentos manter ou suspender',
     'Organizar acompanhante para a alta e para os primeiros dias',
-    'Deixar em casa a cinta ou o sutiã cirúrgico, medicações e curativos',
+    { text: 'Deixar em casa a cinta ou o sutiã cirúrgico, medicações e curativos', exceto: SEM_CINTA },
+    { text: 'Deixar em casa as medicações e os curativos indicados pela equipe', procedures: SEM_CINTA },
     'Preparar refeições e o lugar onde vai descansar',
   ],
   avoid: [
@@ -195,7 +243,11 @@ export const phases: Phase[] = [
       'Levantar da cama apenas acompanhada, devagar e em duas etapas',
       'Movimentar os pés e as pernas na cama de hora em hora',
       'Beber água ao longo do dia',
-      'Manter a malha, cinta ou sutiã cirúrgico o tempo todo',
+      { text: 'Manter a malha, cinta ou sutiã cirúrgico o tempo todo', exceto: SEM_CINTA },
+      {
+        text: 'Manter o curativo, o splint ou a faixa exatamente como a equipe orientou',
+        procedures: SEM_CINTA,
+      },
     ],
     avoid: [
       'Ficar totalmente parada na cama por muitas horas',
@@ -221,7 +273,7 @@ export const phases: Phase[] = [
     ],
     todo: [
       'Caminhar dentro de casa, várias vezes ao dia e por poucos minutos',
-      'Iniciar a drenagem linfática se já liberada pela equipe',
+      { text: 'Iniciar a drenagem linfática se já liberada pela equipe', procedures: COM_LIPO },
       'Comparecer ao primeiro retorno para revisão dos curativos',
       'Manter alimentação rica em proteína e fibras',
       'Dormir na posição orientada para a sua cirurgia',
@@ -245,20 +297,24 @@ export const phases: Phase[] = [
       'Melhora clara da dor — desconforto pontual ainda ocorre',
       'Roxos amarelando e desaparecendo',
       'Cicatriz avermelhada e um pouco elevada',
-      'Endurecimento e nódulos sob a pele nas áreas lipoaspiradas',
+      { text: 'Endurecimento e nódulos sob a pele nas áreas lipoaspiradas', procedures: COM_LIPO },
       'Cansaço no fim do dia',
     ],
     todo: [
       'Retomar o trabalho leve, se liberada pela equipe',
-      'Manter a compressão conforme orientado',
-      'Seguir com a drenagem linfática na frequência indicada',
+      { text: 'Manter a compressão conforme orientado', exceto: SEM_CINTA },
+      { text: 'Seguir com a drenagem linfática na frequência indicada', procedures: COM_LIPO },
       'Hidratar a pele ao redor da cicatriz (não sobre os pontos)',
     ],
     avoid: [
       'Academia, corrida e qualquer exercício de impacto',
       'Sol direto sobre a cicatriz',
       'Relações sexuais e esforços intensos sem liberação',
-      'Abandonar a cinta ou o sutiã cirúrgico mais cedo',
+      { text: 'Abandonar a cinta ou o sutiã cirúrgico mais cedo', exceto: SEM_CINTA },
+      {
+        text: 'Retirar o curativo, o splint ou a faixa antes do tempo orientado',
+        procedures: SEM_CINTA,
+      },
     ],
   },
   {
@@ -273,7 +329,11 @@ export const phases: Phase[] = [
       'Inchaço que oscila ao longo do dia e piora à noite',
       'Cicatriz ainda vermelha — o clareamento leva meses',
       'Sensibilidade voltando aos poucos, com formigamento',
-      'Contorno corporal começando a se definir',
+      { text: 'Contorno corporal começando a se definir', exceto: SEM_CINTA },
+      {
+        text: 'Formato ainda mudando à medida que o inchaço cede — é cedo para julgar',
+        procedures: SEM_CINTA,
+      },
     ],
     todo: [
       'Retomar exercícios leves apenas após liberação médica',
@@ -323,7 +383,8 @@ export const phases: Phase[] = [
       'Fase de maturação. A cicatriz clareia e amolece, e o resultado final se consolida ao longo do primeiro ano.',
     expect: [
       'Cicatriz clareando progressivamente até ficar mais clara e plana',
-      'Contorno se aproximando do resultado final',
+      { text: 'Contorno se aproximando do resultado final', exceto: SEM_CINTA },
+      { text: 'Formato se aproximando do resultado final', procedures: SEM_CINTA },
       'Pequenas áreas de dormência que podem levar até 1 ano para normalizar',
     ],
     todo: [
@@ -434,3 +495,19 @@ export const phaseForDay = (day: number, kind: ProcedureKind = 'cirurgico'): Pha
 /** Todas as fases do percurso, para a linha do tempo. */
 export const phasesFor = (kind: ProcedureKind): Phase[] =>
   kind === 'ambulatorial' ? officePhases : phases;
+
+/**
+ * Os marcos de todos os procedimentos da paciente, em ordem de dia.
+ *
+ * Numa cirurgia combinada os marcos se somam — quem operou mama e abdome tem
+ * retirada de pontos e retomada da postura, cada um no seu dia. Textos
+ * idênticos entre dois procedimentos aparecem uma vez só; quando caem no mesmo
+ * dia com textos diferentes, os dois ficam, porque são cuidados distintos.
+ */
+export const milestonesFor = (ids: ProcedureId[]): { day: number; text: string }[] => {
+  const vistos = new Set<string>();
+  return ids
+    .flatMap((id) => procedureMilestones[id] ?? [])
+    .filter((m) => !vistos.has(m.text) && vistos.add(m.text))
+    .sort((a, b) => a.day - b.day);
+};

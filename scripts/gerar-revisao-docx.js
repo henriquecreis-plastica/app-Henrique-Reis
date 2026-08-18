@@ -50,7 +50,28 @@ const corpo = (t, opts = {}) =>
   new Paragraph({ spacing: { after: 100 }, children: [new TextRun({ text: t, size: 21, ...opts })] });
 
 const itens = (arr) =>
-  arr.map((t) => new Paragraph({ numbering: { reference: 'marcadores', level: 0 }, spacing: { after: 60 }, children: [new TextRun({ text: t, size: 21 })] }));
+  arr.map((t) => {
+    /* Uma linha de fase pode valer só para alguns procedimentos; o recorte
+       entra em itálico ao lado, porque é o que o revisor precisa conferir. */
+    const texto = typeof t === 'string' ? t : t.text;
+    const nomes = (ids) => ids.map((id) => nomeProc[id] || id).join(', ');
+    const alvo =
+      typeof t === 'string'
+        ? null
+        : t.procedures
+          ? ` — só para: ${nomes(t.procedures)}`
+          : t.exceto
+            ? ` — exceto: ${nomes(t.exceto)}`
+            : null;
+    return new Paragraph({
+      numbering: { reference: 'marcadores', level: 0 },
+      spacing: { after: 60 },
+      children: [
+        new TextRun({ text: texto, size: 21 }),
+        ...(alvo ? [new TextRun({ text: alvo, size: 19, italics: true, color: '888888' })] : []),
+      ],
+    });
+  });
 
 /** Linha de anotação para o revisor escrever a correção. */
 const linhaRevisao = () =>

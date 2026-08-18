@@ -1,7 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-import { procedures, type ProcedureId, type ProcedureKind } from '../data/procedures';
+import {
+  combinableProcedures,
+  procedures,
+  type ProcedureId,
+  type ProcedureKind,
+} from '../data/procedures';
 import { palette, radius, spacing, type } from '../theme';
 
 /**
@@ -147,34 +152,108 @@ const kindOrder: ProcedureKind[] = ['cirurgico', 'ambulatorial'];
 /**
  * Com dezessete opções, a lista corrida vira uma parede. Separar por tipo dá
  * à paciente um ponto de referência antes de procurar o nome exato.
+ *
+ * A seleção é uma lista porque operar mama e abdome no mesmo tempo cirúrgico é
+ * rotina na clínica. No caso comum ela tem um item só, e a tela se comporta
+ * como sempre se comportou: escolher uma cirurgia troca a anterior.
  */
 export function ProcedurePicker({
   value,
   onChange,
 }: {
-  value: ProcedureId | null;
-  onChange: (id: ProcedureId) => void;
+  value: ProcedureId[];
+  onChange: (ids: ProcedureId[]) => void;
 }) {
+  const combinaveis = useMemo(() => combinableProcedures(), []);
+  const [combinando, setCombinando] = useState(value.length > 1);
+
+  const escolherUm = (id: ProcedureId) => {
+    setCombinando(false);
+    onChange([id]);
+  };
+
+  const alternar = (id: ProcedureId) =>
+    onChange(value.includes(id) ? value.filter((x) => x !== id) : [...value, id]);
+
+  /* Ao entrar no modo combinado, o que já estava escolhido vira a primeira
+     marcação — ela não deve ter de escolher de novo o que já disse. */
+  const entrarCombinada = () => {
+    setCombinando(true);
+    onChange(value.filter((id) => combinaveis.some((p) => p.id === id)));
+  };
+
   return (
     <View style={styles.groups}>
-      {kindOrder.map((kind) => (
+      {kindOrder.map((kind) => {
+        /* Combinar é conceito de centro cirúrgico: não faz sentido somar uma
+           aplicação de toxina a uma abdominoplastia. */
+        if (combinando && kind === 'ambulatorial') return null;
+        const daVez = combinando
+          ? combinaveis
+          : procedures.filter((p) => p.kind === kind);
+
+        return (
         <View key={kind} style={styles.group}>
           <Text style={styles.groupTitle}>{groupTitles[kind]}</Text>
           <View style={styles.list}>
-            {procedures
-              .filter((p) => p.kind === kind)
-              .map((p) => {
-                const selected = value === p.id;
+            {kind === 'cirurgico' ? (
+              <>
+                <Pressable
+                  accessibilityRole="radio"
+                  accessibilityState={{ selected: combinando }}
+                  accessibilityLabel="Cirurgia combinada. Mais de uma cirurgia no mesmo dia."
+                  onPress={entrarCombinada}
+                  style={({ pressed }) => [
+                    styles.procedure,
+                    combinando && styles.procedureSelected,
+                    pressed && { opacity: 0.7 },
+                  ]}
+                >
+                  <Ionicons
+                    name="git-merge-outline"
+                    size={20}
+                    color={combinando ? palette.textOnTiffany : palette.textMuted}
+                  />
+                  <View style={{ flex: 1 }}>
+                    <Text
+                      style={[styles.procedureName, combinando && { color: palette.textOnTiffany }]}
+                    >
+                      Cirurgia combinada
+                    </Text>
+                    <Text
+                      style={[type.small, combinando && { color: palette.textOnTiffanyMuted }]}
+                    >
+                      Mais de uma cirurgia no mesmo dia
+                    </Text>
+                  </View>
+                  {combinando ? (
+                    <Ionicons name="checkmark-circle" size={20} color={palette.textOnTiffany} />
+                  ) : null}
+                </Pressable>
+
+                {combinando ? (
+                  <Text style={styles.combinadaAjuda}>
+                    {value.length < 2
+                      ? 'Marque todas as cirurgias que você fez no mesmo dia — pelo menos duas.'
+                      : 'Você vai receber as orientações, os marcos e os sinais de alerta de todas as cirurgias marcadas.'}
+                  </Text>
+                ) : null}
+              </>
+            ) : null}
+
+            {daVez.map((p) => {
+                const selected = combinando ? value.includes(p.id) : value[0] === p.id;
                 return (
                   <Pressable
                     key={p.id}
-                    accessibilityRole="radio"
-                    accessibilityState={{ selected }}
+                    accessibilityRole={combinando ? 'checkbox' : 'radio'}
+                    accessibilityState={{ selected, checked: selected }}
                     accessibilityLabel={[p.name, p.short, p.note].filter(Boolean).join('. ')}
-                    onPress={() => onChange(p.id)}
+                    onPress={() => (combinando ? alternar(p.id) : escolherUm(p.id))}
                     style={({ pressed }) => [
                       styles.procedure,
                       selected && styles.procedureSelected,
+                      combinando && styles.procedureCombinavel,
                       pressed && { opacity: 0.7 },
                     ]}
                   >
@@ -210,13 +289,16 @@ export function ProcedurePicker({
                     </View>
                     {selected ? (
                       <Ionicons name="checkmark-circle" size={20} color={palette.textOnTiffany} />
+                    ) : combinando ? (
+                      <Ionicons name="ellipse-outline" size={20} color={palette.border} />
                     ) : null}
                   </Pressable>
                 );
               })}
           </View>
         </View>
-      ))}
+        );
+      })}
     </View>
   );
 }
@@ -269,6 +351,14 @@ const styles = StyleSheet.create({
     borderColor: palette.border,
   },
   procedureSelected: { backgroundColor: palette.tiffany, borderColor: palette.tiffany },
+  /* Recuadas, as opções da combinação se leem como filhas do cartão
+     "Cirurgia combinada", e não como uma segunda lista solta. */
+  procedureCombinavel: { marginLeft: spacing.lg },
+  combinadaAjuda: {
+    ...type.small,
+    marginLeft: spacing.lg,
+    marginBottom: spacing.xs,
+  },
   procedureNote: {
     fontSize: 11.5,
     lineHeight: 16,

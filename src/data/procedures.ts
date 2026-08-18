@@ -346,3 +346,49 @@ export const contentIds = (id: ProcedureId): ProcedureId[] => [
 /** Se um item de conteúdo restrito a certos procedimentos vale para este. */
 export const appliesToProcedure = (list: ProcedureId[] | undefined, id: ProcedureId): boolean =>
   !list || contentIds(id).some((p) => list.includes(p));
+
+/* ------------------------------------------------------------------ *
+ * Cirurgia combinada
+ *
+ * Operar mama e abdome no mesmo tempo cirúrgico é rotina na clínica, e uma
+ * paciente assim precisa das duas orientações. Escolher só a "principal"
+ * esconderia dela metade dos sinais de alarme — que é justamente o que o app
+ * existe para mostrar.
+ *
+ * O modelo é simples: em vez de um procedimento, o perfil guarda uma lista. O
+ * caso comum é uma lista de um item, e todo o resto do app não precisou saber
+ * a diferença.
+ * ------------------------------------------------------------------ */
+
+/** Quais procedimentos podem entrar numa combinação. */
+export const combinableProcedures = (): Procedure[] =>
+  procedures.filter((p) => p.kind === 'cirurgico' && p.id !== 'outro');
+
+/** Se o item de conteúdo vale para qualquer um dos procedimentos da paciente. */
+export const appliesToAny = (list: ProcedureId[] | undefined, ids: ProcedureId[]): boolean =>
+  !list || ids.some((id) => appliesToProcedure(list, id));
+
+/**
+ * O nome do que ela fez. Em combinação, todos os nomes — a paciente precisa
+ * se reconhecer na tela, e "cirurgia combinada" sozinho não diz qual foi a
+ * dela.
+ */
+export const procedureNames = (ids: ProcedureId[]): string =>
+  ids.map((id) => procedureById(id).name).join(' + ');
+
+/** Cirúrgico manda: basta uma cirurgia na lista para o percurso ser o dela. */
+export const procedureKindOf = (ids: ProcedureId[]): ProcedureKind =>
+  ids.some((id) => procedureById(id).kind === 'cirurgico') ? 'cirurgico' : 'ambulatorial';
+
+/** Numa combinação, quem governa o prazo é a cirurgia de recuperação mais longa. */
+export const recoveryWeeksOf = (ids: ProcedureId[]): number =>
+  Math.max(...ids.map((id) => procedureById(id).recoveryWeeks));
+
+/**
+ * Os pontos de atenção de todas as cirurgias, sem repetir. Várias compartilham
+ * orientações quase idênticas — "cinta compressiva em tempo integral" aparece
+ * em três — e repeti-las faria a lista parecer maior do que o cuidado real.
+ */
+export const highlightsOf = (ids: ProcedureId[]): string[] => [
+  ...new Set(ids.flatMap((id) => procedureById(id).highlights)),
+];

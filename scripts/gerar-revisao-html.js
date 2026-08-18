@@ -10,7 +10,18 @@ const NIVEL = {
   normal: { rot: 'Esperado', cls: 'g' },
 };
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-const ul = (arr) => `<ul>${arr.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>`;
+const ul = (arr) => `<ul>${arr.map((i) => `<li>${esc(textoItem(i))}${alvoItem(i)}</li>`).join('')}</ul>`;
+
+/* Uma linha de fase pode valer só para alguns procedimentos. No documento de
+   revisão o recorte precisa aparecer — é justamente o que se quer conferir. */
+const textoItem = (i) => (typeof i === 'string' ? i : i.text);
+const alvoItem = (i) => {
+  if (typeof i === 'string') return '';
+  const nomes = (ids) => ids.map((id) => nomeProc[id] || id).join(', ');
+  if (i.procedures) return ` <span class="alvo">só para: ${esc(nomes(i.procedures))}</span>`;
+  if (i.exceto) return ` <span class="alvo">exceto: ${esc(nomes(i.exceto))}</span>`;
+  return '';
+};
 
 function aplicaA(x) {
   const p = [];
@@ -157,6 +168,7 @@ const html = `<title>Conteúdo clínico para revisão — Dr. Henrique Reis</tit
             letter-spacing:1.4px;text-transform:uppercase;color:var(--tiffany);margin:20px 0 6px}
   .meta{font-family:ui-sans-serif,system-ui,sans-serif;font-size:13px;color:var(--muted);margin:0 0 10px}
   .resumo{margin:0} .forte{font-weight:600}
+  .alvo{font-style:italic;color:#888;font-size:.9em}
   ul{margin:0;padding-left:20px} li{margin-bottom:5px}
   .chip{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;margin-right:6px}
   .chip.v{background:var(--vw);color:var(--v)} .chip.a{background:var(--aw);color:var(--a)}

@@ -314,13 +314,14 @@ export const videos: Video[] = [
  * nenhum vídeo apareça duas vezes para a mesma paciente.
  */
 export const videosFor = ({
-  procedure,
+  procedures,
   kind,
   guide,
   symptom,
   apenasPreOp = false,
 }: {
-  procedure: ProcedureId;
+  /** Os procedimentos da paciente — mais de um em cirurgia combinada. */
+  procedures: ProcedureId[];
   kind: ProcedureKind;
   guide?: string;
   symptom?: string;
@@ -333,7 +334,7 @@ export const videosFor = ({
       !v.sobre &&
       (!apenasPreOp || v.preOp) &&
       (!v.kinds || v.kinds.includes(kind)) &&
-      (!v.procedures || v.procedures.includes(procedure)),
+      (!v.procedures || procedures.some((p) => v.procedures!.includes(p))),
   );
 
 /** Vídeos institucionais, exibidos no cartão sobre o cirurgião. */

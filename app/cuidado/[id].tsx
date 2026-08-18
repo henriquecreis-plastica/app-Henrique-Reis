@@ -5,7 +5,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Bullets, Button, Card, Overline } from '../../src/components/ui';
 import { VideoList } from '../../src/components/VideoList';
 import { careById } from '../../src/data/care';
-import { procedureById } from '../../src/data/procedures';
+import { procedureNames } from '../../src/data/procedures';
 import { buildContextMessage, openWhatsApp } from '../../src/lib/contact';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
@@ -25,7 +25,7 @@ const brandArt = {
 export default function CareDetail() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const router = useRouter();
-  const { profile, postOpDay } = usePatient();
+  const { profile, procedureIds, postOpDay } = usePatient();
   const guide = careById(String(id));
 
   if (!guide) {
@@ -93,7 +93,7 @@ export default function CareDetail() {
             openWhatsApp(
               buildContextMessage({
                 name: profile.name,
-                procedure: procedureById(profile.procedure).name,
+                procedure: procedureNames(procedureIds),
                 day: Math.max(postOpDay, 0),
                 subject: guide.title,
               }),

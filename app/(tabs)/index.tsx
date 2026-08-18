@@ -6,31 +6,48 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '../../src/components/Logo';
 import { MIN_DAY, ReviewInvite } from '../../src/components/ReviewInvite';
 import { Bullets, Card, Overline } from '../../src/components/ui';
-import { inlineName, procedureById } from '../../src/data/procedures';
-import { phaseForDay, procedureMilestones } from '../../src/data/timeline';
+import {
+  highlightsOf,
+  inlineName,
+  procedureById,
+  procedureKindOf,
+  procedureNames,
+  recoveryWeeksOf,
+} from '../../src/data/procedures';
+import { milestonesFor, phaseForDay, phaseItems } from '../../src/data/timeline';
 import { VideoList } from '../../src/components/VideoList';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
 
 export default function Today() {
   const router = useRouter();
-  const { profile, postOpDay, toggleTask, isTaskDone, save } = usePatient();
-  const procedure = procedureById(profile.procedure);
+  const { profile, procedureIds, combined, postOpDay, toggleTask, isTaskDone, save } = usePatient();
+  const procedure = procedureById(procedureIds[0]);
+  const kind = procedureKindOf(procedureIds);
+  const nomes = procedureNames(procedureIds);
+  /* Numa combinação, quem manda no prazo é a cirurgia mais longa: prometer o
+     fim da recuperação pela mais curta seria enganar. */
+  const semanas = recoveryWeeksOf(procedureIds);
   const isPreOp = postOpDay < 0;
-  const isOffice = procedure.kind === 'ambulatorial';
+  const isOffice = kind === 'ambulatorial';
   /* A fase vem do percurso certo: antes do procedimento as orientações são de
      preparo, e um tratamento de consultório não segue a escala da cirurgia. */
-  const phase = phaseForDay(postOpDay, procedure.kind);
+  const phase = phaseForDay(postOpDay, kind);
+  /* As fases são compartilhadas por todas as cirurgias; estas são as linhas
+     que valem para a dela. */
+  const esperado = phaseItems(phase.expect, procedureIds);
+  const tarefas = phaseItems(phase.todo, procedureIds);
+  const evitar = phaseItems(phase.avoid, procedureIds);
 
   const progress = useMemo(() => {
-    const totalDays = procedure.recoveryWeeks * 7;
+    const totalDays = semanas * 7;
     return Math.min(Math.max(postOpDay / totalDays, 0), 1);
-  }, [postOpDay, procedure.recoveryWeeks]);
+  }, [postOpDay, semanas]);
 
-  const nextMilestone = useMemo(() => {
-    const list = procedureMilestones[profile.procedure] ?? [];
-    return list.find((m) => m.day > postOpDay);
-  }, [profile.procedure, postOpDay]);
+  const nextMilestone = useMemo(
+    () => milestonesFor(procedureIds).find((m) => m.day > postOpDay),
+    [procedureIds, postOpDay],
+  );
 
   const greeting = profile.name ? `Olá, ${profile.name}` : 'Olá';
 
@@ -58,8 +75,9 @@ export default function Today() {
                 Faltam {Math.abs(postOpDay)} {Math.abs(postOpDay) === 1 ? 'dia' : 'dias'}
               </Text>
               <Text style={styles.heroPhase}>
-                {isOffice || procedure.brandName ? 'para o seu ' : 'para a sua '}
-                {inlineName(procedure)}
+                {combined
+                  ? 'para a sua cirurgia combinada'
+                  : `${isOffice || procedure.brandName ? 'para o seu ' : 'para a sua '}${inlineName(procedure)}`}
               </Text>
             </>
           ) : (
@@ -73,7 +91,7 @@ export default function Today() {
               </Text>
               <Text style={styles.heroPhase}>
                 {postOpDay === 0
-                  ? procedure.name
+                  ? nomes
                   : `${isOffice ? 'depois do procedimento' : 'de pós-operatório'} · ${phase.label}`}
               </Text>
             </>
@@ -92,8 +110,8 @@ export default function Today() {
             {isPreOp
               ? `Marcado para ${formatDate(profile.surgeryDate)}`
               : isOffice
-                ? `${procedure.name} · resultado final em torno de ${procedure.recoveryWeeks} semanas`
-                : `${procedure.name} · recuperação estimada em ${procedure.recoveryWeeks} semanas`}
+                ? `${nomes} · resultado final em torno de ${semanas} semanas`
+                : `${nomes} · recuperação estimada em ${semanas} semanas`}
           </Text>
         </View>
 
@@ -116,7 +134,7 @@ export default function Today() {
           <Overline>{isPreOp ? 'O que esperar' : 'O que é esperado agora'}</Overline>
           <Text style={[type.heading, styles.cardTitle]}>{phase.label}</Text>
           <Text style={[type.bodyMuted, styles.cardIntro]}>{phase.summary}</Text>
-          <Bullets items={phase.expect.slice(0, 4)} color={palette.normal} />
+          <Bullets items={esperado.slice(0, 4)} color={palette.normal} />
           <Pressable
             accessibilityRole="button"
             accessibilityLabel="Ver linha do tempo completa"
@@ -133,11 +151,11 @@ export default function Today() {
         <Card>
           <Overline>{isPreOp ? 'Sua preparação' : 'Sua rotina de hoje'}</Overline>
           <Text style={[type.heading, styles.cardTitle]}>
-            {phase.todo.filter((_, i) => isTaskDone(`${phase.id}-${postOpDay}-${i}`)).length} de{' '}
-            {phase.todo.length} concluídos
+            {tarefas.filter((_, i) => isTaskDone(`${phase.id}-${postOpDay}-${i}`)).length} de{' '}
+            {tarefas.length} concluídos
           </Text>
           <View style={styles.checklist}>
-            {phase.todo.map((task, i) => {
+            {tarefas.map((task, i) => {
               const key = `${phase.id}-${postOpDay}-${i}`;
               const done = isTaskDone(key);
               return (
@@ -168,14 +186,16 @@ export default function Today() {
         <Card style={styles.avoidCard}>
           <Overline style={{ color: palette.attention }}>Evite nesta fase</Overline>
           <View style={styles.cardTitleSpacer} />
-          <Bullets items={phase.avoid} color={palette.attention} />
+          <Bullets items={evitar} color={palette.attention} />
         </Card>
 
         {/* ----- Específico do procedimento ----- */}
         <Card>
-          <Overline>Atenção especial · {procedure.name}</Overline>
+          {/* Em combinação os nomes somados estouram a linha, e a lista abaixo
+              já traz os cuidados das duas cirurgias. */}
+          <Overline>{combined ? 'Atenção especial' : `Atenção especial · ${procedure.name}`}</Overline>
           <View style={styles.cardTitleSpacer} />
-          <Bullets items={procedure.highlights} />
+          <Bullets items={highlightsOf(procedureIds)} />
         </Card>
 
         {nextMilestone ? (

@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { videosFor, type Video } from '../data/videos';
-import { procedureById } from '../data/procedures';
+import { procedureKindOf } from '../data/procedures';
 import { openLink } from '../lib/contact';
 import { usePatient } from '../store/patient';
 import { Card, Overline } from './ui';
@@ -29,12 +29,11 @@ export function VideoList({
   /** Quando informado, mostra os vídeos daquela orientação. */
   symptom?: string;
 }) {
-  const { profile } = usePatient();
-  const procedure = procedureById(profile.procedure);
+  const { procedureIds } = usePatient();
 
   const meus = videosFor({
-    procedure: profile.procedure,
-    kind: procedure.kind,
+    procedures: procedureIds,
+    kind: procedureKindOf(procedureIds),
     guide,
     symptom,
     apenasPreOp,

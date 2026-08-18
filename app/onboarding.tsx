@@ -22,7 +22,7 @@ import {
   type DateParts,
 } from '../src/components/SurgeryForm';
 import { Button, Card } from '../src/components/ui';
-import { eventNoun, procedureById, type ProcedureId } from '../src/data/procedures';
+import { eventNoun, procedureKindOf, type ProcedureId } from '../src/data/procedures';
 import { usePatient } from '../src/store/patient';
 import { clinic, palette, spacing, type } from '../src/theme';
 
@@ -35,12 +35,12 @@ export default function Onboarding() {
   const { save } = usePatient();
   const [step, setStep] = useState<Step>(0);
   const [name, setName] = useState('');
-  const [procedure, setProcedure] = useState<ProcedureId | null>(null);
+  const [escolhidos, setEscolhidos] = useState<ProcedureId[]>([]);
   const [date, setDate] = useState<DateParts>(emptyDate);
 
   const iso = toIsoDate(date);
   const dateReady = !!iso && !dateProblem(date);
-  const noun = procedure ? eventNoun(procedureById(procedure).kind) : 'cirurgia';
+  const noun = escolhidos.length ? eventNoun(procedureKindOf(escolhidos)) : 'cirurgia';
 
   const setRelativeDay = (offsetDays: number) => {
     const t = new Date();
@@ -53,8 +53,14 @@ export default function Onboarding() {
   };
 
   const finish = async () => {
-    if (!procedure || !iso || !dateReady) return;
-    await save({ name: name.trim(), procedure, surgeryDate: iso, onboarded: true });
+    if (!escolhidos.length || !iso || !dateReady) return;
+    await save({
+      name: name.trim(),
+      procedure: escolhidos[0],
+      procedures: escolhidos,
+      surgeryDate: iso,
+      onboarded: true,
+    });
     router.replace('/(tabs)');
   };
 
@@ -118,7 +124,7 @@ export default function Onboarding() {
                 returnKeyType="done"
               />
               <Text style={[type.title, styles.spacedTitle]}>O que você realizou?</Text>
-              <ProcedurePicker value={procedure} onChange={setProcedure} />
+              <ProcedurePicker value={escolhidos} onChange={setEscolhidos} />
             </View>
           )}
 
@@ -171,9 +177,9 @@ export default function Onboarding() {
                 label="Continuar"
                 icon="arrow-forward"
                 onPress={() => setStep(2)}
-                disabled={!procedure}
+                disabled={!escolhidos.length}
               />
-              {!procedure ? (
+              {!escolhidos.length ? (
                 <Text style={styles.hint}>Escolha o procedimento para continuar</Text>
               ) : null}
               <Button label="Voltar" variant="ghost" onPress={() => setStep(0)} />

@@ -15,7 +15,17 @@ import type { ProcedureId } from '../data/procedures';
 
 export interface PatientRecord {
   name: string;
+  /**
+   * O procedimento principal. Continua existindo, e é sempre o primeiro da
+   * lista, para que um registro gravado antes da cirurgia combinada continue
+   * abrindo sem migração.
+   */
   procedure: ProcedureId;
+  /**
+   * Todos os procedimentos do mesmo tempo cirúrgico. Ausente nos registros
+   * antigos, quando equivale a `[procedure]`.
+   */
+  procedures?: ProcedureId[];
   surgeryDate: string;
   doneTasks: string[];
   onboarded: boolean;

@@ -6,19 +6,21 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { SectionHeader } from '../../src/components/ui';
 import { VideoList } from '../../src/components/VideoList';
 import { careGuides } from '../../src/data/care';
-import { appliesToProcedure, procedureById } from '../../src/data/procedures';
+import { appliesToAny, procedureById, procedureKindOf, procedureNames } from '../../src/data/procedures';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
 
 export default function Cuidados() {
   const router = useRouter();
-  const { profile } = usePatient();
-  const procedure = procedureById(profile.procedure);
+  const { procedureIds } = usePatient();
+  const procedure = procedureById(procedureIds[0]);
+  const kind = procedureKindOf(procedureIds);
+  const combinada = procedureIds.length > 1;
 
   const guides = careGuides.filter(
     (g) =>
-      (!g.kinds || g.kinds.includes(procedure.kind)) &&
-      appliesToProcedure(g.procedures, profile.procedure),
+      (!g.kinds || g.kinds.includes(kind)) &&
+      appliesToAny(g.procedures, procedureIds),
   );
 
   return (
@@ -26,19 +28,19 @@ export default function Cuidados() {
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <SectionHeader
           overline="Cuidados"
-          title={procedure.kind === 'ambulatorial' ? 'Guias do seu tratamento' : 'Guias do seu pós-operatório'}
+          title={kind === 'ambulatorial' ? 'Guias do seu tratamento' : 'Guias do seu pós-operatório'}
           description={
-            procedure.kind === 'ambulatorial'
+            kind === 'ambulatorial'
               ? 'Orientações práticas para os dias que seguem o procedimento.'
               : 'Orientações práticas para o dia a dia da recuperação.'
           }
         />
 
         <View style={styles.procedureCard}>
-          <Ionicons name={procedure.icon} size={22} color={palette.accent} />
+          <Ionicons name={combinada ? 'git-merge-outline' : procedure.icon} size={22} color={palette.accent} />
           <View style={styles.flex}>
-            <Text style={styles.procedureLabel}>Seu procedimento</Text>
-            <Text style={styles.procedureName}>{procedure.name}</Text>
+            <Text style={styles.procedureLabel}>{combinada ? 'Suas cirurgias' : 'Seu procedimento'}</Text>
+            <Text style={styles.procedureName}>{procedureNames(procedureIds)}</Text>
           </View>
         </View>
 

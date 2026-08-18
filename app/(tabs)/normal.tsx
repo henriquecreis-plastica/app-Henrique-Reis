@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Button, Chip, SectionHeader, SeverityBadge } from '../../src/components/ui';
-import { appliesToProcedure, procedureById } from '../../src/data/procedures';
+import { appliesToAny, procedureKindOf, procedureNames } from '../../src/data/procedures';
 import { groupLabels, symptoms, type SymptomGroup } from '../../src/data/symptoms';
 import { buildContextMessage, openWhatsApp } from '../../src/lib/contact';
 import { usePatient } from '../../src/store/patient';
@@ -25,7 +25,7 @@ const normalize = (s: string) =>
 
 export default function Normal() {
   const router = useRouter();
-  const { profile, postOpDay } = usePatient();
+  const { profile, procedureIds, postOpDay } = usePatient();
   const [query, setQuery] = useState('');
   const [group, setGroup] = useState<SymptomGroup | null>(null);
   const [level, setLevel] = useState<Severity | null>(null);
@@ -34,15 +34,15 @@ export default function Normal() {
    * Só mostra o que se aplica: sintomas do tipo de percurso certo e, quando
    * houver restrição, do procedimento da paciente.
    */
-  const kind = procedureById(profile.procedure).kind;
+  const kind = procedureKindOf(procedureIds);
 
   const relevant = useMemo(() => {
     return symptoms.filter(
       (s) =>
         (!s.kinds || s.kinds.includes(kind)) &&
-        appliesToProcedure(s.procedures, profile.procedure),
+        appliesToAny(s.procedures, procedureIds),
     );
-  }, [profile.procedure, kind]);
+  }, [procedureIds, kind]);
 
   const availableGroups = useMemo(() => {
     const set = new Set<SymptomGroup>();
@@ -198,7 +198,7 @@ export default function Normal() {
                   openWhatsApp(
                     buildContextMessage({
                       name: profile.name,
-                      procedure: procedureById(profile.procedure).name,
+                      procedure: procedureNames(procedureIds),
                       day: Math.max(postOpDay, 0),
                       subject: query.trim() || undefined,
                     }),

@@ -1,4 +1,5 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import type { ProcedureId } from '../data/procedures';
 import { storage, type PatientRecord } from './storage';
 
 export type PatientProfile = PatientRecord;
@@ -15,6 +16,14 @@ const emptyProfile: PatientProfile = {
 interface PatientContextValue {
   profile: PatientProfile;
   loading: boolean;
+  /**
+   * Os procedimentos da paciente, sempre com ao menos um. É por aqui que as
+   * telas filtram conteúdo: assim a cirurgia combinada não vira um caso
+   * especial espalhado por toda parte.
+   */
+  procedureIds: ProcedureId[];
+  /** Mais de um procedimento no mesmo tempo cirúrgico. */
+  combined: boolean;
   /** Dias completos desde a cirurgia. Negativo quando a cirurgia é futura. */
   postOpDay: number;
   save: (patch: Partial<PatientProfile>) => Promise<void>;
@@ -77,17 +86,27 @@ export function PatientProvider({ children }: { children: React.ReactNode }) {
 
   const postOpDay = daysSince(profile.surgeryDate);
 
+  /* Registros antigos guardam só `procedure`; um registro novo com lista vazia
+     seria um cadastro corrompido. Nos dois casos vale o procedimento
+     principal, e nenhuma tela precisa tratar a ausência. */
+  const procedureIds = useMemo<ProcedureId[]>(
+    () => (profile.procedures?.length ? profile.procedures : [profile.procedure]),
+    [profile.procedures, profile.procedure],
+  );
+
   const value = useMemo<PatientContextValue>(
     () => ({
       profile,
       loading,
+      procedureIds,
+      combined: procedureIds.length > 1,
       postOpDay,
       save,
       toggleTask,
       isTaskDone: (key: string) => profile.doneTasks.includes(key),
       reset,
     }),
-    [profile, loading, postOpDay, save, toggleTask, reset],
+    [profile, loading, procedureIds, postOpDay, save, toggleTask, reset],
   );
 
   return <PatientContext.Provider value={value}>{children}</PatientContext.Provider>;
