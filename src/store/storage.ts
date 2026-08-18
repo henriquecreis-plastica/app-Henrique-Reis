@@ -24,8 +24,19 @@ export interface Medication {
   id: string;
   /** "Dipirona 1g", "Cefalexina 500mg" — como está na receita. */
   name: string;
-  /** Intervalo entre doses, em horas. */
+  /**
+   * Intervalo entre doses, em horas. Nos remédios de horário fixo é quando
+   * tomar; nos de "se precisar", é o mínimo que precisa passar entre uma dose
+   * e a seguinte.
+   */
   everyHours: number;
+  /**
+   * Remédio de alívio, tomado só quando há sintoma — "1 comprimido de 6/6h se
+   * dor". Não gera alarme: mandar tomar analgésico de hora marcada a quem não
+   * está com dor é orientação errada. O app passa a informar o contrário, que
+   * é o que ela precisa saber — a partir de quando pode repetir.
+   */
+  asNeeded?: true;
   /** Data e hora da primeira dose, em ISO local. */
   startAt: string;
   /** Por quantos dias tomar. Ausente = uso contínuo, sem data para parar. */

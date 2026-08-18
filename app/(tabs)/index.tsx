@@ -15,7 +15,15 @@ import {
   recoveryWeeksOf,
 } from '../../src/data/procedures';
 import { milestonesFor, phaseForDay, phaseItems } from '../../src/data/timeline';
-import { dosesDeHoje, foiTomada, horaCurta, proximaDose } from '../../src/lib/medicacao';
+import {
+  dosesDeHoje,
+  foiTomada,
+  horaCurta,
+  liberadaEm,
+  podeTomar,
+  proximaDose,
+  registrarDose,
+} from '../../src/lib/medicacao';
 import { VideoList } from '../../src/components/VideoList';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
@@ -62,6 +70,13 @@ export default function Today() {
         .sort((a, b) => a.d.getTime() - b.d.getTime()),
     [medications],
   );
+
+  /* Os de alívio não têm hora marcada, mas não podem sumir: é para eles que
+     ela olha quando está com dor. */
+  const seprecisar = useMemo(() => medications.filter((m) => m.asNeeded), [medications]);
+
+  const tomeiAgora = async (m: (typeof medications)[number]) =>
+    saveMedications(medications.map((x) => (x.id === m.id ? registrarDose(x) : x)));
 
   const marcarDose = async (m: (typeof medications)[number], dose: Date) => {
     const takenAt = foiTomada(m, dose)
@@ -239,7 +254,9 @@ export default function Today() {
               <Text style={[type.heading, styles.cardTitle]}>
                 {proxima
                   ? `Próxima dose às ${horaCurta(proxima.quando)}`
-                  : 'Nenhuma dose pendente hoje'}
+                  : dosesDoDia.length
+                    ? 'Nenhuma dose pendente hoje'
+                    : 'Nenhum remédio de horário fixo'}
               </Text>
               {proxima ? <Text style={type.bodyMuted}>{proxima.med.name}</Text> : null}
               <View style={styles.checklist}>
@@ -266,6 +283,46 @@ export default function Today() {
                     );
                 })}
               </View>
+
+              {seprecisar.length ? (
+                <>
+                  <View style={styles.cardTitleSpacer} />
+                  <Overline>Se precisar</Overline>
+                  <View style={styles.checklist}>
+                    {seprecisar.map((m) => {
+                      const pode = podeTomar(m);
+                      const liberada = liberadaEm(m);
+                      return (
+                        <View key={m.id} style={styles.taskRow}>
+                          <Ionicons
+                            name={pode ? 'checkmark-circle-outline' : 'time-outline'}
+                            size={22}
+                            color={pode ? palette.normal : palette.textMuted}
+                          />
+                          <View style={styles.flex}>
+                            <Text style={type.body}>{m.name}</Text>
+                            <Text style={type.small}>
+                              {pode
+                                ? 'Pode tomar se precisar'
+                                : `Pode tomar de novo às ${horaCurta(liberada!)}`}
+                            </Text>
+                          </View>
+                          {pode ? (
+                            <Pressable
+                              accessibilityRole="button"
+                              accessibilityLabel={`Registrar que tomou ${m.name}`}
+                              onPress={() => tomeiAgora(m)}
+                              hitSlop={8}
+                            >
+                              <Text style={styles.cardLinkText}>Tomei</Text>
+                            </Pressable>
+                          ) : null}
+                        </View>
+                      );
+                    })}
+                  </View>
+                </>
+              ) : null}
             </>
           )}
         </Card>

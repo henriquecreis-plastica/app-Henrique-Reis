@@ -20,8 +20,12 @@ import {
   encerrado,
   foiTomada,
   horaCurta,
+  liberadaEm,
+  podeTomar,
+  registrarDose,
   resumoEsquema,
   terminaEm,
+  ultimaDose,
 } from '../src/lib/medicacao';
 import { openLink } from '../src/lib/contact';
 import { usePatient } from '../src/store/patient';
@@ -89,7 +93,8 @@ export default function Medicacao() {
       <Stack.Screen options={{ title: 'Meus remédios' }} />
       <ScrollView style={styles.screen} contentContainerStyle={styles.scroll}>
         <Text style={type.bodyMuted}>
-          Cadastre o que você está tomando e o aplicativo avisa a cada dose. Tudo fica salvo apenas
+          Cadastre o que você está tomando. Nos remédios de horário fixo, o aplicativo avisa a hora
+          da dose; nos de alívio, avisa a partir de quando você pode repetir. Tudo fica salvo apenas
           neste aparelho.
         </Text>
 
@@ -138,6 +143,15 @@ export default function Medicacao() {
               </View>
 
               <View style={{ height: spacing.md }} />
+              {m.asNeeded ? (
+                <SeprecisarBloco
+                  med={m}
+                  onTomei={() => saveMedications(
+                    medications.map((x) => (x.id === m.id ? registrarDose(x) : x)),
+                  )}
+                />
+              ) : (
+                <>
               <Overline>Hoje</Overline>
               <View style={styles.doses}>
                 {dosesDeHoje(m).map((d) => {
@@ -163,6 +177,8 @@ export default function Medicacao() {
                   );
                 })}
               </View>
+                </>
+              )}
 
               {terminaEm(m) ? (
                 <Text style={[type.small, { marginTop: spacing.md }]}>
@@ -232,6 +248,41 @@ export default function Medicacao() {
   );
 }
 
+/**
+ * O bloco de um remédio de alívio.
+ *
+ * Não mostra horários, porque não existem: mostra se ela já pode tomar, e
+ * quando poderá, se ainda não. É a pergunta que ela faz com dor às três da
+ * manhã.
+ */
+function SeprecisarBloco({ med, onTomei }: { med: Medication; onTomei: () => void }) {
+  const liberada = liberadaEm(med);
+  const pode = podeTomar(med);
+  const ultima = ultimaDose(med);
+
+  return (
+    <>
+      <Overline>{pode ? 'Pode tomar' : 'Ainda não'}</Overline>
+      <View style={{ height: spacing.sm }} />
+      <Text style={type.body}>
+        {pode
+          ? ultima
+            ? `Última dose às ${horaCurta(ultima)}. Já passou o intervalo mínimo.`
+            : 'Tome apenas se precisar, respeitando o intervalo mínimo.'
+          : `Você tomou às ${horaCurta(ultima!)}. Pode tomar de novo a partir das ${horaCurta(liberada!)}.`}
+      </Text>
+      <View style={{ height: spacing.md }} />
+      <Button
+        label={pode ? 'Tomei agora' : `Liberado às ${horaCurta(liberada!)}`}
+        icon={pode ? 'checkmark' : 'time-outline'}
+        variant="secondary"
+        onPress={onTomei}
+        disabled={!pode}
+      />
+    </>
+  );
+}
+
 /* ------------------------------------------------------------------ *
  * Cadastro de um remédio
  * ------------------------------------------------------------------ */
@@ -257,6 +308,7 @@ function Formulario({
 }) {
   const primeira = inicial ? new Date(inicial.startAt) : agoraRedondo();
   const [name, setName] = useState(inicial?.name ?? '');
+  const [seprecisar, setSeprecisar] = useState(!!inicial?.asNeeded);
   const [everyHours, setEveryHours] = useState(inicial?.everyHours ?? 8);
   const [days, setDays] = useState<number | null>(inicial?.days ?? 5);
   const [hora, setHora] = useState(String(primeira.getHours()).padStart(2, '0'));
@@ -264,7 +316,8 @@ function Formulario({
 
   const horaValida = Number(hora) >= 0 && Number(hora) <= 23 && hora.length > 0;
   const minutoValido = Number(minuto) >= 0 && Number(minuto) <= 59 && minuto.length > 0;
-  const pronto = name.trim().length > 1 && horaValida && minutoValido;
+  /* No "se precisar" não existe primeira dose: quem marca a hora é o sintoma. */
+  const pronto = name.trim().length > 1 && (seprecisar || (horaValida && minutoValido));
 
   const salvar = () => {
     if (!pronto) return;
@@ -274,6 +327,7 @@ function Formulario({
       id: inicial?.id ?? `med-${Date.now()}`,
       name: name.trim(),
       everyHours,
+      asNeeded: seprecisar || undefined,
       days: days ?? undefined,
       startAt: inicio.toISOString(),
       takenAt: inicial?.takenAt ?? [],
@@ -302,7 +356,23 @@ function Formulario({
           </View>
 
           <View>
-            <Text style={styles.rotulo}>De quantas em quantas horas</Text>
+            <Text style={styles.rotulo}>Como você toma</Text>
+            <View style={styles.chips}>
+              <Chip label="Em horário fixo" ativo={!seprecisar} onPress={() => setSeprecisar(false)} />
+              <Chip label="Só se precisar" ativo={seprecisar} onPress={() => setSeprecisar(true)} />
+            </View>
+            {seprecisar ? (
+              <Text style={[type.small, { marginTop: spacing.sm }]}>
+                Para dor ou enjoo, por exemplo. O aplicativo não vai te lembrar de tomar — vai te
+                dizer a partir de quando você pode tomar de novo.
+              </Text>
+            ) : null}
+          </View>
+
+          <View>
+            <Text style={styles.rotulo}>
+              {seprecisar ? 'Intervalo mínimo entre as doses' : 'De quantas em quantas horas'}
+            </Text>
             <View style={styles.chips}>
               {INTERVALOS.map((h) => (
                 <Chip
@@ -315,6 +385,7 @@ function Formulario({
             </View>
           </View>
 
+          {seprecisar ? null : (
           <View>
             <Text style={styles.rotulo}>Primeira dose de hoje</Text>
             <View style={styles.horaLinha}>
@@ -337,9 +408,10 @@ function Formulario({
               />
             </View>
           </View>
+          )}
 
           <View>
-            <Text style={styles.rotulo}>Por quantos dias</Text>
+            <Text style={styles.rotulo}>{seprecisar ? 'Por até quantos dias' : 'Por quantos dias'}</Text>
             <View style={styles.chips}>
               {DURACOES.map((d) => (
                 <Chip
@@ -355,7 +427,11 @@ function Formulario({
 
         <View style={styles.rodapeBotoes}>
           <Button label="Salvar" icon="checkmark" onPress={salvar} disabled={!pronto} />
-          {!pronto ? <Text style={styles.dica}>Informe o nome e um horário válido</Text> : null}
+          {!pronto ? (
+            <Text style={styles.dica}>
+              {seprecisar ? 'Informe o nome do remédio' : 'Informe o nome e um horário válido'}
+            </Text>
+          ) : null}
           <Button label="Cancelar" variant="ghost" onPress={onCancelar} />
         </View>
       </KeyboardAvoidingView>

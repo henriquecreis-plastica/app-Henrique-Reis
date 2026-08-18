@@ -13,6 +13,8 @@ const HORA = 3_600_000;
 
 /** Todas as doses previstas para o remédio, da primeira à última. */
 export const doses = (m: Medication): Date[] => {
+  /* Remédio de alívio não tem hora marcada: quem decide é o sintoma. */
+  if (m.asNeeded) return [];
   const inicio = new Date(m.startAt).getTime();
   if (!Number.isFinite(inicio) || m.everyHours <= 0) return [];
   /* Sem data para parar, projeta trinta dias: é o bastante para a tela e para
@@ -65,8 +67,47 @@ export const encerrado = (m: Medication, agora = new Date()): boolean => {
 export const horaCurta = (d: Date): string =>
   `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
 
+/* ------------------------------------------------------------------ *
+ * Remédios de alívio
+ *
+ * Para eles a pergunta da paciente não é "quando devo tomar" — é "já posso
+ * tomar de novo?". Com dor, e sem saber a resposta, ou ela toma antes da hora
+ * ou aguenta mais do que precisaria.
+ * ------------------------------------------------------------------ */
+
+/** A última dose registrada, ou `null` se ainda não tomou nenhuma. */
+export const ultimaDose = (m: Medication): Date | null => {
+  const marcos = m.takenAt.map((t) => new Date(t).getTime()).filter(Number.isFinite);
+  return marcos.length ? new Date(Math.max(...marcos)) : null;
+};
+
+/** A partir de quando ela pode repetir. `null` quando ainda não tomou nenhuma. */
+export const liberadaEm = (m: Medication): Date | null => {
+  const ultima = ultimaDose(m);
+  return ultima ? new Date(ultima.getTime() + m.everyHours * HORA) : null;
+};
+
+/** Se já passou o intervalo mínimo desde a última dose. */
+export const podeTomar = (m: Medication, agora = new Date()): boolean => {
+  const liberada = liberadaEm(m);
+  return !liberada || liberada.getTime() <= agora.getTime();
+};
+
+/** Registra que ela tomou uma dose agora. */
+export const registrarDose = (m: Medication, quando = new Date()): Medication => ({
+  ...m,
+  takenAt: [...m.takenAt, quando.toISOString()],
+});
+
 /** "a cada 8 horas · por 5 dias" — como a paciente lê o esquema. */
 export const resumoEsquema = (m: Medication): string => {
   const intervalo = m.everyHours === 24 ? '1 vez ao dia' : `a cada ${m.everyHours} horas`;
+  if (m.asNeeded) {
+    const minimo =
+      m.everyHours === 24
+        ? 'no máximo 1 vez ao dia'
+        : `no mínimo ${m.everyHours} horas entre as doses`;
+    return m.days ? `Se precisar · ${minimo} · por até ${m.days} dias` : `Se precisar · ${minimo}`;
+  }
   return m.days ? `${intervalo} · por ${m.days} ${m.days === 1 ? 'dia' : 'dias'}` : `${intervalo} · uso contínuo`;
 };
