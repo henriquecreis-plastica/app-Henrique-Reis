@@ -15,6 +15,12 @@ export interface CareGuide {
   sections: CareSection[];
   /** Se preenchido, o guia só aparece para estes procedimentos. */
   procedures?: ProcedureId[];
+  /**
+   * Aparece para todos, menos estes. É para quando um procedimento tem a sua
+   * própria versão da orientação: a blefaroplastia não lê a massagem geral
+   * porque tem a das pálpebras, que é outra técnica.
+   */
+  exceto?: ProcedureId[];
   /** Se preenchido, restringe ao tipo de percurso. Ausente = vale para todos. */
   kinds?: ProcedureKind[];
   /**
@@ -733,10 +739,50 @@ export const careGuides: CareGuide[] = [
     ],
   },
   {
+    id: 'massagem-palpebras',
+    kinds: ['cirurgico'],
+    /* Quem fez Face HD também operou as pálpebras, e recebe as duas massagens:
+       esta e a das demais cicatrizes do rosto. */
+    procedures: ['blefaroplastia', 'face_hd'],
+    title: 'Massagem das pálpebras',
+    subtitle: 'A partir de 30 dias, manhã e noite',
+    icon: 'eye-outline',
+    sections: [
+      {
+        heading: 'Como fazer',
+        paragraphs: [
+          'A partir de 30 dias, com as cicatrizes já fechadas, massageie as cicatrizes das pálpebras — as superiores e as inferiores.',
+        ],
+        items: [
+          'Deslize sempre de dentro para fora, no sentido do canto do olho para a lateral',
+          'Use uma pressão um pouco mais firme do que a das outras cicatrizes',
+          '20 movimentos em cada pálpebra',
+          'Duas vezes ao dia: de manhã e à noite',
+        ],
+      },
+      {
+        heading: 'Antes de começar',
+        paragraphs: [
+          'A pele das pálpebras é fina e a cicatriz precisa estar completamente fechada, sem nenhum ponto de abertura. Se ainda houver alguma área cicatrizando, aguarde a liberação da nossa equipe.',
+          'Lave bem as mãos antes de encostar na região.',
+        ],
+      },
+      {
+        heading: 'O que esperar',
+        paragraphs: [
+          'Um leve desconforto no começo é comum e melhora conforme a cicatriz amadurece. Nunca force a ponto de machucar a pele ou de deixar a região irritada.',
+          'Se aparecer vermelhidão que não passa, dor ou qualquer alteração na visão, interrompa e fale com a equipe.',
+        ],
+      },
+    ],
+  },
+  {
     id: 'massagem-cicatriz',
     kinds: ['cirurgico'],
+    /* A blefaroplastia tem a sua própria massagem, com outra técnica. */
+    exceto: ['blefaroplastia'],
     title: 'Massagem das cicatrizes',
-    subtitle: 'A partir do 21º dia, com a cicatriz já fechada',
+    subtitle: 'A partir de 30 dias, com a cicatriz já fechada',
     icon: 'hand-left-outline',
     sections: [
       {
@@ -748,7 +794,7 @@ export const careGuides: CareGuide[] = [
       {
         heading: 'Quando começar',
         paragraphs: [
-          'Em geral, a massagem pode ser iniciada por volta de 21 dias após a cirurgia, desde que a cicatriz esteja completamente fechada, com a pele íntegra e sem nenhum ponto de abertura ou deiscência.',
+          'Em geral, a massagem pode ser iniciada por volta de 30 dias após a cirurgia, desde que a cicatriz esteja completamente fechada, com a pele íntegra e sem nenhum ponto de abertura ou deiscência.',
           'Caso ainda exista alguma pequena área em cicatrização, aguarde a liberação da nossa equipe antes de começar.',
         ],
       },

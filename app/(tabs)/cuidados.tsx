@@ -20,7 +20,9 @@ export default function Cuidados() {
   const guides = careGuides.filter(
     (g) =>
       (!g.kinds || g.kinds.includes(kind)) &&
-      appliesToAny(g.procedures, procedureIds),
+      appliesToAny(g.procedures, procedureIds) &&
+      /* O "exceto" sai quando o procedimento tem a sua própria versão do guia. */
+      (!g.exceto || procedureIds.some((id) => !g.exceto!.includes(id))),
   );
 
   return (
