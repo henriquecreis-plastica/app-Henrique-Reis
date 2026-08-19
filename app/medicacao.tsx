@@ -27,6 +27,7 @@ import {
   terminaEm,
   ultimaDose,
 } from '../src/lib/medicacao';
+import { prescriptionFor, type Prescription, type PrescriptionItem } from '../src/data/prescriptions';
 import { openLink } from '../src/lib/contact';
 import { usePatient } from '../src/store/patient';
 import type { Medication } from '../src/store/storage';
@@ -42,8 +43,10 @@ import { palette, radius, spacing, type } from '../src/theme';
  */
 export default function Medicacao() {
   const router = useRouter();
-  const { profile, medications, saveMedications, save } = usePatient();
+  const { profile, procedureIds, medications, saveMedications, save } = usePatient();
   const [editando, setEditando] = useState<Medication | 'novo' | null>(null);
+  const [conferindo, setConferindo] = useState(false);
+  const prescricao = useMemo(() => prescriptionFor(procedureIds), [procedureIds]);
 
   const [ativos, terminados] = useMemo(
     () => [medications.filter((m) => !encerrado(m)), medications.filter((m) => encerrado(m))],
@@ -69,6 +72,22 @@ export default function Medicacao() {
       { text: 'Remover', style: 'destructive', onPress: apagar },
     ]);
   };
+
+  if (conferindo && prescricao) {
+    return (
+      <Conferencia
+        prescricao={prescricao}
+        surgeryDate={profile.surgeryDate}
+        onCancelar={() => setConferindo(false)}
+        onConfirmar={async (novos) => {
+          const lista = [...medications, ...novos];
+          await saveMedications(lista);
+          if (lembretesDisponiveis) await pedirPermissao().then(() => saveMedications(lista));
+          setConferindo(false);
+        }}
+      />
+    );
+  }
 
   if (editando) {
     return (
@@ -113,7 +132,9 @@ export default function Medicacao() {
             <Overline>Nenhum remédio cadastrado</Overline>
             <View style={{ height: spacing.sm }} />
             <Text style={type.bodyMuted}>
-              Tenha a receita em mãos e cadastre um por vez. Leva menos de um minuto cada.
+              {prescricao
+                ? 'Use a prescrição padrão do seu procedimento abaixo e confira a lista, ou cadastre um remédio por vez.'
+                : 'Tenha a receita em mãos e cadastre um por vez. Leva menos de um minuto cada.'}
             </Text>
           </Card>
         ) : (
@@ -189,7 +210,20 @@ export default function Medicacao() {
           ))
         )}
 
-        <Button label="Adicionar remédio" icon="add" onPress={() => setEditando('novo')} />
+        {prescricao ? (
+          <Button
+            label="Usar a prescrição padrão"
+            icon="document-text-outline"
+            onPress={() => setConferindo(true)}
+          />
+        ) : null}
+
+        <Button
+          label="Adicionar remédio"
+          icon="add"
+          variant={prescricao ? 'secondary' : 'primary'}
+          onPress={() => setEditando('novo')}
+        />
 
         {terminados.length ? (
           <Card>
@@ -284,10 +318,133 @@ function SeprecisarBloco({ med, onTomei }: { med: Medication; onTomei: () => voi
 }
 
 /* ------------------------------------------------------------------ *
+ * Conferência da prescrição padrão
+ * ------------------------------------------------------------------ */
+
+/** Converte um item da prescrição num remédio, com data de início calculada. */
+const daPrescricao = (item: PrescriptionItem, surgeryDate: string, i: number): Medication => {
+  const inicio = new Date();
+  if (item.startsAfterDays) {
+    /* O que espera a retirada dos pontos ou do taping começa contado da
+       cirurgia, não do dia em que ela cadastrou. */
+    const [y, m, d] = surgeryDate.split('-').map(Number);
+    if (y && m && d) inicio.setFullYear(y, m - 1, d);
+    inicio.setDate(inicio.getDate() + item.startsAfterDays);
+  }
+  if (item.suggestedTime) {
+    const [h, min] = item.suggestedTime.split(':').map(Number);
+    inicio.setHours(h, min, 0, 0);
+  } else {
+    inicio.setSeconds(0, 0);
+  }
+  return {
+    id: `med-${Date.now()}-${i}`,
+    name: item.name,
+    everyHours: item.everyHours,
+    asNeeded: item.asNeeded,
+    days: item.days,
+    startAt: inicio.toISOString(),
+    takenAt: [],
+  };
+};
+
+/**
+ * A lista da prescrição, para a paciente conferir antes de valer.
+ *
+ * Ela desmarca o que não recebeu ou não comprou. É o passo que transforma uma
+ * lista pronta em uma lista dela — e que evita o app agendar dose de um remédio
+ * que ela nem tem em casa.
+ */
+function Conferencia({
+  prescricao,
+  surgeryDate,
+  onConfirmar,
+  onCancelar,
+}: {
+  prescricao: Prescription;
+  surgeryDate: string;
+  onConfirmar: (meds: Medication[]) => void;
+  onCancelar: () => void;
+}) {
+  const [marcados, setMarcados] = useState<string[]>(prescricao.items.map((i) => i.name));
+
+  const alternar = (nome: string) =>
+    setMarcados((a) => (a.includes(nome) ? a.filter((x) => x !== nome) : [...a, nome]));
+
+  return (
+    <>
+      <Stack.Screen options={{ title: 'Prescrição padrão' }} />
+      <View style={styles.screen}>
+        <ScrollView contentContainerStyle={styles.scroll}>
+          <Text style={type.bodyMuted}>
+            Esta é a prescrição padrão do seu procedimento. Confira com a sua receita e desmarque o
+            que você não recebeu. Você pode ajustar cada item depois.
+          </Text>
+
+          <Card>
+            <Overline>{prescricao.title}</Overline>
+            <View style={{ height: spacing.md }} />
+            {prescricao.items.map((item) => {
+              const marcado = marcados.includes(item.name);
+              return (
+                <Pressable
+                  key={item.name}
+                  accessibilityRole="checkbox"
+                  accessibilityState={{ checked: marcado }}
+                  accessibilityLabel={`${item.name}. ${item.note ?? ''}`}
+                  onPress={() => alternar(item.name)}
+                  style={({ pressed }) => [styles.itemLinha, pressed && { opacity: 0.6 }]}
+                >
+                  <Ionicons
+                    name={marcado ? 'checkmark-circle' : 'ellipse-outline'}
+                    size={22}
+                    color={marcado ? palette.normal : palette.border}
+                  />
+                  <View style={{ flex: 1 }}>
+                    <Text style={[type.body, !marcado && styles.itemDesmarcado]}>{item.name}</Text>
+                    {item.note ? <Text style={type.small}>{item.note}</Text> : null}
+                    {item.startsAfterDays ? (
+                      <Text style={styles.itemDepois}>
+                        Começa no {item.startsAfterDays}º dia de pós-operatório
+                      </Text>
+                    ) : null}
+                  </View>
+                </Pressable>
+              );
+            })}
+          </Card>
+
+          <Text style={styles.rodape}>
+            Vale sempre o que está na sua receita e o que a equipe orientou. Se algo aqui estiver
+            diferente, siga a receita e avise a equipe.
+          </Text>
+        </ScrollView>
+
+        <View style={styles.rodapeBotoes}>
+          <Button
+            label={`Adicionar ${marcados.length} ${marcados.length === 1 ? 'remédio' : 'remédios'}`}
+            icon="checkmark"
+            disabled={!marcados.length}
+            onPress={() =>
+              onConfirmar(
+                prescricao.items
+                  .filter((i) => marcados.includes(i.name))
+                  .map((i, idx) => daPrescricao(i, surgeryDate, idx)),
+              )
+            }
+          />
+          <Button label="Cancelar" variant="ghost" onPress={onCancelar} />
+        </View>
+      </View>
+    </>
+  );
+}
+
+/* ------------------------------------------------------------------ *
  * Cadastro de um remédio
  * ------------------------------------------------------------------ */
 
-const INTERVALOS = [4, 6, 8, 12, 24];
+const INTERVALOS = [2, 3, 4, 6, 8, 12, 24];
 const DURACOES: (number | null)[] = [3, 5, 7, 10, null];
 
 /** Agora, arredondado para os cinco minutos seguintes. */
@@ -512,4 +669,12 @@ const styles = StyleSheet.create({
     backgroundColor: palette.bg,
   },
   dica: { ...type.small, textAlign: 'center' },
+  itemLinha: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: spacing.md,
+    paddingVertical: spacing.sm,
+  },
+  itemDesmarcado: { color: palette.textMuted, textDecorationLine: 'line-through' },
+  itemDepois: { ...type.small, color: palette.accentInk, marginTop: 2 },
 });

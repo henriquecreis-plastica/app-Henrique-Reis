@@ -55,12 +55,23 @@ export async function reagendar(meds: Medication[]): Promise<number> {
   await N.cancelAllScheduledNotificationsAsync();
 
   const agora = Date.now();
-  const fila = meds
-    .flatMap((m) =>
-      doses(m)
-        .filter((d) => d.getTime() > agora && !foiTomada(m, d))
-        .map((quando) => ({ m, quando })),
-    )
+
+  /* Cada remédio leva a sua parte da fila.
+     Sem isso, um item frequente domina: compressas de 2 em 2 horas por 4 dias
+     são 48 doses, e as primeiras 60 notificações em ordem de tempo seriam
+     quase só elas — o antibiótico de 12/12h ficaria sem lembrete nenhum. */
+  const pendentes = meds
+    .map((m) => ({
+      m,
+      doses: doses(m).filter((d) => d.getTime() > agora && !foiTomada(m, d)),
+    }))
+    .filter((x) => x.doses.length > 0);
+
+  if (!pendentes.length) return 0;
+
+  const cota = Math.max(2, Math.floor(LIMITE / pendentes.length));
+  const fila = pendentes
+    .flatMap(({ m, doses: ds }) => ds.slice(0, cota).map((quando) => ({ m, quando })))
     .sort((a, b) => a.quando.getTime() - b.quando.getTime())
     .slice(0, LIMITE);
 
