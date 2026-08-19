@@ -172,6 +172,14 @@ export const prescriptions: Prescription[] = [
     procedures: ['abdominoplastia', 'pos_bariatrica', 'lipoescultura', 'lipo_hd'],
     items: [
       {
+        name: 'Restiva 10mg (adesivo)',
+        everyHours: 168,
+        days: 7,
+        suggestedTime: '08:00',
+        defaultOff: true,
+        note: 'Alternativa ao adesivo de 20mcg/h, em parte das pacientes — marque apenas se for o da sua receita',
+      },
+      {
         name: 'Restiva 20mcg/h (adesivo)',
         /* Um adesivo por semana. A troca da semana seguinte é condicional, e
            por isso não vira lembrete: agendar a segunda aplicação sugeriria
