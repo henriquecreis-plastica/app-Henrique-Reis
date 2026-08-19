@@ -222,7 +222,13 @@ export const prescriptions: Prescription[] = [
   {
     id: 'mama-otoplastia',
     title: 'Prescrição padrão — mama e otoplastia',
-    procedures: ['mastopexia', 'mamoplastia_aumento', 'otoplastia'],
+    procedures: [
+      'mastopexia',
+      'mamoplastia_aumento',
+      'mamoplastia_redutora',
+      'ginecomastia',
+      'otoplastia',
+    ],
     items: [...CORPO_BASE, KELOCOTE],
   },
   {
