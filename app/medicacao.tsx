@@ -367,7 +367,11 @@ function Conferencia({
   onConfirmar: (meds: Medication[]) => void;
   onCancelar: () => void;
 }) {
-  const [marcados, setMarcados] = useState<string[]>(prescricao.items.map((i) => i.name));
+  /* As alternativas — paracetamol para quem tem alergia à dipirona — entram
+     desmarcadas: marcar as duas criaria lembrete duplicado de analgésico. */
+  const [marcados, setMarcados] = useState<string[]>(
+    prescricao.items.filter((i) => !i.defaultOff).map((i) => i.name),
+  );
 
   const alternar = (nome: string) =>
     setMarcados((a) => (a.includes(nome) ? a.filter((x) => x !== nome) : [...a, nome]));
