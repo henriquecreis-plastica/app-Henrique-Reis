@@ -342,6 +342,7 @@ const daPrescricao = (item: PrescriptionItem, surgeryDate: string, i: number): M
     name: item.name,
     everyHours: item.everyHours,
     asNeeded: item.asNeeded,
+    timesOfDay: item.timesOfDay,
     days: item.days,
     startAt: inicio.toISOString(),
     takenAt: [],
@@ -467,6 +468,9 @@ function Formulario({
   const [name, setName] = useState(inicial?.name ?? '');
   const [seprecisar, setSeprecisar] = useState(!!inicial?.asNeeded);
   const [everyHours, setEveryHours] = useState(inicial?.everyHours ?? 8);
+  /* Vindo de uma prescrição, o remédio pode ter horários próprios do dia. Eles
+     são mantidos enquanto ela não escolher outro intervalo. */
+  const [horarios, setHorarios] = useState<string[] | undefined>(inicial?.timesOfDay);
   const [days, setDays] = useState<number | null>(inicial?.days ?? 5);
   const [hora, setHora] = useState(String(primeira.getHours()).padStart(2, '0'));
   const [minuto, setMinuto] = useState(String(primeira.getMinutes()).padStart(2, '0'));
@@ -474,7 +478,7 @@ function Formulario({
   const horaValida = Number(hora) >= 0 && Number(hora) <= 23 && hora.length > 0;
   const minutoValido = Number(minuto) >= 0 && Number(minuto) <= 59 && minuto.length > 0;
   /* No "se precisar" não existe primeira dose: quem marca a hora é o sintoma. */
-  const pronto = name.trim().length > 1 && (seprecisar || (horaValida && minutoValido));
+  const pronto = name.trim().length > 1 && (seprecisar || !!horarios || (horaValida && minutoValido));
 
   const salvar = () => {
     if (!pronto) return;
@@ -485,6 +489,7 @@ function Formulario({
       name: name.trim(),
       everyHours,
       asNeeded: seprecisar || undefined,
+      timesOfDay: seprecisar ? undefined : horarios,
       days: days ?? undefined,
       startAt: inicio.toISOString(),
       takenAt: inicial?.takenAt ?? [],
@@ -535,14 +540,23 @@ function Formulario({
                 <Chip
                   key={h}
                   label={h === 24 ? '1x ao dia' : `${h}h`}
-                  ativo={everyHours === h}
-                  onPress={() => setEveryHours(h)}
+                  ativo={!horarios && everyHours === h}
+                  onPress={() => {
+                    setEveryHours(h);
+                    setHorarios(undefined);
+                  }}
                 />
               ))}
             </View>
           </View>
 
-          {seprecisar ? null : (
+          {horarios && !seprecisar ? (
+            <Text style={[type.small, { marginTop: -spacing.sm }]}>
+              Horários de hoje: {horarios.join(', ')}. Escolha um intervalo acima para trocar.
+            </Text>
+          ) : null}
+
+          {seprecisar || horarios ? null : (
           <View>
             <Text style={styles.rotulo}>Primeira dose de hoje</Text>
             <View style={styles.horaLinha}>

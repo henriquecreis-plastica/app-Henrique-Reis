@@ -15,13 +15,34 @@ const HORA = 3_600_000;
 export const doses = (m: Medication): Date[] => {
   /* Remédio de alívio não tem hora marcada: quem decide é o sintoma. */
   if (m.asNeeded) return [];
-  const inicio = new Date(m.startAt).getTime();
-  if (!Number.isFinite(inicio) || m.everyHours <= 0) return [];
+  const inicio = new Date(m.startAt);
+  if (!Number.isFinite(inicio.getTime())) return [];
   /* Sem data para parar, projeta trinta dias: é o bastante para a tela e para
      a fila de lembretes, e evita gerar lista infinita de uso contínuo. */
-  const totalHoras = (m.days ?? 30) * 24;
-  const quantas = Math.max(1, Math.ceil(totalHoras / m.everyHours));
-  return Array.from({ length: quantas }, (_, i) => new Date(inicio + i * m.everyHours * HORA));
+  const dias = m.days ?? 30;
+
+  /* Prescrito por horários do dia — "4 vezes ao dia" — em vez de intervalo. */
+  if (m.timesOfDay?.length) {
+    const lista: Date[] = [];
+    for (let d = 0; d < dias; d++) {
+      for (const hhmm of m.timesOfDay) {
+        const [h, min] = hhmm.split(':').map(Number);
+        if (!Number.isFinite(h) || !Number.isFinite(min)) continue;
+        const dose = new Date(inicio);
+        dose.setDate(inicio.getDate() + d);
+        dose.setHours(h, min, 0, 0);
+        lista.push(dose);
+      }
+    }
+    return lista.sort((a, b) => a.getTime() - b.getTime());
+  }
+
+  if (m.everyHours <= 0) return [];
+  const quantas = Math.max(1, Math.ceil((dias * 24) / m.everyHours));
+  return Array.from(
+    { length: quantas },
+    (_, i) => new Date(inicio.getTime() + i * m.everyHours * HORA),
+  );
 };
 
 const mesmoInstante = (a: Date, b: string) => Math.abs(a.getTime() - new Date(b).getTime()) < 60_000;
@@ -101,6 +122,12 @@ export const registrarDose = (m: Medication, quando = new Date()): Medication =>
 
 /** "a cada 8 horas · por 5 dias" — como a paciente lê o esquema. */
 export const resumoEsquema = (m: Medication): string => {
+  const prazo = m.days ? `por ${m.days} ${m.days === 1 ? 'dia' : 'dias'}` : 'uso contínuo';
+  if (m.timesOfDay?.length && !m.asNeeded) {
+    const n = m.timesOfDay.length;
+    const quantas = n === 1 ? '1 vez ao dia' : `${n} vezes ao dia`;
+    return `${quantas} · ${m.timesOfDay.join(', ')} · ${prazo}`;
+  }
   const intervalo = m.everyHours === 24 ? '1 vez ao dia' : `a cada ${m.everyHours} horas`;
   if (m.asNeeded) {
     const minimo =

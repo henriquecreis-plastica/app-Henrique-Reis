@@ -37,6 +37,13 @@ export interface Medication {
    * é o que ela precisa saber — a partir de quando pode repetir.
    */
   asNeeded?: true;
+  /**
+   * Horários fixos do dia, em "HH:MM", para o que é prescrito como "4 vezes ao
+   * dia" em vez de "a cada 6 horas". A diferença importa: intervalo fixo de 6
+   * horas coloca uma dose às duas da manhã, e lavagem nasal não se faz
+   * acordando a paciente. Quando presente, manda sobre `everyHours`.
+   */
+  timesOfDay?: string[];
   /** Data e hora da primeira dose, em ISO local. */
   startAt: string;
   /** Por quantos dias tomar. Ausente = uso contínuo, sem data para parar. */
