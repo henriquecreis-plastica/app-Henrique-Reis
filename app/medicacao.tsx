@@ -343,6 +343,7 @@ const daPrescricao = (item: PrescriptionItem, surgeryDate: string, i: number): M
     everyHours: item.everyHours,
     asNeeded: item.asNeeded,
     timesOfDay: item.timesOfDay,
+    silent: item.silent,
     days: item.days,
     startAt: inicio.toISOString(),
     takenAt: [],

@@ -61,6 +61,7 @@ export async function reagendar(meds: Medication[]): Promise<number> {
      são 48 doses, e as primeiras 60 notificações em ordem de tempo seriam
      quase só elas — o antibiótico de 12/12h ficaria sem lembrete nenhum. */
   const pendentes = meds
+    .filter((m) => !m.silent)
     .map((m) => ({
       m,
       doses: doses(m).filter((d) => d.getTime() > agora && !foiTomada(m, d)),
@@ -70,18 +71,35 @@ export async function reagendar(meds: Medication[]): Promise<number> {
   if (!pendentes.length) return 0;
 
   const cota = Math.max(2, Math.floor(LIMITE / pendentes.length));
-  const fila = pendentes
-    .flatMap(({ m, doses: ds }) => ds.slice(0, cota).map((quando) => ({ m, quando })))
-    .sort((a, b) => a.quando.getTime() - b.quando.getTime())
-    .slice(0, LIMITE);
 
-  for (const { m, quando } of fila) {
+  /* Um aviso por horário, não por remédio.
+     Numa prescrição de Face HD, às 8h vencem cinco itens ao mesmo tempo: cinco
+     notificações seguidas viram ruído, e ruído ensina a paciente a descartar
+     tudo sem ler — inclusive o do antibiótico. Um aviso que diz "5 itens agora"
+     e lista quais resolve o mesmo com um toque só. */
+  const porHorario = new Map<number, Medication[]>();
+  for (const { m, doses: ds } of pendentes) {
+    for (const quando of ds.slice(0, cota)) {
+      /* Ao minuto: doses do mesmo minuto são a mesma ida ao armarinho. */
+      const chave = Math.floor(quando.getTime() / 60_000) * 60_000;
+      porHorario.set(chave, [...(porHorario.get(chave) ?? []), m]);
+    }
+  }
+
+  const fila = [...porHorario.entries()].sort((a, b) => a[0] - b[0]).slice(0, LIMITE);
+
+  for (const [instante, remedios] of fila) {
+    const quando = new Date(instante);
+    const nomes = [...new Set(remedios.map((m) => m.name))];
     await N.scheduleNotificationAsync({
       content: {
-        title: 'Hora do seu remédio',
-        body: `${m.name} — ${horaCurta(quando)}`,
+        title:
+          nomes.length === 1
+            ? 'Hora do seu remédio'
+            : `${nomes.length} itens agora — ${horaCurta(quando)}`,
+        body: nomes.length === 1 ? `${nomes[0]} — ${horaCurta(quando)}` : nomes.join(' · '),
         sound: true,
-        data: { medicationId: m.id },
+        data: { at: instante },
       },
       trigger: { type: N.SchedulableTriggerInputTypes.DATE, date: quando },
     });

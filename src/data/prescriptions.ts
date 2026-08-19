@@ -30,6 +30,8 @@ export interface PrescriptionItem {
    * sobre `everyHours` — e é o que evita agendar lavagem nasal às 2 da manhã.
    */
   timesOfDay?: string[];
+  /** Entra na rotina do dia sem disparar alarme. */
+  silent?: true;
   /**
    * Começa só depois de tantos dias de pós-operatório — o que espera a
    * retirada dos pontos ou do taping.
@@ -124,15 +126,32 @@ const PANTOPRAZOL: PrescriptionItem = {
   note: 'Tomar 1 comprimido pela manhã em jejum, ao menos 60 minutos antes de comer',
 };
 
+/*
+ * Compressa não é remédio de tomar, e de 2 em 2 horas seriam oito alarmes por
+ * dia durante quatro dias. Alarme demais ensina a paciente a ignorar todos, e é
+ * o do antibiótico que ela não pode perder — então este entra na rotina do dia,
+ * visível, mas sem tocar. A madrugada fica de fora: o que ela precisa às 4 da
+ * manhã é dormir.
+ */
 const COMPRESSAS: PrescriptionItem = {
-  /* A receita diz "a cada 2 horas". Distribuído nas horas acordadas: de 2 em 2
-     horas o dia inteiro incluiria compressa às 4 da manhã, quando o que a
-     paciente precisa é dormir. */
   name: 'Compressas de gaze com soro gelado',
   everyHours: 2,
   days: 4,
   timesOfDay: ['08:00', '10:00', '12:00', '14:00', '16:00', '18:00', '20:00', '22:00'],
-  note: 'A cada 2 horas, por 4 dias',
+  silent: true,
+  note: 'A cada 2 horas enquanto estiver acordada, por 4 dias',
+};
+
+/*
+ * Cicatriz, e não ferida operatória: começa no 21º dia, quando a cicatriz já
+ * está fechada, e vale para as cirurgias que deixam cicatriz a tratar.
+ */
+const KELOCOTE: PrescriptionItem = {
+  name: 'Kelo-cote gel',
+  everyHours: 12,
+  timesOfDay: ['08:00', '20:00'],
+  startsAfterDays: 21,
+  note: 'Aplicar nas cicatrizes 2 vezes ao dia, a partir do 21º dia',
 };
 
 const HYABAK: PrescriptionItem = {
@@ -165,38 +184,46 @@ const CORPO_BASE: PrescriptionItem[] = [
   PANTOPRAZOL,
 ];
 
+const RESTIVA_10: PrescriptionItem = {
+  name: 'Restiva 10mg (adesivo)',
+  everyHours: 168,
+  days: 7,
+  suggestedTime: '08:00',
+  defaultOff: true,
+  note: 'Alternativa ao adesivo de 20mcg/h, em parte das pacientes — marque apenas se for o da sua receita',
+};
+
+/* Um adesivo por semana. A troca da semana seguinte é condicional, e por isso
+   não vira lembrete: agendar a segunda aplicação sugeriria mais um opioide a
+   quem talvez já não tenha dor. */
+const RESTIVA_20: PrescriptionItem = {
+  name: 'Restiva 20mcg/h (adesivo)',
+  everyHours: 168,
+  days: 7,
+  suggestedTime: '08:00',
+  note: 'Aplicar na pele e manter por 7 dias. Trocar na semana seguinte apenas se a dor persistir, conforme a equipe',
+};
+
 export const prescriptions: Prescription[] = [
   {
-    id: 'corpo',
-    title: 'Prescrição padrão — cirurgia de corpo',
-    procedures: ['abdominoplastia', 'pos_bariatrica', 'lipoescultura', 'lipo_hd'],
-    items: [
-      {
-        name: 'Restiva 10mg (adesivo)',
-        everyHours: 168,
-        days: 7,
-        suggestedTime: '08:00',
-        defaultOff: true,
-        note: 'Alternativa ao adesivo de 20mcg/h, em parte das pacientes — marque apenas se for o da sua receita',
-      },
-      {
-        name: 'Restiva 20mcg/h (adesivo)',
-        /* Um adesivo por semana. A troca da semana seguinte é condicional, e
-           por isso não vira lembrete: agendar a segunda aplicação sugeriria
-           mais um opioide a quem talvez já não tenha dor. */
-        everyHours: 168,
-        days: 7,
-        suggestedTime: '08:00',
-        note: 'Aplicar na pele e manter por 7 dias. Trocar na semana seguinte apenas se a dor persistir, conforme a equipe',
-      },
-      ...CORPO_BASE,
-    ],
+    /* Separada da lipo porque só estas duas deixam cicatriz longa a tratar com
+       o Kelo-cote; o resto da prescrição é idêntico. */
+    id: 'abdome',
+    title: 'Prescrição padrão — abdominoplastia e pós-bariátrica',
+    procedures: ['abdominoplastia', 'pos_bariatrica'],
+    items: [RESTIVA_10, RESTIVA_20, ...CORPO_BASE, KELOCOTE],
+  },
+  {
+    id: 'lipo',
+    title: 'Prescrição padrão — lipoescultura e Lipo HD',
+    procedures: ['lipoescultura', 'lipo_hd'],
+    items: [RESTIVA_10, RESTIVA_20, ...CORPO_BASE],
   },
   {
     id: 'mama-otoplastia',
     title: 'Prescrição padrão — mama e otoplastia',
     procedures: ['mastopexia', 'mamoplastia_aumento', 'otoplastia'],
-    items: CORPO_BASE,
+    items: [...CORPO_BASE, KELOCOTE],
   },
   {
     id: 'blefaroplastia',
@@ -259,13 +286,7 @@ export const prescriptions: Prescription[] = [
         startsAfterDays: 7,
         note: 'Aplicar no rosto pela manhã, depois de retirar o taping',
       },
-      {
-        name: 'Kelo-cote gel',
-        everyHours: 24,
-        timesOfDay: ['21:00'],
-        startsAfterDays: 10,
-        note: 'Aplicar nas feridas depois da retirada dos pontos',
-      },
+      KELOCOTE,
     ],
   },
   {
@@ -306,6 +327,7 @@ export const prescriptions: Prescription[] = [
         note: 'Aplicar 1 jato em cada nariz 2 vezes ao dia, até acabar o frasco',
       },
       VITAMINA_C,
+      KELOCOTE,
     ],
   },
 ];

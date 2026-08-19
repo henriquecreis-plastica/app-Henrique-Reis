@@ -44,6 +44,15 @@ export interface Medication {
    * acordando a paciente. Quando presente, manda sobre `everyHours`.
    */
   timesOfDay?: string[];
+  /**
+   * Aparece na rotina do dia, mas não dispara notificação.
+   *
+   * É para o que se repete muitas vezes ao dia e não é remédio de tomar —
+   * compressa gelada de 2 em 2 horas seriam oito alarmes por dia, competindo
+   * com o do antibiótico. Alarme demais ensina a paciente a ignorar todos, e é
+   * o do antibiótico que ela não pode perder.
+   */
+  silent?: true;
   /** Data e hora da primeira dose, em ISO local. */
   startAt: string;
   /** Por quantos dias tomar. Ausente = uso contínuo, sem data para parar. */

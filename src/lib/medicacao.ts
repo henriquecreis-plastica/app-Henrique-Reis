@@ -123,10 +123,11 @@ export const registrarDose = (m: Medication, quando = new Date()): Medication =>
 /** "a cada 8 horas · por 5 dias" — como a paciente lê o esquema. */
 export const resumoEsquema = (m: Medication): string => {
   const prazo = m.days ? `por ${m.days} ${m.days === 1 ? 'dia' : 'dias'}` : 'uso contínuo';
+  const semAlarme = m.silent ? ' · sem alarme' : '';
   if (m.timesOfDay?.length && !m.asNeeded) {
     const n = m.timesOfDay.length;
     const quantas = n === 1 ? '1 vez ao dia' : `${n} vezes ao dia`;
-    return `${quantas} · ${m.timesOfDay.join(', ')} · ${prazo}`;
+    return `${quantas} · ${m.timesOfDay.join(', ')} · ${prazo}${semAlarme}`;
   }
   const intervalo = m.everyHours === 24 ? '1 vez ao dia' : `a cada ${m.everyHours} horas`;
   if (m.asNeeded) {
