@@ -415,7 +415,7 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
     { day: 90, text: 'Sensibilidade dos mamilos costuma retornar' },
   ],
   abdominoplastia: [
-    { day: 7, text: 'Postura ereta é retomada gradualmente' },
+    { day: 14, text: 'Postura totalmente ereta, conforme a orientação da equipe' },
     { day: 21, text: 'Cinta pode passar a ser usada por período parcial, se liberado' },
     { day: 60, text: 'Retorno a exercícios abdominais, quando liberada' },
   ],

@@ -111,7 +111,7 @@ export const procedures: Procedure[] = [
     kind: 'cirurgico',
     recoveryWeeks: 8,
     highlights: [
-      'Andar levemente curvada nos primeiros dias protege a cicatriz',
+      'Andar levemente curvada nas duas primeiras semanas protege a cicatriz',
       'Cinta compressiva em tempo integral',
       'Movimentar as pernas na cama desde o 1º dia previne trombose',
     ],
