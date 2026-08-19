@@ -43,7 +43,7 @@ export default function Emergencia() {
 
       <View style={styles.ctas}>
         <Button
-          label="Ligar para a emergência"
+          label="Ligar para a clínica"
           icon="call"
           variant="danger"
           onPress={() => callPhone(clinic.emergency)}

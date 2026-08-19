@@ -69,7 +69,7 @@ export const symptoms: Symptom[] = [
       'Também pode estar ligado a alterações cardíacas ou respiratórias que precisam de avaliação imediata.',
     ],
     action: [
-      'Ligue para a emergência ou vá ao pronto-socorro mais próximo agora',
+      'Ligue para o SAMU (192) ou vá ao pronto-socorro mais próximo agora',
       'Avise a equipe do Dr. Henrique pelo contato de urgência',
       'Informe no atendimento a cirurgia realizada e a data',
     ],

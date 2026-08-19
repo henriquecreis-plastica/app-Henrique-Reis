@@ -92,7 +92,14 @@ export const clinic = {
   /** Consulta de mapa aberta ao tocar no endereço. */
   addressQuery: 'Avenida Mauro Ramos, 1970, Centro, Florianópolis, SC',
 
-  /** Urgências atendidas pelo mesmo número da clínica. */
+  /**
+   * Urgência atendida pela própria clínica, no mesmo número.
+   *
+   * Não é serviço de emergência: os botões dizem "ligar para a clínica", e não
+   * "para a emergência", porque a paciente que lê "emergência" e vê o telefone
+   * discando espera o SAMU. Quando o caso é de SAMU mesmo, a orientação diz o
+   * número.
+   */
   emergency: '+5548991450910',
 
   /**

@@ -144,7 +144,8 @@ const COMPRESSAS: PrescriptionItem = {
 
 /*
  * Cicatriz, e não ferida operatória: começa no 21º dia, quando a cicatriz já
- * está fechada, e vale para as cirurgias que deixam cicatriz a tratar.
+ * está fechada. Vale para todas as cirurgias — inclusive as cicatrizes pequenas
+ * da lipo.
  */
 const KELOCOTE: PrescriptionItem = {
   name: 'Kelo-cote gel',
@@ -206,18 +207,10 @@ const RESTIVA_20: PrescriptionItem = {
 
 export const prescriptions: Prescription[] = [
   {
-    /* Separada da lipo porque só estas duas deixam cicatriz longa a tratar com
-       o Kelo-cote; o resto da prescrição é idêntico. */
-    id: 'abdome',
-    title: 'Prescrição padrão — abdominoplastia e pós-bariátrica',
-    procedures: ['abdominoplastia', 'pos_bariatrica'],
+    id: 'corpo',
+    title: 'Prescrição padrão — cirurgia de corpo',
+    procedures: ['abdominoplastia', 'pos_bariatrica', 'lipoescultura', 'lipo_hd'],
     items: [RESTIVA_10, RESTIVA_20, ...CORPO_BASE, KELOCOTE],
-  },
-  {
-    id: 'lipo',
-    title: 'Prescrição padrão — lipoescultura e Lipo HD',
-    procedures: ['lipoescultura', 'lipo_hd'],
-    items: [RESTIVA_10, RESTIVA_20, ...CORPO_BASE],
   },
   {
     id: 'mama-otoplastia',

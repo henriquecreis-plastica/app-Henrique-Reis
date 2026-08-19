@@ -679,6 +679,106 @@ export const careGuides: CareGuide[] = [
     ],
   },
   {
+    id: 'prineo',
+    kinds: ['cirurgico'],
+    /* Só as cirurgias de incisão longa recebem a cola. Quem não a tem não
+       precisa ler sobre não molhar uma tela que não está lá. */
+    procedures: [
+      'abdominoplastia',
+      'pos_bariatrica',
+      'mastopexia',
+      'mamoplastia_redutora',
+      'mamoplastia_aumento',
+    ],
+    title: 'Cuidados com a cola cirúrgica Prineo',
+    subtitle: 'Uma camada de proteção sobre a incisão, até por volta do 21º dia',
+    icon: 'shield-outline',
+    sections: [
+      {
+        heading: 'O que é',
+        paragraphs: [
+          'Nas cirurgias em que foi aplicado, o Prineo funciona como uma camada de proteção sobre a incisão. Ele é formado por uma delicada tela associada a uma cola cirúrgica e deve permanecer no local durante as primeiras semanas da recuperação.',
+          'Nos primeiros dias, o Prineo poderá estar coberto pelo taping. Durante esse período, siga as orientações específicas de cuidado com a bandagem e evite molhá-la.',
+        ],
+      },
+      {
+        heading: 'Após a retirada do taping',
+        paragraphs: [
+          'Quando o taping for retirado, o Prineo poderá ser molhado normalmente durante o banho. Deixe a água escorrer suavemente sobre a região, sem esfregar, utilizar buchas ou direcionar um jato forte para a cicatriz.',
+          'Depois do banho, seque delicadamente com uma toalha limpa, apenas pressionando sobre a região, sem friccionar. Enquanto o Prineo estiver presente, evite banheira, piscina, mar ou qualquer situação em que a cicatriz permaneça submersa.',
+        ],
+      },
+      {
+        heading: 'O que não aplicar',
+        paragraphs: [
+          'Não passe cremes, hidratantes, pomadas, óleos, álcool, antissépticos ou qualquer outro produto sobre o Prineo. Essas substâncias podem reduzir a aderência da cola e fazer com que a tela se solte antes do momento adequado.',
+          'Também não puxe, não esfregue e não tente retirar a tela por conta própria.',
+        ],
+      },
+      {
+        heading: 'Se alguma ponta descolar',
+        paragraphs: [
+          'Com o passar dos dias, é possível que pequenas bordas comecem a se desprender. Isso geralmente faz parte do processo e não significa que exista algum problema com a cicatriz.',
+          'Caso uma ponta esteja solta ou incomodando, avise nossa equipe. A parte que já estiver completamente descolada poderá ser cuidadosamente aparada com uma tesoura limpa, sem puxar a região que permanece aderida à pele.',
+        ],
+      },
+      {
+        heading: 'Retirada',
+        paragraphs: [
+          'O Prineo costuma ser retirado por volta de 21 dias após a cirurgia, de acordo com a evolução da cicatrização. Aguarde a orientação da nossa equipe para realizar a retirada no momento adequado.',
+          'Caso perceba coceira intensa, irritação importante ou formação de pequenas bolhas ao redor da cola, entre em contato conosco para receber orientação.',
+          'O Prineo não precisa de cuidados complexos. Basta protegê-lo, mantê-lo limpo e não interferir em sua aderência até o momento da retirada.',
+        ],
+      },
+    ],
+  },
+  {
+    id: 'massagem-cicatriz',
+    kinds: ['cirurgico'],
+    title: 'Massagem das cicatrizes',
+    subtitle: 'A partir do 21º dia, com a cicatriz já fechada',
+    icon: 'hand-left-outline',
+    sections: [
+      {
+        heading: 'Por que massagear',
+        paragraphs: [
+          'A cicatriz continua se transformando por vários meses após a cirurgia. A massagem faz parte desse processo de cuidado e ajuda a manter o tecido mais macio, flexível e bem adaptado aos planos profundos.',
+        ],
+      },
+      {
+        heading: 'Quando começar',
+        paragraphs: [
+          'Em geral, a massagem pode ser iniciada por volta de 21 dias após a cirurgia, desde que a cicatriz esteja completamente fechada, com a pele íntegra e sem nenhum ponto de abertura ou deiscência.',
+          'Caso ainda exista alguma pequena área em cicatrização, aguarde a liberação da nossa equipe antes de começar.',
+        ],
+      },
+      {
+        heading: 'Como realizar',
+        items: [
+          'Lave bem as mãos',
+          'Aplique uma pequena quantidade do hidratante recomendado pela equipe',
+          'Posicione a ponta dos dedos diretamente sobre a cicatriz',
+          'Faça movimentos circulares pequenos e lentos, percorrendo toda a sua extensão',
+          'A pressão deve ser firme o suficiente para movimentar a cicatriz e a pele sobre os tecidos mais profundos — não apenas deslizar superficialmente',
+        ],
+      },
+      {
+        heading: 'A pressão certa',
+        paragraphs: [
+          'Um leve desconforto ou sensibilidade durante a massagem pode acontecer e tende a melhorar conforme a cicatriz amadurece. A pressão pode ser aumentada progressivamente, sempre respeitando o limite tolerável e sem machucar a pele.',
+        ],
+      },
+      {
+        heading: 'Frequência',
+        paragraphs: [
+          'Realize a massagem por aproximadamente 5 minutos, duas vezes ao dia, ou conforme a orientação individual da nossa equipe.',
+          'Mais importante do que aplicar força excessiva é manter uma pressão firme, cuidadosa e regular. Com o tempo, esse pequeno hábito pode contribuir para uma cicatriz mais macia, móvel e confortável.',
+          'Cada cicatriz tem seu próprio ritmo. Constância e cuidado fazem parte de uma boa recuperação.',
+        ],
+      },
+    ],
+  },
+  {
     id: 'cicatriz',
     kinds: ['cirurgico'],
     title: 'Cuidados com a cicatriz',
