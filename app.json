@@ -24,8 +24,7 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false,
-      "edgeToEdgeEnabled": true
+      "predictiveBackGestureEnabled": false
     },
     "web": {
       "bundler": "metro",
