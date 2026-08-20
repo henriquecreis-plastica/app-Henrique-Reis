@@ -35,8 +35,11 @@ export interface Phase {
 }
 
 /**
- * Cirurgias sem peça compressiva de corpo. Elas têm curativo, splint ou faixa,
- * que é outra conversa e tem o seu próprio texto.
+ * Cirurgias sem peça compressiva de corpo.
+ *
+ * Cada uma tem o seu curativo, e a palavra importa: splint é do nariz, faixa é
+ * da orelha, mentoneira é do rosto. Dizer as três juntas faz a paciente
+ * procurar no corpo dela uma coisa que ela não tem.
  */
 const SEM_CINTA: ProcedureId[] = ['rinoplastia', 'blefaroplastia', 'otoplastia', 'face_hd', 'face'];
 
@@ -245,8 +248,20 @@ export const phases: Phase[] = [
       'Beber água ao longo do dia',
       { text: 'Manter a malha, cinta ou sutiã cirúrgico o tempo todo', exceto: SEM_CINTA },
       {
-        text: 'Manter o curativo, o splint ou a faixa exatamente como a equipe orientou',
-        procedures: SEM_CINTA,
+        text: 'Manter o curativo e o splint nasal exatamente como a equipe orientou',
+        procedures: ['rinoplastia'],
+      },
+      {
+        text: 'Manter a faixa elástica exatamente como a equipe orientou',
+        procedures: ['otoplastia'],
+      },
+      {
+        text: 'Manter os curativos das pálpebras exatamente como a equipe orientou',
+        procedures: ['blefaroplastia'],
+      },
+      {
+        text: 'Manter a mentoneira e o taping exatamente como a equipe orientou',
+        procedures: ['face_hd'],
       },
     ],
     avoid: [
@@ -311,10 +326,10 @@ export const phases: Phase[] = [
       'Sol direto sobre a cicatriz',
       'Relações sexuais e esforços intensos sem liberação',
       { text: 'Abandonar a cinta ou o sutiã cirúrgico mais cedo', exceto: SEM_CINTA },
-      {
-        text: 'Retirar o curativo, o splint ou a faixa antes do tempo orientado',
-        procedures: SEM_CINTA,
-      },
+      { text: 'Retirar o curativo ou o splint nasal antes do tempo orientado', procedures: ['rinoplastia'] },
+      { text: 'Retirar a faixa elástica antes do tempo orientado', procedures: ['otoplastia'] },
+      { text: 'Retirar os curativos das pálpebras antes do tempo orientado', procedures: ['blefaroplastia'] },
+      { text: 'Retirar a mentoneira ou o taping antes do tempo orientado', procedures: ['face_hd'] },
     ],
   },
   {
