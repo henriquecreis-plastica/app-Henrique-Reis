@@ -112,9 +112,9 @@ export const retornos: Retorno[] = [
     procedures: CIRURGIAS,
     afterDays: 3 * MES,
     title: 'Três meses de cirurgia',
-    body: 'Com a recuperação concluída, é a fase em que dá para cuidar da pele e das cicatrizes. Converse com a equipe sobre o que faz sentido para você.',
+    body: 'Passada a recuperação, é quando dá para pensar em outros tratamentos — toxina botulínica, bioestimulador de colágeno, laser de CO₂. Converse com a equipe sobre o que faz sentido para você.',
     porque:
-      'Aos três meses a cicatrização já avançou o suficiente para que tratamentos de pele e de cicatriz possam ser considerados — o que não era possível nas primeiras semanas.',
+      'Aos três meses a recuperação terminou e a cicatrização já avançou o suficiente para que tratamentos estéticos possam ser considerados — o que não era possível nas primeiras semanas.',
   },
   {
     id: 'cirurgia-1-ano',
