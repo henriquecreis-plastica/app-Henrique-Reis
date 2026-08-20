@@ -108,7 +108,8 @@ export default function Today() {
           {isPreOp ? (
             <>
               <Text style={styles.heroDay}>
-                Faltam {Math.abs(postOpDay)} {Math.abs(postOpDay) === 1 ? 'dia' : 'dias'}
+                {/* O verbo concorda: "falta 1 dia", "faltam 2 dias". */}
+                {Math.abs(postOpDay) === 1 ? 'Falta 1 dia' : `Faltam ${Math.abs(postOpDay)} dias`}
               </Text>
               <Text style={styles.heroPhase}>
                 {combined

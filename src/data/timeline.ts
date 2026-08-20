@@ -457,7 +457,7 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
     { day: 180, text: 'Rosto próximo do resultado final' },
   ],
   blefaroplastia: [
-    { day: 5, text: 'Retirada dos pontos das pálpebras' },
+    { day: 7, text: 'Retirada dos pontos das pálpebras' },
     { day: 21, text: 'Roxos resolvidos na maioria das pacientes' },
   ],
   otoplastia: [
