@@ -117,17 +117,25 @@ export const retornos: Retorno[] = [
       'Aos três meses a recuperação terminou e a cicatrização já avançou o suficiente para que tratamentos estéticos possam ser considerados — o que não era possível nas primeiras semanas.',
   },
   {
-    id: 'cirurgia-1-ano',
+    id: 'cirurgia-6-meses',
     procedures: CIRURGIAS,
-    afterDays: ANO,
-    title: 'Faz um ano da sua cirurgia',
-    /* Nada sobre o resultado desta cirurgia, nem convite a apontar o que
-       incomoda: aos doze meses a paciente não está avaliando o que foi feito,
-       e a pergunta é que planta a ideia do retoque. O aviso olha para frente —
-       o que ela ainda pode querer fazer, e não o que já fez. */
-    body: 'Se você pensa em algum outro tratamento — no rosto, na pele ou em outra área do corpo —, é um bom momento para conversar com a nossa equipe.',
+    afterDays: 6 * MES,
+    /* Seis meses, e não um mês nem um ano.
+       Tecnicamente uma nova cirurgia é possível bem antes — mas o prazo aqui
+       não é o de quando pode operar, é o de quando ela consegue decidir. Aos
+       seis meses a recuperação acabou, o resultado da primeira já se aproxima
+       do final, e ainda sobra tempo para exames, afastamento do trabalho e
+       época do ano. Antes disso, o convite chega a alguém que ainda está
+       inchada e não tem como avaliar nada.
+
+       Nada sobre o resultado desta cirurgia, nem pergunta sobre o que incomoda:
+       é a pergunta que planta a ideia do retoque, e um retoque pedido por
+       sugestão do aplicativo não é um retoque de que ela precisava. O aviso
+       olha para frente — o que ela ainda pode querer fazer, não o que já fez. */
+    title: 'Seis meses de cirurgia',
+    body: 'Se você pensa em algum outro procedimento — no rosto, na pele ou em outra área do corpo —, já dá para planejar. Converse com a nossa equipe.',
     porque:
-      'Com um ano completo de recuperação, um novo procedimento pode ser planejado sem as restrições do pós-operatório.',
+      'Aos seis meses a recuperação está completa e um novo procedimento, inclusive uma nova cirurgia, pode ser planejado sem as restrições do pós-operatório.',
   },
 ];
 
