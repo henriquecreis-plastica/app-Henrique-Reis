@@ -58,11 +58,13 @@ export interface Prescription {
  * Itens que se repetem entre as prescrições
  * ------------------------------------------------------------------ */
 
-const NOVALGINA_4H: PrescriptionItem = {
+/* De 6 em 6 horas em todas as prescrições: é o intervalo mínimo da dose máxima
+   permitida, e o app não deve sugerir à paciente um intervalo mais curto. */
+const NOVALGINA: PrescriptionItem = {
   name: 'Novalgina 1g (Dipirona)',
-  everyHours: 4,
+  everyHours: 6,
   asNeeded: true,
-  note: 'Tomar 1 comprimido de 4/4h se dor',
+  note: 'Tomar 1 comprimido de 6/6h se dor',
 };
 
 /** Substitui a dipirona em quem tem alergia. Por isso vem desmarcado. */
@@ -174,7 +176,7 @@ const REGENCEL: PrescriptionItem = {
 
 /** A base das cirurgias de corpo e mama, sem o adesivo de buprenorfina. */
 const CORPO_BASE: PrescriptionItem[] = [
-  NOVALGINA_4H,
+  NOVALGINA,
   PARACETAMOL_ALERGIA,
   TORAGESIC,
   PACO,
@@ -229,7 +231,7 @@ export const prescriptions: Prescription[] = [
     title: 'Prescrição padrão — Blefaroplastia',
     procedures: ['blefaroplastia'],
     items: [
-      NOVALGINA_4H,
+      NOVALGINA,
       PARACETAMOL_ALERGIA,
       TORAGESIC,
       PACO,
@@ -247,12 +249,7 @@ export const prescriptions: Prescription[] = [
     procedures: ['face_hd'],
     items: [
       /* ---- dor: nada dispara sozinho, e o app informa quando libera ---- */
-      {
-        name: 'Novalgina 1g (Dipirona)',
-        everyHours: 6,
-        asNeeded: true,
-        note: 'Tomar 1 comprimido de 6/6h se dor',
-      },
+      NOVALGINA,
       PARACETAMOL_ALERGIA,
       TORAGESIC,
       PACO,
@@ -293,7 +290,7 @@ export const prescriptions: Prescription[] = [
     title: 'Prescrição padrão — Rinoplastia',
     procedures: ['rinoplastia'],
     items: [
-      NOVALGINA_4H,
+      NOVALGINA,
       PARACETAMOL_ALERGIA,
       TORAGESIC,
       PACO,
