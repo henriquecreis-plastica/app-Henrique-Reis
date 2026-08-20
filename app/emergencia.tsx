@@ -54,6 +54,7 @@ export default function Emergencia() {
           variant="secondary"
           onPress={() => openWhatsApp(message)}
         />
+        <Text style={styles.numero}>{clinic.phoneLabel}</Text>
       </View>
 
       <Card>
@@ -98,6 +99,8 @@ const styles = StyleSheet.create({
   },
   heroTitle: { marginTop: spacing.xs },
   ctas: { gap: spacing.sm },
+  /* O número por extenso, para quem precisa discar de outro aparelho. */
+  numero: { ...type.small, textAlign: 'center', marginTop: spacing.xs },
   list: { marginTop: spacing.md },
   row: {
     flexDirection: 'row',

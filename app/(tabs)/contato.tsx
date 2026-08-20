@@ -72,6 +72,12 @@ export default function Contato() {
           <Overline>Atendimento</Overline>
           <View style={styles.spacer} />
           <InfoRow
+            icon="call-outline"
+            label="Telefone e WhatsApp"
+            value={clinic.phoneLabel}
+            onPress={() => callPhone()}
+          />
+          <InfoRow
             icon="location-outline"
             label="Endereço"
             value={clinic.address}

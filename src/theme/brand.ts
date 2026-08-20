@@ -86,6 +86,15 @@ export const clinic = {
   /** WhatsApp da clínica, no formato internacional sem sinais. */
   whatsapp: '5548991450910',
   phone: '+5548991450910',
+  /**
+   * O mesmo número escrito para ler e digitar.
+   *
+   * Fica visível ao lado dos botões de ligar porque tocar num `tel:` nem
+   * sempre disca: no navegador, e em qualquer aparelho sem linha telefônica, o
+   * toque não faz nada. Com o número à vista a paciente ainda consegue ligar
+   * de outro telefone — numa tela de sinais de alerta, isso importa.
+   */
+  phoneLabel: '(48) 99145-0910',
 
   address: 'Av. Mauro Ramos, 1970 — salas 501 e 502',
   addressComplement: 'Centro · Florianópolis — SC',

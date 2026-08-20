@@ -2,21 +2,8 @@ import { Alert, Linking, Platform } from 'react-native';
 import { clinic } from '../theme';
 
 async function open(url: string, fallbackMessage: string) {
-  /**
-   * No navegador, abrir por um <a> em vez de `Linking.openURL`, que por baixo
-   * chama `window.open`. A diferença aparece quando a página está dentro de
-   * uma moldura — é o caso do link de demonstração: ali `window.open` é
-   * bloqueado e o toque não faz nada, enquanto o clique num link é
-   * reconhecido e abre normalmente. Em aba própria os dois funcionam igual.
-   */
-  if (Platform.OS === 'web' && typeof document !== 'undefined') {
-    const a = document.createElement('a');
-    a.href = url;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+  if (Platform.OS === 'web' && typeof window !== 'undefined') {
+    abrirNaWeb(url);
     return;
   }
 
@@ -25,6 +12,45 @@ async function open(url: string, fallbackMessage: string) {
   } catch {
     Alert.alert('Não foi possível abrir', fallbackMessage);
   }
+}
+
+/**
+ * Abrir um endereço no navegador — o que só é simples no aplicativo instalado.
+ *
+ * `tel:` não é uma página: quem atende é o próprio sistema, e o navegador só
+ * entrega o número quando a navegação parte da página atual. Pedido em aba
+ * nova, o toque não faz absolutamente nada — foi o que aconteceu ao testar o
+ * botão de ligar pelo link de demonstração.
+ *
+ * Um endereço https é o contrário: melhor em aba nova, para a paciente não
+ * perder o app de vista. Só que a aba nova é bloqueada quando a página roda
+ * dentro de uma moldura sem permissão de abrir janelas — e é bloqueada em
+ * silêncio, sem erro que se possa capturar. Por isso `window.open` vai sem
+ * `noopener`: com ele o navegador devolve null mesmo quando deu certo, e null
+ * é justamente o sinal de bloqueio que interessa aqui. A ligação com a página
+ * de origem é cortada logo depois, que é o que `noopener` garantiria.
+ *
+ * Bloqueada a aba, resta abrir no lugar: sair do app incomoda menos do que um
+ * botão que não responde.
+ */
+function abrirNaWeb(url: string) {
+  if (!/^https?:/i.test(url)) {
+    window.location.href = url;
+    return;
+  }
+
+  let aba: Window | null = null;
+  try {
+    aba = window.open(url, '_blank');
+  } catch {
+    aba = null;
+  }
+
+  if (aba) {
+    aba.opener = null;
+    return;
+  }
+  window.location.href = url;
 }
 
 export function openWhatsApp(message?: string) {
