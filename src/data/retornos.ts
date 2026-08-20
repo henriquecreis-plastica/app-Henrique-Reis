@@ -121,9 +121,13 @@ export const retornos: Retorno[] = [
     procedures: CIRURGIAS,
     afterDays: ANO,
     title: 'Faz um ano da sua cirurgia',
-    body: 'O resultado já está definido. Se alguma outra coisa te incomoda, o Dr. Henrique está à disposição para conversar.',
+    /* Nada sobre o resultado desta cirurgia, nem convite a apontar o que
+       incomoda: aos doze meses a paciente não está avaliando o que foi feito,
+       e a pergunta é que planta a ideia do retoque. O aviso olha para frente —
+       o que ela ainda pode querer fazer, e não o que já fez. */
+    body: 'Se você pensa em algum outro tratamento — no rosto, na pele ou em outra área do corpo —, é um bom momento para conversar com a nossa equipe.',
     porque:
-      'Um ano é quando o resultado de uma cirurgia plástica se considera definitivo. É também o intervalo habitual de uma reavaliação de rotina.',
+      'Com um ano completo de recuperação, um novo procedimento pode ser planejado sem as restrições do pós-operatório.',
   },
 ];
 
