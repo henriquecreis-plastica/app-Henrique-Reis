@@ -42,6 +42,7 @@ export default function RootLayout() {
             options={{ title: 'Preciso de ajuda', presentation: 'modal' }}
           />
           <Stack.Screen name="medicacao" options={{ title: 'Meus remédios' }} />
+          <Stack.Screen name="retornos" options={{ title: 'Lembretes de retorno' }} />
         </Stack>
       </PatientProvider>
     </SafeAreaProvider>

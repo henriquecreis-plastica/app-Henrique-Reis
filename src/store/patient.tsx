@@ -1,6 +1,7 @@
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import type { ProcedureId } from '../data/procedures';
 import { reagendar } from '../lib/lembretes';
+import { avisosDeRetorno } from '../lib/retorno';
 import { storage, type Medication, type PatientRecord } from './storage';
 
 export type PatientProfile = PatientRecord;
@@ -35,6 +36,10 @@ interface PatientContextValue {
   medications: Medication[];
   /** Grava a lista e refaz a fila de lembretes do aparelho. */
   saveMedications: (meds: Medication[]) => Promise<void>;
+  /** Se a paciente autorizou os lembretes de retorno. */
+  retornosAtivos: boolean;
+  /** Liga ou desliga os lembretes de retorno e refaz a fila. */
+  setRetornosAtivos: (ativo: boolean) => Promise<void>;
 }
 
 const PatientContext = createContext<PatientContextValue | null>(null);
@@ -101,14 +106,40 @@ export function PatientProvider({ children }: { children: React.ReactNode }) {
 
   const medications = useMemo<Medication[]>(() => profile.medications ?? [], [profile.medications]);
 
+  /**
+   * Refaz a fila inteira do aparelho a partir de um perfil.
+   *
+   * Remédios e retornos são agendados na mesma passagem porque o aparelho tem
+   * uma fila só: agendar um lado apaga o outro. Passar o perfil por parâmetro,
+   * em vez de ler o do estado, garante que quem acabou de gravar uma alteração
+   * agende a partir dela, e não do valor anterior.
+   */
+  const refazerFila = useCallback(async (p: PatientProfile) => {
+    const ids = p.procedures?.length ? p.procedures : [p.procedure];
+    await reagendar(
+      p.medications ?? [],
+      avisosDeRetorno(p.retornosAtivos === true, ids, p.surgeryDate),
+    );
+  }, []);
+
   /* Gravar e reagendar andam sempre juntos: uma lista salva sem refazer a fila
      deixaria o aparelho avisando de um remédio que ela já removeu. */
   const saveMedications = useCallback(
     async (meds: Medication[]) => {
-      await persist({ ...profile, medications: meds });
-      await reagendar(meds);
+      const next = { ...profile, medications: meds };
+      await persist(next);
+      await refazerFila(next);
     },
-    [profile, persist],
+    [profile, persist, refazerFila],
+  );
+
+  const setRetornosAtivos = useCallback(
+    async (ativo: boolean) => {
+      const next = { ...profile, retornosAtivos: ativo };
+      await persist(next);
+      await refazerFila(next);
+    },
+    [profile, persist, refazerFila],
   );
 
   const value = useMemo<PatientContextValue>(
@@ -124,8 +155,21 @@ export function PatientProvider({ children }: { children: React.ReactNode }) {
       reset,
       medications,
       saveMedications,
+      retornosAtivos: profile.retornosAtivos === true,
+      setRetornosAtivos,
     }),
-    [profile, loading, procedureIds, postOpDay, save, toggleTask, reset, medications, saveMedications],
+    [
+      profile,
+      loading,
+      procedureIds,
+      postOpDay,
+      save,
+      toggleTask,
+      reset,
+      medications,
+      saveMedications,
+      setRetornosAtivos,
+    ],
   );
 
   return <PatientContext.Provider value={value}>{children}</PatientContext.Provider>;

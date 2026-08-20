@@ -262,9 +262,39 @@ for (const v of C.videos) {
   parteVideos.push(linhaRevisao());
 }
 
+// ---------- lembretes de retorno ----------
+const nomesDe = (ids) =>
+  ids.length > 4 ? 'Todas as cirurgias' : ids.map((id) => nomeProc[id] || id).join(', ');
+
+const diasPorExtenso = (dias) => {
+  if (dias % 365 === 0) return `${dias / 365} ano${dias > 365 ? 's' : ''}`;
+  if (dias % 30 === 0) return `${dias / 30} ${dias === 30 ? 'mês' : 'meses'}`;
+  return `${dias} dias`;
+};
+
+const parteRetornos = [
+  h1('7. Lembretes de retorno'),
+  nota(
+    'Só chegam a quem autorizou, e a paciente pode desligar a qualquer momento. ' +
+      'Nenhum deles menciona preço, desconto ou promoção — a publicidade médica não permite.',
+  ),
+];
+for (const r of C.retornos) {
+  parteRetornos.push(h3(r.title));
+  parteRetornos.push(
+    corpo(`${nomesDe(r.procedures)} · ${diasPorExtenso(r.afterDays)} depois`, {
+      color: CINZA,
+      size: 19,
+    }),
+  );
+  parteRetornos.push(corpo(r.body));
+  parteRetornos.push(corpo(`Motivo do prazo: ${r.porque}`, { color: CINZA, size: 19 }));
+  parteRetornos.push(linhaRevisao());
+}
+
 // ---------- avisos ----------
 const parteAvisos = [
-  h1('7. Avisos exibidos no aplicativo'),
+  h1('8. Avisos exibidos no aplicativo'),
   nota('Textos fixos, mostrados independentemente do procedimento.'),
   h3('No cadastro inicial'),
   corpo('As orientações do aplicativo são gerais e não substituem a avaliação do Dr. Henrique Reis ou de sua equipe. Em caso de dúvida ou sinal de alerta, entre em contato.'),
@@ -334,6 +364,7 @@ const doc = new Document({
         ...parteSintomas,
         ...parteCuidados,
         ...parteVideos,
+            ...parteRetornos,
             ...parteAvisos,
       ],
     },

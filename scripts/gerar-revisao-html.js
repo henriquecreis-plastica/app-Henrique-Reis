@@ -10,6 +10,17 @@ const NIVEL = {
   normal: { rot: 'Esperado', cls: 'g' },
 };
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+/* Doze cirurgias por extenso encheriam a linha e não diriam nada; o que
+   importa é se o lembrete é de todas ou de um procedimento só. */
+const nomesDe = (ids) =>
+  ids.length > 4 ? 'Todas as cirurgias' : ids.map((id) => nomeProc[id] || id).join(', ');
+
+const diasPorExtenso = (dias) => {
+  if (dias % 365 === 0) return `${dias / 365} ano${dias > 365 ? 's' : ''}`;
+  if (dias % 30 === 0) return `${dias / 30} ${dias === 30 ? 'mês' : 'meses'}`;
+  return `${dias} dias`;
+};
 const ul = (arr) => `<ul>${arr.map((i) => `<li>${esc(textoItem(i))}${alvoItem(i)}</li>`).join('')}</ul>`;
 
 /* Uma linha de fase pode valer só para alguns procedimentos. No documento de
@@ -131,7 +142,21 @@ secoes.push(`<section id="videos"><h2>6. Vídeos do canal</h2>
   <p class="correcao">Correção:</p>
 </section>`);
 
-secoes.push(`<section id="avisos"><h2>7. Avisos exibidos no aplicativo</h2>
+secoes.push(`<section id="retornos"><h2>7. Lembretes de retorno</h2>
+  <p class="nota">Só chegam a quem autorizou, e a paciente pode desligar a
+  qualquer momento. Nenhum deles menciona preço, desconto ou promoção — a
+  publicidade médica não permite.</p>
+  ${C.retornos.map((r) => `
+  <article class="bloco">
+    <h3>${esc(r.title)}</h3>
+    <p class="meta">${esc(nomesDe(r.procedures))} · ${diasPorExtenso(r.afterDays)} depois</p>
+    <p class="resumo">${esc(r.body)}</p>
+    <p class="meta">Motivo do prazo: ${esc(r.porque)}</p>
+    <p class="correcao">Correção:</p>
+  </article>`).join('')}
+</section>`);
+
+secoes.push(`<section id="avisos"><h2>8. Avisos exibidos no aplicativo</h2>
 ${AVISOS.map(([onde, texto]) => `
   <article class="bloco"><h3>${esc(onde)}</h3><p class="resumo">${esc(texto)}</p></article>`).join('')}
 </section>`);
@@ -202,6 +227,7 @@ const html = `<title>Conteúdo clínico para revisão — Dr. Henrique Reis</tit
       <li><a href="#marcos">Marcos por procedimento</a></li>
       <li><a href="#sintomas">O que é normal e o que não é</a></li>
       <li><a href="#cuidados">Guias de cuidados</a></li>
+      <li><a href="#retornos">Lembretes de retorno</a></li>
       <li><a href="#avisos">Avisos exibidos no aplicativo</a></li>
     </ol>
   </nav>

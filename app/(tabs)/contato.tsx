@@ -15,7 +15,7 @@ import { clinic, palette, radius, spacing, type } from '../../src/theme';
 
 export default function Contato() {
   const router = useRouter();
-  const { profile, procedureIds, postOpDay, reset } = usePatient();
+  const { profile, procedureIds, postOpDay, reset, retornosAtivos } = usePatient();
   const [showData, setShowData] = useState(false);
   const kind = procedureKindOf(procedureIds);
   const nomes = procedureNames(procedureIds);
@@ -102,6 +102,13 @@ export default function Contato() {
             label="Site"
             value="plasticahenrique.com"
             onPress={() => openLink(clinic.site)}
+          />
+          <InfoRow
+            icon="notifications-outline"
+            label="Lembretes de retorno"
+            value={retornosAtivos ? 'Ligados' : 'Desligados'}
+            hint="Avisos nas datas em que vale reavaliar o seu procedimento"
+            onPress={() => router.push('/retornos')}
           />
         </Card>
 

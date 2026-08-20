@@ -91,6 +91,22 @@ export interface PatientRecord {
    * conteúdo nem o envia para lugar nenhum.
    */
   prescriptionUrl?: string;
+  /**
+   * Lembretes de retorno ligados.
+   *
+   * Ausente quer dizer que ela ainda não decidiu — e não vale como sim. Aviso
+   * de retorno é convite da clínica, não orientação do pós-operatório: as duas
+   * lojas exigem que a paciente autorize explicitamente antes do primeiro, e
+   * ela precisa poder desligar depois. Por isso o campo é dela, guardado no
+   * aparelho, e começa desligado.
+   */
+  retornosAtivos?: boolean;
+  /**
+   * Quando o convite dos lembretes foi mostrado e recusado. Guardar a data,
+   * em vez de um não, deixa a porta aberta para perguntar de novo daqui a
+   * muito tempo — sem que o convite volte na semana seguinte.
+   */
+  retornoConviteDispensadoEm?: string;
 }
 
 export interface PatientStorage {

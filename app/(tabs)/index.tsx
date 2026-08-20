@@ -5,6 +5,7 @@ import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Logo } from '../../src/components/Logo';
 import { MIN_DAY, ReviewInvite } from '../../src/components/ReviewInvite';
+import { RetornoInvite, diaMinimo } from '../../src/components/RetornoInvite';
 import { Bullets, Card, Overline } from '../../src/components/ui';
 import {
   highlightsOf,
@@ -30,8 +31,18 @@ import { palette, radius, spacing, type } from '../../src/theme';
 
 export default function Today() {
   const router = useRouter();
-  const { profile, procedureIds, combined, postOpDay, toggleTask, isTaskDone, save, medications, saveMedications } =
-    usePatient();
+  const {
+    profile,
+    procedureIds,
+    combined,
+    postOpDay,
+    toggleTask,
+    isTaskDone,
+    save,
+    medications,
+    saveMedications,
+    retornosAtivos,
+  } = usePatient();
   const procedure = procedureById(procedureIds[0]);
   const kind = procedureKindOf(procedureIds);
   const nomes = procedureNames(procedureIds);
@@ -363,6 +374,18 @@ export default function Today() {
 
         {postOpDay >= MIN_DAY && !profile.reviewDismissed ? (
           <ReviewInvite onDismiss={() => save({ reviewDismissed: true })} />
+        ) : null}
+
+        {/* Um convite de cada vez: a avaliação no Google vem primeiro, e o de
+            retorno só depois que aquele saiu da tela — dois pedidos juntos na
+            tela inicial deixam de parecer cuidado. */}
+        {postOpDay >= diaMinimo(semanas) &&
+        !retornosAtivos &&
+        !profile.retornoConviteDispensadoEm &&
+        (profile.reviewDismissed || postOpDay < MIN_DAY) ? (
+          <RetornoInvite
+            onDismiss={() => save({ retornoConviteDispensadoEm: new Date().toISOString() })}
+          />
         ) : null}
 
         <Text style={styles.footnote}>

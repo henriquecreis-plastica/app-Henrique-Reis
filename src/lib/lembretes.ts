@@ -23,6 +23,21 @@ const modulo = async () => (naoSuportado ? null : await import('expo-notificatio
 /** Quantos lembretes cabem na fila. O iOS aceita 64 pendentes por aplicativo. */
 const LIMITE = 60;
 
+/**
+ * Um aviso avulso, com data marcada — hoje, os lembretes de retorno.
+ *
+ * Vive na mesma fila dos remédios porque é a mesma fila: o aparelho tem uma
+ * só, e refazê-la significa apagar tudo o que estava agendado. Agendar os dois
+ * juntos é o que impede que salvar um remédio novo apague, sem ninguém
+ * perceber, o lembrete marcado para daqui a um ano.
+ */
+export interface Aviso {
+  id: string;
+  quando: Date;
+  title: string;
+  body: string;
+}
+
 /** Pede a permissão de notificação. Devolve se ela foi concedida. */
 export async function pedirPermissao(): Promise<boolean> {
   const N = await modulo();
@@ -47,7 +62,7 @@ export async function temPermissao(): Promise<boolean> {
  * casar cada lembrete com a alteração que o motivou. A fila é pequena e o
  * custo, imperceptível.
  */
-export async function reagendar(meds: Medication[]): Promise<number> {
+export async function reagendar(meds: Medication[], avisos: Aviso[] = []): Promise<number> {
   const N = await modulo();
   if (!N) return 0;
   if (!(await temPermissao())) return 0;
@@ -55,6 +70,24 @@ export async function reagendar(meds: Medication[]): Promise<number> {
   await N.cancelAllScheduledNotificationsAsync();
 
   const agora = Date.now();
+
+  /* Os avisos de retorno entram primeiro, e fora da divisão da fila.
+     São poucos e distantes — meses, às vezes anos —, e é justamente por serem
+     distantes que não podem disputar espaço com as doses desta semana: uma
+     prescrição cheia encheria a fila inteira e o retorno nunca chegaria. */
+  const marcados = avisos
+    .filter((a) => a.quando.getTime() > agora)
+    .sort((a, b) => a.quando.getTime() - b.quando.getTime())
+    .slice(0, 8);
+
+  for (const aviso of marcados) {
+    await N.scheduleNotificationAsync({
+      content: { title: aviso.title, body: aviso.body, sound: true, data: { retorno: aviso.id } },
+      trigger: { type: N.SchedulableTriggerInputTypes.DATE, date: aviso.quando },
+    });
+  }
+
+  const restante = LIMITE - marcados.length;
 
   /* Cada remédio leva a sua parte da fila.
      Sem isso, um item frequente domina: compressas de 2 em 2 horas por 4 dias
@@ -68,9 +101,9 @@ export async function reagendar(meds: Medication[]): Promise<number> {
     }))
     .filter((x) => x.doses.length > 0);
 
-  if (!pendentes.length) return 0;
+  if (!pendentes.length) return marcados.length;
 
-  const cota = Math.max(2, Math.floor(LIMITE / pendentes.length));
+  const cota = Math.max(2, Math.floor(restante / pendentes.length));
 
   /* Um aviso por horário, não por remédio.
      Numa prescrição de Face HD, às 8h vencem cinco itens ao mesmo tempo: cinco
@@ -86,7 +119,7 @@ export async function reagendar(meds: Medication[]): Promise<number> {
     }
   }
 
-  const fila = [...porHorario.entries()].sort((a, b) => a[0] - b[0]).slice(0, LIMITE);
+  const fila = [...porHorario.entries()].sort((a, b) => a[0] - b[0]).slice(0, restante);
 
   for (const [instante, remedios] of fila) {
     const quando = new Date(instante);
@@ -104,7 +137,7 @@ export async function reagendar(meds: Medication[]): Promise<number> {
       trigger: { type: N.SchedulableTriggerInputTypes.DATE, date: quando },
     });
   }
-  return fila.length;
+  return fila.length + marcados.length;
 }
 
 /** Apaga todos os lembretes pendentes. */
