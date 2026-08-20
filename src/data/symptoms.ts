@@ -64,9 +64,18 @@ export const symptoms: Symptom[] = [
     when: 'Qualquer momento do pós-operatório',
     summary:
       'Procure atendimento de emergência agora. Não espere para ver se melhora e não dirija até o hospital.',
+    /* O alerta continua sendo alerta.
+       A causa mais comum de aperto no peito depois de uma prótese é benigna —
+       o músculo acomodando a prótese, ou ansiedade —, e nomeá-la aqui evita o
+       susto desnecessário. O que não muda é a conduta: as duas coisas são
+       sentidas do mesmo jeito, e quem distingue é o exame, não a paciente
+       sozinha em casa às três da manhã. Um alerta que ensina a esperar para
+       ver é pior do que uma ida ao pronto-socorro que termina em nada. */
     why: [
       'Pode indicar um coágulo que se deslocou para o pulmão, uma complicação rara mas grave.',
       'Também pode estar ligado a alterações cardíacas ou respiratórias que precisam de avaliação imediata.',
+      'A causa mais comum é bem menos grave: o peito apertado pela prótese acomodando, ou a própria ansiedade do pós-operatório, que dá a mesma sensação de ar curto.',
+      'Só que as duas se parecem por dentro, e o que separa uma da outra é o exame. Por isso a orientação é a mesma nos dois casos — e voltar do pronto-socorro sem nada é o desfecho esperado, não uma ida perdida.',
     ],
     action: [
       'Ligue para o SAMU (192) ou vá ao pronto-socorro mais próximo agora',
@@ -767,6 +776,36 @@ export const symptoms: Symptom[] = [
       'Não julgue o resultado antes de 3 meses',
     ],
     keywords: ['mama alta', 'dura', 'quadrada', 'prótese alta'],
+  },
+  /* O aperto no peito da prótese tem cartão próprio, e não vira uma ressalva
+     dentro do alerta de falta de ar. Quem sente o aperto esperado precisa de
+     uma resposta que a acalme; quem sente falta de ar de verdade precisa de
+     uma que a mande ao pronto-socorro. Misturar as duas num cartão só é o que
+     faria a segunda paciente ler a primeira metade e ficar em casa. */
+  {
+    id: 'aperto_protese',
+    title: 'Peito apertado e respiração curta com a prótese',
+    severity: 'normal',
+    groups: ['mama', 'emocional'],
+    procedures: ['mamoplastia_aumento', 'mastopexia'],
+    when: 'Primeiras 2 a 4 semanas',
+    summary:
+      'A sensação de peso e aperto no peito, que encurta a respiração, é comum nas primeiras semanas e melhora sozinha.',
+    why: [
+      'A prótese fica sob um músculo que ainda não a acomodou, e o sutiã cirúrgico soma a própria compressão.',
+      'Respirar fundo puxa exatamente essa musculatura — daí a sensação de que o ar não entra todo.',
+      'A ansiedade do pós-operatório fecha o círculo: sentir o peito apertado assusta, o susto encurta mais a respiração.',
+    ],
+    action: [
+      'Respire devagar, inspirando pelo nariz e soltando pela boca, algumas vezes ao dia',
+      'Sente-se com as costas apoiadas e os ombros para trás — encolhida, a sensação piora',
+      'Mantenha o sutiã cirúrgico, mas confirme com a equipe se ele não está apertado demais',
+      'Procure atendimento de emergência se a falta de ar começar de repente, vier com dor no peito ou coração disparado, ou piorar ao andar — isso não é o aperto da prótese',
+    ],
+    /* A saída para o alerta fica dentro do cartão calmo, e não o contrário: é
+       aqui que a paciente com o aperto esperado chega primeiro, e é aqui que
+       ela precisa reconhecer o que a faria mudar de conduta. */
+    keywords: ['aperto', 'peito apertado', 'ar curto', 'respiração', 'ansiedade', 'prótese'],
   },
   {
     id: 'mamilo_sensibilidade',
