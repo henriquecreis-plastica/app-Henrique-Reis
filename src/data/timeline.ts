@@ -322,7 +322,7 @@ export const phases: Phase[] = [
       'Cansaço no fim do dia',
     ],
     todo: [
-      'Manter as caminhadas, aumentando a distância aos poucos',
+      'Manter as caminhadas, aumentando a distância aos poucos — na rua também, com moderação',
       'Retomar o trabalho leve, se liberada pela equipe',
       { text: 'Manter a compressão conforme orientado', exceto: SEM_CINTA },
       { text: 'Seguir com a drenagem linfática na frequência indicada', procedures: COM_LIPO },

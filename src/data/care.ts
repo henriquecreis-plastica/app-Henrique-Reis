@@ -494,6 +494,10 @@ export const careGuides: CareGuide[] = [
           'Caminhe dentro de casa várias vezes ao dia, desde o primeiro dia',
           'Poucos minutos de cada vez, aumentando aos poucos conforme você se sentir',
           'Subir escadas está liberado — vá devagar e apoiada no corrimão',
+          /* Dizer que a rua está liberada é tão necessário quanto dizer que a
+             escada está: o app repete "dentro de casa" e, sem esta linha, a
+             paciente lê a repetição como proibição. */
+          'Caminhar na rua também está liberado, com moderação — comece por trajetos curtos e planos, e sempre acompanhada nas primeiras vezes',
           'Nas primeiras vezes, levante da cama acompanhada: sente-se na beirada, espere passar a tontura e só então fique de pé',
           'Entre uma caminhada e outra, movimente os pés e as pernas na cama a cada hora',
         ],
