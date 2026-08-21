@@ -802,11 +802,11 @@ export const symptoms: Symptom[] = [
       'No começo as mamas ficam altas e firmes. Elas descem e naturalizam com o tempo — o processo é gradual.',
     why: [
       'O músculo e os tecidos ainda estão contraídos e a prótese precisa acomodar.',
-      'O formato só se define por volta do 3º mês.',
+      'Aos 3 meses as mamas já estão bem mais naturais, mas continuam acomodando: o formato final leva cerca de um ano.',
     ],
     action: [
       'Use o sutiã cirúrgico conforme orientado',
-      'Não julgue o resultado antes de 3 meses',
+      'Não julgue o resultado nos primeiros meses — ele ainda vai mudar sozinho',
     ],
     keywords: ['mama alta', 'dura', 'quadrada', 'prótese alta'],
   },

@@ -423,10 +423,15 @@ export const phases: Phase[] = [
 
 /** Marcos adicionais específicos por procedimento, exibidos na linha do tempo. */
 export const procedureMilestones: Partial<Record<ProcedureId, { day: number; text: string }[]>> = {
+  /* A prótese acomoda por muito mais tempo do que três meses.
+     Prometer o formato final aos 90 dias faz a paciente julgar o resultado no
+     meio do caminho — e cobrar do que ainda vai mudar sozinho. O marco de um
+     ano existe para dar a ela a régua certa. */
   mamoplastia_aumento: [
     { day: 2, text: 'Mamas altas e endurecidas — elas descem naturalmente em semanas' },
     { day: 30, text: 'As próteses começam a acomodar e o formato se naturaliza' },
-    { day: 90, text: 'Formato próximo do final na maioria das pacientes' },
+    { day: 90, text: 'Mamas bem mais naturais, mas ainda acomodando' },
+    { day: 365, text: 'Formato final — a acomodação completa leva cerca de um ano' },
   ],
   mastopexia: [
     { day: 14, text: 'Retirada de pontos conforme orientação da equipe' },
