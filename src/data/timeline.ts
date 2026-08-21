@@ -243,8 +243,14 @@ export const phases: Phase[] = [
     ],
     todo: [
       'Tomar os remédios nos horários certos, sem esperar a dor chegar',
-      'Levantar da cama apenas acompanhada, devagar e em duas etapas',
-      'Movimentar os pés e as pernas na cama de hora em hora',
+      /* Caminhar vem antes de tudo o que não é remédio, e por extenso.
+         É a orientação que mais previne trombose e a que a paciente mais
+         interpreta pela metade: "repouso" ela entende como ficar na cama. Dizer
+         quantas vezes, onde e que escada pode é o que transforma a orientação
+         em algo que ela faz. Vale para toda cirurgia. */
+      'Caminhar dentro de casa várias vezes ao dia, desde o primeiro dia — pode subir escadas',
+      'Levantar da cama apenas acompanhada nas primeiras vezes, devagar e em duas etapas',
+      'Movimentar os pés e as pernas na cama de hora em hora, entre uma caminhada e outra',
       'Beber água ao longo do dia',
       { text: 'Manter a malha, cinta ou sutiã cirúrgico o tempo todo', exceto: SEM_CINTA },
       {
@@ -287,7 +293,7 @@ export const phases: Phase[] = [
       'Intestino preso por causa dos analgésicos',
     ],
     todo: [
-      'Caminhar dentro de casa, várias vezes ao dia e por poucos minutos',
+      'Caminhar dentro de casa várias vezes ao dia, aumentando aos poucos — subir escadas está liberado',
       { text: 'Iniciar a drenagem linfática se já liberada pela equipe', procedures: COM_LIPO },
       'Comparecer ao primeiro retorno para revisão dos curativos',
       'Manter alimentação rica em proteína e fibras',
@@ -316,6 +322,7 @@ export const phases: Phase[] = [
       'Cansaço no fim do dia',
     ],
     todo: [
+      'Manter as caminhadas, aumentando a distância aos poucos',
       'Retomar o trabalho leve, se liberada pela equipe',
       { text: 'Manter a compressão conforme orientado', exceto: SEM_CINTA },
       { text: 'Seguir com a drenagem linfática na frequência indicada', procedures: COM_LIPO },

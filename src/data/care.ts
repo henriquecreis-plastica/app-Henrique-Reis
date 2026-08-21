@@ -480,12 +480,22 @@ export const careGuides: CareGuide[] = [
     subtitle: 'Repouso não é ficar parada',
     icon: 'bed-outline',
     sections: [
+      /* A orientação de caminhar é a que mais se perde na tradução.
+         "Repouso" a paciente entende como cama, e é justamente ficar parada que
+         forma o coágulo. Por isso aqui ela vem com número, lugar e a permissão
+         explícita da escada — sem isso, cada paciente inventa o próprio limite,
+         e inventa sempre para menos. */
       {
-        heading: 'Movimento desde o primeiro dia',
+        heading: 'Caminhar desde o primeiro dia',
+        paragraphs: [
+          'Caminhar é a orientação mais importante desta fase — mais do que qualquer pomada ou curativo. É o que mantém o sangue circulando nas pernas, e é a principal prevenção de trombose.',
+        ],
         items: [
-          'Movimente pés e pernas na cama a cada hora enquanto estiver acordada',
-          'Caminhe dentro de casa por poucos minutos, várias vezes ao dia',
-          'A movimentação precoce é a principal prevenção de trombose',
+          'Caminhe dentro de casa várias vezes ao dia, desde o primeiro dia',
+          'Poucos minutos de cada vez, aumentando aos poucos conforme você se sentir',
+          'Subir escadas está liberado — vá devagar e apoiada no corrimão',
+          'Nas primeiras vezes, levante da cama acompanhada: sente-se na beirada, espere passar a tontura e só então fique de pé',
+          'Entre uma caminhada e outra, movimente os pés e as pernas na cama a cada hora',
         ],
       },
       {
