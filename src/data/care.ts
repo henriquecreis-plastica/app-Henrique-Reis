@@ -207,7 +207,7 @@ export const careGuides: CareGuide[] = [
   {
     id: 'tecnologias',
     kinds: ['cirurgico'],
-    procedures: ['lipo_hd', 'lipoescultura'],
+    procedures: ['lipo_hd', 'lipoescultura', 'bodytite'],
     capa: true,
     title: 'BodyTite® e Morpheus8®',
     subtitle:
@@ -402,6 +402,7 @@ export const careGuides: CareGuide[] = [
       'face_hd',
       'lipoescultura',
       'lipo_hd',
+      'bodytite',
       'abdominoplastia',
       'ginecomastia',
       'pos_bariatrica',

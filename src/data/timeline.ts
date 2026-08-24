@@ -50,6 +50,7 @@ const SEM_CINTA: ProcedureId[] = ['rinoplastia', 'blefaroplastia', 'otoplastia',
 const COM_LIPO: ProcedureId[] = [
   'lipoescultura',
   'lipo_hd',
+  'bodytite',
   'abdominoplastia',
   'ginecomastia',
   'pos_bariatrica',
@@ -456,6 +457,14 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
     { day: 21, text: 'Fase de maior endurecimento — a drenagem faz diferença aqui' },
     { day: 90, text: 'Contorno bem mais próximo, ainda com inchaço residual' },
     { day: 365, text: 'Resultado final do contorno — entre 6 e 12 meses, conforme cada paciente' },
+  ],
+  /* O marco dos 270 dias é o que distingue este procedimento: a retração da
+     pele continua evoluindo até cerca de nove meses, e sem esse número a
+     paciente conclui aos três que o resultado é o que ela está vendo. */
+  bodytite: [
+    { day: 21, text: 'Fase de maior endurecimento — a drenagem faz diferença aqui' },
+    { day: 90, text: 'Inchaço bem reduzido; a retração da pele segue acontecendo' },
+    { day: 270, text: 'Retração da pele completa — ela evolui até cerca de nove meses' },
   ],
   rinoplastia: [
     { day: 7, text: 'Retirada do curativo ou splint nasal' },

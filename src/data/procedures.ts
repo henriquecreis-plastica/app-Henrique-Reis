@@ -14,6 +14,7 @@ export type ProcedureId =
   | 'abdominoplastia'
   | 'lipo_hd'
   | 'lipoescultura'
+  | 'bodytite'
   | 'rinoplastia'
   | 'face_hd'
   /**
@@ -144,6 +145,26 @@ export const procedures: Procedure[] = [
       'Caminhadas curtas desde cedo, conforme orientação',
       'Se houve enxertia: evite pressão sobre a área enxertada',
       'Endurecimento e assimetrias nas primeiras semanas são esperados',
+    ],
+  },
+  /* O BodyTite® isolado é escolha própria, e não uma variante da lipo.
+     Quem faz só a radiofrequência não teve gordura aspirada e não vai
+     reconhecer a sua recuperação num conteúdo que fala de áreas
+     lipoaspiradas. Quem fez os dois marca os dois — é para isso que existe a
+     cirurgia combinada. */
+  {
+    id: 'bodytite',
+    name: 'BodyTite®',
+    short: 'Radiofrequência para retração de pele',
+    note: 'Marque aqui se o seu procedimento foi o BodyTite® isolado. Se houve lipoaspiração na mesma cirurgia, marque também a Lipoescultura ou o Lipo HD Concept.',
+    icon: 'radio-outline',
+    kind: 'cirurgico',
+    brandName: true,
+    recoveryWeeks: 4,
+    highlights: [
+      'Cinta compressiva pelo período orientado pela equipe',
+      'Inchaço e áreas endurecidas nas primeiras semanas são esperados',
+      'A retração da pele é gradual e continua evoluindo por meses',
     ],
   },
   {

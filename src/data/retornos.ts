@@ -50,6 +50,7 @@ const CIRURGIAS: ProcedureId[] = [
   'abdominoplastia',
   'lipoescultura',
   'lipo_hd',
+  'bodytite',
   'rinoplastia',
   'face_hd',
   'blefaroplastia',
