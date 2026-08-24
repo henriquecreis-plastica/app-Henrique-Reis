@@ -211,7 +211,7 @@ export const prescriptions: Prescription[] = [
   {
     id: 'corpo',
     title: 'Prescrição padrão — cirurgia de corpo',
-    procedures: ['abdominoplastia', 'pos_bariatrica', 'lipoescultura', 'lipo_hd'],
+    procedures: ['abdominoplastia', 'pos_bariatrica', 'lipoescultura', 'lipo_hd', 'bodytite'],
     items: [RESTIVA_10, RESTIVA_20, ...CORPO_BASE, KELOCOTE],
   },
   {
