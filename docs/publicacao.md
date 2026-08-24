@@ -240,6 +240,22 @@ evita a parte mais confusa da publicação na Apple.
 
 ---
 
+### Builds gerados
+
+| Data | Plataforma | Arquivo |
+| --- | --- | --- |
+| 24/08/2026 | Android (.aab) | [primeiro build](https://expo.dev/artifacts/eas/1ERmvA-0l341uuZJX-5KFMhVL_zdObIOhyU_IeuG8ps.aab) — anterior ao expo-updates |
+
+O link do arquivo **expira**, e o endereço é comprido demais para se copiar à
+mão sem errar um caractere. A lista completa e permanente dos builds fica na
+conta, e é de lá que se baixa o arquivo a qualquer momento:
+
+```
+https://expo.dev/accounts/henrique-reis-cirurgia-plastica/projects/aplicativo-de-pos-operatorio/builds
+```
+
+---
+
 ## 5b. Corrigir um texto depois de publicado
 
 Nem toda correção precisa passar pela loja. O app carrega o conteúdo pela
