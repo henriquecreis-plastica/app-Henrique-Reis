@@ -454,7 +454,8 @@ export const procedureMilestones: Partial<Record<ProcedureId, { day: number; tex
   ],
   lipoescultura: [
     { day: 21, text: 'Fase de maior endurecimento — a drenagem faz diferença aqui' },
-    { day: 90, text: 'Contorno já definido na maioria das pacientes, com inchaço residual' },
+    { day: 90, text: 'Contorno bem mais próximo, ainda com inchaço residual' },
+    { day: 365, text: 'Resultado final do contorno — entre 6 e 12 meses, conforme cada paciente' },
   ],
   rinoplastia: [
     { day: 7, text: 'Retirada do curativo ou splint nasal' },

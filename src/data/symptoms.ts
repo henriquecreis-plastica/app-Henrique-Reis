@@ -413,22 +413,30 @@ export const symptoms: Symptom[] = [
     ],
     keywords: ['queloide', 'hipertrófica', 'cicatriz grossa', 'alta'],
   },
+  /* Esperado, e não "atenção".
+     O cartão antes se chamava "Assimetria que persiste após 3 meses" e marcava
+     os 3 meses como o prazo em que a diferença vira problema. Isso não informa
+     nada — a paciente não tem o que fazer com essa data — e transforma cada
+     olhada no espelho a partir do 90º dia numa checagem ansiosa. O resultado
+     da cirurgia se avalia com um ano, e é esse o número que ela precisa ter. */
   {
     id: 'assimetria_tardia',
     kinds: ['cirurgico'],
-    title: 'Assimetria que persiste após 3 meses',
-    severity: 'attention',
+    title: 'Um lado diferente do outro',
+    severity: 'normal',
     groups: ['inchaco', 'mama'],
-    when: 'A partir do 3º mês',
+    when: 'Durante todo o primeiro ano',
     summary:
-      'Pequenas diferenças entre os lados são normais e definitivas em qualquer corpo. Diferença marcante após 3 meses deve ser conversada no retorno.',
+      'Diferença entre os lados acompanha a recuperação inteira: o inchaço não cede no mesmo ritmo dos dois lados. O resultado da cirurgia se avalia com um ano.',
     why: [
-      'Nas primeiras semanas a assimetria quase sempre é apenas inchaço desigual.',
-      'Após a estabilização, o que persiste pode ser avaliado com calma.',
+      'Nenhum corpo é simétrico antes da cirurgia, e não passa a ser depois — pequenas diferenças entre os lados existem em todo mundo.',
+      'Nos primeiros meses o que você vê é sobretudo inchaço, e ele quase nunca desincha por igual dos dois lados.',
+      'O contorno continua se acomodando ao longo de todo o primeiro ano.',
     ],
     action: [
-      'Leve suas dúvidas e fotos ao retorno',
-      'Evite conclusões antes de 3 a 6 meses',
+      'Evite comparar os lados no espelho todos os dias — a diferença oscila com o inchaço',
+      'Registre fotos de vez em quando, sempre na mesma luz e posição, para comparar com calma',
+      'Leve as fotos e as suas dúvidas ao retorno — quem avalia a sua evolução é a equipe',
     ],
     keywords: ['assimetria', 'diferente', 'um lado maior', 'torto'],
   },
