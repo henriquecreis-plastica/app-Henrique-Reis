@@ -34,6 +34,18 @@ export interface CareGuide {
    * lugar do título, como foi entregue — não é recolorida nem redesenhada.
    */
   brand?: 'face-hd' | 'lipo-hd' | 'hr-recovery';
+  /**
+   * Guia com capa: ocupa a linha inteira na lista, em fundo escuro, em vez de
+   * dividir a linha com outro.
+   *
+   * É para o guia que a paciente precisa encontrar sem procurar. Num grid de
+   * catorze cartões iguais, o que importa some — e some justamente para quem
+   * não sabe que ele existe, que é quem mais precisa dele.
+   *
+   * Diferente de `brand`: aqui não há arte de terceiros, o destaque é o
+   * próprio desenho do app.
+   */
+  capa?: true;
 }
 
 export const careGuides: CareGuide[] = [
@@ -196,8 +208,10 @@ export const careGuides: CareGuide[] = [
     id: 'tecnologias',
     kinds: ['cirurgico'],
     procedures: ['lipo_hd', 'lipoescultura'],
+    capa: true,
     title: 'BodyTite® e Morpheus8®',
-    subtitle: 'Tecnologia para potencializar o contorno corporal e o tratamento da flacidez',
+    subtitle:
+      'Radiofrequência para o contorno e a flacidez — usados juntos ou separados, conforme o seu caso',
     icon: 'radio-outline',
     sections: [
       {
@@ -205,6 +219,7 @@ export const careGuides: CareGuide[] = [
         paragraphs: [
           'O BodyTite® e o Morpheus8® são tecnologias que utilizam radiofrequência para complementar o tratamento do contorno corporal e da flacidez.',
           'Na cirurgia plástica, podem ser utilizados isoladamente em casos selecionados, mas são frequentemente associados à lipoaspiração ou lipoescultura, de acordo com a indicação de cada paciente.',
+          'O BodyTite® e o Morpheus8® também podem ser associados entre si, na mesma cirurgia: um atua na profundidade dos tecidos e o outro na pele, e juntos alcançam o que nenhum dos dois alcança sozinho.',
         ],
       },
       {
@@ -338,6 +353,12 @@ export const careGuides: CareGuide[] = [
   {
     id: 'compressao',
     kinds: ['cirurgico'],
+    /* Quem não usa nenhuma das três peças não lê o guia delas.
+       No Face HD Concept a peça é a mentoneira, por 15 dias, e ela já está no
+       guia do próprio protocolo. Rosto, nariz, pálpebras e orelhas têm cada um
+       o seu curativo — mandar essas pacientes lerem sobre cinta é ruído, e
+       ruído numa lista de guias faz duvidar do resto. */
+    exceto: ['face_hd', 'face', 'rinoplastia', 'blefaroplastia', 'otoplastia'],
     note:
       'A peça, o tempo de uso e as pausas mudam conforme o procedimento. Vale sempre o que foi orientado para você na alta.',
     title: 'Cinta, malha e sutiã cirúrgico',

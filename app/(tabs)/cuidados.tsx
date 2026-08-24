@@ -25,6 +25,9 @@ export default function Cuidados() {
       (!g.exceto || procedureIds.some((id) => !g.exceto!.includes(id))),
   );
 
+  const comCapa = guides.filter((g) => g.capa);
+  const emGrade = guides.filter((g) => !g.capa);
+
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
@@ -46,10 +49,33 @@ export default function Cuidados() {
           </View>
         </View>
 
+        {/* Os guias com capa vêm antes dos vídeos.
+            A lista de vídeos ocupa duas telas, e tudo o que fica atrás dela só
+            é encontrado por quem já sabe que está lá. Foi o que aconteceu com o
+            das tecnologias: existia, aparecia em segundo lugar entre os guias,
+            e ainda assim ninguém achava. */}
+        {comCapa.map((g) => (
+          <Pressable
+            key={g.id}
+            accessibilityRole="button"
+            onPress={() => router.push(`/cuidado/${g.id}`)}
+            style={({ pressed }) => [styles.capa, pressed && { opacity: 0.85 }]}
+          >
+            <View style={styles.capaIcon}>
+              <Ionicons name={g.icon} size={22} color={palette.accent} />
+            </View>
+            <View style={styles.flex}>
+              <Text style={styles.capaTitle}>{g.title}</Text>
+              <Text style={styles.capaSub}>{g.subtitle}</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color={palette.textOnDarkMuted} />
+          </Pressable>
+        ))}
+
         <VideoList />
 
         <View style={styles.grid}>
-          {guides.map((g) => (
+          {emGrade.map((g) => (
             <Pressable
               key={g.id}
               accessibilityRole="button"
@@ -112,4 +138,23 @@ const styles = StyleSheet.create({
     marginBottom: spacing.sm,
   },
   tileTitle: { fontSize: 14.5, fontWeight: '700', color: palette.text },
+  capa: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.md,
+    backgroundColor: palette.primary,
+    borderRadius: radius.lg,
+    padding: spacing.lg,
+  },
+  capaIcon: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  capaTitle: { fontSize: 16, fontWeight: '700', color: palette.textOnDark },
+  capaSub: { ...type.small, color: palette.textOnDarkMuted, marginTop: 3, lineHeight: 18 },
 });
