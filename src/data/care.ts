@@ -262,6 +262,79 @@ export const careGuides: CareGuide[] = [
       },
     ],
   },
+  /* Texto do Dr. Henrique Reis.
+     Fica junto do guia das tecnologias, e não dentro dele: são coisas
+     diferentes — uma trata a pele por fora, a outra devolve o que foi tirado
+     de dentro — e a paciente que fez enxertia procura pelo nome que ouviu na
+     consulta. */
+  {
+    id: 'microfat-nanofat',
+    kinds: ['cirurgico'],
+    procedures: ['lipoescultura', 'lipo_hd', 'face_hd'],
+    title: 'Microfat e Nanofat',
+    subtitle: 'Qual é a diferença?',
+    icon: 'sparkles-outline',
+    note: 'Cada organismo responde de uma maneira. Os resultados e o grau de integração da gordura podem variar, e a necessidade de tratamentos complementares será avaliada individualmente.',
+    sections: [
+      {
+        heading: 'O que são',
+        paragraphs: [
+          'Em algumas cirurgias, uma pequena quantidade de gordura pode ser retirada do próprio corpo, cuidadosamente preparada e utilizada em outras regiões. Dependendo da forma como essa gordura é processada, ela pode ser transformada em microfat ou nanofat.',
+        ],
+      },
+      {
+        heading: 'Microfat',
+        paragraphs: [
+          'O microfat preserva pequenas partículas de gordura e é utilizado principalmente para devolver volumes sutis, suavizar depressões e melhorar a transição entre diferentes áreas.',
+          'Por ser um enxerto do próprio paciente, parte da gordura transferida precisa se integrar ao novo local. Uma parcela pode ser naturalmente reabsorvida pelo organismo, por isso o resultado definitivo não deve ser avaliado nas primeiras semanas.',
+        ],
+      },
+      {
+        heading: 'Nanofat',
+        paragraphs: [
+          'O nanofat passa por um processamento ainda mais delicado, tornando-se uma solução muito fina e praticamente sem função de preenchimento.',
+          'Seu objetivo principal é favorecer a qualidade dos tecidos. Ele pode ser indicado para áreas de pele fina, pequenas irregularidades, cicatrizes e sinais de envelhecimento, contribuindo gradualmente para uma pele com aparência mais uniforme e saudável.',
+        ],
+      },
+      {
+        heading: 'Por que eles podem ser utilizados juntos',
+        paragraphs: ['As duas técnicas atuam de maneiras diferentes e complementares:'],
+        items: [
+          'O microfat ajuda a restaurar estrutura e volume',
+          'O nanofat atua principalmente na qualidade da pele e dos tecidos',
+        ],
+      },
+      {
+        heading: 'A indicação',
+        paragraphs: [
+          'Depende da região tratada, das características da pele e dos objetivos definidos durante a avaliação médica.',
+        ],
+      },
+      {
+        heading: 'O que esperar após o procedimento',
+        paragraphs: [
+          'Nos primeiros dias, é comum apresentar inchaço, sensibilidade e algumas equimoses tanto na região tratada quanto no local de retirada da gordura. Pequenas assimetrias também podem ocorrer enquanto o edema estiver presente.',
+          'O resultado se torna mais natural à medida que o inchaço diminui e os tecidos se acomodam. A integração do microfat e os efeitos do nanofat acontecem gradualmente, ao longo dos meses.',
+        ],
+      },
+      {
+        heading: 'Cuidados importantes',
+        items: [
+          'Não massageie nem pressione a região enxertada sem autorização da equipe',
+          'Evite exposição solar enquanto houver equimoses',
+          'Utilize somente os produtos e medicamentos recomendados',
+          'Não fume, pois o cigarro prejudica a circulação e a integração da gordura',
+          'Compareça aos retornos programados para acompanhamento da evolução',
+        ],
+      },
+      {
+        heading: 'Quando falar com a equipe',
+        paragraphs: [
+          'Caso perceba dor crescente, vermelhidão intensa, calor local, secreção, febre ou uma alteração repentina na região tratada, entre em contato com a nossa equipe.',
+        ],
+      },
+    ],
+  },
   {
     id: 'compressao',
     kinds: ['cirurgico'],
