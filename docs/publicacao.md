@@ -240,6 +240,37 @@ evita a parte mais confusa da publicação na Apple.
 
 ---
 
+## 5b. Corrigir um texto depois de publicado
+
+Nem toda correção precisa passar pela loja. O app carrega o conteúdo pela
+Expo a cada abertura, então uma mudança de texto chega às pacientes em
+minutos, sem submissão e sem revisão:
+
+```bash
+npx eas-cli@latest update --branch production --message "o que mudou"
+```
+
+A paciente recebe o novo conteúdo em segundo plano e ele passa a valer na
+próxima vez que ela abrir o app.
+
+**Vale para:** textos, orientações, prazos, prescrições, sintomas, guias,
+vídeos, lembretes — tudo o que vive em `src/`.
+
+**Não vale para:** ícone, nome do app, permissões, bibliotecas novas, versão
+do SDK. Isso muda o aplicativo em si e exige `eas build` e nova submissão.
+
+A regra que separa os dois casos está no `runtimeVersion` do `app.json`, com
+política `appVersion`: enquanto a `version` não mudar, as atualizações
+alcançam quem já tem o app. Ao subir a `version` para um build novo, quem
+está na versão anterior deixa de receber — e é isso que se quer, porque o
+conteúdo novo pode depender de código que ela não tem.
+
+**Consequência prática:** só mexa na `version` do `app.json` quando for
+realmente gerar um build. Mudá-la por engano corta as atualizações de quem já
+instalou.
+
+---
+
 ## 6. Revisão
 
 - **Google Play**: normalmente algumas horas a 2 dias na primeira submissão.
