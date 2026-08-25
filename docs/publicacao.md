@@ -246,6 +246,15 @@ evita a parte mais confusa da publicação na Apple.
 | --- | --- | --- | --- |
 | 24/08/2026 | Android (.aab) | `9d6ec5a8-ab1c-4371-bef1-4a8aa4c85b4e` | primeiro build; anterior ao expo-updates, não usar |
 | 24/08/2026 | Android (.aab) | `06d38d69-2f24-4268-a6f3-1ddbe8dd337d` | **é este que vai para o Google Play** — versionCode 3, com atualização pelo ar |
+| 24/08/2026 | iOS (.ipa) | `03480a97-efd7-4731-8b8b-e289fe9d9a1b` | **é este que vai para a App Store** — buildNumber 1, com atualização pelo ar |
+
+Credenciais criadas neste dia e guardadas na conta Expo, com backup: keystore
+do Android, certificado e perfil de distribuição da Apple, e a chave de
+notificações. São elas que provam às lojas que as atualizações vêm de você —
+não há como recriá-las por fora sem perder o app publicado.
+
+Time da Apple: `H82M727KZF` — Henrique Reis Cirurgia Plastica LTDA
+(Company/Organization).
 
 O identificador do build é o que dura; o link do arquivo `.aab` expira em
 algumas semanas. Para baixar, abra o build pelo identificador na página da
