@@ -242,9 +242,14 @@ evita a parte mais confusa da publicação na Apple.
 
 ### Builds gerados
 
-| Data | Plataforma | Arquivo |
-| --- | --- | --- |
-| 24/08/2026 | Android (.aab) | [primeiro build](https://expo.dev/artifacts/eas/1ERmvA-0l341uuZJX-5KFMhVL_zdObIOhyU_IeuG8ps.aab) — anterior ao expo-updates |
+| Data | Plataforma | Build | Observação |
+| --- | --- | --- | --- |
+| 24/08/2026 | Android (.aab) | `9d6ec5a8-ab1c-4371-bef1-4a8aa4c85b4e` | primeiro build; anterior ao expo-updates, não usar |
+| 24/08/2026 | Android (.aab) | `06d38d69-2f24-4268-a6f3-1ddbe8dd337d` | **é este que vai para o Google Play** — versionCode 3, com atualização pelo ar |
+
+O identificador do build é o que dura; o link do arquivo `.aab` expira em
+algumas semanas. Para baixar, abra o build pelo identificador na página da
+conta.
 
 O link do arquivo **expira**, e o endereço é comprido demais para se copiar à
 mão sem errar um caractere. A lista completa e permanente dos builds fica na
