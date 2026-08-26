@@ -256,6 +256,17 @@ não há como recriá-las por fora sem perder o app publicado.
 Time da Apple: `H82M727KZF` — Henrique Reis Cirurgia Plastica LTDA
 (Company/Organization).
 
+Identificadores das fichas, para achar o app em cada loja:
+
+| Loja | Identificador |
+| --- | --- |
+| App Store Connect | `6805590351` |
+| Google Play | `com.plasticahenrique.pacientes` |
+
+O envio para a Apple é feito por uma chave de API criada pelo próprio EAS e
+guardada na conta Expo — por isso o segundo envio não pede Apple ID nem código
+de dois fatores.
+
 O identificador do build é o que dura; o link do arquivo `.aab` expira em
 algumas semanas. Para baixar, abra o build pelo identificador na página da
 conta.
