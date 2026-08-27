@@ -246,7 +246,9 @@ evita a parte mais confusa da publicação na Apple.
 | --- | --- | --- | --- |
 | 24/08/2026 | Android (.aab) | `9d6ec5a8-ab1c-4371-bef1-4a8aa4c85b4e` | primeiro build; anterior ao expo-updates, não usar |
 | 24/08/2026 | Android (.aab) | `06d38d69-2f24-4268-a6f3-1ddbe8dd337d` | **é este que vai para o Google Play** — versionCode 3, com atualização pelo ar |
-| 24/08/2026 | iOS (.ipa) | `03480a97-efd7-4731-8b8b-e289fe9d9a1b` | **é este que vai para a App Store** — buildNumber 1, com atualização pelo ar |
+| 24/08/2026 | iOS (.ipa) | `03480a97-efd7-4731-8b8b-e289fe9d9a1b` | buildNumber 1 — tem o teclado tapando o campo da receita |
+| 27/08/2026 | iOS (.ipa) | `a3d0b041-9f26-4124-be0f-36a3ab779bc6` | **buildNumber 2 — é o que vai para a App Store** |
+| 27/08/2026 | Android (.aab) | `e01495ff-33dd-42fd-8f6b-e429f3b19f25` | **versionCode 4 — é o que vai para o Google Play** |
 
 Credenciais criadas neste dia e guardadas na conta Expo, com backup: keystore
 do Android, certificado e perfil de distribuição da Apple, e a chave de
