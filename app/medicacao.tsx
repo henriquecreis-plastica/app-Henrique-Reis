@@ -110,174 +110,184 @@ export default function Medicacao() {
   return (
     <>
       <Stack.Screen options={{ title: 'Meus remédios' }} />
-      <ScrollView style={styles.screen} contentContainerStyle={styles.scroll}>
-        <Text style={type.bodyMuted}>
-          Cadastre o que você está tomando. Nos remédios de horário fixo, o aplicativo avisa a hora
-          da dose; nos de alívio, avisa a partir de quando você pode repetir. Tudo fica salvo apenas
-          neste aparelho.
-        </Text>
+      {/* O campo da receita é o último da tela, e o teclado do iPhone sobe
+          justamente por cima dele — tapando o campo e o botão "Colar" que
+          aparece ao tocar. Sem isto não há como colar o link, que é a única
+          forma de guardá-lo. A tela do formulário já usava esta mesma
+          proteção; faltava aqui. */}
+      <KeyboardAvoidingView
+        style={styles.screen}
+        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+      >
+        <ScrollView contentContainerStyle={styles.scroll} keyboardShouldPersistTaps="handled">
+          <Text style={type.bodyMuted}>
+            Cadastre o que você está tomando. Nos remédios de horário fixo, o aplicativo avisa a hora
+            da dose; nos de alívio, avisa a partir de quando você pode repetir. Tudo fica salvo apenas
+            neste aparelho.
+          </Text>
 
-        {!lembretesDisponiveis ? (
-          <View style={styles.aviso}>
-            <Ionicons name="information-circle" size={18} color={palette.attention} />
-            <Text style={styles.avisoTexto}>
-              No navegador os horários aparecem, mas o alarme não toca. Os lembretes funcionam no
-              aplicativo instalado.
-            </Text>
-          </View>
-        ) : null}
+          {!lembretesDisponiveis ? (
+            <View style={styles.aviso}>
+              <Ionicons name="information-circle" size={18} color={palette.attention} />
+              <Text style={styles.avisoTexto}>
+                No navegador os horários aparecem, mas o alarme não toca. Os lembretes funcionam no
+                aplicativo instalado.
+              </Text>
+            </View>
+          ) : null}
 
-        {ativos.length === 0 ? (
+          {ativos.length === 0 ? (
+            <Card>
+              <Overline>Nenhum remédio cadastrado</Overline>
+              <View style={{ height: spacing.sm }} />
+              <Text style={type.bodyMuted}>
+                {prescricao
+                  ? 'Use a prescrição padrão do seu procedimento abaixo e confira a lista, ou cadastre um remédio por vez.'
+                  : 'Tenha a receita em mãos e cadastre um por vez. Leva menos de um minuto cada.'}
+              </Text>
+            </Card>
+          ) : (
+            ativos.map((m) => (
+              <Card key={m.id}>
+                <View style={styles.linhaTopo}>
+                  <View style={{ flex: 1 }}>
+                    <Text style={styles.nome}>{m.name}</Text>
+                    <Text style={type.small}>{resumoEsquema(m)}</Text>
+                  </View>
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel={`Editar ${m.name}`}
+                    onPress={() => setEditando(m)}
+                    hitSlop={10}
+                  >
+                    <Ionicons name="create-outline" size={20} color={palette.textMuted} />
+                  </Pressable>
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel={`Remover ${m.name}`}
+                    onPress={() => remover(m)}
+                    hitSlop={10}
+                  >
+                    <Ionicons name="trash-outline" size={20} color={palette.textMuted} />
+                  </Pressable>
+                </View>
+
+                <View style={{ height: spacing.md }} />
+                {m.asNeeded ? (
+                  <SeprecisarBloco
+                    med={m}
+                    onTomei={() => saveMedications(
+                      medications.map((x) => (x.id === m.id ? registrarDose(x) : x)),
+                    )}
+                  />
+                ) : (
+                  <>
+                <Overline>Hoje</Overline>
+                <View style={styles.doses}>
+                  {dosesDeHoje(m).map((d) => {
+                    const tomada = foiTomada(m, d);
+                    return (
+                      <Pressable
+                        key={d.toISOString()}
+                        accessibilityRole="checkbox"
+                        accessibilityState={{ checked: tomada }}
+                        accessibilityLabel={`Dose das ${horaCurta(d)}${tomada ? ', tomada' : ''}`}
+                        onPress={() => marcarDose(m, d)}
+                        style={[styles.dose, tomada && styles.doseTomada]}
+                      >
+                        <Ionicons
+                          name={tomada ? 'checkmark-circle' : 'ellipse-outline'}
+                          size={16}
+                          color={tomada ? palette.textOnTiffany : palette.textMuted}
+                        />
+                        <Text style={[styles.doseHora, tomada && { color: palette.textOnTiffany }]}>
+                          {horaCurta(d)}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
+                </View>
+                  </>
+                )}
+
+                {terminaEm(m) ? (
+                  <Text style={[type.small, { marginTop: spacing.md }]}>
+                    Último dia em {terminaEm(m)!.toLocaleDateString('pt-BR')}
+                  </Text>
+                ) : null}
+              </Card>
+            ))
+          )}
+
+          {prescricao ? (
+            <Button
+              label="Usar a prescrição padrão"
+              icon="document-text-outline"
+              onPress={() => setConferindo(true)}
+            />
+          ) : null}
+
+          <Button
+            label="Adicionar remédio"
+            icon="add"
+            variant={prescricao ? 'secondary' : 'primary'}
+            onPress={() => setEditando('novo')}
+          />
+
+          {terminados.length ? (
+            <Card>
+              <Overline>Já encerrados</Overline>
+              <View style={{ height: spacing.sm }} />
+              {terminados.map((m) => (
+                <View key={m.id} style={styles.linhaTopo}>
+                  <Text style={[type.body, styles.encerrado]}>{m.name}</Text>
+                  <Pressable accessibilityRole="button" onPress={() => remover(m)} hitSlop={10}>
+                    <Ionicons name="trash-outline" size={18} color={palette.textMuted} />
+                  </Pressable>
+                </View>
+              ))}
+            </Card>
+          ) : null}
+
+          {/* ----- Receita digital ----- */}
           <Card>
-            <Overline>Nenhum remédio cadastrado</Overline>
+            <Overline>Sua receita</Overline>
             <View style={{ height: spacing.sm }} />
             <Text style={type.bodyMuted}>
-              {prescricao
-                ? 'Use a prescrição padrão do seu procedimento abaixo e confira a lista, ou cadastre um remédio por vez.'
-                : 'Tenha a receita em mãos e cadastre um por vez. Leva menos de um minuto cada.'}
+              Se a equipe te enviou a receita digital, guarde o link aqui para encontrá-la sempre.
             </Text>
-          </Card>
-        ) : (
-          ativos.map((m) => (
-            <Card key={m.id}>
-              <View style={styles.linhaTopo}>
-                <View style={{ flex: 1 }}>
-                  <Text style={styles.nome}>{m.name}</Text>
-                  <Text style={type.small}>{resumoEsquema(m)}</Text>
-                </View>
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel={`Editar ${m.name}`}
-                  onPress={() => setEditando(m)}
-                  hitSlop={10}
-                >
-                  <Ionicons name="create-outline" size={20} color={palette.textMuted} />
-                </Pressable>
-                <Pressable
-                  accessibilityRole="button"
-                  accessibilityLabel={`Remover ${m.name}`}
-                  onPress={() => remover(m)}
-                  hitSlop={10}
-                >
-                  <Ionicons name="trash-outline" size={20} color={palette.textMuted} />
-                </Pressable>
-              </View>
-
-              <View style={{ height: spacing.md }} />
-              {m.asNeeded ? (
-                <SeprecisarBloco
-                  med={m}
-                  onTomei={() => saveMedications(
-                    medications.map((x) => (x.id === m.id ? registrarDose(x) : x)),
-                  )}
+            <View style={{ height: spacing.md }} />
+            <TextInput
+              value={profile.prescriptionUrl ?? ''}
+              onChangeText={(t) => save({ prescriptionUrl: t.trim() })}
+              placeholder="Cole aqui o link da receita"
+              placeholderTextColor={palette.textMuted}
+              style={formStyles.input}
+              accessibilityLabel="Link da receita digital"
+              autoCapitalize="none"
+              keyboardType="url"
+            />
+            {profile.prescriptionUrl ? (
+              <>
+                <View style={{ height: spacing.md }} />
+                <Button
+                  label="Abrir minha receita"
+                  icon="document-text-outline"
+                  variant="secondary"
+                  onPress={() => openLink(profile.prescriptionUrl!)}
                 />
-              ) : (
-                <>
-              <Overline>Hoje</Overline>
-              <View style={styles.doses}>
-                {dosesDeHoje(m).map((d) => {
-                  const tomada = foiTomada(m, d);
-                  return (
-                    <Pressable
-                      key={d.toISOString()}
-                      accessibilityRole="checkbox"
-                      accessibilityState={{ checked: tomada }}
-                      accessibilityLabel={`Dose das ${horaCurta(d)}${tomada ? ', tomada' : ''}`}
-                      onPress={() => marcarDose(m, d)}
-                      style={[styles.dose, tomada && styles.doseTomada]}
-                    >
-                      <Ionicons
-                        name={tomada ? 'checkmark-circle' : 'ellipse-outline'}
-                        size={16}
-                        color={tomada ? palette.textOnTiffany : palette.textMuted}
-                      />
-                      <Text style={[styles.doseHora, tomada && { color: palette.textOnTiffany }]}>
-                        {horaCurta(d)}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
-                </>
-              )}
-
-              {terminaEm(m) ? (
-                <Text style={[type.small, { marginTop: spacing.md }]}>
-                  Último dia em {terminaEm(m)!.toLocaleDateString('pt-BR')}
-                </Text>
-              ) : null}
-            </Card>
-          ))
-        )}
-
-        {prescricao ? (
-          <Button
-            label="Usar a prescrição padrão"
-            icon="document-text-outline"
-            onPress={() => setConferindo(true)}
-          />
-        ) : null}
-
-        <Button
-          label="Adicionar remédio"
-          icon="add"
-          variant={prescricao ? 'secondary' : 'primary'}
-          onPress={() => setEditando('novo')}
-        />
-
-        {terminados.length ? (
-          <Card>
-            <Overline>Já encerrados</Overline>
-            <View style={{ height: spacing.sm }} />
-            {terminados.map((m) => (
-              <View key={m.id} style={styles.linhaTopo}>
-                <Text style={[type.body, styles.encerrado]}>{m.name}</Text>
-                <Pressable accessibilityRole="button" onPress={() => remover(m)} hitSlop={10}>
-                  <Ionicons name="trash-outline" size={18} color={palette.textMuted} />
-                </Pressable>
-              </View>
-            ))}
+              </>
+            ) : null}
           </Card>
-        ) : null}
 
-        {/* ----- Receita digital ----- */}
-        <Card>
-          <Overline>Sua receita</Overline>
-          <View style={{ height: spacing.sm }} />
-          <Text style={type.bodyMuted}>
-            Se a equipe te enviou a receita digital, guarde o link aqui para encontrá-la sempre.
+          <Text style={styles.rodape}>
+            Os lembretes são um apoio para não esquecer. Em caso de dúvida sobre dose ou horário,
+            vale sempre o que está na receita e o que a equipe orientou.
           </Text>
-          <View style={{ height: spacing.md }} />
-          <TextInput
-            value={profile.prescriptionUrl ?? ''}
-            onChangeText={(t) => save({ prescriptionUrl: t.trim() })}
-            placeholder="Cole aqui o link da receita"
-            placeholderTextColor={palette.textMuted}
-            style={formStyles.input}
-            accessibilityLabel="Link da receita digital"
-            autoCapitalize="none"
-            keyboardType="url"
-          />
-          {profile.prescriptionUrl ? (
-            <>
-              <View style={{ height: spacing.md }} />
-              <Button
-                label="Abrir minha receita"
-                icon="document-text-outline"
-                variant="secondary"
-                onPress={() => openLink(profile.prescriptionUrl!)}
-              />
-            </>
-          ) : null}
-        </Card>
 
-        <Text style={styles.rodape}>
-          Os lembretes são um apoio para não esquecer. Em caso de dúvida sobre dose ou horário,
-          vale sempre o que está na receita e o que a equipe orientou.
-        </Text>
-
-        <Button label="Voltar" variant="ghost" onPress={() => voltar(router, '/(tabs)')} />
-      </ScrollView>
+          <Button label="Voltar" variant="ghost" onPress={() => voltar(router, '/(tabs)')} />
+        </ScrollView>
+      </KeyboardAvoidingView>
     </>
   );
 }
