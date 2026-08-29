@@ -332,7 +332,24 @@ CRM/SC 17913, RQE 17450, Avenida Mauro Ramos 1970, salas 501 e 502,
 Florianópolis — SC. A Apple pode pedir uma declaração em papel timbrado
 confirmando que o app é operado pela clínica.
 
----
+### O que aconteceu de verdade, na versão 1.0
+
+**28/08 — App Store, Guideline 2.1 (Information Needed).** Não foi defeito
+achado no app: é o questionário que a Apple manda para app de saúde na
+primeira submissão. Sete perguntas — se tem login, conta, compra, conteúdo
+de usuário; em que aparelhos foi testado; qual a função e o público; como
+configurar; que serviços externos usa; se muda de país para país; e quem
+responde pelo conteúdo numa área regulada.
+
+Respondido em 29/08, em inglês, na própria página **Revisão de apps**, com
+vídeo de tela gravado no iPhone. Resumo do que foi dito: sem login, sem
+conta, sem compra, sem conteúdo enviado por usuário; **sem servidor, sem
+serviço externo e sem IA** — tudo fica no aparelho; conteúdo igual em todos
+os países; responsável clínico identificado com CRM e RQE, verificáveis no
+registro público do CFM.
+
+Depois da resposta o app volta sozinho para **Waiting for Review**. Não é
+preciso submeter nada de novo.
 
 ## 7. Antes de tudo isso: teste com pacientes reais
 
