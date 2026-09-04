@@ -5,91 +5,117 @@ Connect e o histórico do que a Apple já perguntou.
 
 ---
 
-## 1. Notas de revisão (App Review Notes)
+## 1. O que aconteceu no build 1.0.0 (2)
 
-Cola no App Store Connect em **App Review Information → Notes**, e também
-como resposta quando a Apple disser que não conseguiu acessar o app.
+A Apple recusou a **compilação beta** (TestFlight) com Guideline 2.1(a) e
+pediu **usuário e senha de demonstração**. O texto dela indica onde ela
+espera encontrá-los:
 
-> **No login, no account, no paywall.**
-> This app has no sign-in, no account creation, no access code and no
-> purchase of any kind. Nothing is gated. A demo account is therefore not
-> needed and not possible — there is nothing to log in to.
+> Select the "Sign-in required" box → Enter demo credentials in the
+> "User Name" and "Password" fields
+
+Ou seja: em algum momento a caixa **"Sign-in required"** foi marcada em
+**TestFlight → Test Information → Beta App Review Information**. Com ela
+marcada, o revisor abre o app procurando uma tela de senha, não encontra,
+e manda esta mensagem automática.
+
+O app não tem login. Não há cadastro, conta, e-mail, senha nem código de
+acesso em lugar nenhum do código — a única menção à palavra "senha" no
+projeto está na política de privacidade, dizendo justamente que não existe.
+
+**Não é preciso gerar build novo.** Test Information é editável sem nova
+submissão.
+
+### A correção, em ordem
+
+1. App Store Connect → **My Apps** → o app → aba **TestFlight**
+2. **Test Information** → rolar até **Beta App Review Information**
+3. **Desmarcar** a caixa **"Sign-in required"** (em português, *"Requer
+   início de sessão"*). Os campos de usuário e senha somem.
+4. Colar o texto da seção 2 no campo **Notes** / *Notas*.
+5. **Save**.
+6. Responder à mensagem da Apple com o mesmo texto da seção 2.
+
+7. Conferir a **mesma caixa na revisão da loja**: aba **Distribution** →
+   **App Review Information**. É um campo separado do TestFlight. Se
+   estiver marcada ali também, a versão da App Store vai levar a mesma
+   recusa — desmarcar e colar as mesmas notas.
+
+O passo 7 é o que evita repetir tudo isso daqui a alguns dias.
+
+---
+
+## 2. Texto para colar (Notes e resposta à Apple)
+
+> Thank you for the review.
 >
-> **Fully offline.**
-> The app makes no network requests. It contacts no server, uses no
-> third-party service and no AI. All content ships inside the binary and
-> all patient data stays on the device. It works in airplane mode.
+> **This app has no sign-in of any kind.** There is no account, no user
+> name, no password, no access code, no invitation and no purchase.
+> Nothing in the app is gated. We are therefore unable to provide demo
+> credentials, because there is no login screen to enter them into. We
+> have unchecked the "Sign-in required" box in Beta App Review Information
+> to reflect this.
 >
-> **How to reach every screen from a fresh install (about 30 seconds):**
-> 1. On first launch the app shows *"Orientações importantes"* — a medical
+> **The app is fully offline.** It makes no network requests, contacts no
+> server, and uses no third-party service and no AI. All content ships
+> inside the binary and all data stays on the device. It works in airplane
+> mode.
+>
+> **Every feature is reachable from a fresh install in under a minute:**
+>
+> 1. On first launch the app shows *"Orientações importantes"*, a medical
 >    disclaimer. Tap the button at the bottom: **"Li e compreendi"**
 >    ("I have read and understood").
 > 2. A three-step setup appears. Step 1: welcome — tap **"Continuar"**.
->    Step 2: type any name, then tap one procedure in the list (for example
->    *"Rinoplastia"*). Step 3: enter a date — the shortcut buttons fill in a
->    recent date — then tap the final button.
-> 3. All five tabs are now open: **Hoje** (Today), **Evolução** (Recovery
->    timeline), **É normal?** (Is this normal?), **Cuidados** (Care guides)
->    and **Contato** (Contact).
+>    Step 2: type any name, then tap one procedure in the list (for
+>    example *"Rinoplastia"*). Step 3: enter a date — the shortcut buttons
+>    fill in a recent one — then tap the final button.
+> 3. All five tabs are now open and fully populated: **Hoje** (Today),
+>    **Evolução** (recovery timeline), **É normal?** (symptom guide),
+>    **Cuidados** (care guides) and **Contato** (contact).
+>
+> There is no other state the app can be in. What you see after these
+> three steps is the complete app.
 >
 > **Language.** The app is in Brazilian Portuguese. It is written for the
-> patients of one clinic in Florianópolis, Brazil. The content is identical
-> in every country and does not change by region.
+> patients of one clinic in Florianópolis, Brazil. The content is
+> identical in every country and does not change by region.
 >
 > **Notifications.** The permission is requested only if the user opens
 > *"Meus remédios"* (medication reminders) or *"Lembretes de retorno"*
 > (follow-up reminders) and chooses to create a reminder. Declining it
 > blocks no part of the app.
 >
-> **Regulated content.** The clinical content was written and is maintained
-> by Dr. Henrique César dos Reis, plastic surgeon, CRM/SC 17913, RQE 17450,
-> Avenida Mauro Ramos 1970, rooms 501 and 502, Florianópolis, SC, Brazil.
-> Both registration numbers are verifiable in the public registry of the
-> Brazilian Federal Council of Medicine (portal.cfm.org.br). The app is
-> informational follow-up material for the clinic's own patients. It does
-> not diagnose, does not prescribe, and states so on first launch and on
-> every content screen.
+> **Regulated content.** The clinical content was written and is
+> maintained by Dr. Henrique César dos Reis, plastic surgeon, CRM/SC
+> 17913, RQE 17450, Avenida Mauro Ramos 1970, rooms 501 and 502,
+> Florianópolis, SC, Brazil. Both numbers are verifiable in the public
+> registry of the Brazilian Federal Council of Medicine
+> (portal.cfm.org.br). The app is informational follow-up material for the
+> clinic's own patients. It does not diagnose and does not prescribe, and
+> states so on first launch and on every content screen.
+>
+> If a specific screen still could not be reached, please tell us which
+> one, and on which device and iOS version, so that we can reproduce it.
 
----
-
-## 2. Se a Apple disser que não conseguiu acessar o app
-
-Mensagem: *"We were unable to successfully access all or part of the app."*
-
-Vale colar as notas acima e acrescentar:
-
-> Could you please tell us which screen you were unable to access, and on
-> which device and iOS version? The app has no login and no gated content,
-> so we would like to reproduce the problem. We are happy to provide a
-> screen recording of the full flow.
-
-Se a Apple responder que o app **fechou sozinho ou ficou em branco**, aí é
-defeito de verdade no build: pedir o *crash log* em App Store Connect e
-gerar um build novo. Nada disso se resolve na resposta escrita.
+A Apple diz na mensagem que **vídeo de demonstração não serve** para este
+caso. Por isso a resposta não oferece vídeo: ela afirma que não existe
+login e mostra o caminho até o conteúdo.
 
 ---
 
 ## 3. Histórico
 
 **28/08 — App Store, Guideline 2.1 (Information Needed).** Questionário
-padrão para app de saúde na primeira submissão: sete perguntas sobre login,
-conta, compra, conteúdo de usuário, aparelhos testados, função e público,
-configuração, serviços externos, variação por país e responsável clínico.
-Respondido em 29/08, em inglês, com vídeo de tela. Depois da resposta o app
-volta sozinho para *Waiting for Review*, sem nova submissão.
+padrão para app de saúde na primeira submissão: sete perguntas sobre
+login, conta, compra, conteúdo de usuário, aparelhos testados, função e
+público, configuração, serviços externos, variação por país e responsável
+clínico. Respondido em 29/08, em inglês, com vídeo de tela. Depois da
+resposta o app volta sozinho para *Waiting for Review*, sem nova submissão.
 
-**Build 1.0.0 (2) — Beta App Review, Guideline 2.1(a).** *"We have started
-your beta app's review, but we were unable to successfully access all or
-part of the app."*
-
-Duas coisas que importam aqui:
-
-- É a **revisão do TestFlight**, não a da App Store. As duas correm em
-  trilhas separadas: uma compilação beta recusada não recusa o app na loja.
-- O app não tem login, não tem conteúdo bloqueado e não faz uma única
-  chamada de rede. Não existe nada a que o revisor pudesse ficar sem
-  acesso — o que sobra é ou o mesmo pedido de informação de 28/08, ou o
-  build tendo fechado no aparelho dele.
-
-Por isso a resposta começa perguntando qual tela e qual aparelho: sem isso
-não dá para separar os dois casos.
+**Build 1.0.0 (2) — Beta App Review (TestFlight), Guideline 2.1(a).**
+Pedido de conta de demonstração, causado pela caixa "Sign-in required"
+marcada em Beta App Review Information. Resolvido em Test Information, sem
+build novo. Vale lembrar que a revisão do TestFlight é trilha separada da
+revisão da App Store: uma compilação beta recusada não recusa o app na
+loja.
