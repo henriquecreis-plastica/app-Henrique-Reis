@@ -104,7 +104,60 @@ login e mostra o caminho até o conteúdo.
 
 ---
 
-## 3. Histórico
+## 4. A recusa que importa: Guideline 1.4.1 — Safety: Physical Harm
+
+**Versão 1.0 da App Store: Rejeitado.** Esta é a recusa séria — a do
+TestFlight é secundária diante dela.
+
+A 1.4.1 é a diretriz de dano físico. O trecho que quase certamente foi
+aplicado aqui:
+
+> Apps that calculate medication dosages must be submitted by the
+> manufacturer of the drug, a hospital, university, health insurance
+> company, pharmacy, or other approved entity, or receive approval by the
+> FDA or one of its international counterparts.
+
+### Onde o app encosta nisso
+
+A tela **"Meus remédios"** traz o botão *"Usar a prescrição padrão"*, que
+carrega a receita da clínica já pronta: **22 itens**, com dose, via e
+intervalo escritos por extenso. Entre eles:
+
+- **Paco (paracetamol + codeína)** — opioide
+- **Restiva 10mg e 20mcg/h (adesivo)** — buprenorfina, controlada
+- **Toragesic 10mg**, **Novalgina 1g**, **Vonau 4mg**
+- **Cefadroxila 500mg** e **Clavulin BD** — antibióticos
+
+O app não calcula dose: ele reproduz a prescrição da clínica e agenda
+lembrete. Mas do lado de fora a distinção é fina, e opioide com horário
+sugerido é o tipo de coisa que a revisão da Apple trata como risco.
+
+### Os dois caminhos
+
+**A — Tirar a prescrição pronta do app.** A paciente digita o que o
+médico dela receitou; o app só lembra do horário. Deixa de ser fonte de
+dose e passa a ser agenda. É o caminho que costuma passar, e não depende
+de negociar com a Apple.
+
+**B — Enquadrar a clínica na exceção.** A própria 1.4.1 permite envio por
+*hospital, universidade, plano de saúde, farmácia ou outra entidade
+aprovada*. Exige que a conta de desenvolvedor seja da **clínica como
+organização**, não pessoa física, e normalmente uma declaração em papel
+timbrado. Se a conta for individual, este caminho não se sustenta.
+
+Os dois não se excluem. O mais seguro é fazer A e responder citando B.
+
+### Antes de decidir
+
+Falta ler o texto integral da Apple em **Visualizar envio**. A 1.4.1 tem
+outra ponta possível — a tela **"É normal?"**, que classifica sintoma em
+*esperado / atenção / contato imediato*, pode ser lida como triagem. O
+remédio para cada uma é diferente, então não dá para escrever a resposta
+sem saber qual delas foi.
+
+---
+
+## 5. Histórico
 
 **28/08 — App Store, Guideline 2.1 (Information Needed).** Questionário
 padrão para app de saúde na primeira submissão: sete perguntas sobre
