@@ -104,56 +104,79 @@ login e mostra o caminho até o conteúdo.
 
 ---
 
-## 4. A recusa que importa: Guideline 1.4.1 — Safety: Physical Harm
+## 4. Guideline 1.4.1 — a recusa da App Store, e o que foi feito
 
-**Versão 1.0 da App Store: Rejeitado.** Esta é a recusa séria — a do
-TestFlight é secundária diante dela.
+**Versão 1.0: Rejeitado em 03/09.** O texto da Apple é curto e específico:
 
-A 1.4.1 é a diretriz de dano físico. O trecho que quase certamente foi
-aplicado aqui:
+> The app includes medical information but does not include citations for
+> the medical information. Specifically, the app provides health or
+> medical references in the **Evolucao** without citations, such as links
+> to sources for this information.
+>
+> **Next Steps:** Include citations in the app of the sources of the
+> recommendations or information, such as links to those sources. The
+> citations to the sources should be easy for the user to find.
 
-> Apps that calculate medication dosages must be submitted by the
-> manufacturer of the drug, a hospital, university, health insurance
-> company, pharmacy, or other approved entity, or receive approval by the
-> FDA or one of its international counterparts.
+Não é sobre dose de medicamento, nem sobre a triagem de sintomas. É sobre
+**procedência**: o app afirma o que esperar em cada fase da recuperação e
+não dizia em que isso se apoia. A Apple citou a aba Evolução porque foi
+onde ela olhou, mas a exigência vale para todo o conteúdo clínico.
 
-### Onde o app encosta nisso
+### O que foi implementado
 
-A tela **"Meus remédios"** traz o botão *"Usar a prescrição padrão"*, que
-carrega a receita da clínica já pronta: **22 itens**, com dose, via e
-intervalo escritos por extenso. Entre eles:
+- **`src/data/fontes.ts`** — a autoria (Dr. Henrique Reis, CRM e RQE, com
+  o CFM como registro verificável) e seis entidades de referência, cada
+  uma com o endereço e uma frase dizendo **o que ela sustenta no app**.
+  Citação genérica não cumpre a diretriz; a Apple quer ver a ligação.
+- **`app/fontes.tsx`** — a tela, com cada fonte tocável e o domínio
+  escrito à vista. Numa tela cuja função é provar procedência, ver para
+  onde o link leva antes de tocar vale mais que a linha economizada.
+- **`src/components/Footnote.tsx`** — o rodapé compartilhado. A diretriz
+  diz *"easy for the user to find"*, e é isso que decide o formato: o
+  link fecha **todas** as abas de conteúdo, no mesmo lugar em cada uma,
+  em vez de morar numa tela de ajuda.
+- **`app/orientacoes.tsx`** — Fontes entra ao lado de Termos e
+  Privacidade na primeira tela do app, antes do cadastro.
 
-- **Paco (paracetamol + codeína)** — opioide
-- **Restiva 10mg e 20mcg/h (adesivo)** — buprenorfina, controlada
-- **Toragesic 10mg**, **Novalgina 1g**, **Vonau 4mg**
-- **Cefadroxila 500mg** e **Clavulin BD** — antibióticos
+Sete arquivos alterados, três criados. `tsc --noEmit` limpo e
+`expo export` gerando o pacote com os seis endereços dentro.
 
-O app não calcula dose: ele reproduz a prescrição da clínica e agenda
-lembrete. Mas do lado de fora a distinção é fina, e opioide com horário
-sugerido é o tipo de coisa que a revisão da Apple trata como risco.
+### Antes de reenviar: confirmar os links
 
-### Os dois caminhos
+Foram usados os domínios institucionais, que mudam pouco — SBCP, ISAPS,
+ASPS, MedlinePlus, NHS e CFM. Ainda assim **abra os seis e confirme**.
+Um link morto na tela de fontes é pior do que não ter a tela, e é o tipo
+de coisa que a revisão testa.
 
-**A — Tirar a prescrição pronta do app.** A paciente digita o que o
-médico dela receitou; o app só lembra do horário. Deixa de ser fonte de
-dose e passa a ser agenda. É o caminho que costuma passar, e não depende
-de negociar com a Apple.
+Se quiser apontar cada um para uma página específica em vez do domínio,
+melhor ainda — mas aí a escolha é clínica, e é sua.
 
-**B — Enquadrar a clínica na exceção.** A própria 1.4.1 permite envio por
-*hospital, universidade, plano de saúde, farmácia ou outra entidade
-aprovada*. Exige que a conta de desenvolvedor seja da **clínica como
-organização**, não pessoa física, e normalmente uma declaração em papel
-timbrado. Se a conta for individual, este caminho não se sustenta.
+### Texto para a resposta à Apple
 
-Os dois não se excluem. O mais seguro é fazer A e responder citando B.
-
-### Antes de decidir
-
-Falta ler o texto integral da Apple em **Visualizar envio**. A 1.4.1 tem
-outra ponta possível — a tela **"É normal?"**, que classifica sintoma em
-*esperado / atenção / contato imediato*, pode ser lida como triagem. O
-remédio para cada uma é diferente, então não dá para escrever a resposta
-sem saber qual delas foi.
+> Thank you for the detailed feedback.
+>
+> We have added citations throughout the app, as requested.
+>
+> A new "Fontes e referências" ("Sources and references") screen states
+> who wrote the clinical content — Dr. Henrique Cesar dos Reis, plastic
+> surgeon, CRM/SC 17913, RQE 17450, verifiable in the public registry of
+> the Brazilian Federal Council of Medicine — and lists the reference
+> bodies the clinic's post-operative protocol draws on, each with a
+> tappable link and a line explaining what that source supports in the
+> app: the Brazilian Society of Plastic Surgery (SBCP), ISAPS, the
+> American Society of Plastic Surgeons, MedlinePlus (US National Library
+> of Medicine), the UK National Health Service, and the Brazilian Federal
+> Council of Medicine.
+>
+> To make the citations easy to find, as the guideline requires, the link
+> is not confined to that screen. It closes every content tab — Hoje,
+> Evolucao, E normal?, Cuidados and Contato — in the same position on
+> each, and it also appears on the app's very first screen, next to the
+> Terms of Use and Privacy Policy, before any setup.
+>
+> The screen also states plainly that none of these organizations
+> reviewed or endorses the app, and that general material never replaces
+> individual medical assessment.
 
 ---
 

@@ -7,6 +7,7 @@ import { SectionHeader } from '../../src/components/ui';
 import { VideoList } from '../../src/components/VideoList';
 import { careGuides } from '../../src/data/care';
 import { appliesToAny, procedureById, procedureKindOf, procedureNames } from '../../src/data/procedures';
+import { Footnote } from '../../src/components/Footnote';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
 
@@ -92,6 +93,8 @@ export default function Cuidados() {
             </Pressable>
           ))}
         </View>
+
+        <Footnote aviso="Os guias de cuidado são orientações gerais e não substituem as instruções que a equipe deu para o seu caso." />
       </ScrollView>
     </SafeAreaView>
   );
