@@ -10,6 +10,7 @@ import { videosSobre } from '../../src/data/videos';
 import { Button, Card, Divider, Overline } from '../../src/components/ui';
 import { eventNoun, procedureKindOf, procedureNames } from '../../src/data/procedures';
 import { buildContextMessage, callPhone, openLink, openWhatsApp } from '../../src/lib/contact';
+import { Footnote } from '../../src/components/Footnote';
 import { usePatient } from '../../src/store/patient';
 import { clinic, palette, radius, spacing, type } from '../../src/theme';
 
@@ -194,10 +195,7 @@ export default function Contato() {
           />
         </View>
 
-        <Text style={styles.disclaimer}>
-          Este aplicativo oferece orientações gerais de acompanhamento e não substitui a consulta
-          médica. Em caso de emergência, procure o pronto-socorro mais próximo.
-        </Text>
+        <Footnote aviso="Este aplicativo oferece orientações gerais de acompanhamento e não substitui a consulta médica. Em caso de emergência, procure o pronto-socorro mais próximo." />
       </ScrollView>
     </SafeAreaView>
   );
@@ -272,10 +270,4 @@ const styles = StyleSheet.create({
   dataHeader: { flexDirection: 'row', alignItems: 'center', gap: spacing.md },
   privacy: { ...type.small, lineHeight: 18 },
   legalRow: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'center', gap: spacing.sm },
-  disclaimer: {
-    ...type.small,
-    textAlign: 'center',
-    paddingHorizontal: spacing.lg,
-    lineHeight: 19,
-  },
 });

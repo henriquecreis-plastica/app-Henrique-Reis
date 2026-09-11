@@ -67,14 +67,20 @@ export default function Orientacoes() {
 
       <View style={styles.footer}>
         {/* As lojas pedem que os dois documentos estejam acessíveis, e a tela
-            de aceite é onde faz mais sentido oferecê-los. */}
+            de aceite é onde faz mais sentido oferecê-los. As fontes entram na
+            mesma linha porque esta é a primeira tela do app: é onde a citação
+            exigida pela diretriz 1.4.1 fica mais fácil de achar. */}
         <View style={styles.links}>
           <Link href="/documento/termos" style={styles.link}>
             Termos de uso
           </Link>
           <Text style={styles.linkSep}>·</Text>
           <Link href="/documento/privacidade" style={styles.link}>
-            Política de privacidade
+            Privacidade
+          </Link>
+          <Text style={styles.linkSep}>·</Text>
+          <Link href="/fontes" style={styles.link}>
+            Fontes
           </Link>
         </View>
         <Button label="Li e compreendi" icon="checkmark" onPress={aceitar} />

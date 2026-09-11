@@ -14,6 +14,7 @@ import { Button, Chip, SectionHeader, SeverityBadge } from '../../src/components
 import { appliesToAny, procedureKindOf, procedureNames } from '../../src/data/procedures';
 import { groupLabels, symptoms, type SymptomGroup } from '../../src/data/symptoms';
 import { buildContextMessage, openWhatsApp } from '../../src/lib/contact';
+import { Footnote } from '../../src/components/Footnote';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, severity, spacing, type, type Severity } from '../../src/theme';
 
@@ -236,6 +237,8 @@ export default function Normal() {
             ))}
           </View>
         )}
+
+        <Footnote aviso="A classificação dos sintomas é uma orientação geral e não substitui a avaliação médica individual." />
       </ScrollView>
     </SafeAreaView>
   );

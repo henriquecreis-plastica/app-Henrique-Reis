@@ -26,6 +26,7 @@ import {
   registrarDose,
 } from '../../src/lib/medicacao';
 import { VideoList } from '../../src/components/VideoList';
+import { Footnote } from '../../src/components/Footnote';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
 
@@ -388,10 +389,7 @@ export default function Today() {
           />
         ) : null}
 
-        <Text style={styles.footnote}>
-          As informações deste aplicativo são orientações gerais e não substituem a avaliação
-          médica individual.
-        </Text>
+        <Footnote aviso="As informações deste aplicativo são orientações gerais e não substituem a avaliação médica individual." />
       </ScrollView>
     </SafeAreaView>
   );
@@ -460,10 +458,4 @@ const styles = StyleSheet.create({
   avoidCard: { backgroundColor: palette.attentionBg, borderColor: 'rgba(183,120,22,0.18)' },
   milestone: { flexDirection: 'row', gap: spacing.md, alignItems: 'flex-start' },
   milestoneDay: { ...type.small, fontWeight: '700', color: palette.accentInk, marginBottom: 2 },
-  footnote: {
-    ...type.small,
-    textAlign: 'center',
-    paddingHorizontal: spacing.lg,
-    marginTop: spacing.sm,
-  },
 });

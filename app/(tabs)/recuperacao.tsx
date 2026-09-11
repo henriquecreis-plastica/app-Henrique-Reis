@@ -5,6 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { Bullets, Card, Overline, SectionHeader } from '../../src/components/ui';
 import { inlineName, procedureById, procedureKindOf, procedureNames } from '../../src/data/procedures';
 import { milestonesFor, phaseForDay, phaseItems, phasesFor } from '../../src/data/timeline';
+import { Footnote } from '../../src/components/Footnote';
 import { usePatient } from '../../src/store/patient';
 import { palette, radius, spacing, type } from '../../src/theme';
 
@@ -128,6 +129,8 @@ export default function Recuperacao() {
             </Text>
           </Card>
         ) : null}
+
+        <Footnote aviso="Os prazos e as fases descritos aqui são referências gerais de recuperação, não prazos individuais." />
       </ScrollView>
     </SafeAreaView>
   );
