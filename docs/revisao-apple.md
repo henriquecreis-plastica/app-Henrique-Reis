@@ -189,6 +189,14 @@ público, configuração, serviços externos, variação por país e responsáve
 clínico. Respondido em 29/08, em inglês, com vídeo de tela. Depois da
 resposta o app volta sozinho para *Waiting for Review*, sem nova submissão.
 
+**11/09 — reenviado.** Build **1.0.0 (4)** com a tela de fontes, anexado
+à versão 1.0 e enviado. Status: *Aguardando revisão*. As notas de revisão
+foram preenchidas nos dois lugares — Distribuição e TestFlight — e a caixa
+"Início de sessão obrigatório" estava desmarcada nas duas desde o começo.
+
+A versão está configurada para **liberação automática**: assim que a Apple
+aprovar, o app vai ao ar sozinho, na hora.
+
 **Build 1.0.0 (2) — Beta App Review (TestFlight), Guideline 2.1(a).**
 Pedido de conta de demonstração, causado pela caixa "Sign-in required"
 marcada em Beta App Review Information. Resolvido em Test Information, sem
