@@ -249,7 +249,7 @@ evita a parte mais confusa da publicação na Apple.
 | 24/08/2026 | iOS (.ipa) | `03480a97-efd7-4731-8b8b-e289fe9d9a1b` | buildNumber 1 — tem o teclado tapando o campo da receita |
 | 27/08/2026 | iOS (.ipa) | `a3d0b041-9f26-4124-be0f-36a3ab779bc6` | **buildNumber 2 — é o que vai para a App Store** |
 | 27/08/2026 | Android (.aab) | `e01495ff-33dd-42fd-8f6b-e429f3b19f25` | **versionCode 4 — é o que vai para o Google Play** |
-| 11/09/2026 | iOS (.ipa) | `f9a402d4-d91a-4912-8949-8006453a74fb` | **buildNumber 3 — leva a tela de fontes, resposta à Guideline 1.4.1** |
+| 11/09/2026 | iOS (.ipa) | `f9a402d4-d91a-4912-8949-8006453a74fb` | **buildNumber 4 — leva a tela de fontes, resposta à Guideline 1.4.1** |
 
 Credenciais criadas neste dia e guardadas na conta Expo, com backup: keystore
 do Android, certificado e perfil de distribuição da Apple, e a chave de
