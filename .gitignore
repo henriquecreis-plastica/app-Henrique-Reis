@@ -39,3 +39,7 @@ yarn-error.*
 # generated native folders
 /ios
 /android
+
+# Intermediários da montagem de vídeo (scripts/video-cinematografico.py)
+marketing/.trabalho/
+__pycache__/
