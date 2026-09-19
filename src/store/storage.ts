@@ -84,6 +84,13 @@ export interface PatientRecord {
    * caso o texto mude — e deixa registro de qual versão ela viu.
    */
   termsAcceptedAt?: string;
+  /**
+   * Data e hora em que o código de acesso foi aceito.
+   *
+   * Guardar a data, e não o código, é o que permite trocar o código da clínica
+   * sem expulsar ninguém: quem já entrou tem a data, e a data não expira.
+   */
+  accessGrantedAt?: string;
   /** Os remédios cadastrados, com os horários de cada um. */
   medications?: Medication[];
   /**

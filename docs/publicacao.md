@@ -352,6 +352,45 @@ registro público do CFM.
 Depois da resposta o app volta sozinho para **Waiting for Review**. Não é
 preciso submeter nada de novo.
 
+## 6b. O código de acesso
+
+A primeira abertura pede um código que a equipe entrega na alta. Ele é
+conferido dentro do próprio aparelho, sem servidor: o app continua offline e
+nada muda nas declarações de privacidade feitas às lojas.
+
+**Seja honesto sobre o que ele faz.** É porteiro, não fechadura. Quem sabe
+abrir o pacote do aplicativo extrai o código. O que ele resolve é outra coisa:
+filtra quem baixou por curiosidade, sinaliza que o app é das pacientes da
+clínica, e cria uma conversa a mais na alta — que é quando a paciente mais
+precisa ouvir como usar.
+
+**O código nunca é escrito no repositório**, que é público. Em
+`src/data/acesso.ts` ficam só as assinaturas. Para gerar a de um código novo:
+
+```bash
+node scripts/gerar-codigo.js MEUCODIGO
+```
+
+e cole a linha na lista `ASSINATURAS`. Mais de um código vale ao mesmo tempo —
+é o que permite aposentar um antigo sem derrubar quem já entrou.
+
+**Trocar o código não expulsa ninguém.** O que fica guardado no aparelho é a
+data da liberação, não o código.
+
+**Quem já usava o app não vê essa tela.** A regra está em `app/index.tsx`: só é
+pedido código a quem ainda não terminou o cadastro. Muitas dessas pacientes
+estão em pós-operatório agora, e trancar a porta na frente delas seria tirar,
+no meio da recuperação, o que elas já tinham.
+
+**A tela nunca deixa ninguém sem saída.** WhatsApp e telefone da clínica ficam
+na própria tela do código, antes da porta. Paciente operada não pode ficar sem
+falar com a equipe por causa de um cartão perdido.
+
+**Nas notas de revisão das lojas**, informe o código junto com o passo a passo
+— senão a recusa por Guideline 2.1(a) volta.
+
+---
+
 ## 7. Antes de tudo isso: teste com pacientes reais
 
 Recomendação forte, antes de qualquer conta paga.

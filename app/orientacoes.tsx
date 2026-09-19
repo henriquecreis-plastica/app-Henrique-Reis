@@ -41,7 +41,11 @@ export default function Orientacoes() {
 
   const aceitar = async () => {
     await save({ termsAcceptedAt: new Date().toISOString() });
-    router.replace(profile.onboarded ? '/(tabs)' : '/onboarding');
+    if (profile.onboarded) {
+      router.replace('/(tabs)');
+      return;
+    }
+    router.replace(profile.accessGrantedAt ? '/onboarding' : '/acesso');
   };
 
   return (

@@ -20,6 +20,12 @@ export default function Index() {
   // O aceite vem antes do cadastro: nada do app aparece sem ele.
   if (!profile.termsAcceptedAt) return <Redirect href="/orientacoes" />;
 
+  /* O código de acesso só é pedido a quem ainda não terminou o cadastro.
+     Quem já usa o aplicativo entrou antes de o código existir, e muitas
+     dessas pacientes estão em pós-operatório agora: trancar a porta na frente
+     delas seria tirar, no meio da recuperação, o que elas já tinham. */
+  if (!profile.accessGrantedAt && !profile.onboarded) return <Redirect href="/acesso" />;
+
   return <Redirect href={profile.onboarded ? '/(tabs)' : '/onboarding'} />;
 }
 
