@@ -2,9 +2,24 @@ import { Ionicons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Platform, StyleSheet } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { palette } from '../../src/theme';
 
+/**
+ * Altura da barra sem contar a borda do aparelho.
+ *
+ * O que vem somado a ela é `insets.bottom`, e isso não é refinamento: desde o
+ * SDK 54 o Android desenha o aplicativo de ponta a ponta, por baixo da barra
+ * de navegação do sistema. Altura fixa deixava os ícones escondidos atrás dos
+ * botões do Android — e os rótulos, cortados.
+ *
+ * No iPhone com faixa inferior a conta dá os mesmos 86 de antes.
+ */
+const ALTURA_CONTEUDO = Platform.OS === 'ios' ? 52 : 58;
+
 export default function TabsLayout() {
+  const insets = useSafeAreaInsets();
+
   return (
     <Tabs
       screenOptions={{
@@ -15,7 +30,8 @@ export default function TabsLayout() {
           backgroundColor: palette.surface,
           borderTopWidth: StyleSheet.hairlineWidth,
           borderTopColor: palette.border,
-          height: Platform.OS === 'ios' ? 86 : 64,
+          height: ALTURA_CONTEUDO + insets.bottom,
+          paddingBottom: insets.bottom,
           paddingTop: 6,
         },
         tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
